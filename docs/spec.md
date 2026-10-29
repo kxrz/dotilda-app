@@ -121,7 +121,8 @@ Cible principale : Mudita Kompakt (MuditaOS K, base AOSP 12, sans services Googl
 - **Photos** : tramage Floyd-Steinberg en 4 niveaux de gris côté appareil, stockées déjà tramées.
 - **Rafraîchissement** : rafraîchissement complet après chaque entrée validée et à chaque changement de mois dans le carnet, pour effacer le ghosting.
 - **Saisie** : questions courtes, champs larges, compatibles avec le clavier Kompakt (38 langues depuis la 1.6) et FUTO.
-- **Boutons physiques** : page suivante et précédente via les touches du Kompakt (keycodes à relever sur l'appareil).
+- **Écran du Kompakt** (relevé sur MuditaOS K 1.6.1, API 31) : 480 × 800 px, 213 dpi (densité ×1,33), soit **360 × 564 dp** utiles pour l'app.
+- **Boutons physiques** : volume haut = page précédente (`KEYCODE_VOLUME_UP`, 24), volume bas = page suivante (`KEYCODE_VOLUME_DOWN`, 25), uniquement sur les écrans paginés ; ailleurs, le volume garde son rôle. La touche retour sous l'écran envoie `KEYCODE_BACK` (4), le retour système standard.
 - **Batterie** : aucun service en arrière-plan ; un seul rappel quotidien planifié avec AlarmManager.
 - **Notifications** : la 1.6 gère la vibration des alertes d'apps tierces ; vérifier sur le launcher stock comment s'affiche le rappel.
 
@@ -188,8 +189,9 @@ Voir `CLAUDE.md` à la racine du dépôt.
 - [ ] Réserver les handles Dotilda et vérifier les homonymes sur les stores (dotilda.com réservé).
 - [x] Langue : anglais seul en v1, textes dans `strings.xml` pour ouvrir d'autres langues ensuite.
 - [x] Open source, Apache 2.0 (dépôt privé pour le moment).
-- [ ] Disposition de la galaxie : 12 lignes de 31 (les mois) ou des semaines en colonnes façon calendrier ? À tester sur l'écran du Kompakt.
-- [ ] Relever sur le Kompakt de test : résolution exacte, keycodes des boutons, affichage du rappel sur le launcher stock.
+- [ ] Disposition de la galaxie : 12 lignes de 31 (les mois) ou des semaines en colonnes façon calendrier ? Sur 360 dp de large, 31 colonnes donnent environ 10 dp par point : ça tient, à valider au sprint 2.
+- [x] Relever sur le Kompakt de test : résolution et keycodes des boutons (voir Contraintes e-ink).
+- [ ] Vérifier l'affichage du rappel sur le launcher stock (sprint 1).
 - [ ] Le Kompakt expose-t-il une API pour forcer un rafraîchissement complet, ou faut-il passer par un écran noir flash ?
 - [x] Banque de plus de 200 questions : premier jet rédigé par Claude, puis réécrit par Florent.
 - [x] Monétisation : aucune, l'app est gratuite à 100 %.
