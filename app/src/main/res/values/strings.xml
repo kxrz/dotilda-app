@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dotilda</string>
+    <string name="dotilda_asks">Dotilda asks</string>
+    <string name="another_question">Another question</string>
+    <string name="motto">nulla dies sine linea</string>
+    <string name="diagnostics">Diagnostics</string>
+    <string name="press_a_button">Press any hardware button</string>
+    <string name="back">Back</string>
+</resources>

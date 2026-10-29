@@ -1,0 +1,51 @@
+{
+  "questions": [
+    { "id": "ol-001", "type": "one_line", "text": "What made you smile today?", "tags": ["joy"] },
+    { "id": "ol-002", "type": "one_line", "text": "What did you notice today that you usually miss?", "tags": ["attention"] },
+    { "id": "ol-003", "type": "one_line", "text": "Who made your day a little lighter?", "tags": ["people"] },
+    { "id": "ol-004", "type": "one_line", "text": "What would you like to remember about today?", "tags": ["memory"] },
+    { "id": "ol-005", "type": "one_line", "text": "What did you do today just for yourself?", "tags": ["care"] },
+    { "id": "ol-006", "type": "one_line", "text": "What sound stayed with you today?", "tags": ["senses"] },
+    { "id": "ol-007", "type": "one_line", "text": "What can wait until tomorrow?", "tags": ["slow"] },
+    { "id": "ol-008", "type": "one_line", "text": "What did your hands do today?", "tags": ["body"] },
+
+    { "id": "iw-001", "type": "inner_weather", "text": "How's the weather inside?", "tags": ["mood"] },
+    { "id": "iw-002", "type": "inner_weather", "text": "What sky did you wake up under?", "tags": ["mood"] },
+    { "id": "iw-003", "type": "inner_weather", "text": "And the forecast for this evening?", "tags": ["mood"] },
+    { "id": "iw-004", "type": "inner_weather", "text": "If today were a sky, which one?", "tags": ["mood"] },
+
+    { "id": "ow-001", "type": "one_word", "text": "Today in one word?", "tags": ["day"] },
+    { "id": "ow-002", "type": "one_word", "text": "One word for how your body feels.", "tags": ["body"] },
+    { "id": "ow-003", "type": "one_word", "text": "A colour for today?", "tags": ["senses"] },
+    { "id": "ow-004", "type": "one_word", "text": "What do you need more of? One word.", "tags": ["care"] },
+    { "id": "ow-005", "type": "one_word", "text": "The taste of the day?", "tags": ["senses"] },
+    { "id": "ow-006", "type": "one_word", "text": "One word you'd like to hear tonight.", "tags": ["care"] },
+
+    { "id": "tt-001", "type": "this_or_that", "text": "Tea or coffee kind of day?", "options": ["Tea", "Coffee"], "tags": ["playful"] },
+    { "id": "tt-002", "type": "this_or_that", "text": "Rather a walk or a nap?", "options": ["Walk", "Nap"], "tags": ["body"] },
+    { "id": "tt-003", "type": "this_or_that", "text": "Today, more owl or lark?", "options": ["Owl", "Lark"], "tags": ["playful"] },
+    { "id": "tt-004", "type": "this_or_that", "text": "Sea or mountains, right now?", "options": ["Sea", "Mountains"], "tags": ["escape"] },
+    { "id": "tt-005", "type": "this_or_that", "text": "Did today feel long or short?", "options": ["Long", "Short"], "tags": ["time"] },
+    { "id": "tt-006", "type": "this_or_that", "text": "Tonight: a book or a long bath?", "options": ["Book", "Bath"], "tags": ["care"] },
+
+    { "id": "th-001", "type": "three_things", "text": "Three small wins this week.", "tags": ["pride"] },
+    { "id": "th-002", "type": "three_things", "text": "Three things within arm's reach right now.", "tags": ["attention"] },
+    { "id": "th-003", "type": "three_things", "text": "Three people you're glad exist.", "tags": ["gratitude", "people"] },
+    { "id": "th-004", "type": "three_things", "text": "Three things you'd put in a perfect Sunday.", "tags": ["joy"] },
+
+    { "id": "ph-001", "type": "photo", "text": "Show me your desk.", "tags": ["place"] },
+    { "id": "ph-002", "type": "photo", "text": "Show me the sky from where you are.", "tags": ["place"] },
+    { "id": "ph-003", "type": "photo", "text": "Show me something you've owned for years.", "tags": ["memory"] },
+    { "id": "ph-004", "type": "photo", "text": "Show me your shoes today.", "tags": ["playful"] },
+
+    { "id": "mi-001", "type": "mirror", "text": "What are you looking forward to?", "mirrorGroup": "looking-forward", "tags": ["future"] },
+    { "id": "mi-002", "type": "mirror", "text": "What is taking up most of your mind lately?", "mirrorGroup": "mind", "tags": ["reflection"] },
+    { "id": "mi-003", "type": "mirror", "text": "What are you proud of this month?", "mirrorGroup": "pride", "tags": ["pride"] },
+    { "id": "mi-004", "type": "mirror", "text": "What would you like to let go of?", "mirrorGroup": "let-go", "tags": ["slow"] },
+
+    { "id": "le-001", "type": "letter", "text": "Write to yourself in six months.", "tags": ["future"] },
+    { "id": "le-002", "type": "letter", "text": "Write to the you of next season. What should they not forget?", "tags": ["future"] },
+    { "id": "le-003", "type": "letter", "text": "Write to yourself on your next birthday.", "tags": ["future"] },
+    { "id": "le-004", "type": "letter", "text": "Write a thank-you note to your future self, in advance.", "tags": ["future", "gratitude"] }
+  ]
+}

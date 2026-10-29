@@ -26,6 +26,11 @@ over plain Material 3 ones.
 - One interaction per day; "Another question" at most 3 times a day, then only the
   inner weather is offered.
 
+## Kompakt facts (MuditaOS K 1.6.1, API 31)
+- Screen 480 × 800 px, 213 dpi (×1.33): the app gets **360 × 564 dp**. Design for that.
+- Page buttons: `KEYCODE_VOLUME_UP` (24) = previous page, `KEYCODE_VOLUME_DOWN` (25) = next page,
+  consumed only on paginated screens. The back key under the screen is `KEYCODE_BACK` (4).
+
 ## Content
 Questions live in `app/src/main/assets/questions.json` (journeys will go in `journeys.json`).
 Target: more than 200 questions so the user never feels they are going round in circles.
