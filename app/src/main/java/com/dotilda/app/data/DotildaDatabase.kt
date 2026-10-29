@@ -10,14 +10,19 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-@Database(entities = [Question::class], version = 1)
+@Database(entities = [Question::class, Entry::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class DotildaDatabase : RoomDatabase() {
     abstract fun questionDao(): QuestionDao
+    abstract fun entryDao(): EntryDao
 
     companion object {
         fun create(context: Context): DotildaDatabase =
-            Room.databaseBuilder(context, DotildaDatabase::class.java, "dotilda.db").build()
+            Room.databaseBuilder(context, DotildaDatabase::class.java, "dotilda.db")
+                // Version 1 (sprint 0 test builds) only held the question bank, which is
+                // re-synced at launch. From version 2 on, every change needs a real migration.
+                .fallbackToDestructiveMigrationFrom(1)
+                .build()
     }
 }
 

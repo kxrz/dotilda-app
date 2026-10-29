@@ -12,6 +12,9 @@ interface QuestionDao {
     @Query("SELECT COUNT(*) FROM question")
     suspend fun count(): Int
 
-    @Query("SELECT * FROM question ORDER BY RANDOM() LIMIT 1")
-    suspend fun random(): Question?
+    @Query("SELECT * FROM question WHERE id = :id")
+    suspend fun byId(id: String): Question?
+
+    @Query("SELECT * FROM question")
+    suspend fun all(): List<Question>
 }
