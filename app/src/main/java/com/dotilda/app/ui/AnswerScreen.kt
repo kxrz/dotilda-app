@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -131,35 +133,32 @@ private fun TextInput(
     }
 }
 
+/** Five cards, sunny to stormy, each with a word from Dotilda. A tap saves, like This or that. */
 @Composable
 private fun WeatherInput(onBack: () -> Unit, modifier: Modifier, onSave: (Int) -> Unit) {
-    var selected by rememberSaveable { mutableStateOf<Int?>(null) }
+    val phrases = stringArrayResource(R.array.weather_phrases)
     Column(modifier) {
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (level in 0..4) {
-                val shape = RoundedCornerShape(8.dp)
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .weight(1f)
-                        .border(if (selected == level) 3.dp else 0.dp, if (selected == level) Color.Black else Color.Transparent, shape)
-                        .clickable { selected = level }
-                        .padding(vertical = 10.dp),
+                        .fillMaxWidth()
+                        .border(1.5.dp, Color.Black, RoundedCornerShape(10.dp))
+                        .clickable { onSave(level) }
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
                 ) {
-                    WeatherIcon(level)
-                    Spacer(Modifier.height(6.dp))
-                    TextMMD(weatherLabel(level), style = MaterialTheme.typography.labelSmall)
+                    WeatherIcon(level, size = 40.dp)
+                    Spacer(Modifier.width(14.dp))
+                    Column {
+                        TextMMD(weatherLabel(level), style = MaterialTheme.typography.titleSmall)
+                        TextMMD(phrases[level], style = MaterialTheme.typography.bodySmall, maxLines = 1)
+                    }
                 }
             }
         }
         Spacer(Modifier.weight(1f))
-        ActionRow(
-            back = stringResource(R.string.back),
-            onBack = onBack,
-            action = stringResource(R.string.save),
-            actionEnabled = selected != null,
-            onAction = { selected?.let(onSave) },
-        )
+        ActionRow(back = stringResource(R.string.back), onBack = onBack)
     }
 }
 

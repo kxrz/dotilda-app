@@ -32,6 +32,13 @@
         <item>Rainy</item>
         <item>Stormy</item>
     </string-array>
+    <string-array name="weather_phrases">
+        <item>Clear skies. Rather splendid.</item>
+        <item>Mostly fine, a cloud or two.</item>
+        <item>Grey, but holding up.</item>
+        <item>A little damp inside.</item>
+        <item>Thunder about. Tea is advised.</item>
+    </string-array>
 
     <!-- Settings -->
     <string name="settings">Settings</string>
