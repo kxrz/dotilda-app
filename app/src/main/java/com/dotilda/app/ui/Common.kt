@@ -30,6 +30,26 @@ fun DotildaAsks(modifier: Modifier = Modifier, pose: Pose = Pose.Peering) {
     }
 }
 
+/** A short aside from Dotilda, with her face; tappable when [onClick] is given. */
+@Composable
+fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .let { if (onClick != null) it.clickable(onClick = onClick) else it }
+            .padding(vertical = 6.dp),
+    ) {
+        DotildaMark(size = 22.dp, pose = pose)
+        Spacer(Modifier.width(10.dp))
+        TextMMD(
+            text,
+            textDecoration = if (onClick != null) TextDecoration.Underline else null,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+    }
+}
+
 /** A quiet underlined text link, for secondary destinations. */
 @Composable
 fun TextLink(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {

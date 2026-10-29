@@ -37,6 +37,7 @@ class Prefs(private val context: Context) {
         val reminderOn = booleanPreferencesKey("reminder_on")
         val reminderMinutes = intPreferencesKey("reminder_minutes")
         val checkUpdates = booleanPreferencesKey("check_updates")
+        val lastVersion = stringPreferencesKey("last_version")
         val dayDate = stringPreferencesKey("day_date")
         val dayQuestion = stringPreferencesKey("day_question")
         val dayShown = stringPreferencesKey("day_shown")
@@ -61,6 +62,16 @@ class Prefs(private val context: Context) {
 
     suspend fun setCheckUpdates(on: Boolean) {
         context.dataStore.edit { it[Keys.checkUpdates] = on }
+    }
+
+    /** Records the running version; returns the previous one (null on a fresh install). */
+    suspend fun swapLastVersion(version: String): String? {
+        var previous: String? = null
+        context.dataStore.edit {
+            previous = it[Keys.lastVersion]
+            it[Keys.lastVersion] = version
+        }
+        return previous
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {

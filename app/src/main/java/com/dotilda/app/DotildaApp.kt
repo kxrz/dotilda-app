@@ -35,6 +35,10 @@ class DotildaApp : Application() {
     var checkingUpdate by mutableStateOf(false)
         private set
 
+    /** Set for this launch when the app has just been updated, so Dotilda can mention it. */
+    var justUpdatedTo by mutableStateOf<String?>(null)
+        private set
+
     fun checkForUpdate() {
         if (checkingUpdate) return
         checkingUpdate = true
@@ -55,6 +59,8 @@ class DotildaApp : Application() {
         MainScope().launch {
             val settings = prefs.settingsNow()
             Reminder.schedule(this@DotildaApp, settings.reminderOn, settings.reminderMinutes)
+            val previous = prefs.swapLastVersion(BuildConfig.VERSION_NAME)
+            if (previous != null && previous != BuildConfig.VERSION_NAME) justUpdatedTo = BuildConfig.VERSION_NAME
             if (settings.checkUpdates) checkForUpdate()
         }
     }

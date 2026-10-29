@@ -73,6 +73,7 @@ class MainActivity : ComponentActivity() {
                             onGalaxy = { screen = Screen.Galaxy },
                             onSettings = { screen = Screen.Settings },
                             newVersion = app.latestRelease?.takeIf { it.isNewer }?.version,
+                            justUpdatedTo = app.justUpdatedTo,
                             onUpdate = { screen = Screen.Update },
                         )
                         Screen.Notebook -> NotebookScreen(app.journal, notebookDate, onBack = back)

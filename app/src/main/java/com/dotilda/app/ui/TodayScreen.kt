@@ -52,6 +52,7 @@ fun TodayScreen(
     onGalaxy: () -> Unit,
     onSettings: () -> Unit,
     newVersion: String?,
+    justUpdatedTo: String?,
     onUpdate: () -> Unit,
 ) {
     val today = remember { LocalDate.now() }
@@ -75,7 +76,11 @@ fun TodayScreen(
             else -> Open(journal, today, onAnswer, Modifier.weight(1f))
         }
 
-        if (newVersion != null) TextLink(stringResource(R.string.update_ready, newVersion), onUpdate)
+        // Dotilda mentions versions herself, in a word, never more than one line.
+        when {
+            newVersion != null -> DotildaSays(stringResource(R.string.update_ready), Pose.Curious, onUpdate)
+            justUpdatedTo != null -> DotildaSays(stringResource(R.string.just_updated, justUpdatedTo), Pose.Pleased)
+        }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextLink(stringResource(R.string.notebook), onNotebook)
             TextLink(stringResource(R.string.galaxy), onGalaxy)

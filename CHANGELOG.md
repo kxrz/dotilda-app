@@ -18,4 +18,5 @@ The release workflow publishes the section of the tagged version as the GitHub r
 - The volume buttons turn the pages of the Notebook and the Galaxy.
 - A daily reminder at the time of your choice.
 - Dotilda changes pose: peering, curious, pleased.
-- Updates from within the app, from Settings. Nothing about you is ever sent.
+- Dotilda tells you herself when a new version is ready, and installs it from within the app.
+  Nothing about you is ever sent.
