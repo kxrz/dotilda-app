@@ -6,6 +6,10 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+// The single source of the version: the release workflow checks the tag against it,
+// and versionCode follows it (1.2.3 -> 10203) so it can never be forgotten.
+val appVersion = "0.3.0"
+
 android {
     namespace = "com.dotilda.app"
     compileSdk = 35
@@ -14,13 +18,35 @@ android {
         applicationId = "com.dotilda.app"
         minSdk = 30
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = appVersion.split('.').fold(0) { code, part -> code * 100 + part.toInt() }
+        versionName = appVersion
+    }
+
+    signingConfigs {
+        // Committed on purpose: every CI debug build shares this key, so each one installs over the last.
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+        }
+        // The release key lives outside the repo, injected by CI from secrets (see .github/workflows/build.yml).
+        System.getenv("RELEASE_KEYSTORE")?.let { path ->
+            create("release") {
+                storeFile = file(path)
+                storePassword = System.getenv("RELEASE_KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("RELEASE_KEY_ALIAS")
+                keyPassword = System.getenv("RELEASE_KEY_PASSWORD")
+            }
+        }
     }
 
     buildTypes {
+        debug {
+            // A separate app on the device, so test builds and the released app coexist.
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("release")
         }
     }
 
@@ -35,6 +61,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

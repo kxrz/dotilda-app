@@ -25,6 +25,7 @@ import com.dotilda.app.ui.NotebookScreen
 import com.dotilda.app.ui.PageKeys
 import com.dotilda.app.ui.SettingsScreen
 import com.dotilda.app.ui.TodayScreen
+import com.dotilda.app.ui.UpdateScreen
 import com.dotilda.app.ui.WelcomeScreen
 import kotlinx.coroutines.launch
 
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     // Flat navigation: every screen goes back to Today (Diagnostics and About to Settings).
                     val parent = when (screen) {
                         Screen.Welcome, Screen.Today -> null
-                        Screen.About, Screen.Diagnostics -> Screen.Settings
+                        Screen.About, Screen.Diagnostics, Screen.Update -> Screen.Settings
                         Screen.Notebook -> if (notebookDate != null) Screen.Galaxy else Screen.Today
                         else -> Screen.Today
                     }
@@ -71,6 +72,8 @@ class MainActivity : ComponentActivity() {
                             },
                             onGalaxy = { screen = Screen.Galaxy },
                             onSettings = { screen = Screen.Settings },
+                            newVersion = app.latestRelease?.takeIf { it.isNewer }?.version,
+                            onUpdate = { screen = Screen.Update },
                         )
                         Screen.Notebook -> NotebookScreen(app.journal, notebookDate, onBack = back)
                         Screen.Galaxy -> GalaxyScreen(
@@ -83,8 +86,13 @@ class MainActivity : ComponentActivity() {
                         )
                         Screen.Answer -> AnswerScreen(app.journal, onSaved = { screen = Screen.Done }, onBack = back)
                         Screen.Done -> DoneScreen(app.journal, onBack = back)
+                        Screen.Update -> app.latestRelease?.let { UpdateScreen(it, onBack = back) }
                         Screen.Settings -> SettingsScreen(
                             app.prefs,
+                            latest = app.latestRelease,
+                            checking = app.checkingUpdate,
+                            onCheck = app::checkForUpdate,
+                            onOpenUpdate = { screen = Screen.Update },
                             onAbout = { screen = Screen.About },
                             onDiagnostics = { screen = Screen.Diagnostics },
                             onBack = back,
@@ -115,4 +123,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Welcome, About, Today, Answer, Done, Notebook, Galaxy, Settings, Diagnostics }
+private enum class Screen { Welcome, About, Today, Answer, Done, Notebook, Galaxy, Settings, Update, Diagnostics }

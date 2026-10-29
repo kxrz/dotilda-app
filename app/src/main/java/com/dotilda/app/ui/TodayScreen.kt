@@ -51,6 +51,8 @@ fun TodayScreen(
     onNotebook: () -> Unit,
     onGalaxy: () -> Unit,
     onSettings: () -> Unit,
+    newVersion: String?,
+    onUpdate: () -> Unit,
 ) {
     val today = remember { LocalDate.now() }
     val month = remember { YearMonth.from(today) }
@@ -73,6 +75,7 @@ fun TodayScreen(
             else -> Open(journal, today, onAnswer, Modifier.weight(1f))
         }
 
+        if (newVersion != null) TextLink(stringResource(R.string.update_ready, newVersion), onUpdate)
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextLink(stringResource(R.string.notebook), onNotebook)
             TextLink(stringResource(R.string.galaxy), onGalaxy)

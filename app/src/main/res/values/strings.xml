@@ -54,6 +54,21 @@
     <string name="diagnostics">Diagnostics</string>
     <string name="press_a_button">Press any hardware button</string>
 
+    <!-- Updates -->
+    <string name="check_updates">Look for new versions</string>
+    <string name="checking_updates">Looking for a new version…</string>
+    <string name="up_to_date">Dotilda %1$s is up to date.</string>
+    <string name="check_now">Dotilda %1$s · Check now</string>
+    <string name="update_available">Dotilda %1$s is available</string>
+    <string name="update_ready">Dotilda %1$s is ready to install</string>
+    <string name="update_title">Dotilda %1$s</string>
+    <string name="update_no_notes">A new version is ready.</string>
+    <string name="update_now">Install</string>
+    <string name="downloading">Downloading…</string>
+    <string name="allow_installs">Allow Dotilda to install apps, then tap Install again.</string>
+    <string name="update_failed">Update failed: %1$s</string>
+    <string name="update_debug">Test builds don\'t update themselves: install the release APK.</string>
+
     <!-- Reminder -->
     <string name="reminder_channel">Daily question</string>
     <string name="reminder_text">I have a question for you.</string>

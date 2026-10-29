@@ -18,6 +18,8 @@ data class Settings(
     val reminderOn: Boolean,
     /** Minutes after midnight. */
     val reminderMinutes: Int,
+    /** Look for a new version on GitHub when the app starts: Dotilda's only network access. */
+    val checkUpdates: Boolean,
 )
 
 /** What Dotilda already offered today, so the question survives an app restart. */
@@ -34,6 +36,7 @@ class Prefs(private val context: Context) {
         val welcomed = booleanPreferencesKey("welcomed")
         val reminderOn = booleanPreferencesKey("reminder_on")
         val reminderMinutes = intPreferencesKey("reminder_minutes")
+        val checkUpdates = booleanPreferencesKey("check_updates")
         val dayDate = stringPreferencesKey("day_date")
         val dayQuestion = stringPreferencesKey("day_question")
         val dayShown = stringPreferencesKey("day_shown")
@@ -54,6 +57,10 @@ class Prefs(private val context: Context) {
             it[Keys.reminderOn] = on
             it[Keys.reminderMinutes] = minutes
         }
+    }
+
+    suspend fun setCheckUpdates(on: Boolean) {
+        context.dataStore.edit { it[Keys.checkUpdates] = on }
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {
@@ -80,6 +87,7 @@ class Prefs(private val context: Context) {
         welcomed = this[Keys.welcomed] ?: false,
         reminderOn = this[Keys.reminderOn] ?: true,
         reminderMinutes = this[Keys.reminderMinutes] ?: DEFAULT_REMINDER_MINUTES,
+        checkUpdates = this[Keys.checkUpdates] ?: true,
     )
 
     companion object {
