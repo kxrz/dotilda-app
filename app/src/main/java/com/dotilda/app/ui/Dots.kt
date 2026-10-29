@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.data.Answer
 import com.dotilda.app.data.Entry
+import com.dotilda.app.data.QuestionType
 import com.dotilda.app.data.answer
 import java.time.LocalDate
 import java.time.YearMonth
@@ -31,11 +32,17 @@ sealed interface DotShape {
 
     /** Inner weather as a moon phase: 0 (sunny) is a full dot, 4 (stormy) a bare ring. */
     data class Moon(val level: Int) : DotShape
+
+    /** Mirror: a dot inside a ring, looking back at itself. */
+    data object Double : DotShape
 }
 
-fun Entry.dotShape(): DotShape = when (val a = answer()) {
-    is Answer.Weather -> DotShape.Moon(a.level)
-    else -> DotShape.Full
+fun Entry.dotShape(): DotShape = when {
+    type == QuestionType.MIRROR -> DotShape.Double
+    else -> when (val a = answer()) {
+        is Answer.Weather -> DotShape.Moon(a.level)
+        else -> DotShape.Full
+    }
 }
 
 fun DrawScope.drawDot(shape: DotShape, center: Offset, radius: Float) {
@@ -49,6 +56,10 @@ fun DrawScope.drawDot(shape: DotShape, center: Offset, radius: Float) {
                     size = Size(2 * radius * lit, 2 * radius))
             }
             drawCircle(Ink, radius - radius * 0.1f, center, style = Stroke(width = radius * 0.2f))
+        }
+        DotShape.Double -> {
+            drawCircle(Ink, radius - radius * 0.1f, center, style = Stroke(width = radius * 0.2f))
+            drawCircle(Ink, radius * 0.45f, center)
         }
     }
 }

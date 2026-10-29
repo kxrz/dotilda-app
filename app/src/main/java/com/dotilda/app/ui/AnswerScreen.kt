@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,12 +31,15 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.R
 import com.dotilda.app.data.Answer
+import com.dotilda.app.data.Entry
+import com.dotilda.app.data.answer
 import com.dotilda.app.data.Journal
 import com.dotilda.app.data.Question
 import com.dotilda.app.data.QuestionType
@@ -43,10 +47,12 @@ import com.mudita.mmd.components.buttons.OutlinedButtonMMD
 import com.mudita.mmd.components.text.TextMMD
 import com.mudita.mmd.components.text_field.TextFieldMMD
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.launch
 
 private const val ONE_LINE_MAX = 140
 private const val ONE_WORD_MAX = 30
+private const val THING_MAX = 60
 
 @Composable
 fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBack: () -> Unit) {
@@ -77,6 +83,11 @@ fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBack: () -> Unit) {
             QuestionType.ONE_WORD -> TextInput(ONE_WORD_MAX, singleWord = true, onBack, rest) { save(Answer.Word(it)) }
             QuestionType.INNER_WEATHER -> WeatherInput(onBack, rest) { save(Answer.Weather(it)) }
             QuestionType.THIS_OR_THAT -> ChoiceInput(q.options, onBack, rest) { i -> save(Answer.Choice(i, q.options[i])) }
+            QuestionType.THREE_THINGS -> ThingsInput(onBack, rest) { save(Answer.Things(it)) }
+            QuestionType.MIRROR -> Column(rest) {
+                MirrorReminder(journal, q, today)
+                TextInput(ONE_LINE_MAX, singleWord = false, onBack, Modifier.weight(1f)) { save(Answer.Text(it)) }
+            }
             else -> TextInput(ONE_LINE_MAX, singleWord = false, onBack, rest) { save(Answer.Text(it)) }
         }
     }
@@ -159,6 +170,56 @@ private fun WeatherInput(onBack: () -> Unit, modifier: Modifier, onSave: (Int) -
         }
         Spacer(Modifier.weight(1f))
         ActionRow(back = stringResource(R.string.back), onBack = onBack)
+    }
+}
+
+/** "30 days ago, you wrote…", shown before a Mirror question is answered again. */
+@Composable
+private fun MirrorReminder(journal: Journal, question: Question, today: LocalDate) {
+    val previous by produceState<Entry?>(null, question.id) { value = journal.previousAnswer(question, today) }
+    val entry = previous ?: return
+    val days = ChronoUnit.DAYS.between(LocalDate.parse(entry.date), today).toInt()
+    TextMMD(stringResource(R.string.mirror_previous, days), style = MaterialTheme.typography.labelMedium)
+    Spacer(Modifier.height(4.dp))
+    TextMMD(entry.answer().summary(), fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodyMedium)
+    Spacer(Modifier.height(16.dp))
+}
+
+/** Three short lines. One is enough to save: small wins count. */
+@Composable
+private fun ThingsInput(onBack: () -> Unit, modifier: Modifier, onSave: (List<String>) -> Unit) {
+    var a by rememberSaveable { mutableStateOf("") }
+    var b by rememberSaveable { mutableStateOf("") }
+    var c by rememberSaveable { mutableStateOf("") }
+    val focus = remember { FocusRequester() }
+    LaunchedEffect(Unit) { focus.requestFocus() }
+    val items = listOf(a, b, c).map(String::trim).filter(String::isNotEmpty)
+
+    Column(modifier) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            listOf(a to { v: String -> a = v }, b to { v: String -> b = v }, c to { v: String -> c = v })
+                .forEachIndexed { i, (value, set) ->
+                    TextFieldMMD(
+                        value = value,
+                        onValueChange = { set(it.replace('\n', ' ').take(THING_MAX)) },
+                        modifier = Modifier.fillMaxWidth().let { if (i == 0) it.focusRequester(focus) else it },
+                        singleLine = true,
+                        placeholder = { TextMMD("${i + 1}.") },
+                        keyboardOptions = KeyboardOptions(
+                            capitalization = KeyboardCapitalization.Sentences,
+                            imeAction = if (i < 2) ImeAction.Next else ImeAction.Done,
+                        ),
+                    )
+                }
+        }
+        Spacer(Modifier.weight(1f))
+        ActionRow(
+            back = stringResource(R.string.back),
+            onBack = onBack,
+            action = stringResource(R.string.save),
+            actionEnabled = items.isNotEmpty(),
+            onAction = { onSave(items) },
+        )
     }
 }
 

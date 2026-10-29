@@ -10,6 +10,12 @@ const val MAX_CHANGES = 3
 /** Days during which an answered question is not asked again. */
 private const val RECENT_DAYS = 90L
 
+/** A Mirror question comes back after this many days, and one is offered at least this often. */
+const val MIRROR_DAYS = 30L
+
+/** No Mirror in the first days: there is nothing to look back on yet. */
+private const val MIRROR_AFTER_DAYS = 7L
+
 /** The daily ritual: today's question, the 3 changes, saving the answer. */
 class Journal(
     private val db: DotildaDatabase,
@@ -20,6 +26,16 @@ class Journal(
     private val entries get() = db.entryDao()
 
     fun entryOn(date: LocalDate): Flow<Entry?> = entries.firstOn(date.toString())
+
+    fun allEntries(): Flow<List<Entry>> = entries.all()
+
+    suspend fun firstDate(): LocalDate? = entries.firstDate()?.let(LocalDate::parse)
+
+    /** What the user answered the last time this question was asked (for Mirror). */
+    suspend fun previousAnswer(question: Question, today: LocalDate): Entry? =
+        entries.previousAnswer(question.id, today.toString())
+
+    fun entriesOfYear(year: Int): Flow<List<Entry>> = entries.between("$year-01-01", "$year-12-31")
 
     fun entriesOf(month: YearMonth): Flow<List<Entry>> =
         entries.between(month.atDay(1).toString(), month.atEndOfMonth().toString())
@@ -67,11 +83,22 @@ class Journal(
         types: Set<QuestionType> = SUPPORTED_TYPES,
     ): Pair<Question, DayState>? {
         val recent = entries.since(today.minusDays(RECENT_DAYS).toString())
+        val mirrorSince = today.minusDays(MIRROR_DAYS).toString()
+        // A Mirror answered more than 30 days ago may come back: that is the point of it.
+        val recentIds = recent
+            .filterNot { it.type == QuestionType.MIRROR && it.date < mirrorSince }
+            .mapTo(HashSet()) { it.questionId }
+        val first = firstDate()
+        // Only for the day's first offer, so "another question" really changes the subject.
+        val mirrorDue = day.shown.isEmpty() && first != null &&
+            !first.isAfter(today.minusDays(MIRROR_AFTER_DAYS)) &&
+            recent.none { it.type == QuestionType.MIRROR && it.date >= mirrorSince }
         val question = chooseQuestion(
             questions = questions.all(),
-            recentQuestionIds = recent.mapTo(HashSet()) { it.questionId },
+            recentQuestionIds = recentIds,
             shownToday = day.shown,
             yesterday = recent.lastOrNull { it.date == today.minusDays(1).toString() },
+            mirrorDue = mirrorDue,
             allowedTypes = types,
         ) ?: return null
         val next = day.copy(questionId = question.id, shown = day.shown + question.id, changes = changes)

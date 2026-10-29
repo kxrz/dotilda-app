@@ -16,6 +16,8 @@ over plain Material 3 ones.
 
 ## Non-negotiable rules
 - No animations, no ripples, no scrolling lists: paginate everything.
+  Exception: Dotilda may change pose (`ui/DotildaMark.kt`, `Pose`) in one discrete step,
+  at most once per moment, never looping (e.g. glasses pushed up on the Done screen).
 - Pure black on white. No gradients. Large type (MMD defaults).
 - No Google Play Services, no Firebase, no analytics, no network calls.
 - No background services. One exact daily alarm only.

@@ -1,5 +1,6 @@
 package com.dotilda.app.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,7 +45,13 @@ import kotlinx.coroutines.launch
 private class Today(val entry: Entry?)
 
 @Composable
-fun TodayScreen(journal: Journal, onAnswer: () -> Unit, onSettings: () -> Unit) {
+fun TodayScreen(
+    journal: Journal,
+    onAnswer: () -> Unit,
+    onNotebook: () -> Unit,
+    onGalaxy: () -> Unit,
+    onSettings: () -> Unit,
+) {
     val today = remember { LocalDate.now() }
     val month = remember { YearMonth.from(today) }
     val day by remember { journal.entryOn(today).map(::Today) }.collectAsState(initial = null)
@@ -56,7 +63,7 @@ fun TodayScreen(journal: Journal, onAnswer: () -> Unit, onSettings: () -> Unit) 
             style = MaterialTheme.typography.labelMedium,
         )
         Spacer(Modifier.height(6.dp))
-        MonthLine(month, monthEntries, today)
+        MonthLine(month, monthEntries, today, Modifier.clickable(onClick = onGalaxy))
         Spacer(Modifier.height(24.dp))
 
         val entry = day?.entry
@@ -66,7 +73,9 @@ fun TodayScreen(journal: Journal, onAnswer: () -> Unit, onSettings: () -> Unit) 
             else -> Open(journal, today, onAnswer, Modifier.weight(1f))
         }
 
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            TextLink(stringResource(R.string.notebook), onNotebook)
+            TextLink(stringResource(R.string.galaxy), onGalaxy)
             TextLink(stringResource(R.string.settings), onSettings)
         }
     }
@@ -79,8 +88,10 @@ private fun Answered(journal: Journal, entry: Entry, modifier: Modifier) {
 
     Column(modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            DayDot(entry.dotShape(), size = 40.dp)
-            Spacer(Modifier.width(16.dp))
+            DotildaMark(size = 40.dp, pose = Pose.Pleased)
+            Spacer(Modifier.width(12.dp))
+            DayDot(entry.dotShape(), size = 24.dp)
+            Spacer(Modifier.width(12.dp))
             TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
         }
         Spacer(Modifier.height(32.dp))
@@ -109,7 +120,8 @@ private fun Open(journal: Journal, today: LocalDate, onAnswer: () -> Unit, modif
             TextMMD(stringResource(R.string.welcome_back), fontStyle = FontStyle.Italic)
             Spacer(Modifier.height(16.dp))
         }
-        DotildaAsks()
+        // A new question, a new look: she alternates poses instead of animating.
+        DotildaAsks(pose = if (state.changes % 2 == 1) Pose.Curious else Pose.Peering)
         Spacer(Modifier.height(20.dp))
         TextMMD(question.text, style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.weight(1f))

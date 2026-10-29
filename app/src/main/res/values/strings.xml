@@ -19,7 +19,14 @@
     <string name="noted">Noted. One more dot in your sky.</string>
     <string name="see_you_tomorrow">See you tomorrow.</string>
 
+    <!-- Notebook and Galaxy -->
+    <string name="notebook">Notebook</string>
+    <string name="notebook_empty">Nothing written yet. Your first page is waiting on Today.</string>
+    <string name="galaxy">Galaxy</string>
+    <string name="galaxy_hint">Touch a dot to read that day.</string>
+
     <!-- Answer -->
+    <string name="mirror_previous">%1$d days ago, you wrote:</string>
     <string name="one_line_hint">A line is plenty</string>
     <string name="one_word_hint">One word</string>
     <string name="save">Save</string>

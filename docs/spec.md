@@ -20,6 +20,8 @@ Nom retenu : **Dotilda**, contraction de Dot et Matilda. C'est à la fois le nom
 
 Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, jamais moralisatrice. Phrases courtes, pas d'exclamations en série, aucune culpabilité. Visuellement, Dotilda est un simple point à l'encre avec deux détails (un chignon, des lunettes rondes), lisible à 16 pixels pour l'icône. L'icône de l'app reprend ce dessin en trait, comme les icônes du Kompakt.
 
+**Les poses de Dotilda.** Sur e-ink, pas d'animation fluide : Dotilda change de pose d'un coup, comme une page qu'on tourne (un seul rafraîchissement). Quatre poses : neutre, lunettes au bout du nez (elle pose la question), lunettes de travers (une autre question, un brin malicieuse), petit sourire (c'est noté). Sur l'écran Done, elle remonte ses lunettes et sourit, en une seule étape, jamais en boucle.
+
 Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
 
 Domaine réservé : dotilda.com. Reste à vérifier : les handles réseaux et l'absence d'app homonyme sur le Play Store et F-Droid.
