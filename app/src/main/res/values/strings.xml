@@ -1,9 +1,53 @@
 <resources>
     <string name="app_name">Dotilda</string>
+
+    <!-- Welcome -->
+    <string name="welcome_tagline">A question a day, a dot in your sky.</string>
+    <string name="welcome_1">Every day, I ask you one small question. A line, a word or a tap is enough.</string>
+    <string name="welcome_2">Each answer adds a dot to your sky. Miss a day? Nothing breaks. Your sky keeps your place.</string>
+    <string name="welcome_3">Everything stays on this phone. No account, no network.</string>
+    <string name="begin">Begin</string>
+
+    <!-- Today -->
     <string name="dotilda_asks">Dotilda asks</string>
-    <string name="another_question">Another question</string>
-    <string name="motto">nulla dies sine linea</string>
+    <string name="answer">Answer</string>
+    <string name="another_question">Another question (%1$d left)</string>
+    <string name="no_more_questions">That was my last one for today.</string>
+    <string name="just_the_weather">Just tell me the weather inside</string>
+    <string name="or_tomorrow">Or come back tomorrow, I\'ll have a new one.</string>
+    <string name="welcome_back">There you are. Your sky kept your place.</string>
+    <string name="noted">Noted. One more dot in your sky.</string>
+    <string name="see_you_tomorrow">See you tomorrow.</string>
+
+    <!-- Answer -->
+    <string name="one_line_hint">A line is plenty</string>
+    <string name="one_word_hint">One word</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="back_to_today">Back to today</string>
+    <string-array name="weather_labels">
+        <item>Sunny</item>
+        <item>Bright</item>
+        <item>Cloudy</item>
+        <item>Rainy</item>
+        <item>Stormy</item>
+    </string-array>
+    <string-array name="weather_phrases">
+        <item>Clear skies. Rather splendid.</item>
+        <item>Mostly fine, a cloud or two.</item>
+        <item>Grey, but holding up.</item>
+        <item>A little damp inside.</item>
+        <item>Thunder about. Tea is advised.</item>
+    </string-array>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="daily_reminder">Daily reminder</string>
+    <string name="about">About Dotilda</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="press_a_button">Press any hardware button</string>
-    <string name="back">Back</string>
+
+    <!-- Reminder -->
+    <string name="reminder_channel">Daily question</string>
+    <string name="reminder_text">I have a question for you.</string>
 </resources>

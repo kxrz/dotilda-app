@@ -1,0 +1,88 @@
+package com.dotilda.app.data
+
+import android.content.Context
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+
+private val Context.dataStore by preferencesDataStore("dotilda")
+
+data class Settings(
+    val welcomed: Boolean,
+    val reminderOn: Boolean,
+    /** Minutes after midnight. */
+    val reminderMinutes: Int,
+)
+
+/** What Dotilda already offered today, so the question survives an app restart. */
+data class DayState(
+    val date: String,
+    val questionId: String?,
+    val shown: List<String>,
+    val changes: Int,
+    val weatherOffered: Boolean,
+)
+
+class Prefs(private val context: Context) {
+    private object Keys {
+        val welcomed = booleanPreferencesKey("welcomed")
+        val reminderOn = booleanPreferencesKey("reminder_on")
+        val reminderMinutes = intPreferencesKey("reminder_minutes")
+        val dayDate = stringPreferencesKey("day_date")
+        val dayQuestion = stringPreferencesKey("day_question")
+        val dayShown = stringPreferencesKey("day_shown")
+        val dayChanges = intPreferencesKey("day_changes")
+        val dayWeather = booleanPreferencesKey("day_weather")
+    }
+
+    val settings: Flow<Settings> = context.dataStore.data.map { it.toSettings() }
+
+    suspend fun settingsNow(): Settings = settings.first()
+
+    suspend fun setWelcomed() {
+        context.dataStore.edit { it[Keys.welcomed] = true }
+    }
+
+    suspend fun setReminder(on: Boolean, minutes: Int) {
+        context.dataStore.edit {
+            it[Keys.reminderOn] = on
+            it[Keys.reminderMinutes] = minutes
+        }
+    }
+
+    suspend fun day(): DayState = context.dataStore.data.first().let {
+        DayState(
+            date = it[Keys.dayDate].orEmpty(),
+            questionId = it[Keys.dayQuestion],
+            shown = it[Keys.dayShown]?.split(',')?.filter(String::isNotEmpty).orEmpty(),
+            changes = it[Keys.dayChanges] ?: 0,
+            weatherOffered = it[Keys.dayWeather] ?: false,
+        )
+    }
+
+    suspend fun saveDay(day: DayState) {
+        context.dataStore.edit {
+            it[Keys.dayDate] = day.date
+            if (day.questionId != null) it[Keys.dayQuestion] = day.questionId else it.remove(Keys.dayQuestion)
+            it[Keys.dayShown] = day.shown.joinToString(",")
+            it[Keys.dayChanges] = day.changes
+            it[Keys.dayWeather] = day.weatherOffered
+        }
+    }
+
+    private fun Preferences.toSettings() = Settings(
+        welcomed = this[Keys.welcomed] ?: false,
+        reminderOn = this[Keys.reminderOn] ?: true,
+        reminderMinutes = this[Keys.reminderMinutes] ?: DEFAULT_REMINDER_MINUTES,
+    )
+
+    companion object {
+        const val DEFAULT_REMINDER_MINUTES = 20 * 60
+    }
+}

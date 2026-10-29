@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dotilda: ink dot, bun, round glasses. Same geometry as ui/DotildaMark.kt. -->
+<!-- Dotilda as a line icon, like the Mudita Kompakt icons: head, bun, round glasses. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
     <path
-        android:fillColor="#000000"
-        android:pathData="M47.76,36.72a6.24,6.24 0,1 0,12.48 0a6.24,6.24 0,1 0,-12.48 0z" />
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:pathData="M37,61a17,17 0,1 0,34 0a17,17 0,1 0,-34 0z" />
     <path
-        android:fillColor="#000000"
-        android:pathData="M36.72,58.8a17.28,17.28 0,1 0,34.56 0a17.28,17.28 0,1 0,-34.56 0z" />
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:pathData="M48.5,38a5.5,5.5 0,1 0,11 0a5.5,5.5 0,1 0,-11 0z" />
     <path
-        android:strokeColor="#FFFFFF"
-        android:strokeWidth="1.92"
-        android:pathData="M43.2,58.8a4.8,4.8 0,1 0,9.6 0a4.8,4.8 0,1 0,-9.6 0z M55.2,58.8a4.8,4.8 0,1 0,9.6 0a4.8,4.8 0,1 0,-9.6 0z M52.8,58.8L55.2,58.8" />
+        android:strokeColor="#000000"
+        android:strokeWidth="2.5"
+        android:pathData="M43,61a4.5,4.5 0,1 0,9 0a4.5,4.5 0,1 0,-9 0z M56,61a4.5,4.5 0,1 0,9 0a4.5,4.5 0,1 0,-9 0z M52,61L56,61" />
 </vector>

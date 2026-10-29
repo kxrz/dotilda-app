@@ -18,9 +18,9 @@ Nom retenu : **Dotilda**, contraction de Dot et Matilda. C'est à la fois le nom
 | Fin de parcours | Trace la constellation et la nomme | "Seven days, seven dots. I'll call this one Slow." |
 | Bilan du mois | Commente avec tendresse | "A cloudy start, a sunny finish. Rather well done." |
 
-Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, jamais moralisatrice. Phrases courtes, pas d'exclamations en série, aucune culpabilité. Visuellement, Dotilda est un simple point à l'encre avec deux détails (un chignon, des lunettes rondes), lisible à 16 pixels pour l'icône.
+Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, jamais moralisatrice. Phrases courtes, pas d'exclamations en série, aucune culpabilité. Visuellement, Dotilda est un simple point à l'encre avec deux détails (un chignon, des lunettes rondes), lisible à 16 pixels pour l'icône. L'icône de l'app reprend ce dessin en trait, comme les icônes du Kompakt.
 
-Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface reste en anglais, la devise en latin. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
+Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
 
 Domaine réservé : dotilda.com. Reste à vérifier : les handles réseaux et l'absence d'app homonyme sur le Play Store et F-Droid.
 
@@ -100,7 +100,7 @@ Neuf écrans, une navigation à plat : l'accueil mène à tout, chaque écran re
 | spira | Minute de respiration et minuteur | Lancer, régler |
 | Settings | Heure du rendez-vous, sauvegarde, export EPUB, à propos | Exporter, importer |
 
-Onboarding en 3 écrans : le principe (une question par jour), le choix de l'heure, la première question tout de suite.
+Écran d'accueil au premier lancement (sprint 1) : Dotilda se présente et explique le rituel sur une seule page ; il reste accessible via Settings > About Dotilda. L'onboarding complet (choix de l'heure, première question tout de suite) arrive au sprint 3.
 
 ## Module spira
 
