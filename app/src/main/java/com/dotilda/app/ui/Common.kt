@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.R
@@ -52,12 +53,12 @@ fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
 
 /** A quiet underlined text link, for secondary destinations. */
 @Composable
-fun TextLink(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun TextLink(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, style: TextStyle = MaterialTheme.typography.bodyMedium) {
     TextMMD(
         text,
         modifier = modifier.clickable(onClick = onClick).padding(vertical = 8.dp),
         textDecoration = TextDecoration.Underline,
-        style = MaterialTheme.typography.bodyMedium,
+        style = style,
     )
 }
 
@@ -89,6 +90,8 @@ fun Answer.summary(): String = when (this) {
     is Answer.Weather -> weatherLabel(level)
     is Answer.Choice -> label
     is Answer.Things -> items.joinToString(" · ")
+    is Answer.Photo -> caption.ifEmpty { stringResource(R.string.photo_summary) }
+    is Answer.Letter -> stringResource(R.string.letter_summary)
 }
 
 /** Previous page, Back, next page: the three buttons under every paginated screen. */

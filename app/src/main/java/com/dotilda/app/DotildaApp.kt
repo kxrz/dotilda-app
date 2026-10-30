@@ -5,6 +5,7 @@ import com.dotilda.app.data.Backup
 import com.dotilda.app.data.DotildaDatabase
 import com.dotilda.app.data.Journal
 import com.dotilda.app.data.Prefs
+import com.dotilda.app.data.loadJourneys
 import com.dotilda.app.data.syncQuestionBank
 import com.dotilda.app.update.Updater
 import androidx.compose.runtime.getValue
@@ -57,8 +58,8 @@ class DotildaApp : Application() {
         db = DotildaDatabase.create(this)
         prefs = Prefs(this)
         bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }
-        journal = Journal(db, prefs, bankReady)
-        backup = Backup(db.entryDao())
+        journal = Journal(db, prefs, bankReady, loadJourneys(this))
+        backup = Backup(db.entryDao(), prefs, filesDir)
 
         Reminder.createChannel(this)
         SpiraTimer.createChannel(this)

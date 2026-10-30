@@ -7,12 +7,18 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 private val Context.dataStore by preferencesDataStore("dotilda")
+
+private val json = Json { ignoreUnknownKeys = true }
+private val constellationList = ListSerializer(Constellation.serializer())
 
 data class Settings(
     val welcomed: Boolean,
@@ -45,6 +51,9 @@ class Prefs(private val context: Context) {
         val dayShown = stringPreferencesKey("day_shown")
         val dayChanges = intPreferencesKey("day_changes")
         val dayWeather = booleanPreferencesKey("day_weather")
+        val activeJourney = stringPreferencesKey("active_journey")
+        val constellations = stringPreferencesKey("constellations")
+        val openedLetters = stringSetPreferencesKey("opened_letters")
     }
 
     val settings: Flow<Settings> = context.dataStore.data.map { it.toSettings() }
@@ -81,6 +90,44 @@ class Prefs(private val context: Context) {
 
     suspend fun setTimerEnd(at: Long?) {
         context.dataStore.edit { if (at != null) it[Keys.timerEnd] = at else it.remove(Keys.timerEnd) }
+    }
+
+    /** The journey under way, if any. */
+    val activeJourney: Flow<ActiveJourney?> = context.dataStore.data.map { p ->
+        p[Keys.activeJourney]?.let { json.decodeFromString(ActiveJourney.serializer(), it) }
+    }
+
+    suspend fun setActiveJourney(active: ActiveJourney?) {
+        context.dataStore.edit {
+            if (active != null) it[Keys.activeJourney] = json.encodeToString(ActiveJourney.serializer(), active)
+            else it.remove(Keys.activeJourney)
+        }
+    }
+
+    suspend fun stopJourneyIfActive(journeyId: String) {
+        context.dataStore.edit { p ->
+            val active = p[Keys.activeJourney]?.let { json.decodeFromString(ActiveJourney.serializer(), it) }
+            if (active?.journeyId == journeyId) p.remove(Keys.activeJourney)
+        }
+    }
+
+    /** Every finished journey, oldest first. */
+    val constellations: Flow<List<Constellation>> = context.dataStore.data.map { p ->
+        p[Keys.constellations]?.let { json.decodeFromString(constellationList, it) }.orEmpty()
+    }
+
+    suspend fun addConstellations(added: List<Constellation>) {
+        context.dataStore.edit {
+            val current = it[Keys.constellations]?.let { s -> json.decodeFromString(constellationList, s) }.orEmpty()
+            it[Keys.constellations] = json.encodeToString(constellationList, current + added)
+        }
+    }
+
+    /** Keys ([Entry.key]) of the letters already opened on or after their date. */
+    val openedLetters: Flow<Set<String>> = context.dataStore.data.map { it[Keys.openedLetters].orEmpty() }
+
+    suspend fun markLetterOpened(key: String) {
+        context.dataStore.edit { it[Keys.openedLetters] = it[Keys.openedLetters].orEmpty() + key }
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {

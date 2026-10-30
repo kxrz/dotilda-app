@@ -16,6 +16,8 @@ class QuestionPickerTest {
         Question("iw-1", QuestionType.INNER_WEATHER, "e"),
         Question("ph-1", QuestionType.PHOTO, "f"),
         Question("mi-1", QuestionType.MIRROR, "g", mirrorGroup = "g"),
+        Question("le-1", QuestionType.LETTER, "h"),
+        Question("j-1", QuestionType.ONE_LINE, "i", journeyId = "slow"),
     )
 
     private fun yesterday(type: QuestionType, answer: Answer) =
@@ -27,12 +29,22 @@ class QuestionPickerTest {
         yesterday: Entry? = null,
         types: Set<QuestionType> = SUPPORTED_TYPES,
         mirrorDue: Boolean = false,
+        letterDue: Boolean = false,
         seed: Int,
-    ) = chooseQuestion(bank, recent, shown, yesterday, mirrorDue, Random(seed), types)
+    ) = chooseQuestion(bank, recent, shown, yesterday, mirrorDue, Random(seed), types, letterDue)
 
     @Test
-    fun neverOffersUnsupportedFormats() {
-        repeat(50) { assertNotEquals(QuestionType.PHOTO, pick(seed = it)!!.type) }
+    fun journeyQuestionsAndLettersStayOutOfTheDailyDraw() {
+        repeat(80) {
+            val q = pick(seed = it)!!
+            assertNotEquals("j-1", q.id)
+            assertNotEquals(QuestionType.LETTER, q.type)
+        }
+    }
+
+    @Test
+    fun offersALetterWhenDue() {
+        repeat(20) { assertEquals("le-1", pick(letterDue = true, seed = it)!!.id) }
     }
 
     @Test
@@ -57,7 +69,7 @@ class QuestionPickerTest {
 
     @Test
     fun prefersQuestionsNotAnsweredRecently() {
-        repeat(50) { assertEquals("ol-2", pick(recent = setOf("ol-1", "ow-1", "tt-1", "iw-1", "mi-1"), seed = it)!!.id) }
+        repeat(50) { assertEquals("ol-2", pick(recent = setOf("ol-1", "ow-1", "tt-1", "iw-1", "mi-1", "ph-1"), seed = it)!!.id) }
     }
 
     @Test
@@ -103,5 +115,38 @@ class BackupTest {
         val fresh = newEntries(existing, incoming)
         assertEquals(listOf("ow-2"), fresh.map { it.questionId })
         assertEquals(0L, fresh.single().id)
+    }
+}
+
+class DitherTest {
+    @Test
+    fun keepsOnlyFourGreys() {
+        val w = 64
+        val h = 16
+        val ramp = IntArray(w * h) { (it % w) * 255 / (w - 1) }
+        val out = ditherFloydSteinberg(ramp, w, h)
+        assertEquals(setOf(0, 85, 170, 255), out.toSet())
+    }
+
+    @Test
+    fun keepsTheAverageBrightness() {
+        val flat = IntArray(100 * 100) { 128 }
+        val out = ditherFloydSteinberg(flat, 100, 100)
+        assertEquals(128.0, out.average(), 2.0)
+    }
+}
+
+class ReviewTest {
+    @Test
+    fun readsTheMonthsWeather() {
+        assertEquals(Trend.Brightening, weatherTrend(listOf(3, 3, 2, 1, 0, 1)))
+        assertEquals(Trend.Clouding, weatherTrend(listOf(0, 1, 1, 3, 3, 4)))
+        assertEquals(Trend.Sunny, weatherTrend(listOf(0, 1, 0, 1)))
+        assertEquals(Trend.None, weatherTrend(listOf(2)))
+    }
+
+    @Test
+    fun countsWordsIgnoringCase() {
+        assertEquals(listOf("Quiet" to 2, "Busy" to 1), wordCloud(listOf("quiet", "Busy", "QUIET ")))
     }
 }

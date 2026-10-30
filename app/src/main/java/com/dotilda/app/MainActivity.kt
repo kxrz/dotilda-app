@@ -21,6 +21,8 @@ import com.dotilda.app.ui.DiagnosticsScreen
 import com.dotilda.app.ui.DoneScreen
 import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
+import com.dotilda.app.ui.JourneysScreen
+import com.dotilda.app.ui.ReviewScreen
 import com.dotilda.app.ui.NotebookScreen
 import com.dotilda.app.ui.PageKeys
 import com.dotilda.app.ui.ReminderSetupScreen
@@ -30,6 +32,7 @@ import com.dotilda.app.ui.SpiraScreen
 import com.dotilda.app.ui.TodayScreen
 import com.dotilda.app.ui.UpdateScreen
 import com.dotilda.app.ui.WelcomeScreen
+import java.time.YearMonth
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -44,8 +47,21 @@ class MainActivity : ComponentActivity() {
                 val welcomed = settings?.welcomed
                 if (welcomed != null) {
                     var screen by rememberSaveable { mutableStateOf(if (welcomed) Screen.Today else Screen.Welcome) }
-                    // The Notebook opens at a given day when reached from the Galaxy, and returns there.
+                    // The Notebook opens at a given day (from the Galaxy, a review or a letter) and returns there.
                     var notebookDate by rememberSaveable { mutableStateOf<String?>(null) }
+                    var notebookFrom by rememberSaveable { mutableStateOf(Screen.Today) }
+                    var reviewMonth by rememberSaveable { mutableStateOf<String?>(null) }
+                    var reviewFrom by rememberSaveable { mutableStateOf(Screen.Today) }
+                    fun openDay(date: String, from: Screen) {
+                        notebookDate = date
+                        notebookFrom = from
+                        screen = Screen.Notebook
+                    }
+                    fun openReview(month: YearMonth, from: Screen) {
+                        reviewMonth = month.toString()
+                        reviewFrom = from
+                        screen = Screen.Review
+                    }
                     // spira opened from Answer ("breathe first") returns to the question.
                     var spiraFromAnswer by rememberSaveable { mutableStateOf(false) }
                     val scope = rememberCoroutineScope()
@@ -56,7 +72,8 @@ class MainActivity : ComponentActivity() {
                         Screen.Welcome, Screen.Today, Screen.Setup -> null
                         Screen.Spira -> if (spiraFromAnswer) Screen.Answer else Screen.Today
                         Screen.About, Screen.Diagnostics, Screen.Update -> Screen.Settings
-                        Screen.Notebook -> if (notebookDate != null) Screen.Galaxy else Screen.Today
+                        Screen.Notebook -> notebookFrom
+                        Screen.Review -> reviewFrom
                         else -> Screen.Today
                     }
                     BackHandler(enabled = parent != null) { parent?.let { screen = it } }
@@ -82,8 +99,12 @@ class MainActivity : ComponentActivity() {
                             onAnswer = { screen = Screen.Answer },
                             onNotebook = {
                                 notebookDate = null
+                                notebookFrom = Screen.Today
                                 screen = Screen.Notebook
                             },
+                            onJourneys = { screen = Screen.Journeys },
+                            onLetter = { openDay(it, Screen.Today) },
+                            onReview = { openReview(it, Screen.Today) },
                             onGalaxy = { screen = Screen.Galaxy },
                             onSpira = {
                                 spiraFromAnswer = false
@@ -97,12 +118,14 @@ class MainActivity : ComponentActivity() {
                         Screen.Notebook -> NotebookScreen(app.journal, notebookDate, onBack = back)
                         Screen.Galaxy -> GalaxyScreen(
                             app.journal,
-                            onOpenDay = {
-                                notebookDate = it.toString()
-                                screen = Screen.Notebook
-                            },
+                            onOpenDay = { openDay(it.toString(), Screen.Galaxy) },
+                            onOpenMonth = { openReview(it, Screen.Galaxy) },
                             onBack = back,
                         )
+                        Screen.Journeys -> JourneysScreen(app.journal, onStarted = { screen = Screen.Today }, onBack = back)
+                        Screen.Review -> reviewMonth?.let { m ->
+                            ReviewScreen(app.journal, YearMonth.parse(m), onOpenDay = { openDay(it.toString(), Screen.Review) }, onBack = back)
+                        }
                         Screen.Answer -> AnswerScreen(
                             app.journal,
                             onSaved = { screen = Screen.Done },
@@ -151,4 +174,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Settings, Update, Diagnostics }
+private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Journeys, Review, Settings, Update, Diagnostics }

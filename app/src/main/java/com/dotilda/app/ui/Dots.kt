@@ -38,12 +38,20 @@ sealed interface DotShape {
 
     /** Mirror: a dot inside a ring, looking back at itself. */
     data object Double : DotShape
+
+    /** Photo of the day: a small square, like a print. */
+    data object Print : DotShape
+
+    /** Letter to the future: a diamond, hollow while sealed, inked once its day has come. */
+    data class Diamond(val sealed: Boolean) : DotShape
 }
 
-fun Entry.dotShape(): DotShape = when {
+fun Entry.dotShape(today: LocalDate = LocalDate.now()): DotShape = when {
     type == QuestionType.MIRROR -> DotShape.Double
     else -> when (val a = answer()) {
         is Answer.Weather -> DotShape.Moon(a.level)
+        is Answer.Photo -> DotShape.Print
+        is Answer.Letter -> DotShape.Diamond(sealed = a.sealedUntil > today.toString())
         else -> DotShape.Full
     }
 }
@@ -59,6 +67,26 @@ fun DrawScope.drawDot(shape: DotShape, center: Offset, radius: Float) {
         DotShape.Double -> {
             drawCircle(Ink, radius - outline.width / 2, center, style = outline)
             drawCircle(Ink, radius * 0.42f, center)
+        }
+        DotShape.Print -> {
+            val side = radius * 1.7f
+            drawRoundRect(
+                Ink,
+                topLeft = Offset(center.x - side / 2, center.y - side / 2),
+                size = androidx.compose.ui.geometry.Size(side, side),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(radius * 0.25f),
+            )
+        }
+        is DotShape.Diamond -> {
+            val r = radius * 1.15f
+            val diamond = Path().apply {
+                moveTo(center.x, center.y - r)
+                lineTo(center.x + r, center.y)
+                lineTo(center.x, center.y + r)
+                lineTo(center.x - r, center.y)
+                close()
+            }
+            if (shape.sealed) drawPath(diamond, Ink, style = outline) else drawPath(diamond, Ink)
         }
         is DotShape.Moon -> {
             when (shape.level) {
@@ -78,6 +106,19 @@ private fun shadow(center: Offset, radius: Float, shift: Float) =
     Path().apply { addOval(Rect(Offset(center.x + radius * shift, center.y), radius)) }
 
 private operator fun Path.minus(other: Path): Path = Path().also { it.op(this, other, PathOperation.Difference) }
+
+/**
+ * A day of a finished journey: four short rays around its dot, so the constellation shows as
+ * stars. Never a line between them: the dots stay free.
+ */
+fun DrawScope.drawStarRays(center: Offset, radius: Float) {
+    val inner = radius * 1.35f
+    val outer = radius * 2f
+    val width = maxOf(1f, radius * 0.3f)
+    for ((dx, dy) in listOf(0f to -1f, 1f to 0f, 0f to 1f, -1f to 0f)) {
+        drawLine(Ink, center + Offset(dx * inner, dy * inner), center + Offset(dx * outer, dy * outer), strokeWidth = width)
+    }
+}
 
 /** A day with no entry: a tiny grey dot, a breath in the grid, never a hole. */
 fun DrawScope.drawRestDot(center: Offset, radius: Float) {
@@ -109,7 +150,7 @@ fun DayDot(shape: DotShape, modifier: Modifier = Modifier, size: Dp = 72.dp) {
 /** The month on one line, one dot per day. Days to come are not drawn. */
 @Composable
 fun MonthLine(month: YearMonth, entries: List<Entry>, today: LocalDate, modifier: Modifier = Modifier) {
-    val shapes = entries.groupBy { it.date }.mapValues { it.value.first().dotShape() }
+    val shapes = entries.groupBy { it.date }.mapValues { it.value.first().dotShape(today) }
     Canvas(modifier.fillMaxWidth().height(22.dp)) {
         val cell = size.width / 31
         val radius = cell * 0.36f

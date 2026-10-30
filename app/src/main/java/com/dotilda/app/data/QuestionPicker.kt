@@ -10,6 +10,8 @@ val SUPPORTED_TYPES = setOf(
     QuestionType.THIS_OR_THAT,
     QuestionType.THREE_THINGS,
     QuestionType.MIRROR,
+    QuestionType.PHOTO,
+    QuestionType.LETTER,
 )
 
 /** Light formats offered the day after a stormy inner weather. */
@@ -19,7 +21,7 @@ const val STORM = 4
 
 /**
  * Chooses a question, relaxing the rules one by one until something is left:
- * never one already offered today, light formats after a storm, a Mirror when one is due,
+ * never one already offered today, light formats after a storm, a Mirror or a Letter when due,
  * not the same format as yesterday, and nothing answered recently.
  */
 fun chooseQuestion(
@@ -30,12 +32,18 @@ fun chooseQuestion(
     mirrorDue: Boolean = false,
     random: Random = Random.Default,
     allowedTypes: Set<QuestionType> = SUPPORTED_TYPES,
+    letterDue: Boolean = false,
 ): Question? {
-    val pool = questions.filter { it.type in allowedTypes && it.id !in shownToday }
+    // Journey questions only come within their journey; a letter, a long piece, only once a season.
+    val pool = questions.filter {
+        it.type in allowedTypes && it.id !in shownToday && it.journeyId == null &&
+            (it.type != QuestionType.LETTER || letterDue || allowedTypes == setOf(QuestionType.LETTER))
+    }
     val stormy = (yesterday?.answer() as? Answer.Weather)?.level == STORM
     val preferredTypes = when {
         stormy -> LIGHT_TYPES
         mirrorDue && QuestionType.MIRROR in allowedTypes -> setOf(QuestionType.MIRROR)
+        letterDue && QuestionType.LETTER in allowedTypes -> setOf(QuestionType.LETTER)
         yesterday != null -> allowedTypes - yesterday.type
         else -> allowedTypes
     }

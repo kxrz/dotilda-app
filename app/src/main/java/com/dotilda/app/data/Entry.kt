@@ -45,7 +45,20 @@ sealed interface Answer {
     @Serializable
     @SerialName("things")
     data class Things(val items: List<String>) : Answer
+
+    /** A letter to the future, sealed until [sealedUntil] (ISO date). */
+    @Serializable
+    @SerialName("letter")
+    data class Letter(val text: String, val sealedUntil: String) : Answer
+
+    /** The picture itself is the entry's photoPath; this holds the optional caption. */
+    @Serializable
+    @SerialName("photo")
+    data class Photo(val caption: String = "") : Answer
 }
+
+/** Identifies an entry across devices (ids change on import). */
+val Entry.key: String get() = "$date|$questionId|$createdAt"
 
 fun Answer.toPayload(): String = Json.encodeToString<Answer>(this)
 

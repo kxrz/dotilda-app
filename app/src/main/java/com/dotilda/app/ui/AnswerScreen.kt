@@ -1,5 +1,17 @@
 package com.dotilda.app.ui
 
+import android.content.ActivityNotFoundException
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import com.dotilda.app.Photos
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -53,6 +65,8 @@ import kotlinx.coroutines.launch
 private const val ONE_LINE_MAX = 140
 private const val ONE_WORD_MAX = 30
 private const val THING_MAX = 60
+private const val CAPTION_MAX = 80
+private const val LETTER_MAX = 600
 
 @Composable
 fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBreathe: () -> Unit, onBack: () -> Unit) {
@@ -63,11 +77,11 @@ fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBreathe: () -> Unit, o
     LaunchedEffect(Unit) { question = journal.questionOfTheDay(today).first }
     val q = question ?: return
 
-    val save: (Answer) -> Unit = { answer ->
+    fun save(answer: Answer, photoPath: String? = null) {
         if (!saving) {
             saving = true
             scope.launch {
-                journal.answer(q, answer, today)
+                journal.answer(q, answer, today, photoPath)
                 onSaved()
             }
         }
@@ -94,6 +108,8 @@ fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBreathe: () -> Unit, o
                 MirrorReminder(journal, q, today)
                 TextInput(ONE_LINE_MAX, singleWord = false, onBack, Modifier.weight(1f)) { save(Answer.Text(it)) }
             }
+            QuestionType.PHOTO -> PhotoInput(onBack, rest) { path, caption -> save(Answer.Photo(caption), path) }
+            QuestionType.LETTER -> LetterInput(q, today, onBack, rest) { text, until -> save(Answer.Letter(text, until.toString())) }
             else -> TextInput(ONE_LINE_MAX, singleWord = false, onBack, rest) { save(Answer.Text(it)) }
         }
     }
@@ -225,6 +241,115 @@ private fun ThingsInput(onBack: () -> Unit, modifier: Modifier, onSave: (List<St
             action = stringResource(R.string.save),
             actionEnabled = items.isNotEmpty(),
             onAction = { onSave(items) },
+        )
+    }
+}
+
+/** The system camera takes the picture; Dotilda keeps it small and dithered, with an optional caption. */
+@Composable
+private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: String, caption: String) -> Unit) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var path by rememberSaveable { mutableStateOf<String?>(null) }
+    var caption by rememberSaveable { mutableStateOf("") }
+    var status by remember { mutableStateOf<String?>(null) }
+    val developing = stringResource(R.string.photo_developing)
+    val noCamera = stringResource(R.string.photo_no_camera)
+    val failed = stringResource(R.string.photo_failed)
+    val camera = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { taken ->
+        if (!taken) return@rememberLauncherForActivityResult
+        status = developing
+        scope.launch {
+            runCatching { Photos.develop(context) }
+                .onSuccess { path = it; status = null }
+                .onFailure { status = failed }
+        }
+    }
+    val bitmap = remember(path) { path?.let { Photos.load(context, it)?.asImageBitmap() } }
+
+    Column(modifier) {
+        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+            if (bitmap != null) {
+                Image(bitmap, contentDescription = null, contentScale = ContentScale.Fit, modifier = Modifier.fillMaxSize())
+            } else {
+                TextMMD(status ?: stringResource(R.string.photo_hint), textAlign = TextAlign.Center)
+            }
+        }
+        if (bitmap != null) {
+            TextFieldMMD(
+                value = caption,
+                onValueChange = { caption = it.replace('\n', ' ').take(CAPTION_MAX) },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                placeholder = { TextMMD(stringResource(R.string.photo_caption)) },
+            )
+        }
+        Spacer(Modifier.height(12.dp))
+        OutlinedButtonMMD(
+            onClick = {
+                try {
+                    camera.launch(Photos.captureUri(context))
+                } catch (e: ActivityNotFoundException) {
+                    status = noCamera
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            TextMMD(stringResource(if (path == null) R.string.photo_take else R.string.photo_retake))
+        }
+        Spacer(Modifier.height(12.dp))
+        ActionRow(
+            back = stringResource(R.string.back),
+            onBack = onBack,
+            action = stringResource(R.string.save),
+            actionEnabled = path != null,
+            onAction = { path?.let { onSave(it, caption.trim()) } },
+        )
+    }
+}
+
+/** A longer letter, sealed until a date chosen among four. */
+@Composable
+private fun LetterInput(question: Question, today: LocalDate, onBack: () -> Unit, modifier: Modifier, onSave: (String, LocalDate) -> Unit) {
+    var text by rememberSaveable { mutableStateOf("") }
+    val text0 = question.text.lowercase()
+    var months by rememberSaveable {
+        mutableIntStateOf(
+            when {
+                "season" in text0 -> 3
+                "year" in text0 || "birthday" in text0 -> 12
+                else -> 6
+            },
+        )
+    }
+    Column(modifier) {
+        TextFieldMMD(
+            value = text,
+            onValueChange = { text = it.take(LETTER_MAX) },
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            placeholder = { TextMMD(stringResource(R.string.letter_hint)) },
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
+        )
+        Spacer(Modifier.height(8.dp))
+        TextMMD(stringResource(R.string.letter_open_in), style = MaterialTheme.typography.labelMedium)
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            listOf(1, 3, 6, 12).forEach { m ->
+                TextMMD(
+                    LocalContext.current.resources.getQuantityString(R.plurals.letter_months, m, m),
+                    modifier = Modifier.clickable { months = m }.padding(vertical = 8.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = if (m == months) FontWeight.Bold else null,
+                    textDecoration = if (m == months) TextDecoration.Underline else null,
+                )
+            }
+        }
+        Spacer(Modifier.height(8.dp))
+        ActionRow(
+            back = stringResource(R.string.back),
+            onBack = onBack,
+            action = stringResource(R.string.letter_seal),
+            actionEnabled = text.isNotBlank(),
+            onAction = { onSave(text.trim(), today.plusMonths(months.toLong())) },
         )
     }
 }
