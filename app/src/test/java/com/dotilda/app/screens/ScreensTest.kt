@@ -128,7 +128,7 @@ class ScreensTest {
         click("Back")
         waitFor("Answer")
         click("Galaxy")
-        waitFor("Touch a dot", substring = true)
+        waitFor("Constellations", substring = true)
         settle()
         shot("12-galaxy")
     }
@@ -213,7 +213,11 @@ class ScreensTest {
 
     private fun launch(): ActivityScenario<MainActivity> = ActivityScenario.launch(MainActivity::class.java)
 
+    /** Timestamped steps in the CI log, to see where a screenshot run spends its time. */
+    private fun step(what: String) = println("[screens ${System.currentTimeMillis() % 1_000_000}] $what")
+
     private fun waitFor(text: String, substring: Boolean = false) {
+        step("wait for '$text'")
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
     }
 
@@ -230,11 +234,13 @@ class ScreensTest {
     }
 
     private fun shot(name: String) {
+        step("shot $name")
         settle()
         compose.onRoot().captureRoboImage("screenshots/$name.png")
     }
 
     private fun seed(question: String?, journeyDone: Int = 0) {
+        step("seed $question")
         awaitBank()
         runBlocking { seedJournal(question, journeyDone) }
     }

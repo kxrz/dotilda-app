@@ -69,6 +69,12 @@ android {
     // Screenshot tests (Robolectric + Roborazzi) render the real screens on the JVM.
     testOptions {
         unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            it.testLogging {
+                events("started", "passed", "failed")
+                showStandardStreams = true
+            }
+        }
     }
 
     buildFeatures {

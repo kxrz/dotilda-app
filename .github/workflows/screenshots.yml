@@ -14,7 +14,7 @@ permissions:
 jobs:
   screenshots:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -34,6 +34,7 @@ jobs:
           mkdir -p app/screenshots/reports
           cp app/build/test-results/testDebugUnitTest/*.xml app/screenshots/reports/ 2>/dev/null || true
           grep -E "^e: |error:|FAILED|What went wrong" -A3 gradle.log > app/screenshots/reports/gradle-errors.txt || true
+          grep -E "STARTED|PASSED|FAILED|\[screens " gradle.log > app/screenshots/reports/steps.txt || true
           cd app/screenshots
           git init -q -b "$branch"
           git config user.name "github-actions[bot]"
