@@ -234,6 +234,19 @@ class ScreensTest {
         compose.onRoot().captureRoboImage("screenshots/$name.png")
     }
 
+    private fun seed(question: String?, journeyDone: Int = 0) {
+        awaitBank()
+        runBlocking { seedJournal(question, journeyDone) }
+    }
+
+    /** The bank loads on the main thread, which is this test's thread: let its looper run. */
+    private fun awaitBank() {
+        while (!app.bankReady.isCompleted) {
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+        }
+    }
+
     /**
      * Ten months of journal: most days answered, a Mirror each month, a photo now and then
      * (yesterday's too), two letters (one ready to open), a finished journey in early spring
