@@ -8,7 +8,9 @@ Full product spec (French): `docs/spec.md`.
 
 ## Stack
 Kotlin, Jetpack Compose, Mudita Mindful Design (`com.mudita:MMD`, https://github.com/mudita/MMD),
-Room, DataStore, CameraX, AlarmManager. No network, ever.
+Room, DataStore, CameraX, AlarmManager. The only network access is the in-app update
+(`update/Updater.kt`, same mechanism as the readme.club app): it reads the release manifest
+and downloads the APK from GitHub Releases, sends nothing about the user, and can be turned off.
 
 Wrap every screen in `DotildaTheme` (which uses `ThemeMMD`). Prefer MMD components
 (`TextMMD`, `ButtonMMD`, `OutlinedButtonMMD`, `TextFieldMMD`, `HorizontalDividerMMD`, ...)
@@ -16,8 +18,10 @@ over plain Material 3 ones.
 
 ## Non-negotiable rules
 - No animations, no ripples, no scrolling lists: paginate everything.
+  Exception: Dotilda may change pose (`ui/DotildaMark.kt`, `Pose`) in one discrete step,
+  at most once per moment, never looping (e.g. glasses pushed up on the Done screen).
 - Pure black on white. No gradients. Large type (MMD defaults).
-- No Google Play Services, no Firebase, no analytics, no network calls.
+- No Google Play Services, no Firebase, no analytics, no network calls besides the updater.
 - No background services. One exact daily alarm only.
 - Never punish missed days: no streak counters, no red states.
 - All user data stays local. Export/import must always work.
@@ -38,9 +42,16 @@ UI copy is English, in `res/values/strings.xml` so other languages can be added 
 Keep it short and warm. "Dotilda" (capital D) is both the app and the guide character who
 signs each question: a kind Victorian governess, a little mischievous, never guilt-tripping.
 
-## Build
-`./gradlew assembleDebug`. CI (`.github/workflows/build.yml`) builds a debug APK on every
-push and uploads it as the `dotilda-debug-apk` artifact.
+## Build and release
+`./gradlew assembleDebug`. CI (`.github/workflows/build.yml`) runs the unit tests and builds a
+debug APK (`com.dotilda.app.debug`, "Dotilda dev", signed with the committed `app/debug.keystore`)
+on every push, uploaded as the `dotilda-debug-apk` artifact.
+
+Releasing: bump `appVersion` in `app/build.gradle.kts`, add its section to `CHANGELOG.md`
+(every user-visible change goes there, in the same commit), then push the tag `v<version>` or
+run the workflow by hand on main. The release job signs the APK with the key from the repo
+secrets and publishes `dotilda.apk` + `manifest.json`, which the app's updater reads.
+A tag with a dash (`v0.4.0-rc1`) is a pre-release the updater ignores.
 
 ## Definition of done per sprint
 Installs via Mudita Center, runs on the test Kompakt, no crash over a full day of use,

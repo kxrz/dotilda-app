@@ -40,6 +40,10 @@ sealed interface Answer {
     @Serializable
     @SerialName("choice")
     data class Choice(val index: Int, val label: String) : Answer
+
+    @Serializable
+    @SerialName("things")
+    data class Things(val items: List<String>) : Answer
 }
 
 fun Answer.toPayload(): String = Json.encodeToString<Answer>(this)

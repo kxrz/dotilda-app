@@ -20,6 +20,8 @@ Nom retenu : **Dotilda**, contraction de Dot et Matilda. C'est à la fois le nom
 
 Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, jamais moralisatrice. Phrases courtes, pas d'exclamations en série, aucune culpabilité. Visuellement, Dotilda est un simple point à l'encre avec deux détails (un chignon, des lunettes rondes), lisible à 16 pixels pour l'icône. L'icône de l'app reprend ce dessin en trait, comme les icônes du Kompakt.
 
+**Les poses de Dotilda.** Sur e-ink, pas d'animation fluide : Dotilda change de pose d'un coup, comme une page qu'on tourne (un seul rafraîchissement). Quatre poses : neutre, lunettes au bout du nez (elle pose la question), lunettes de travers (une autre question, un brin malicieuse), petit sourire (c'est noté). Sur l'écran Done, elle remonte ses lunettes et sourit, en une seule étape, jamais en boucle.
+
 Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
 
 Domaine réservé : dotilda.com. Reste à vérifier : les handles réseaux et l'absence d'app homonyme sur le Play Store et F-Droid.
@@ -32,7 +34,7 @@ Une question par jour, une réponse courte, et une galaxie de points qui se remp
 2. **Rien ne meurt.** Sauter des jours ne casse rien : la place du jour reste un petit point discret, sans reproche. Pas de streak punitive, pas de compteur rouge.
 3. **Des formats variés.** Huit types de questions alternent pour que l'écriture reste un jeu, y compris les jours sans énergie.
 4. **Récompenser le recul.** Les vrais moments forts sont les bilans (mois, saison, année) et les questions miroir, où l'on se relit.
-5. **Hors ligne et privé.** Aucun compte, aucune donnée envoyée. Tout reste sur l'appareil, exportable à tout moment.
+5. **Hors ligne et privé.** Aucun compte, aucune donnée envoyée. Tout reste sur l'appareil, exportable à tout moment. Seule exception réseau : la vérification des mises à jour, qui ne transmet rien sur l'utilisateur et se désactive dans Settings.
 6. **Pensé pour l'e-ink.** Un point qui se remplit plutôt qu'une animation ; contraste fort, gros caractères, zéro scroll.
 
 Références d'esprit : Petit Bambou pour la douceur et les parcours, readme.club pour le ton et le design, les carnets papier pour la matière.
@@ -153,6 +155,8 @@ Le payload JSON varie selon le type (texte, mot, index météo, choix, trois lig
 ## Modèle et distribution
 
 Dotilda est **gratuite à 100 %** : pas d'achat, pas d'abonnement, pas de licence, pas de publicité. Tous les parcours, bilans et exports sont inclus. Le code est **ouvert** sous licence Apache 2.0, comme MMD (le dépôt reste privé pour le moment).
+
+**Mises à jour dans l'app** (même mécanique que l'app readme.club) : au lancement, l'app lit `manifest.json` sur la dernière release GitHub (version, URL de l'APK, SHA-256, notes du CHANGELOG). Si une version plus récente existe, Today l'annonce discrètement ; l'écran de mise à jour montre les notes, télécharge l'APK, vérifie son empreinte et ouvre l'installeur d'Android, qui demande confirmation. Les builds de test (`com.dotilda.app.debug`) ne se mettent pas à jour. Les releases doivent être téléchargeables sans compte GitHub.
 
 **Distribution**
 

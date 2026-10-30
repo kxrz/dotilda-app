@@ -22,11 +22,31 @@ import com.mudita.mmd.components.text.TextMMD
 
 /** Dotilda's signature above every question. */
 @Composable
-fun DotildaAsks(modifier: Modifier = Modifier) {
+fun DotildaAsks(modifier: Modifier = Modifier, pose: Pose = Pose.Peering) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        DotildaMark(size = 32.dp)
+        DotildaMark(size = 32.dp, pose = pose)
         Spacer(Modifier.width(12.dp))
         TextMMD(stringResource(R.string.dotilda_asks), style = MaterialTheme.typography.titleMedium)
+    }
+}
+
+/** A short aside from Dotilda, with her face; tappable when [onClick] is given. */
+@Composable
+fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .let { if (onClick != null) it.clickable(onClick = onClick) else it }
+            .padding(vertical = 6.dp),
+    ) {
+        DotildaMark(size = 22.dp, pose = pose)
+        Spacer(Modifier.width(10.dp))
+        TextMMD(
+            text,
+            textDecoration = if (onClick != null) TextDecoration.Underline else null,
+            style = MaterialTheme.typography.bodyMedium,
+        )
     }
 }
 
@@ -68,4 +88,23 @@ fun Answer.summary(): String = when (this) {
     is Answer.Word -> word
     is Answer.Weather -> weatherLabel(level)
     is Answer.Choice -> label
+    is Answer.Things -> items.joinToString(" · ")
+}
+
+/** Previous page, Back, next page: the three buttons under every paginated screen. */
+@Composable
+fun PagerRow(canPrevious: Boolean, canNext: Boolean, onPage: (Int) -> Unit, onBack: () -> Unit) {
+    Row(Modifier.fillMaxWidth()) {
+        OutlinedButtonMMD(onClick = { onPage(-1) }, enabled = canPrevious, modifier = Modifier.weight(1f)) {
+            TextMMD("‹")
+        }
+        Spacer(Modifier.width(8.dp))
+        OutlinedButtonMMD(onClick = onBack, modifier = Modifier.weight(1.6f)) {
+            TextMMD(stringResource(R.string.back))
+        }
+        Spacer(Modifier.width(8.dp))
+        OutlinedButtonMMD(onClick = { onPage(1) }, enabled = canNext, modifier = Modifier.weight(1f)) {
+            TextMMD("›")
+        }
+    }
 }

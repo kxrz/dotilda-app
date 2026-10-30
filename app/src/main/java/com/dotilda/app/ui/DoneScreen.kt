@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,6 +25,7 @@ import com.mudita.mmd.components.buttons.ButtonMMD
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
 import java.time.YearMonth
+import kotlinx.coroutines.delay
 
 /** The day's dot, filled once, and Dotilda's brief word. */
 @Composable
@@ -31,11 +35,20 @@ fun DoneScreen(journal: Journal, onBack: () -> Unit) {
     val entry by remember { journal.entryOn(today) }.collectAsState(initial = null)
     val monthEntries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
 
+    // One discrete step, never a loop: Dotilda pushes her glasses up and smiles.
+    var pose by remember { mutableStateOf(Pose.Peering) }
+    LaunchedEffect(Unit) {
+        delay(700)
+        pose = Pose.Pleased
+    }
+
     Column(
         Modifier.fillMaxSize().padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.weight(1f))
+        DotildaMark(size = 56.dp, pose = pose)
+        Spacer(Modifier.height(20.dp))
         entry?.let { DayDot(it.dotShape(), size = 96.dp) }
         Spacer(Modifier.height(28.dp))
         TextMMD(

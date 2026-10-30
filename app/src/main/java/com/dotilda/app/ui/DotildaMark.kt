@@ -5,14 +5,33 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Dotilda's expressions. On e-ink she never moves smoothly: she changes pose in one step,
+ * which costs a single redraw, like turning a page.
+ */
+enum class Pose {
+    Neutral,
+
+    /** Glasses slid down her nose: she is asking. */
+    Peering,
+
+    /** Glasses askew, one lens up: a little mischief, for "another question". */
+    Curious,
+
+    /** A small smile: something was written. */
+    Pleased,
+}
+
 /** Dotilda herself: an ink dot with a bun and round glasses. Readable down to 16 dp. */
 @Composable
-fun DotildaMark(modifier: Modifier = Modifier, size: Dp = 48.dp) {
+fun DotildaMark(modifier: Modifier = Modifier, size: Dp = 48.dp, pose: Pose = Pose.Neutral) {
     Canvas(modifier.size(size)) {
         val w = this.size.minDimension
         val head = Offset(w * 0.5f, w * 0.6f)
@@ -21,14 +40,26 @@ fun DotildaMark(modifier: Modifier = Modifier, size: Dp = 48.dp) {
 
         val lens = w * 0.1f
         val gap = w * 0.125f
-        val stroke = Stroke(width = w * 0.04f)
-        drawCircle(Color.White, lens, Offset(head.x - gap, head.y), style = stroke)
-        drawCircle(Color.White, lens, Offset(head.x + gap, head.y), style = stroke)
-        drawLine(
-            Color.White,
-            Offset(head.x - gap + lens, head.y),
-            Offset(head.x + gap - lens, head.y),
-            strokeWidth = stroke.width,
-        )
+        val line = w * 0.04f
+        val drop = if (pose == Pose.Peering) w * 0.08f else 0f
+        val tilt = if (pose == Pose.Curious) w * 0.035f else 0f
+        val left = Offset(head.x - gap, head.y + drop + tilt)
+        val right = Offset(head.x + gap, head.y + drop - tilt)
+        drawCircle(Color.White, lens, left, style = Stroke(width = line))
+        drawCircle(Color.White, lens, right, style = Stroke(width = line))
+        drawLine(Color.White, left + Offset(lens, 0f), right - Offset(lens, 0f), strokeWidth = line)
+
+        if (pose == Pose.Pleased) {
+            val smile = w * 0.09f
+            drawArc(
+                Color.White,
+                startAngle = 20f,
+                sweepAngle = 140f,
+                useCenter = false,
+                topLeft = Offset(head.x - smile, head.y + w * 0.06f),
+                size = Size(smile * 2, smile * 1.4f),
+                style = Stroke(width = line, cap = StrokeCap.Round),
+            )
+        }
     }
 }

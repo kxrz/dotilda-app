@@ -1,0 +1,22 @@
+# Changelog
+
+Every user-visible change, and every change to how the app is built or released, is recorded
+here in the same commit. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);
+versions follow `appVersion` in `app/build.gradle.kts`.
+
+The release workflow publishes the section of the tagged version as the GitHub release notes
+(and in the update manifest the app reads), and refuses to release a version without one.
+
+## [0.3.0] - 2026-10-30
+
+### Added
+- One question a day, signed by Dotilda, from a bank of 229 questions.
+- Answer in a line, a word, three short lines, a tap between two choices, or the inner weather.
+- Change the question up to 3 times a day, then just tell the weather inside.
+- Mirror questions come back every 30 days and show what you wrote last time.
+- Each answer fills the day's dot. Read your days in the Notebook, see the year in the Galaxy.
+- The volume buttons turn the pages of the Notebook and the Galaxy.
+- A daily reminder at the time of your choice.
+- Dotilda changes pose: peering, curious, pleased.
+- Dotilda tells you herself when a new version is ready, and installs it from within the app.
+  Nothing about you is ever sent.

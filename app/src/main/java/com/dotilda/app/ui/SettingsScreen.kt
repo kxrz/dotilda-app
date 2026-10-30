@@ -1,5 +1,6 @@
 package com.dotilda.app.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,9 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.dotilda.app.BuildConfig
 import com.dotilda.app.R
 import com.dotilda.app.Reminder
 import com.dotilda.app.data.Prefs
+import com.dotilda.app.update.Updater
 import com.mudita.mmd.components.buttons.OutlinedButtonMMD
 import com.mudita.mmd.components.divider.HorizontalDividerMMD
 import com.mudita.mmd.components.switcher.SwitchMMD
@@ -31,7 +34,16 @@ import kotlinx.coroutines.launch
 private const val DAY_MINUTES = 24 * 60
 
 @Composable
-fun SettingsScreen(prefs: Prefs, onAbout: () -> Unit, onDiagnostics: () -> Unit, onBack: () -> Unit) {
+fun SettingsScreen(
+    prefs: Prefs,
+    latest: Updater.Release?,
+    checking: Boolean,
+    onCheck: () -> Unit,
+    onOpenUpdate: () -> Unit,
+    onAbout: () -> Unit,
+    onDiagnostics: () -> Unit,
+    onBack: () -> Unit,
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val settings by prefs.settings.collectAsState(initial = null)
@@ -70,10 +82,32 @@ fun SettingsScreen(prefs: Prefs, onAbout: () -> Unit, onDiagnostics: () -> Unit,
                 }
             }
         }
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(20.dp))
         HorizontalDividerMMD(thickness = 1.dp)
-        TextLink(stringResource(R.string.about), onAbout, Modifier.padding(top = 8.dp))
-        TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+        Spacer(Modifier.height(12.dp))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
+            SwitchMMD(
+                checked = s.checkUpdates,
+                onCheckedChange = { on ->
+                    scope.launch { prefs.setCheckUpdates(on) }
+                    if (on) onCheck()
+                },
+            )
+        }
+        val version = BuildConfig.VERSION_NAME
+        when {
+            checking -> TextMMD(stringResource(R.string.checking_updates), style = MaterialTheme.typography.bodySmall)
+            latest?.isNewer == true -> TextLink(stringResource(R.string.update_available, latest.version), onOpenUpdate)
+            latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
+            else -> TextLink(stringResource(R.string.check_now, version), onCheck)
+        }
+        Spacer(Modifier.height(8.dp))
+        HorizontalDividerMMD(thickness = 1.dp)
+        Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+            TextLink(stringResource(R.string.about), onAbout)
+            TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+        }
         Spacer(Modifier.weight(1f))
         ActionRow(back = stringResource(R.string.back), onBack = onBack)
     }

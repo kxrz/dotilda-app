@@ -24,4 +24,13 @@ interface EntryDao {
 
     @Query("SELECT * FROM entry WHERE date < :date ORDER BY date DESC, createdAt DESC LIMIT 1")
     suspend fun lastBefore(date: String): Entry?
+
+    @Query("SELECT * FROM entry WHERE questionId = :questionId AND date < :date ORDER BY date DESC LIMIT 1")
+    suspend fun previousAnswer(questionId: String, date: String): Entry?
+
+    @Query("SELECT * FROM entry ORDER BY date, createdAt")
+    fun all(): Flow<List<Entry>>
+
+    @Query("SELECT MIN(date) FROM entry")
+    suspend fun firstDate(): String?
 }

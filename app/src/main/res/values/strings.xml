@@ -19,7 +19,14 @@
     <string name="noted">Noted. One more dot in your sky.</string>
     <string name="see_you_tomorrow">See you tomorrow.</string>
 
+    <!-- Notebook and Galaxy -->
+    <string name="notebook">Notebook</string>
+    <string name="notebook_empty">Nothing written yet. Your first page is waiting on Today.</string>
+    <string name="galaxy">Galaxy</string>
+    <string name="galaxy_hint">Touch a dot to read that day.</string>
+
     <!-- Answer -->
+    <string name="mirror_previous">%1$d days ago, you wrote:</string>
     <string name="one_line_hint">A line is plenty</string>
     <string name="one_word_hint">One word</string>
     <string name="save">Save</string>
@@ -46,6 +53,23 @@
     <string name="about">About Dotilda</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="press_a_button">Press any hardware button</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Look for new versions</string>
+    <string name="checking_updates">Looking for a new version…</string>
+    <string name="up_to_date">Dotilda %1$s. Nothing new under the stars.</string>
+    <string name="check_now">Dotilda %1$s · Check now</string>
+    <string name="update_available">Dotilda %1$s is available</string>
+    <string name="update_ready">Psst. I have a new version for you.</string>
+    <string name="just_updated">Fresh ink. I\'m now version %1$s.</string>
+    <string name="update_intro">Here\'s what I\'ve been up to.</string>
+    <string name="update_title">Dotilda %1$s</string>
+    <string name="update_no_notes">A few improvements. Nothing alarming.</string>
+    <string name="update_now">Install</string>
+    <string name="downloading">Fetching it. One moment.</string>
+    <string name="allow_installs">Android wants your permission first. Allow it, then tap Install again.</string>
+    <string name="update_failed">That didn\'t work (%1$s). Shall we try again later?</string>
+    <string name="update_debug">Test builds don\'t update themselves: install the release APK.</string>
 
     <!-- Reminder -->
     <string name="reminder_channel">Daily question</string>

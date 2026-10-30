@@ -15,6 +15,7 @@ class QuestionPickerTest {
         Question("tt-1", QuestionType.THIS_OR_THAT, "d", options = listOf("A", "B")),
         Question("iw-1", QuestionType.INNER_WEATHER, "e"),
         Question("ph-1", QuestionType.PHOTO, "f"),
+        Question("mi-1", QuestionType.MIRROR, "g", mirrorGroup = "g"),
     )
 
     private fun yesterday(type: QuestionType, answer: Answer) =
@@ -25,8 +26,9 @@ class QuestionPickerTest {
         shown: List<String> = emptyList(),
         yesterday: Entry? = null,
         types: Set<QuestionType> = SUPPORTED_TYPES,
+        mirrorDue: Boolean = false,
         seed: Int,
-    ) = chooseQuestion(bank, recent, shown, yesterday, Random(seed), types)
+    ) = chooseQuestion(bank, recent, shown, yesterday, mirrorDue, Random(seed), types)
 
     @Test
     fun neverOffersUnsupportedFormats() {
@@ -55,13 +57,24 @@ class QuestionPickerTest {
 
     @Test
     fun prefersQuestionsNotAnsweredRecently() {
-        repeat(50) { assertEquals("ol-2", pick(recent = setOf("ol-1", "ow-1", "tt-1", "iw-1"), seed = it)!!.id) }
+        repeat(50) { assertEquals("ol-2", pick(recent = setOf("ol-1", "ow-1", "tt-1", "iw-1", "mi-1"), seed = it)!!.id) }
     }
 
     @Test
     fun fallsBackToRecentQuestionsRatherThanNothing() {
         val all = bank.map { it.id }.toSet()
         repeat(20) { assertTrue(pick(recent = all, seed = it) != null) }
+    }
+
+    @Test
+    fun offersAMirrorWhenDue() {
+        repeat(20) { assertEquals("mi-1", pick(mirrorDue = true, seed = it)!!.id) }
+    }
+
+    @Test
+    fun stormBeatsADueMirror() {
+        val y = yesterday(QuestionType.INNER_WEATHER, Answer.Weather(STORM))
+        repeat(20) { assertNotEquals(QuestionType.MIRROR, pick(yesterday = y, mirrorDue = true, seed = it)!!.type) }
     }
 
     @Test
@@ -74,5 +87,7 @@ class QuestionPickerTest {
     fun answerPayloadRoundTrips() {
         val entry = yesterday(QuestionType.THIS_OR_THAT, Answer.Choice(1, "Coffee"))
         assertEquals(Answer.Choice(1, "Coffee"), entry.answer())
+        val things = yesterday(QuestionType.THREE_THINGS, Answer.Things(listOf("a", "b", "c")))
+        assertEquals(Answer.Things(listOf("a", "b", "c")), things.answer())
     }
 }
