@@ -96,12 +96,16 @@ function drawSky() {
   const at = (m: number, d: number) => [(d - 1) * cell + cell / 2, m * cell + cell / 2];
   const shown = Math.round(sky.shown);
 
-  const journeyEnd = days.findIndex(x => x.m === 2 && x.d === 15);
-  if (journeyEnd >= 0 && shown > journeyEnd) {
+  // The journey's constellation: a fine thread through its days, behind the dots,
+  // reaching each day as it is inked.
+  const linked = journey.filter(d => { const i = days.findIndex(x => x.m === 2 && x.d === d); return i >= 0 && i < shown; });
+  if (linked.length > 1) {
+    const [x0, y] = at(2, linked[0]), [x1] = at(2, linked[linked.length - 1]);
     g.strokeStyle = ink;
-    g.lineWidth = 1;
+    g.lineWidth = Math.max(1, R * .3);
     g.beginPath();
-    journey.forEach((d, i) => { const [x, y] = at(2, d); i ? g.lineTo(x, y - R * 1.9) : g.moveTo(x, y - R * 1.9); });
+    g.moveTo(x0, y);
+    g.lineTo(x1, y);
     g.stroke();
   }
 
