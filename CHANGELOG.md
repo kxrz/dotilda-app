@@ -7,7 +7,7 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [0.3.0] - Unreleased
+## [0.3.0] - 2026-10-30
 
 ### Added
 - One question a day, signed by Dotilda, from a bank of 229 questions.
