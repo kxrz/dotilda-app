@@ -31,6 +31,9 @@
       "another": "Another question (2 left)"
     }
   },
+  "pause": {
+    "text": "Slow down. One small question, one line, and the rest of the day is yours again."
+  },
   "ritual": {
     "label": "The ritual · under two minutes",
     "title": "One question, at the hour you choose. Then nothing.",

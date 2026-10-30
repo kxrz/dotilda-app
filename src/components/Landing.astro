@@ -1,5 +1,6 @@
 ---
 import DotildaMark from './DotildaMark.astro';
+import Words from './Words.astro';
 import { locales, pathFor, t } from '../i18n';
 import lesWWW from '../assets/leswww-logo.svg?raw';
 
@@ -73,15 +74,20 @@ const glyphs: Record<string, string> = {
   </div>
 </div>
 
+<!-- A pause: one huge sentence, inked word by word as you scroll -->
+<section class="pause">
+  <p class="pause-text" data-pause><Words text={s.pause.text} /><DotildaMark pose="peering" class="pause-mark" /></p>
+</section>
+
 <!-- Interest -->
 <section id="ritual">
-  <div class="stack" data-reveal>
+  <div class="stack">
     <p class="label">{s.ritual.label}</p>
-    <h2>{s.ritual.title}</h2>
+    <h2 data-split><Words text={s.ritual.title} /></h2>
   </div>
   <div class="cols">
     {s.ritual.steps.map(step => (
-      <div class="step" data-reveal="step">
+      <div class="step" data-anim="step">
         <span class="rule" aria-hidden="true"></span>
         <span class="label">{step.label}</span>
         <h3>{step.title}</h3>
@@ -90,7 +96,7 @@ const glyphs: Record<string, string> = {
     ))}
   </div>
 
-  <div class="try" data-reveal>
+  <div class="try">
     <div class="try-head">
       <DotildaMark pose="peering" class="try-mark" />
       <p class="label">{s.try.label}</p>
@@ -103,13 +109,13 @@ const glyphs: Record<string, string> = {
   </div>
 
   <div class="shapes">
-    <div class="stack" data-reveal>
+    <div class="stack">
       <p class="label">{s.shapes.label}</p>
-      <h2>{s.shapes.title}</h2>
+      <h2 data-split><Words text={s.shapes.title} /></h2>
     </div>
     <ul class="formats">
       {s.shapes.formats.map(f => (
-        <li class="fmt" data-reveal="fmt">
+        <li class="fmt" data-anim="fmt">
           <svg viewBox="0 0 22 22" aria-hidden="true" set:html={glyphs[f.shape] ?? glyphs.full} />
           <b>{f.name}</b><span>{f.text}</span>
         </li>
@@ -121,14 +127,14 @@ const glyphs: Record<string, string> = {
 <!-- Desire -->
 <section id="sky">
   <div class="split">
-    <div class="stack" data-reveal>
+    <div class="stack">
       <p class="label">{s.sky.label} · <span id="skyYear">{new Date().getFullYear()}</span></p>
-      <h2>{s.sky.title}</h2>
+      <h2 data-split><Words text={s.sky.title} /></h2>
       <p class="lede">{s.sky.lede}</p>
     </div>
     <div class="quotes">
       {s.sky.quotes.map(q => (
-        <figure data-reveal="quote"><p class="voice">“{q.text}”</p><figcaption>{q.who}</figcaption></figure>
+        <figure data-anim="quote"><p class="voice">“{q.text}”</p><figcaption>{q.who}</figcaption></figure>
       ))}
     </div>
   </div>
@@ -145,21 +151,21 @@ const glyphs: Record<string, string> = {
   </figure>
 
   <ul class="promises">
-    {s.promises.map(p => <li data-reveal="promise"><b>{p.title}</b><span>{p.text}</span></li>)}
+    {s.promises.map(p => <li data-anim="promise"><b>{p.title}</b><span>{p.text}</span></li>)}
   </ul>
 </section>
 
 <!-- Action -->
 <section id="get">
   <div class="get">
-    <div class="stack" data-reveal>
+    <div class="stack">
       <p class="label">{s.get.label}</p>
-      <h2>{s.get.title}</h2>
+      <h2 data-split><Words text={s.get.title} /></h2>
     </div>
     <ol class="how">
-      {s.get.steps.map(step => <li data-reveal="how"><div><b>{step.title}</b><br><span>{step.text}</span></div></li>)}
+      {s.get.steps.map(step => <li data-anim="how"><div><b>{step.title}</b><br><span>{step.text}</span></div></li>)}
     </ol>
-    <div class="actions" data-reveal>
+    <div class="actions" data-anim="actions">
       <a class="btn solid" id="dl" href={`${repo}/releases/latest/download/dotilda.apk`}>{s.get.download}</a>
       <a class="btn" href={repo}>{s.get.source}</a>
       <a class="quiet-link" id="changes" href={`${repo}/releases/latest`}>{s.get.changes}</a>

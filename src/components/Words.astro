@@ -1,0 +1,7 @@
+---
+// Text split into words, each in a mask, so headings can rise word by word.
+// Screen readers get the sentence whole.
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<span class="sr-only">{text}</span><span aria-hidden="true">{text.split(' ').map(w => <><span class="w"><span class="wi">{w}</span></span>{' '}</>)}</span>

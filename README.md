@@ -50,9 +50,21 @@ Fonts ship with the Latin subset only; a language in another script needs its su
 
 ## Motion
 
-Slow, short and rare, in the spirit of e-ink: the hero settles in, the Kompakt does a full
-refresh before showing its page, sections rise as they appear, and the year of dots inks in
-day by day as you scroll. Dotilda changes pose in one step, as in the app, never with a tween.
+Slow and varied, each gesture borrowed from e-ink or from the app, never a plain fade everywhere:
+
+| Where | What moves |
+| --- | --- |
+| Hero | The title settles word by word; the Kompakt does a full refresh (ink, white, page). |
+| Pause | One huge sentence, pinned while you scroll, inks in word by word; Dotilda smiles at the end. |
+| Labels | Typed one character at a time, in their monospace. |
+| Headings | Rise word by word out of a mask (`components/Words.astro`). |
+| Ritual | Each rule is drawn, then its step is refreshed top to bottom. |
+| Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
+| Formats | Each dot is stamped, then named. |
+| Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
+| Get Dotilda | Steps slide in from their numbers. |
+
+Dotilda changes pose in one step, as in the app, never with a tween.
 
 People who ask for reduced motion get the complete page, still. `public/motion.js` hides the
 animated elements before first paint only for everyone else, and shows them again after two

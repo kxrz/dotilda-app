@@ -180,3 +180,14 @@ footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
 /* Set by public/motion.js before first paint, so nothing GSAP reveals flashes in first. */
 .motion [data-reveal],.motion [data-hero-title] .w{visibility:hidden}
 .w{display:inline-block}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Headings rise word by word out of a mask (components/Words.astro). */
+[data-split] .w{overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+[data-split] .wi{display:inline-block}
+
+/* The pause: one huge sentence between the hero and the ritual, inked as you scroll. */
+.pause{min-height:100svh;display:grid;align-content:center;border-top:0}
+.pause-text{font-family:var(--display);font-size:clamp(2.6rem,8.4vw,7.4rem);line-height:1.02;letter-spacing:-.015em;text-wrap:balance;max-width:16ch}
+.pause-text .w{padding-bottom:.08em}
+.pause-mark{display:inline-block;width:.62em;height:.62em;margin-left:.08em;vertical-align:-.04em}

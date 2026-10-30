@@ -166,25 +166,61 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .set('.screen > :not(.flash)', { autoAlpha: 1 })
     .from('#monthLine i', { autoAlpha: 0, duration: .01, stagger: .035 }, '+=.1');
 
-  // Sections: a gentle rise as they come into view, once.
-  const rise = (targets: string | HTMLElement[], vars: gsap.TweenVars = {}) =>
-    gsap.utils.toArray<HTMLElement>(targets).forEach(el =>
-      gsap.from(el, { autoAlpha: 0, y: 18, ...calm, ...vars, scrollTrigger: { trigger: el, start: 'top 88%', once: true } }));
+  const onEnter = (trigger: gsap.DOMTarget, start = 'top 85%') => ({ trigger, start, once: true });
 
-  rise('section [data-reveal]:not([data-reveal="step"]):not([data-reveal="fmt"]):not([data-reveal="quote"]):not([data-reveal="promise"]):not([data-reveal="how"])');
+  // The pause: the sentence is pinned while you scroll, and inks in word by word, from pale
+  // grey to black. When it is complete, Dotilda pushes her glasses up (one step, as in the app).
+  const pauseMark = $('.pause-mark');
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '.pause', start: 'top top', end: '+=140%', pin: true, scrub: 1,
+      onUpdate: st => { pauseMark.dataset.pose = st.progress > .97 ? 'pleased' : 'peering'; },
+    },
+  })
+    .from('.pause .wi', { opacity: .12, stagger: .5, duration: 1, ease: 'none' })
+    .from(pauseMark, { opacity: .12, duration: 1, ease: 'none' });
 
-  for (const [selector, stagger] of [['step', .18], ['fmt', .07], ['quote', .25], ['promise', .08], ['how', .15]] as const) {
-    const items = $$(`[data-reveal="${selector}"]`);
-    if (!items.length) continue;
-    gsap.from(items, {
-      autoAlpha: 0, y: 16, ...calm, stagger,
-      scrollTrigger: { trigger: items[0], start: 'top 88%', once: true },
-    });
-  }
-  gsap.from('.step .rule', {
-    scaleX: 0, transformOrigin: 'left center', duration: 1.4, ease: 'power3.inOut', stagger: .18,
-    scrollTrigger: { trigger: '.cols', start: 'top 88%', once: true },
+  // Section labels are typed, in their monospace, one character at a time.
+  $$('section .stack > .label').forEach(label => gsap.from(label, {
+    clipPath: 'inset(0 100% 0 0)', duration: .9, ease: `steps(${label.textContent!.length})`,
+    scrollTrigger: onEnter(label, 'top 90%'),
+  }));
+
+  // Headings rise word by word out of their mask; the text under them settles after.
+  $$('[data-split]').forEach(h => {
+    gsap.from(h.querySelectorAll('.wi'), { yPercent: 105, duration: 1.2, ease: 'power3.out', stagger: .05, scrollTrigger: onEnter(h) });
+    const lede = h.parentElement!.querySelector('.lede');
+    if (lede) gsap.from(lede, { autoAlpha: 0, y: 12, ...calm, delay: .5, scrollTrigger: onEnter(h) });
   });
+
+  // Ritual: each rule is drawn, then its step is refreshed top to bottom, like an e-ink page.
+  gsap.timeline({ scrollTrigger: onEnter('.cols') })
+    .from('.step .rule', { scaleX: 0, transformOrigin: 'left center', duration: 1.2, ease: 'power3.inOut', stagger: .2 })
+    .from('.step > :not(.rule)', { clipPath: 'inset(0 0 100% 0)', duration: .7, ease: 'power2.inOut', stagger: .08 }, '-=.9');
+
+  // Try one: the box arrives with a full e-ink refresh, a blink of ink then the page.
+  gsap.timeline({ scrollTrigger: onEnter('.try') })
+    .from('.try', { autoAlpha: 0, duration: .01 })
+    .set('.try', { filter: 'invert(1)' }, '+=.05')
+    .set('.try', { filter: 'none' }, '+=.1');
+
+  // Formats: each dot is stamped, then its name appears beside it.
+  gsap.timeline({ scrollTrigger: onEnter('.formats') })
+    .from('.fmt svg', { scale: 0, transformOrigin: '50% 50%', duration: .6, ease: 'back.out(2.2)', stagger: .09 })
+    .from('.fmt b, .fmt span', { autoAlpha: 0, x: -8, ...calm, duration: .8, stagger: .04 }, '<+=.15');
+
+  // Dotilda's lines are written out, left to right, one after the other.
+  $$('[data-anim="quote"]').forEach((q, i) => gsap.timeline({ scrollTrigger: onEnter('.quotes', 'top 80%'), delay: i * 1.1 })
+    .from(q.querySelector('.voice'), { clipPath: 'inset(0 100% 0 0)', duration: 1.4, ease: 'power1.inOut' })
+    .from(q.querySelector('figcaption'), { autoAlpha: 0, duration: .6 }, '-=.3'));
+
+  // Promises settle quietly, the only plain fade on the page.
+  gsap.from('[data-anim="promise"]', { autoAlpha: 0, y: 14, ...calm, stagger: .08, scrollTrigger: onEnter('.promises') });
+
+  // Get Dotilda: the steps slide in from their numbers, then the buttons.
+  gsap.timeline({ scrollTrigger: onEnter('.how') })
+    .from('[data-anim="how"]', { autoAlpha: 0, x: -16, ...calm, stagger: .15 })
+    .from('[data-anim="actions"]', { autoAlpha: 0, y: 10, ...calm }, '-=.6');
 
   // The year inks in with the scroll, day after day.
   sky.shown = 0;
