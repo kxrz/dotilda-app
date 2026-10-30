@@ -11,7 +11,7 @@ no merge, no rebase, no deletion. It is maintained separately.
 
 ## Stack
 Kotlin, Jetpack Compose, Mudita Mindful Design (`com.mudita:MMD`, https://github.com/mudita/MMD),
-Room, DataStore, CameraX, AlarmManager. The only network access is the in-app update
+Room, DataStore, AlarmManager; photos come from the system camera app (TakePicture). The only network access is the in-app update
 (`update/Updater.kt`, same mechanism as the readme.club app): it reads the release manifest
 and downloads the APK from GitHub Releases, sends nothing about the user, and can be turned off.
 
@@ -40,7 +40,10 @@ over plain Material 3 ones.
   consumed only on paginated screens. The back key under the screen is `KEYCODE_BACK` (4).
 
 ## Content
-Questions live in `app/src/main/assets/questions.json` (journeys will go in `journeys.json`).
+Questions live in `app/src/main/assets/questions.json`, journeys in `journeys.json` (their
+questions are synced into the bank with their `journeyId` and never drawn outside the journey).
+Journey state, constellations and opened letters live in DataStore: no schema change so far,
+so users' databases need no migration.
 Target: more than 200 questions so the user never feels they are going round in circles.
 UI copy is English, in `res/values/strings.xml` so other languages can be added later.
 Keep it short and warm. "Dotilda" (capital D) is both the app and the guide character who

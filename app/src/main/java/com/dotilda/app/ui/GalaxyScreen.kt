@@ -67,7 +67,7 @@ fun GalaxyScreen(journal: Journal, onOpenDay: (LocalDate) -> Unit, onOpenMonth: 
         Spacer(Modifier.height(8.dp))
         TextMMD(
             if (constellations.isEmpty()) stringResource(R.string.galaxy_hint)
-            else stringResource(R.string.galaxy_constellations, constellations.joinToString(", ") { it.name }),
+            else stringResource(R.string.galaxy_constellations, constellations.map { it.name }.distinct().joinToString(", ")),
             style = MaterialTheme.typography.labelSmall,
         )
         Spacer(Modifier.height(12.dp))

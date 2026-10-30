@@ -76,7 +76,7 @@ Trois boucles imbriquées : les points récompensent la régularité, les parcou
 **Les parcours (boucle hebdomadaire)**
 
 - Des séries thématiques de 5 à 10 questions, une par jour : "7 days to slow down", "Gratitude", "Season review", "Unplugged".
-- Chaque parcours terminé **relie ses jours par des traits fins : une constellation, nommée d'après le parcours, s'ajoute à la galaxie**.
+- Chaque parcours terminé devient **une constellation, nommée d'après le parcours** : ses jours s'allument en étoiles (quatre petits rayons autour du point), sans aucun trait entre eux, et son nom s'affiche sous la galaxie.
 - Un seul parcours actif à la fois ; hors parcours, la question du jour vient de la banque générale.
 
 **Les bilans (boucles longues)**
@@ -180,7 +180,7 @@ En parallèle des sprints 1 et 2 : rédaction de la banque complète (plus de 20
    - Fait quand : chaque entrée remplit le bon point avec la bonne forme, et les jours vides restent discrets.
 4. ✅ **Sprint 3, spira et sauvegarde** (v0.4.0) : module spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
    - Fait quand : restauration complète d'un journal sur un second appareil.
-5. **Sprint 4, profondeur** : parcours et constellations, bilan mensuel, Photo of the day avec tramage, Letter to future me.
+5. ✅ **Sprint 4, profondeur** (v0.5.0) : parcours et constellations, bilan mensuel, Photo of the day avec tramage, Letter to future me.
    - Fait quand : un parcours de 7 jours se termine en traçant sa constellation.
 6. **Sprint 5, recul** : bilans de saison, export EPUB annuel, styles de points et de galaxie.
    - Fait quand : l'EPUB généré s'ouvre proprement dans KOReader.
