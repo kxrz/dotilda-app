@@ -159,8 +159,16 @@ class ScreensTest {
     }
 
     /** Ten months of journal: most days answered, a Mirror each month, today open on [question]. */
-    private fun seed(question: String) = runBlocking {
-        app.bankReady.await()
+    private fun seed(question: String) {
+        // The bank loads on the main thread, which is this test's thread: let its looper run.
+        while (!app.bankReady.isCompleted) {
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+        }
+        runBlocking { seedJournal(question) }
+    }
+
+    private suspend fun seedJournal(question: String) {
         app.prefs.setWelcomed()
         val bank = app.db.questionDao().all()
         val byType = bank.groupBy { it.type }
