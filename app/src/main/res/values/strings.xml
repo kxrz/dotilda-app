@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Dotilda</string>
+    <!-- The character, also in test builds (whose app name is "Dotilda dev"). -->
+    <string name="dotilda">Dotilda</string>
 
     <!-- Welcome -->
     <string name="welcome_tagline">A question a day, a dot in your sky.</string>
     <string name="welcome_1">Every day, I ask you one small question. A line, a word or a tap is enough.</string>
     <string name="welcome_2">Each answer adds a dot to your sky. Miss a day? Nothing breaks. Your sky keeps your place.</string>
-    <string name="welcome_3">Everything stays on this phone. No account, no network.</string>
+    <string name="welcome_3">Everything stays on this phone. No account, and nothing about you ever leaves it.</string>
     <string name="begin">Begin</string>
 
     <!-- Today -->

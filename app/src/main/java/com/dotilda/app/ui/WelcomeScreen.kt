@@ -28,7 +28,7 @@ fun WelcomeScreen(button: String, onContinue: () -> Unit) {
         Spacer(Modifier.weight(0.6f))
         DotildaMark(size = 88.dp)
         Spacer(Modifier.height(16.dp))
-        TextMMD(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineLarge)
+        TextMMD(stringResource(R.string.dotilda), style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.height(4.dp))
         TextMMD(stringResource(R.string.welcome_tagline), style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.height(28.dp))
