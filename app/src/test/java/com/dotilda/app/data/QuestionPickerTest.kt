@@ -91,3 +91,17 @@ class QuestionPickerTest {
         assertEquals(Answer.Things(listOf("a", "b", "c")), things.answer())
     }
 }
+
+class BackupTest {
+    private fun entry(date: String, q: String, at: Long) =
+        Entry(id = 7, date = date, questionId = q, type = QuestionType.ONE_WORD, payload = Answer.Word("w").toPayload(), createdAt = at)
+
+    @Test
+    fun importSkipsEntriesAlreadyThere() {
+        val existing = listOf(entry("2026-10-01", "ow-1", 1))
+        val incoming = listOf(entry("2026-10-01", "ow-1", 1), entry("2026-10-02", "ow-2", 2), entry("2026-10-02", "ow-2", 2))
+        val fresh = newEntries(existing, incoming)
+        assertEquals(listOf("ow-2"), fresh.map { it.questionId })
+        assertEquals(0L, fresh.single().id)
+    }
+}

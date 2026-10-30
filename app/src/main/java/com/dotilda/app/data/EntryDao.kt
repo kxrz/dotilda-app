@@ -10,6 +10,12 @@ interface EntryDao {
     @Insert
     suspend fun insert(entry: Entry): Long
 
+    @Insert
+    suspend fun insertAll(entries: List<Entry>)
+
+    @Query("SELECT * FROM entry ORDER BY date, createdAt")
+    suspend fun allNow(): List<Entry>
+
     @Query("SELECT * FROM entry WHERE date = :date ORDER BY createdAt LIMIT 1")
     fun firstOn(date: String): Flow<Entry?>
 

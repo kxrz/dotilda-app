@@ -47,12 +47,56 @@
         <item>Thunder about. Tea is advised.</item>
     </string-array>
 
+    <!-- Onboarding -->
+    <string name="setup_question">When shall I come by?</string>
+    <string name="setup_hint">One gentle reminder a day, at the hour you like. Never more.</string>
+    <string name="setup_remind_me">Remind me at this time</string>
+    <string name="setup_no_reminder">No reminder, I\'ll come myself</string>
+
+    <!-- spira -->
+    <string name="spira">spira</string>
+    <string name="spira_breathe">Breathe</string>
+    <string name="spira_timer">Timer</string>
+    <string name="spira_stopwatch">Stopwatch</string>
+    <string name="breathe_first">Breathe first</string>
+    <string name="breathe_ready">One minute. In for four, out for six.</string>
+    <string name="breathe_in">Breathe in · %1$d / %2$d</string>
+    <string name="breathe_out">Breathe out · %1$d / %2$d</string>
+    <string name="breathe_done">That\'s a minute. Well breathed.</string>
+    <string name="breathe_start">Begin</string>
+    <string name="breathe_again">Once more</string>
+    <string name="breathe_write">Now, let\'s write</string>
+    <string name="timer_minutes">%1$d min</string>
+    <string name="timer_left">%1$d min left</string>
+    <string name="timer_rings_at">Rings at %1$s, even with the screen off.</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_cancel">Cancel the timer</string>
+    <string name="spira_timer_channel">spira timer</string>
+    <string name="spira_timer_done">Time\'s up.</string>
+    <string name="stopwatch_fast">Show the seconds</string>
+    <string name="stopwatch_lap">Lap %1$d · %2$s</string>
+    <string name="stopwatch_lap_button">Lap</string>
+    <string name="stopwatch_reset">Reset</string>
+    <string name="stopwatch_start">Start</string>
+    <string name="stopwatch_stop">Stop</string>
+
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="daily_reminder">Daily reminder</string>
     <string name="about">About Dotilda</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="press_a_button">Press any hardware button</string>
+
+    <!-- Backup -->
+    <string name="backup_export">Export journal</string>
+    <string name="backup_import">Import</string>
+    <string name="backup_exported">Saved. Keep it somewhere safe.</string>
+    <string name="backup_failed">That didn\'t work (%1$s).</string>
+    <string name="backup_no_picker">This device has no file picker for me to use.</string>
+    <plurals name="backup_imported">
+        <item quantity="one">%1$d page added to your journal.</item>
+        <item quantity="other">%1$d pages added to your journal.</item>
+    </plurals>
 
     <!-- Updates -->
     <string name="check_updates">Look for new versions</string>

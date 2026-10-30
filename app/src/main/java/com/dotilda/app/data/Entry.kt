@@ -9,6 +9,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /** One answer. The first entry of a day gives that day's dot its shape. */
+@Serializable
 @Entity(tableName = "entry")
 data class Entry(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,

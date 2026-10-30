@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -38,6 +39,7 @@ class Prefs(private val context: Context) {
         val reminderMinutes = intPreferencesKey("reminder_minutes")
         val checkUpdates = booleanPreferencesKey("check_updates")
         val lastVersion = stringPreferencesKey("last_version")
+        val timerEnd = longPreferencesKey("timer_end")
         val dayDate = stringPreferencesKey("day_date")
         val dayQuestion = stringPreferencesKey("day_question")
         val dayShown = stringPreferencesKey("day_shown")
@@ -72,6 +74,13 @@ class Prefs(private val context: Context) {
             it[Keys.lastVersion] = version
         }
         return previous
+    }
+
+    /** When the spira timer ends (epoch millis), or null when none is running. */
+    val timerEnd: Flow<Long?> = context.dataStore.data.map { it[Keys.timerEnd] }
+
+    suspend fun setTimerEnd(at: Long?) {
+        context.dataStore.edit { if (at != null) it[Keys.timerEnd] = at else it.remove(Keys.timerEnd) }
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {
