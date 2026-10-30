@@ -60,6 +60,8 @@ class ScreensTest {
 
     @Test
     fun onboarding() {
+        awaitBank()
+        runBlocking { app.prefs.settingsNow() }
         launch()
         waitFor("Begin")
         shot("01-welcome")
@@ -160,12 +162,16 @@ class ScreensTest {
 
     /** Ten months of journal: most days answered, a Mirror each month, today open on [question]. */
     private fun seed(question: String) {
-        // The bank loads on the main thread, which is this test's thread: let its looper run.
+        awaitBank()
+        runBlocking { seedJournal(question) }
+    }
+
+    /** The bank loads on the main thread, which is this test's thread: let its looper run. */
+    private fun awaitBank() {
         while (!app.bankReady.isCompleted) {
             ShadowLooper.idleMainLooper()
             Thread.sleep(10)
         }
-        runBlocking { seedJournal(question) }
     }
 
     private suspend fun seedJournal(question: String) {
