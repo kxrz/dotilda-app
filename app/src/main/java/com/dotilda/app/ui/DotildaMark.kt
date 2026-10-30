@@ -22,7 +22,7 @@ enum class Pose {
     /** Glasses slid down her nose: she is asking. */
     Peering,
 
-    /** Glasses askew, one lens up: a little mischief, for "another question". */
+    /** Glancing aside over her glasses: a little mischief, for "another question". */
     Curious,
 
     /** A small smile: something was written. */
@@ -42,9 +42,10 @@ fun DotildaMark(modifier: Modifier = Modifier, size: Dp = 48.dp, pose: Pose = Po
         val gap = w * 0.125f
         val line = w * 0.04f
         val drop = if (pose == Pose.Peering) w * 0.08f else 0f
-        val tilt = if (pose == Pose.Curious) w * 0.035f else 0f
-        val left = Offset(head.x - gap, head.y + drop + tilt)
-        val right = Offset(head.x + gap, head.y + drop - tilt)
+        // Shifted sideways rather than tilted: tilted lenses read as "∞" at small sizes.
+        val glance = if (pose == Pose.Curious) Offset(w * 0.06f, -w * 0.03f) else Offset.Zero
+        val left = Offset(head.x - gap, head.y + drop) + glance
+        val right = Offset(head.x + gap, head.y + drop) + glance
         drawCircle(Color.White, lens, left, style = Stroke(width = line))
         drawCircle(Color.White, lens, right, style = Stroke(width = line))
         drawLine(Color.White, left + Offset(lens, 0f), right - Offset(lens, 0f), strokeWidth = line)

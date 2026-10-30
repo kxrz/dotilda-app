@@ -6,6 +6,9 @@ Secondary: Android 11+ e-readers. minSdk 30. Application id: `com.dotilda.app`.
 
 Full product spec (French): `docs/spec.md`.
 
+**Never touch the `website` branch** (the dotilda.com site, deployed by Vercel): no commit,
+no merge, no rebase, no deletion. It is maintained separately.
+
 ## Stack
 Kotlin, Jetpack Compose, Mudita Mindful Design (`com.mudita:MMD`, https://github.com/mudita/MMD),
 Room, DataStore, CameraX, AlarmManager. The only network access is the in-app update
@@ -26,6 +29,7 @@ over plain Material 3 ones.
 - Never punish missed days: no streak counters, no red states.
 - All user data stays local. Export/import must always work.
 - The dot galaxy is drawn with Compose Canvas, redrawn once per entry, never animated.
+  Dots stay free: never link a full week or month with a line (no streak in disguise).
 - Photos are dithered (Floyd-Steinberg, 4 grays) before saving.
 - One interaction per day; "Another question" at most 3 times a day, then only the
   inner weather is offered.
@@ -52,6 +56,15 @@ Releasing: bump `appVersion` in `app/build.gradle.kts`, add its section to `CHAN
 run the workflow by hand on main. The release job signs the APK with the key from the repo
 secrets and publishes `dotilda.apk` + `manifest.json`, which the app's updater reads.
 A tag with a dash (`v0.4.0-rc1`) is a pre-release the updater ignores.
+
+## Screenshots
+`app/src/test/java/com/dotilda/app/screens/ScreensTest.kt` tours every screen at the Kompakt's
+size (Robolectric + Roborazzi). The Screenshots workflow pushes the PNGs to `screenshots/<branch>`:
+look at them before and after any visual change.
+
+## Room schema
+`ksp` writes the schema to `app/schemas/` on a local build: commit it, every schema change
+needs a migration from the first public release on.
 
 ## Definition of done per sprint
 Installs via Mudita Center, runs on the test Kompakt, no crash over a full day of use,

@@ -27,7 +27,8 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew testDebugUnitTest assembleDebug
+      # The screenshot tests run in their own workflow.
+      - run: ./gradlew testDebugUnitTest --tests "com.dotilda.app.data.*" --tests "com.dotilda.app.update.*" assembleDebug
       - name: APK size
         run: ls -l app/build/outputs/apk/debug/*.apk
       - uses: actions/upload-artifact@v4
@@ -67,7 +68,7 @@ jobs:
           RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         run: |
-          ./gradlew testReleaseUnitTest assembleRelease
+          ./gradlew testReleaseUnitTest --tests "com.dotilda.app.data.*" --tests "com.dotilda.app.update.*" assembleRelease
           cp app/build/outputs/apk/release/app-release.apk dotilda.apk
           cp dotilda.apk "dotilda-${TAG#v}.apk"
           # Release notes come from CHANGELOG.md; no section for this version = no release.

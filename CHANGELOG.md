@@ -7,7 +7,7 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [0.4.0] - Unreleased
+## [0.4.0] - 2026-10-30
 
 ### Added
 - spira: a breathing minute (in for four, out for six, with a light tap at each step), a timer
@@ -17,6 +17,11 @@ The release workflow publishes the section of the tagged version as the GitHub r
   first question straight away.
 
 ### Changed
+- Clearer dots: the inner weather now reads like the real moon (full, gibbous, half, crescent,
+  new), dots have room around them so a run of days never turns into a bar, and today is marked
+  by a small caret instead of an empty ring.
+- An airier welcome page: three short promises, each led by a dot.
+- In the Galaxy, the buttons name the year they lead to.
 - The app is much lighter to download: about 3 MB instead of 22 MB (code and resources are now shrunk).
 
 ## [0.3.0] - 2026-10-30

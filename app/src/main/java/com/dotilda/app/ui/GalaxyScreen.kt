@@ -61,7 +61,14 @@ fun GalaxyScreen(journal: Journal, onOpenDay: (LocalDate) -> Unit, onBack: () ->
         Spacer(Modifier.height(8.dp))
         TextMMD(stringResource(R.string.galaxy_hint), style = MaterialTheme.typography.labelSmall)
         Spacer(Modifier.height(12.dp))
-        PagerRow(canPrevious = year > firstYear, canNext = year < today.year, onPage = turn, onBack = onBack)
+        PagerRow(
+            canPrevious = year > firstYear,
+            canNext = year < today.year,
+            onPage = turn,
+            onBack = onBack,
+            previous = if (year > firstYear) "‹ ${year - 1}" else "‹",
+            next = if (year < today.year) "${year + 1} ›" else "›",
+        )
     }
 }
 
@@ -91,7 +98,7 @@ private fun YearGrid(year: Int, entries: List<Entry>, today: LocalDate, onOpenDa
         val label = LABEL_WIDTH.toPx()
         val cell = (size.width - label) / 31
         val row = size.height / 12
-        val radius = minOf(cell, row) * 0.4f
+        val radius = minOf(cell, row) * DOT_FILL
         for (m in 1..12) {
             val month = Month.of(m)
             val y = row * (m - 0.5f)
@@ -102,11 +109,8 @@ private fun YearGrid(year: Int, entries: List<Entry>, today: LocalDate, onOpenDa
                 if (date.isAfter(today)) break
                 val center = Offset(label + cell * (d - 0.5f), y)
                 val shape = shapes[date.toString()]
-                when {
-                    shape != null -> drawDot(shape, center, radius)
-                    date == today -> drawOpenDot(center, radius)
-                    else -> drawRestDot(center, radius)
-                }
+                if (shape != null) drawDot(shape, center, radius) else drawRestDot(center, radius)
+                if (date == today) drawTodayMark(center, radius, below = radius + 2.dp.toPx())
             }
         }
     }

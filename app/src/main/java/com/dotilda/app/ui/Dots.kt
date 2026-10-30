@@ -12,8 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.clipPath
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.PathOperation
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.data.Answer
@@ -30,7 +30,10 @@ private val Faint = Color(0xFF9E9E9E)
 sealed interface DotShape {
     data object Full : DotShape
 
-    /** Inner weather as a moon phase: 0 (sunny) is a full dot, 4 (stormy) a bare ring. */
+    /**
+     * Inner weather as a moon phase, read like the real sky: 0 (sunny) a full moon,
+     * 1 gibbous, 2 a half moon, 3 a crescent, 4 (stormy) a new moon, only its outline.
+     */
     data class Moon(val level: Int) : DotShape
 
     /** Mirror: a dot inside a ring, looking back at itself. */
@@ -45,33 +48,55 @@ fun Entry.dotShape(): DotShape = when {
     }
 }
 
+/** Share of the cell a dot's radius takes: small enough that neighbours never touch. */
+const val DOT_FILL = 0.3f
+
 fun DrawScope.drawDot(shape: DotShape, center: Offset, radius: Float) {
+    val outline = Stroke(width = maxOf(1f, radius * 0.22f))
+    val disc = Path().apply { addOval(Rect(center, radius)) }
     when (shape) {
         DotShape.Full -> drawCircle(Ink, radius, center)
-        is DotShape.Moon -> {
-            val lit = 1f - shape.level / 4f
-            val circle = Path().apply { addOval(Rect(center, radius)) }
-            clipPath(circle) {
-                drawRect(Ink, topLeft = Offset(center.x - radius, center.y - radius),
-                    size = Size(2 * radius * lit, 2 * radius))
-            }
-            drawCircle(Ink, radius - radius * 0.1f, center, style = Stroke(width = radius * 0.2f))
-        }
         DotShape.Double -> {
-            drawCircle(Ink, radius - radius * 0.1f, center, style = Stroke(width = radius * 0.2f))
-            drawCircle(Ink, radius * 0.45f, center)
+            drawCircle(Ink, radius - outline.width / 2, center, style = outline)
+            drawCircle(Ink, radius * 0.42f, center)
+        }
+        is DotShape.Moon -> {
+            when (shape.level) {
+                0 -> drawPath(disc, Ink)
+                // The lit part is the disc minus a "shadow" disc, further away for a fuller moon.
+                1 -> drawPath(disc - shadow(center, radius, 1.45f), Ink)
+                2 -> clipRect(right = center.x) { drawPath(disc, Ink) }
+                3 -> drawPath(disc - shadow(center, radius, 0.55f), Ink)
+                else -> Unit
+            }
+            drawCircle(Ink, radius - outline.width / 2, center, style = outline)
         }
     }
 }
 
+private fun shadow(center: Offset, radius: Float, shift: Float) =
+    Path().apply { addOval(Rect(Offset(center.x + radius * shift, center.y), radius)) }
+
+private operator fun Path.minus(other: Path): Path = Path().also { it.op(this, other, PathOperation.Difference) }
+
 /** A day with no entry: a tiny grey dot, a breath in the grid, never a hole. */
 fun DrawScope.drawRestDot(center: Offset, radius: Float) {
-    drawCircle(Faint, radius * 0.3f, center)
+    drawCircle(Faint, radius * 0.35f, center)
 }
 
-/** Today, still open: an empty ring. */
-fun DrawScope.drawOpenDot(center: Offset, radius: Float) {
-    drawCircle(Ink, radius - radius * 0.1f, center, style = Stroke(width = radius * 0.2f))
+/** "Today" is marked under its dot by a small caret, so no dot shape has to mean it. */
+fun DrawScope.drawTodayMark(center: Offset, radius: Float, below: Float) {
+    val y = center.y + below
+    val w = maxOf(radius * 0.9f, 3f)
+    drawPath(
+        Path().apply {
+            moveTo(center.x, y)
+            lineTo(center.x - w, y + w * 1.2f)
+            lineTo(center.x + w, y + w * 1.2f)
+            close()
+        },
+        Ink,
+    )
 }
 
 @Composable
@@ -85,19 +110,17 @@ fun DayDot(shape: DotShape, modifier: Modifier = Modifier, size: Dp = 72.dp) {
 @Composable
 fun MonthLine(month: YearMonth, entries: List<Entry>, today: LocalDate, modifier: Modifier = Modifier) {
     val shapes = entries.groupBy { it.date }.mapValues { it.value.first().dotShape() }
-    Canvas(modifier.fillMaxWidth().height(14.dp)) {
+    Canvas(modifier.fillMaxWidth().height(22.dp)) {
         val cell = size.width / 31
-        val radius = minOf(cell, size.height) * 0.4f
+        val radius = cell * 0.36f
+        val y = radius + 1f
         for (day in 1..month.lengthOfMonth()) {
             val date = month.atDay(day)
             if (date.isAfter(today)) break
-            val center = Offset(cell * (day - 0.5f), size.height / 2)
+            val center = Offset(cell * (day - 0.5f), y)
             val shape = shapes[date.toString()]
-            when {
-                shape != null -> drawDot(shape, center, radius)
-                date == today -> drawOpenDot(center, radius)
-                else -> drawRestDot(center, radius)
-            }
+            if (shape != null) drawDot(shape, center, radius) else drawRestDot(center, radius)
+            if (date == today) drawTodayMark(center, radius, below = radius + 3.dp.toPx())
         }
     }
 }
