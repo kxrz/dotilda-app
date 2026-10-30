@@ -130,12 +130,13 @@ function noted() {
   if (root.classList.contains('motion')) {
     gsap.timeline()
       .to(askQ, { autoAlpha: 0, y: -10, duration: .3, ease: 'power1.in' })
-      .call(() => { askQ.textContent = data.hero.noted; })
+      .call(() => { askQ.textContent = data.hero.noted; ScrollTrigger.refresh(); })
       .fromTo(askQ, { y: 14 }, { autoAlpha: 1, y: 0, duration: .9, ease: 'power3.out' })
       .from(askNote, { autoAlpha: 0, duration: .6 }, '-=.4');
     gsap.to(heroSky, { ring: 1, duration: 1.4, ease: 'power2.out', onUpdate: drawHeroSky, onComplete: () => { heroSky.ring = 0; drawHeroSky(); } });
   } else {
     askQ.textContent = data.hero.noted;
+    ScrollTrigger.refresh();
   }
 }
 

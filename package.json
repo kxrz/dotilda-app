@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check:fit": "node scripts/check-fit.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
     "astro": "^5.13.8",
     "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }

@@ -16,7 +16,13 @@ No database, no cookies, no outside fonts. Visits are counted with Vercel Web An
 npm install
 npm run dev      # http://localhost:4321
 npm run build    # static site in dist/
+npm run preview  # serve dist/, then in another terminal:
+npm run check:fit  # 13 screens, Kompakt included: no clipped text, no sideways scroll, hero fits
 ```
+
+Run `check:fit` after any change to copy, type sizes or layout (it needs Playwright's Chromium:
+`npx playwright install chromium`). Big type is sized by width *and* height (`svh`), so the hero
+question and its field share the first screen, even on a phone in landscape.
 
 | Path | Role |
 | --- | --- |
