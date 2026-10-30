@@ -103,7 +103,7 @@ Neuf écrans, une navigation à plat : l'accueil mène à tout, chaque écran re
 | spira | Minute de respiration et minuteur | Lancer, régler |
 | Settings | Heure du rendez-vous, sauvegarde, export EPUB, à propos | Exporter, importer |
 
-Écran d'accueil au premier lancement (sprint 1) : Dotilda se présente et explique le rituel sur une seule page ; il reste accessible via Settings > About Dotilda. L'onboarding complet (choix de l'heure, première question tout de suite) arrive au sprint 3.
+Onboarding : un écran d'accueil où Dotilda se présente en trois promesses courtes (accessible ensuite via Settings > About Dotilda), le choix de l'heure du rappel, puis la première question tout de suite.
 
 ## Module spira
 
@@ -172,13 +172,13 @@ Six sprints courts, chacun livrable sur le Kompakt de test. La v1 publique sort 
 
 En parallèle des sprints 1 et 2 : rédaction de la banque complète (plus de 200 questions).
 
-1. **Sprint 0, socle** : projet Kotlin + Compose + MMD, Room, import JSON des questions, écran Diagnostics pour relever les keycodes et la résolution du Kompakt.
+1. ✅ **Sprint 0, socle** : projet Kotlin + Compose + MMD, Room, import JSON des questions, écran Diagnostics pour relever les keycodes et la résolution du Kompakt.
    - Fait quand : l'app s'installe via Mudita Center et affiche une question tirée de la banque.
-2. **Sprint 1, rituel** : écrans Today, Answer, Done ; les formats One line, One word, Inner weather, This or that ; rappel quotidien.
+2. ✅ **Sprint 1, rituel** : écrans Today, Answer, Done ; les formats One line, One word, Inner weather, This or that ; rappel quotidien.
    - Fait quand : une semaine d'usage réel sans bug, rappel reçu chaque jour à l'heure.
-3. **Sprint 2, carnet et galaxie** : Notebook paginé, galaxie de l'année et ligne du mois, encodage des formes de points ; formats Three things et Mirror.
+3. ✅ **Sprint 2, carnet et galaxie** : Notebook paginé, galaxie de l'année et ligne du mois, encodage des formes de points ; formats Three things et Mirror.
    - Fait quand : chaque entrée remplit le bon point avec la bonne forme, et les jours vides restent discrets.
-4. **Sprint 3, spira et sauvegarde** : module spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
+4. ✅ **Sprint 3, spira et sauvegarde** (v0.4.0) : module spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
    - Fait quand : restauration complète d'un journal sur un second appareil.
 5. **Sprint 4, profondeur** : parcours et constellations, bilan mensuel, Photo of the day avec tramage, Letter to future me.
    - Fait quand : un parcours de 7 jours se termine en traçant sa constellation.
@@ -194,7 +194,7 @@ Voir `CLAUDE.md` à la racine du dépôt.
 - [ ] Réserver les handles Dotilda et vérifier les homonymes sur les stores (dotilda.com réservé).
 - [x] Langue : anglais seul en v1, textes dans `strings.xml` pour ouvrir d'autres langues ensuite.
 - [x] Open source, Apache 2.0 (dépôt privé pour le moment).
-- [ ] Disposition de la galaxie : 12 lignes de 31 (les mois) ou des semaines en colonnes façon calendrier ? Sur 360 dp de large, 31 colonnes donnent environ 10 dp par point : ça tient, à valider au sprint 2.
+- [x] Disposition de la galaxie : 12 lignes de 31 (les mois), points espacés pour ne jamais former de barre, aujourd'hui marqué par un petit ▲.
 - [x] Relever sur le Kompakt de test : résolution et keycodes des boutons (voir Contraintes e-ink).
 - [ ] Vérifier l'affichage du rappel sur le launcher stock (sprint 1).
 - [ ] Le Kompakt expose-t-il une API pour forcer un rafraîchissement complet, ou faut-il passer par un écran noir flash ?
