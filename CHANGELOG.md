@@ -17,7 +17,7 @@ The release workflow publishes the section of the tagged version as the GitHub r
   first question straight away.
 
 ### Changed
-- The app is about ten times smaller to download (code and resources are now shrunk).
+- The app is much lighter to download: about 3 MB instead of 22 MB (code and resources are now shrunk).
 
 ## [0.3.0] - 2026-10-30
 
