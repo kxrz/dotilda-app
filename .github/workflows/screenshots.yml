@@ -23,9 +23,13 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew testDebugUnitTest --tests "com.dotilda.app.screens.*" -Proborazzi.test.record=true
+      # Pushed even when a test fails: the images made so far and the test reports show what broke.
       - name: Push to screenshots/<branch>
+        if: always()
         run: |
           branch="screenshots/${GITHUB_REF_NAME}"
+          mkdir -p app/screenshots/reports
+          cp app/build/test-results/testDebugUnitTest/*.xml app/screenshots/reports/ 2>/dev/null || true
           cd app/screenshots
           git init -q -b "$branch"
           git config user.name "github-actions[bot]"
