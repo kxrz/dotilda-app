@@ -9,7 +9,8 @@ branch to production on every push.
 ## Stack
 
 [Astro](https://astro.build) (static output) and [GSAP](https://gsap.com) with ScrollTrigger.
-No database, no cookies, no analytics, no outside fonts.
+No database, no cookies, no outside fonts. Visits are counted with Vercel Web Analytics
+(anonymous page views, no cookies), served from this domain.
 
 ```bash
 npm install
@@ -55,7 +56,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app, never a plain
 
 | Where | What moves |
 | --- | --- |
-| Hero | The title settles word by word; the Kompakt does a full refresh (ink, white, page). |
+| Hero | The year comes up as a faint sky of dots; Dotilda types her question; your answer (or her example) becomes a drop of ink that lands on today's dot. Nothing is sent or saved. |
 | Pause | One huge sentence, pinned while you scroll, inks in word by word; Dotilda smiles at the end. |
 | Labels | Typed one character at a time, in their monospace. |
 | Headings | Rise word by word out of a mask (`components/Words.astro`). |
@@ -63,7 +64,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app, never a plain
 | Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
-| Get Dotilda | Steps slide in from their numbers. |
+| Get Dotilda | Steps slide in from their numbers; the Kompakt (drawn after the real phone) does a full e-ink refresh. |
 
 Dotilda changes pose in one step, as in the app, never with a tween.
 

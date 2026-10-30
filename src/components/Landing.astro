@@ -12,6 +12,7 @@ const repo = 'https://github.com/kxrz/dotilda-app';
 // What the browser script needs, as data (the CSP runs no inline script).
 const pageData = {
   dateLocale: s.dateLocale,
+  hero: { sample: s.hero.sample, noted: s.hero.noted, after: s.hero.after },
   questions: s.questions,
   try: s.try,
   get: { downloadVersion: s.get.downloadVersion, line: s.get.line },
@@ -48,29 +49,31 @@ const glyphs: Record<string, string> = {
 </header>
 
 <main>
-<!-- Attention -->
-<div class="hero">
-  <div>
+<!-- Attention: Dotilda asks, right here. Answer, and watch your dot land in the year. -->
+<div class="hero" id="top">
+  <canvas class="hero-sky" id="heroSky" aria-hidden="true"></canvas>
+  <div class="hero-in">
     <p class="label" data-reveal="hero">{s.hero.label}</p>
     <h1 data-hero-title>{s.hero.title.split(' ').map(w => <><span class="w">{w}</span>{' '}</>)}</h1>
-    <p class="lede" data-reveal="hero">{s.hero.lede}</p>
-    <div class="actions" data-reveal="hero">
-      <a class="btn solid" href="#get">{s.hero.primary}</a>
-      <a class="btn" href="#ritual">{s.hero.secondary}</a>
+
+    <form class="ask" id="ask" autocomplete="off">
+      <div class="ask-who" data-reveal="hero"><DotildaMark pose="peering" class="ask-mark" /> <span class="label">{s.hero.asks}</span></div>
+      <p class="ask-q" id="askQ" aria-live="polite"><span class="sr-only">{s.hero.question}</span><span aria-hidden="true" class="ask-chars">{s.hero.question.split(' ').map(w => <><span class="cw">{[...w].map(c => <span class="c">{c}</span>)}</span>{' '}</>)}</span></p>
+      <div class="ask-field" data-reveal="hero">
+        <label class="sr-only" for="askInput">{s.hero.question}</label>
+        <input id="askInput" name="answer" type="text" maxlength="140" placeholder={s.hero.placeholder}>
+        <button class="btn solid" type="submit" id="askBtn">{s.hero.submit}</button>
+      </div>
+      <p class="ask-note" id="askNote" data-reveal="hero">{s.hero.privacy}</p>
+    </form>
+
+    <div class="hero-foot" data-reveal="hero">
+      <div class="actions">
+        <a class="btn" id="heroGet" href="#get">{s.hero.primary}</a>
+        <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
+      </div>
+      <p class="note">{s.hero.note}</p>
     </div>
-    <p class="note" data-reveal="hero">{s.hero.note}</p>
-  </div>
-  <div class="kompakt" role="img" aria-label={s.hero.device.aria} data-reveal="device">
-    <span class="cam"></span>
-    <div class="screen">
-      <div class="mo" id="monthLine"></div>
-      <div class="who"><DotildaMark pose="peering" class="screen-mark" /> {s.hero.device.asks}</div>
-      <p class="q">{s.hero.device.question}</p>
-      <span class="b s">{s.hero.device.answer}</span>
-      <span class="b">{s.hero.device.another}</span>
-      <span class="flash" aria-hidden="true"></span>
-    </div>
-    <span class="home"></span>
   </div>
 </div>
 
@@ -157,6 +160,7 @@ const glyphs: Record<string, string> = {
 
 <!-- Action -->
 <section id="get">
+  <div class="get-grid">
   <div class="get">
     <div class="stack">
       <p class="label">{s.get.label}</p>
@@ -171,6 +175,29 @@ const glyphs: Record<string, string> = {
       <a class="quiet-link" id="changes" href={`${repo}/releases/latest`}>{s.get.changes}</a>
     </div>
     <p class="dev" id="release">{s.get.fallback}</p>
+  </div>
+  <div class="kompakt" role="img" aria-label={s.get.device.aria} data-anim="device">
+    <span class="k-btn k-left" aria-hidden="true"></span>
+    <span class="k-btn k-right" aria-hidden="true"></span>
+    <div class="k-top" aria-hidden="true"><span class="k-cam"></span><span class="k-speaker"></span></div>
+    <div class="screen">
+      <div class="status" aria-hidden="true">
+        <svg viewBox="0 0 30 10"><path d="M1 9h2V7H1zM5 9h2V5H5zM9 9h2V3H9z"/><path d="M17 8.6a1 1 0 1 0 0 .1zM14 6.4a4.3 4.3 0 0 1 6 0M12.2 4.4a7 7 0 0 1 9.6 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 20 10"><rect x=".6" y=".6" width="16" height="8.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2.4" y="2.4" width="10" height="5.2" rx=".6"/><rect x="17.6" y="3.4" width="1.6" height="3.2" rx=".6"/></svg>
+      </div>
+      <div class="mo" id="monthLine"></div>
+      <div class="who"><DotildaMark pose="peering" class="screen-mark" /> {s.get.device.asks}</div>
+      <p class="q">{s.get.device.question}</p>
+      <span class="b s">{s.get.device.answer}</span>
+      <span class="b">{s.get.device.another}</span>
+      <span class="flash" aria-hidden="true"></span>
+    </div>
+    <div class="k-nav" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5.5" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M9 5v5M9 14v5M15 5v5M15 14v5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+    </div>
+  </div>
   </div>
 </section>
 </main>

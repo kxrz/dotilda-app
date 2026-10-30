@@ -3,11 +3,17 @@
 // (prefers-reduced-motion); without it every element is simply there.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { inject } from '@vercel/analytics';
+
+// Vercel Web Analytics: page views only, no cookies, nothing that identifies a visitor.
+// Served from this domain (/_vercel/insights), so the CSP stays 'self'.
+inject();
 
 gsap.registerPlugin(ScrollTrigger);
 
 type PageData = {
   dateLocale: string;
+  hero: { sample: string; noted: string; after: string };
   questions: string[];
   try: { another: string; done: string };
   get: { downloadVersion: string; line: string };
@@ -54,6 +60,129 @@ tryBtn.addEventListener('click', () => {
       .call(show)
       .fromTo(tryQ, { y: 8 }, { autoAlpha: 1, y: 0, duration: .5, ease: 'power2.out' });
   } else show();
+});
+
+// Hero: the year as a faint sky of dots behind Dotilda's question. Past days are pale ink,
+// today is an empty terracotta ring, waiting. Answer, and your words become a drop of ink
+// that lands in today's place. Nothing is sent or saved.
+const heroEl = $('.hero'), heroCanvas = $<HTMLCanvasElement>('#heroSky');
+const heroCells: { m: number; d: number; past: boolean; today: boolean }[] = [];
+for (let m = 0; m < 12; m++) {
+  for (let d = 1; d <= new Date(today.getFullYear(), m + 1, 0).getDate(); d++) {
+    const date = new Date(today.getFullYear(), m, d);
+    heroCells.push({ m, d, past: date < today, today: +date === +today });
+  }
+}
+const heroSky = { shown: heroCells.length, inked: false, ring: 0 };
+
+function heroGrid() {
+  const w = heroCanvas.clientWidth, h = heroCanvas.clientHeight;
+  const cell = Math.min(w / 31, (h * .9) / 12);
+  const left = w - cell * 31, top = (h - cell * 12) / 2;
+  return { w, h, cell, R: Math.min(cell * .13, 4.5), at: (m: number, d: number) => [left + (d - .5) * cell, top + (m + .5) * cell] };
+}
+
+function drawHeroSky() {
+  const { w, h, R, at } = heroGrid(), dpr = window.devicePixelRatio || 1;
+  heroCanvas.width = w * dpr;
+  heroCanvas.height = h * dpr;
+  const g = heroCanvas.getContext('2d')!;
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const ink = css('--ink'), ghost = css('--ghost'), todayColor = css('--today');
+  heroCells.slice(0, Math.round(heroSky.shown)).forEach(({ m, d, past, today: isToday }) => {
+    const [x, y] = at(m, d);
+    g.beginPath();
+    if (isToday) {
+      g.arc(x, y, R * 1.5, 0, Math.PI * 2);
+      if (heroSky.inked) { g.fillStyle = todayColor; g.fill(); }
+      else { g.strokeStyle = todayColor; g.lineWidth = 1.5; g.stroke(); }
+    } else {
+      g.globalAlpha = past ? .11 : .45;
+      g.fillStyle = past ? ink : ghost;
+      g.arc(x, y, past ? R : R * .45, 0, Math.PI * 2);
+      g.fill();
+      g.globalAlpha = 1;
+    }
+  });
+  if (heroSky.ring > 0 && heroSky.ring < 1) {
+    const t = heroCells.find(c => c.today)!, [x, y] = at(t.m, t.d);
+    g.globalAlpha = 1 - heroSky.ring;
+    g.strokeStyle = todayColor;
+    g.lineWidth = 1.5;
+    g.beginPath();
+    g.arc(x, y, R * (1.5 + heroSky.ring * 5), 0, Math.PI * 2);
+    g.stroke();
+    g.globalAlpha = 1;
+  }
+}
+
+const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLInputElement>('#askInput');
+const askQ = $('#askQ'), askNote = $('#askNote'), askMark = $('.ask-mark');
+let answered = false;
+
+function noted() {
+  heroSky.inked = true;
+  drawHeroSky();
+  askMark.dataset.pose = 'pleased';
+  ask.classList.add('done');
+  $('#heroGet').classList.add('solid');
+  askNote.textContent = data.hero.after;
+  if (root.classList.contains('motion')) {
+    gsap.timeline()
+      .to(askQ, { autoAlpha: 0, y: -10, duration: .3, ease: 'power1.in' })
+      .call(() => { askQ.textContent = data.hero.noted; })
+      .fromTo(askQ, { y: 14 }, { autoAlpha: 1, y: 0, duration: .9, ease: 'power3.out' })
+      .from(askNote, { autoAlpha: 0, duration: .6 }, '-=.4');
+    gsap.to(heroSky, { ring: 1, duration: 1.4, ease: 'power2.out', onUpdate: drawHeroSky, onComplete: () => { heroSky.ring = 0; drawHeroSky(); } });
+  } else {
+    askQ.textContent = data.hero.noted;
+  }
+}
+
+function flyToToday(text: string) {
+  const hr = heroEl.getBoundingClientRect(), ir = askInput.getBoundingClientRect();
+  const word = document.createElement('span');
+  word.className = 'ink-word';
+  word.textContent = text;
+  heroEl.appendChild(word);
+  const x0 = ir.left - hr.left + parseFloat(getComputedStyle(askInput).paddingLeft);
+  const y0 = ir.top - hr.top + (ir.height - word.offsetHeight) / 2;
+  gsap.set(word, { x: x0, y: y0, transformOrigin: '50% 50%' });
+  askInput.value = '';
+
+  const drop = document.createElement('span');
+  drop.className = 'ink-drop';
+  heroEl.appendChild(drop);
+  const t = heroCells.find(c => c.today)!;
+  const { R, at } = heroGrid(), cr = heroCanvas.getBoundingClientRect();
+  const [tx, ty] = at(t.m, t.d);
+
+  gsap.set(drop, { x: x0 + Math.min(word.offsetWidth, ir.width) / 2, y: y0 + word.offsetHeight / 2, scale: 0 });
+  gsap.timeline({ onComplete: () => { drop.remove(); word.remove(); noted(); } })
+    .to(word, { scaleX: .04, scaleY: .3, autoAlpha: 0, duration: .75, ease: 'power3.in' })
+    .to(drop, { scale: 1, duration: .4, ease: 'back.out(3)' }, '-=.3')
+    .to(drop, { x: cr.left - hr.left + tx, duration: 1.2, ease: 'power1.inOut' }, '+=.1')
+    .to(drop, { y: cr.top - hr.top + ty, duration: 1.2, ease: 'back.in(1.6)' }, '<')
+    .to(drop, { scale: (R * 3) / 16, duration: .35, ease: 'power2.in' }, '-=.35');
+}
+
+ask.addEventListener('submit', e => {
+  e.preventDefault();
+  if (answered) return;
+  answered = true;
+  askInput.blur();
+  const typed = askInput.value.trim();
+  if (!root.classList.contains('motion')) {
+    if (!typed) askInput.value = data.hero.sample;
+    noted();
+    return;
+  }
+  if (typed) { flyToToday(typed); return; }
+  // Nothing typed: Dotilda's example answer writes itself, then flies.
+  const sample = data.hero.sample, typing = { n: 0 };
+  gsap.timeline({ onComplete: () => flyToToday(sample) })
+    .to(typing, { n: sample.length, duration: sample.length * .045, ease: 'none', onUpdate: () => { askInput.value = sample.slice(0, Math.round(typing.n)); } })
+    .to({}, { duration: .4 });
 });
 
 // The year of dots: a sample year up to today. It inks in as you scroll past it, one day after
@@ -144,29 +273,37 @@ function drawSky() {
 }
 
 let resizeTimer: number;
-addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(drawSky, 150); });
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawSky);
+addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { drawSky(); drawHeroSky(); }, 150); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { drawSky(); drawHeroSky(); });
 
 // Motion.
 const mm = gsap.matchMedia();
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   root.classList.add('motion', 'motion-ready');
   const calm = { ease: 'power2.out', duration: 1.1 };
+  const onEnter = (trigger: gsap.DOMTarget, start = 'top 85%') => ({ trigger, start, once: true });
 
-  // Hero: the words settle, then the Kompakt does a full e-ink refresh before showing its page.
-  const hero = gsap.timeline({ defaults: calm });
-  hero
-    .from('[data-hero-title] .w', { autoAlpha: 0, y: '0.35em', stagger: .06 })
-    .from('[data-reveal="hero"]', { autoAlpha: 0, y: 14, stagger: .12 }, '-=.7')
-    .from('[data-reveal="device"]', { autoAlpha: 0, y: 24, duration: 1.4 }, '-=1.1')
-    .set('.screen > :not(.flash)', { autoAlpha: 0 }, '<')
-    .set('.flash', { autoAlpha: 1, backgroundColor: '#111' }, '-=.2')
+  // Hero: the sky of dots comes up row by row, the tagline settles, Dotilda appears and her
+  // question is typed out letter by letter, then the field waits for your line.
+  heroSky.shown = 0;
+  gsap.timeline({ defaults: calm })
+    .to(heroSky, { shown: heroCells.length, duration: 1.8, ease: 'power1.inOut', onUpdate: drawHeroSky })
+    .from('.hero-in > .label', { autoAlpha: 0, y: 10 }, .2)
+    .from('[data-hero-title] .w', { autoAlpha: 0, y: '0.35em', stagger: .05 }, .35)
+    .from('.ask-who', { autoAlpha: 0, x: -12 }, '-=.6')
+    .from('.ask-chars .c', { autoAlpha: 0, duration: .01, stagger: .05, ease: 'none' }, '-=.3')
+    .from('.ask-field', { autoAlpha: 0, y: 16 }, '-=.2')
+    .from('#askNote, .hero-foot', { autoAlpha: 0, y: 10, stagger: .15 }, '-=.7');
+
+  // Get Dotilda: the Kompakt does a full e-ink refresh (ink, white, page) as it comes into view.
+  gsap.timeline({ scrollTrigger: onEnter('.kompakt', 'top 80%') })
+    .from('.kompakt', { autoAlpha: 0, y: 30, ...calm, duration: 1.3 })
+    .set('.screen > :not(.flash)', { autoAlpha: 0 }, 0)
+    .set('.flash', { autoAlpha: 1, backgroundColor: '#111' }, '-=.4')
     .set('.flash', { backgroundColor: '#F4F3EE' }, '+=.09')
     .set('.flash', { autoAlpha: 0 }, '+=.09')
     .set('.screen > :not(.flash)', { autoAlpha: 1 })
     .from('#monthLine i', { autoAlpha: 0, duration: .01, stagger: .035 }, '+=.1');
-
-  const onEnter = (trigger: gsap.DOMTarget, start = 'top 85%') => ({ trigger, start, once: true });
 
   // The pause: the sentence is pinned while you scroll, and inks in word by word, from pale
   // grey to black. When it is complete, Dotilda pushes her glasses up (one step, as in the app).
@@ -230,9 +367,10 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     scrollTrigger: { trigger: '.galaxy', start: 'top 85%', end: 'bottom 55%', scrub: .8 },
   });
 
-  return () => { root.classList.remove('motion'); sky.shown = days.length; drawSky(); };
+  return () => { root.classList.remove('motion'); sky.shown = days.length; heroSky.shown = heroCells.length; drawSky(); drawHeroSky(); };
 });
 drawSky();
+drawHeroSky();
 
 // Latest release, live from GitHub. Without it the button still downloads the latest APK.
 fetch('https://api.github.com/repos/kxrz/dotilda-app/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })

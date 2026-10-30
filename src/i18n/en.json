@@ -22,17 +22,17 @@
   "hero": {
     "label": "Daily journaling for e‑ink · free and open source",
     "title": "A question a day, a dot in your sky.",
-    "lede": "Dotilda asks you one small question each day. A line, a word or a tap is enough. Then you put the phone down.",
     "primary": "Get Dotilda for your Kompakt",
     "secondary": "How it works",
     "note": "Made for the Mudita Kompakt and Android 11+ e‑readers. No account, no tracking, no ads.",
-    "device": {
-      "aria": "Dotilda on a Mudita Kompakt, asking: What made you feel calm today?",
-      "asks": "Dotilda asks",
-      "question": "What made you feel calm today?",
-      "answer": "Answer",
-      "another": "Another question (2 left)"
-    }
+    "asks": "Dotilda asks",
+    "question": "What made you smile today?",
+    "placeholder": "A line is plenty",
+    "submit": "Add my dot",
+    "sample": "The smell of warm bread on the way home.",
+    "noted": "Noted. One more dot in your sky.",
+    "privacy": "Try it. Nothing you type here is sent or saved.",
+    "after": "That is the whole ritual. Tomorrow, a new question."
   },
   "pause": {
     "text": "Slow down. One small question, one line, and the rest of the day is yours again."
@@ -199,12 +199,19 @@
     "source": "Read the source",
     "changes": "What’s new",
     "line": "Version {v} · {date} · {size} MB · Android 11+",
-    "fallback": "Android 11+ · com.dotilda.app"
+    "fallback": "Android 11+ · com.dotilda.app",
+    "device": {
+      "aria": "Dotilda on a Mudita Kompakt, asking: What made you feel calm today?",
+      "asks": "Dotilda asks",
+      "question": "What made you feel calm today?",
+      "answer": "Answer",
+      "another": "Another question (2 left)"
+    }
   },
   "footer": {
     "appBy": "An app by",
     "madeBy": "Made and maintained by",
-    "fine": "This page sets no cookies and counts no visitors. Like the app, it does not watch you."
+    "fine": "This page sets no cookies. It counts visits anonymously, and that is all. Like the app, it does not watch you."
   },
   "questions": [
     "What was the best bite of the day?",
