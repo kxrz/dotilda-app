@@ -1,0 +1,239 @@
+{
+  "language": "English",
+  "dateLocale": "en-GB",
+  "meta": {
+    "title": "Dotilda · A question a day, a dot in your sky",
+    "description": "Dotilda is a gentle daily journaling app for the Mudita Kompakt and Android e-readers. One small question a day, a dot in your sky. Free, private, open source.",
+    "ogDescription": "A gentle daily journaling app for e-ink. Free, private, open source."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "home": "Dotilda, home",
+    "by": "by readme.club",
+    "ritual": "The ritual",
+    "sky": "Your sky",
+    "get": "Get Dotilda",
+    "sections": "Sections",
+    "language": "Language"
+  },
+  "hero": {
+    "label": "Daily journaling for e‑ink · free and open source",
+    "title": "A question a day, a dot in your sky.",
+    "lede": "Dotilda asks you one small question each day. A line, a word or a tap is enough. Then you put the phone down.",
+    "primary": "Get Dotilda for your Kompakt",
+    "secondary": "How it works",
+    "note": "Made for the Mudita Kompakt and Android 11+ e‑readers. No account, no tracking, no ads.",
+    "device": {
+      "aria": "Dotilda on a Mudita Kompakt, asking: What made you feel calm today?",
+      "asks": "Dotilda asks",
+      "question": "What made you feel calm today?",
+      "answer": "Answer",
+      "another": "Another question (2 left)"
+    }
+  },
+  "ritual": {
+    "label": "The ritual · under two minutes",
+    "title": "One question, at the hour you choose. Then nothing.",
+    "steps": [
+      {
+        "label": "1 · Dotilda asks",
+        "title": "A small question",
+        "text": "One gentle reminder a day, at your time. No feed, no inbox, nothing to catch up on."
+      },
+      {
+        "label": "2 · You answer",
+        "title": "A line is plenty",
+        "text": "Write a line, pick a word, choose tea or coffee. On heavy days, just tell her the weather inside."
+      },
+      {
+        "label": "3 · A dot appears",
+        "title": "Your sky fills up",
+        "text": "Each answer adds one dot to the year. It is drawn once, in ink, and stays still."
+      }
+    ]
+  },
+  "try": {
+    "label": "Try one",
+    "first": "Tea or coffee kind of day?",
+    "another": "Another question ({n} left)",
+    "meta": "More than 200 questions in the app, so you never feel you are going round in circles.",
+    "done": "That was my last one for today. Or just tell me the weather inside."
+  },
+  "shapes": {
+    "label": "Eight ways to answer",
+    "title": "Every answer gives its dot a shape.",
+    "formats": [
+      {
+        "shape": "full",
+        "name": "One line",
+        "text": "What made you smile today?"
+      },
+      {
+        "shape": "full",
+        "name": "One word",
+        "text": "Today in one word?"
+      },
+      {
+        "shape": "half",
+        "name": "Inner weather",
+        "text": "Sun to storm, as a moon phase."
+      },
+      {
+        "shape": "full",
+        "name": "This or that",
+        "text": "Tea or coffee kind of day?"
+      },
+      {
+        "shape": "full",
+        "name": "Three things",
+        "text": "Three small wins this week."
+      },
+      {
+        "shape": "circled",
+        "name": "Photo of the day",
+        "text": "Dithered in four greys."
+      },
+      {
+        "shape": "double",
+        "name": "Mirror",
+        "text": "The same question, 30 days apart."
+      },
+      {
+        "shape": "diamond",
+        "name": "Letter to future me",
+        "text": "Sealed until the date you choose."
+      }
+    ]
+  },
+  "sky": {
+    "label": "Your sky",
+    "title": "Miss a day? Nothing breaks.",
+    "lede": "The whole year fits on one screen: twelve rows, one dot per day. An empty day is a tiny grey dot, a breath in the grid. No streak, no red, no guilt.",
+    "quotes": [
+      {
+        "text": "There you are. Your sky kept your place.",
+        "who": "Dotilda, after a week away"
+      },
+      {
+        "text": "Seven days, seven dots. I’ll call this one Slow.",
+        "who": "At the end of a journey"
+      },
+      {
+        "text": "A cloudy start, a sunny finish. Rather well done.",
+        "who": "Looking back on the month"
+      }
+    ],
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "aria": "A sample year of dots, from January to today, with a few quiet days and one constellation in March.",
+    "legend": {
+      "answer": "an answer",
+      "quiet": "a quiet day",
+      "today": "today",
+      "journey": "— a finished journey: “7 days to slow down”"
+    }
+  },
+  "promises": [
+    {
+      "title": "Yours alone",
+      "text": "No account. Everything stays on the device. Export or move your journal any time."
+    },
+    {
+      "title": "Made for e‑ink",
+      "text": "Pure black on white, large type, no scrolling, no animation. Page with the volume keys."
+    },
+    {
+      "title": "Rewards looking back",
+      "text": "Monthly and seasonal reviews, letters to future you, and your year as an EPUB book."
+    },
+    {
+      "title": "Quiet by design",
+      "text": "One reminder a day, at your hour. No nudges, no rankings, no social feed."
+    },
+    {
+      "title": "Breathe first",
+      "text": "spira, a one‑minute breathing break, plus a timer and stopwatch the Kompakt lacks."
+    },
+    {
+      "title": "Free, for good",
+      "text": "No purchase, no subscription, no ads. Open source under Apache 2.0."
+    }
+  ],
+  "get": {
+    "label": "Get Dotilda",
+    "title": "Tonight, she has a question for you.",
+    "steps": [
+      {
+        "title": "Download the APK",
+        "text": "From GitHub, always the latest version. The app tells you when a new one is out."
+      },
+      {
+        "title": "Install it",
+        "text": "With Mudita Center on the Kompakt, or Obtainium on any Android 11+ e‑reader."
+      },
+      {
+        "title": "Pick your hour",
+        "text": "Dotilda will knock once a day, never twice."
+      }
+    ],
+    "download": "Download Dotilda",
+    "downloadVersion": "Download Dotilda {v}",
+    "source": "Read the source",
+    "changes": "What’s new",
+    "line": "Version {v} · {date} · {size} MB · Android 11+",
+    "fallback": "Android 11+ · com.dotilda.app"
+  },
+  "footer": {
+    "appBy": "An app by",
+    "madeBy": "Made and maintained by",
+    "fine": "This page sets no cookies and counts no visitors. Like the app, it does not watch you."
+  },
+  "questions": [
+    "What was the best bite of the day?",
+    "Tonight: a book or a long bath?",
+    "One word for the place you're in.",
+    "What are you looking forward to?",
+    "What did you say yes to today?",
+    "An object that sums up today?",
+    "City or countryside, today?",
+    "Lake or river?",
+    "What did you do with the first hour of your day?",
+    "Which song would suit today?",
+    "What made you laugh, even a little?",
+    "Crumpets or scones?",
+    "What are you grateful for this month?",
+    "What made you feel calm today?",
+    "Three people you're glad exist.",
+    "Three foods that taste like home.",
+    "What smell caught you by surprise today?",
+    "What did you do slowly today, on purpose or not?",
+    "Today: busy bee or lazy cat?",
+    "One word for someone you spoke to today.",
+    "What did today teach you about yourself?",
+    "What made you feel capable today?",
+    "Three places you'd like to see one day.",
+    "Three things you can see from where you sit.",
+    "What made you feel at home today?",
+    "Today, more owl or lark?",
+    "What did you lose and find again lately?",
+    "A smell for today?",
+    "If you were the cook, what would be on today's menu?",
+    "Who has been on your mind lately?",
+    "One word for what you're carrying.",
+    "Who crossed your mind today, and why?",
+    "Three things within arm's reach right now.",
+    "Tidy room or cosy mess?"
+  ]
+}

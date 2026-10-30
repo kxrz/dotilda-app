@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import { locales, pathFor, t } from '../i18n';
+
+interface Props { locale: string }
+const { locale } = Astro.props;
+const s = t(locale);
+const site = Astro.site!.origin;
+const url = site + pathFor(locale);
+---
+<!doctype html>
+<html lang={locale}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{s.meta.title}</title>
+<meta name="description" content={s.meta.description}>
+<link rel="canonical" href={url}>
+{locales.map(l => <link rel="alternate" hreflang={l} href={site + pathFor(l)} />)}
+<link rel="alternate" hreflang="x-default" href={site + '/'}>
+<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dotilda">
+<meta property="og:locale" content={locale}>
+<meta property="og:url" content={url}>
+<meta property="og:title" content={s.meta.title}>
+<meta property="og:description" content={s.meta.ogDescription}>
+<meta property="og:image" content={site + '/og.png'}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script is:inline src="/motion.js"></script>
+</head>
+<body>
+<slot />
+</body>
+</html>

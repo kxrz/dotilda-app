@@ -1,0 +1,15 @@
+---
+// English at /, every other language file in src/i18n at /<code>.
+import Layout from '../layouts/Layout.astro';
+import Landing from '../components/Landing.astro';
+import { defaultLocale, locales } from '../i18n';
+
+export function getStaticPaths() {
+  return locales.map(l => ({ params: { lang: l === defaultLocale ? undefined : l }, props: { locale: l } }));
+}
+
+const { locale } = Astro.props;
+---
+<Layout locale={locale}>
+  <Landing locale={locale} />
+</Layout>

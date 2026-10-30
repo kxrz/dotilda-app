@@ -1,0 +1,20 @@
+---
+// Dotilda as drawn in the app (ui/DotildaMark.kt): an ink dot with a bun and round glasses.
+// Like in the app she changes pose in one step (data-pose), never with a transition.
+interface Props {
+  pose?: 'neutral' | 'peering' | 'curious' | 'pleased';
+  class?: string;
+  label?: string;
+}
+const { pose = 'neutral', class: className = '', label } = Astro.props;
+---
+<svg class:list={['mark', className]} data-pose={pose} viewBox="0 0 100 100" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <circle class="ink" cx="50" cy="14" r="13" />
+  <circle class="ink" cx="50" cy="60" r="36" />
+  <g class="glasses">
+    <circle cx="37.5" cy="60" r="10" />
+    <circle cx="62.5" cy="60" r="10" />
+    <path d="M47.5 60h5" />
+  </g>
+  <path class="smile" d="M41.5 70.5q8.5 7 17 0" />
+</svg>

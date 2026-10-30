@@ -1,6 +1,6 @@
 /* Dotilda landing page.
    A sheet of e-ink paper: one reading column, generous white, the year of dots as the only image.
-   Nothing moves: the page behaves like the screen it presents. */
+   Motion (src/scripts/landing.ts) is slow and rare; colours never animate. */
 
 @font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/instrument-serif-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/instrument-serif-latin-400-italic.woff2) format("woff2")}
@@ -62,7 +62,7 @@ section{padding-block:clamp(4rem,10vw,8rem);border-top:1px solid var(--rule)}
 /* header */
 header.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.5rem}
 .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:var(--display);font-size:1.6rem}
-.brand svg{width:34px;height:34px}
+.brand .mark{width:30px;height:30px}
 .brand small{font-family:var(--mono);font-size:.7rem;color:var(--ink-2);letter-spacing:.04em;margin-left:.2rem}
 nav.top{display:flex;gap:1.5rem;font-size:.95rem}
 nav.top a{text-decoration:none;color:var(--ink-2)}
@@ -79,11 +79,14 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .kompakt{justify-self:center;width:min(300px,100%);background:var(--device);border-radius:28px;padding:22px 16px 30px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .kompakt .cam{width:8px;height:8px;border-radius:50%;background:#333}
 .screen{width:100%;aspect-ratio:360/564;background:var(--screen);color:#111;border-radius:4px;padding:18px 16px;display:flex;flex-direction:column;gap:12px}
-.screen .mo{display:flex;flex-wrap:wrap;gap:3px}
+.screen .mo{display:flex;justify-content:space-between;max-width:100%}
 .screen .mo i{width:5px;height:5px;border-radius:50%;background:#111}
 .screen .mo i.e{transform:scale(.45);background:#999}
 .screen .mo i.t{background:transparent;outline:1.5px solid #111;outline-offset:-1.5px}
-.screen .who{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-top:auto}
+.screen{position:relative}
+.screen .who{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-top:auto;display:flex;align-items:center;gap:.5rem}
+.screen .screen-mark{width:22px;height:22px;--ink:#111;--paper:#F4F3EE}
+.screen .flash{position:absolute;inset:0;border-radius:4px;visibility:hidden;opacity:0}
 .screen .q{font-size:1.25rem;line-height:1.25;font-weight:500;text-wrap:balance}
 .screen .b{border:1.5px solid #111;border-radius:6px;padding:.55rem;text-align:center;font-size:.85rem;font-weight:500}
 .screen .b.s{background:#111;color:#F4F3EE}
@@ -91,7 +94,8 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 
 /* ritual */
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,4vw,3rem);margin-top:3rem}
-.step{display:flex;flex-direction:column;gap:.75rem;border-top:1.5px solid var(--ink);padding-top:1.25rem}
+.step{display:flex;flex-direction:column;gap:.75rem}
+.step .rule{display:block;height:1.5px;background:var(--ink);margin-bottom:.5rem}
 .step p{color:var(--ink-2)}
 @media (max-width:760px){.cols{grid-template-columns:1fr}}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
@@ -100,6 +104,8 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 
 /* try a question */
 .try{margin-top:4rem;border:1.5px solid var(--ink);border-radius:.75rem;padding:clamp(1.5rem,4vw,2.5rem);display:grid;gap:1.25rem;max-width:44rem}
+.try-head{display:flex;align-items:center;gap:.75rem}
+.try-mark{width:34px;height:34px}
 .try .q{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.4rem);line-height:1.15;min-height:2.3em;text-wrap:balance}
 .try .meta{font-size:.9rem;color:var(--ink-2)}
 
@@ -142,11 +148,15 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .how li{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;counter-increment:s}
 .how li::before{content:counter(s);font-family:var(--mono);font-size:.85rem;border:1.5px solid var(--ink);border-radius:50%;width:1.8rem;height:1.8rem;display:grid;place-items:center}
 .how span{color:var(--ink-2)}
+.quiet-link{font-size:.95rem;color:var(--ink-2)}
+.quiet-link:hover{color:var(--ink)}
 .dev{font-family:var(--mono);font-size:.82rem;color:var(--ink-2)}
 
 /* footer */
 footer{border-top:1px solid var(--rule);padding-block:3rem 4rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end}
 footer .credits{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:flex-start}
+nav.top .langs{display:flex;gap:.6rem;font-family:var(--mono);font-size:.8rem;padding-left:1rem;border-left:1px solid var(--rule)}
+nav.top .langs b{font-weight:400;color:var(--ink)}
 footer .credit{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;text-decoration:none}
 footer .fine{font-size:.85rem;color:var(--ink-2);max-width:26rem}
 @media (max-width:760px){footer{grid-template-columns:1fr}}
@@ -157,3 +167,16 @@ footer .rmc:hover{text-decoration:underline}
 footer .www .label{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;color:var(--ink)}
 footer .www svg{height:30px;width:auto;flex:none;padding-bottom:6px;border-bottom:4px solid var(--www-lime)}
 footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
+
+/* Dotilda (components/DotildaMark.astro). Poses switch in one step, never with a transition. */
+.mark{display:block;overflow:visible}
+.mark .ink{fill:var(--ink)}
+.mark .glasses,.mark .smile{fill:none;stroke:var(--paper);stroke-width:4;stroke-linecap:round;transform-origin:50px 60px}
+.mark .smile{display:none}
+.mark[data-pose="peering"] .glasses{transform:translateY(8px)}
+.mark[data-pose="curious"] .glasses{transform:rotate(-16deg)}
+.mark[data-pose="pleased"] .smile{display:inline}
+
+/* Set by public/motion.js before first paint, so nothing GSAP reveals flashes in first. */
+.motion [data-reveal],.motion [data-hero-title] .w{visibility:hidden}
+.w{display:inline-block}
