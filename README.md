@@ -63,6 +63,9 @@ day dithered in four greys, sealed letters to your future self, and the year as 
 
 ## Install
 
+Everything is explained, in English, French, Spanish, Portuguese and Polish, on
+**[www.dotilda.com](https://www.dotilda.com)**, where you can also try a question before installing.
+
 1. Download `dotilda.apk` from the [latest release](https://github.com/kxrz/dotilda-app/releases/latest).
 2. Install it with Mudita Center or [Obtainium](https://github.com/ImranR98/Obtainium).
 3. From then on, Dotilda tells you herself when a new version is ready, and installs it from Settings.
@@ -97,15 +100,15 @@ made-up year of journal and pushes the images to the branch `screenshots/<branch
 | `app/src/test` | Unit tests and the screenshot tour. |
 | `docs/spec.md` | The product spec (in French). |
 
+The website, [www.dotilda.com](https://www.dotilda.com), lives on the [`website`](https://github.com/kxrz/dotilda-app/tree/website)
+branch, with its own README.
+
 ### Release
 
 1. Bump `appVersion` in `app/build.gradle.kts` and add its section to `CHANGELOG.md`.
 2. Push the tag `v<version>`, or run the Build workflow by hand on `main` with the version.
 3. The workflow signs the APK and publishes `dotilda.apk` and `manifest.json` on GitHub Releases,
    where installed apps find the update.
-
-The release key comes from the repository secrets `RELEASE_KEYSTORE_BASE64`,
-`RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS` and `RELEASE_KEY_PASSWORD`.
 
 ### Translations
 
