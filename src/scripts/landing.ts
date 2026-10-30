@@ -310,7 +310,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   const pauseMark = $('.pause-mark');
   gsap.timeline({
     scrollTrigger: {
-      trigger: '.pause', start: 'top top', end: '+=140%', pin: true, scrub: 1,
+      trigger: '.pause', start: 'top top', end: '+=140%', pin: true, anticipatePin: 1, scrub: 1,
       onUpdate: st => { pauseMark.dataset.pose = st.progress > .97 ? 'pleased' : 'peering'; },
     },
   })
@@ -366,6 +366,9 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     onUpdate: drawSky,
     scrollTrigger: { trigger: '.galaxy', start: 'top 85%', end: 'bottom 55%', scrub: .8 },
   });
+
+  // Positions are measured once; measure again when the fonts change the page's height.
+  document.fonts.ready.then(() => ScrollTrigger.refresh());
 
   return () => { root.classList.remove('motion'); sky.shown = days.length; heroSky.shown = heroCells.length; drawSky(); drawHeroSky(); };
 });
