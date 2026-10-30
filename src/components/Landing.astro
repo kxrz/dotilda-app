@@ -37,7 +37,7 @@ const glyphs: Record<string, string> = {
   <nav class="top" aria-label={s.nav.sections}>
     <a class="hide-s" href="#ritual">{s.nav.ritual}</a>
     <a class="hide-s" href="#sky">{s.nav.sky}</a>
-    <a href="#get">{s.nav.get}</a>
+    <a class="nav-get" href="#get">{s.nav.get}</a>
     {locales.length > 1 && (
       <span class="langs" aria-label={s.nav.language}>
         {locales.map(l => l === locale
@@ -73,6 +73,7 @@ const glyphs: Record<string, string> = {
         <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
       </div>
       <p class="note">{s.hero.note}</p>
+      {s.appLanguage && <p class="lang-note"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
     </div>
   </div>
 </div>
@@ -166,6 +167,7 @@ const glyphs: Record<string, string> = {
       <p class="label">{s.get.label}</p>
       <h2 data-split><Words text={s.get.title} /></h2>
     </div>
+    {s.appLanguage && <p class="lang-note" data-anim="how"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
     <ol class="how">
       {s.get.steps.map(step => <li data-anim="how"><div><b>{step.title}</b><br><span>{step.text}</span></div></li>)}
     </ol>

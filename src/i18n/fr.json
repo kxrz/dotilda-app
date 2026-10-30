@@ -1,0 +1,248 @@
+{
+  "language": "Français",
+  "dateLocale": "fr-FR",
+  "appLanguage": "L’app est pour l’instant en anglais uniquement. D’autres langues suivront.",
+  "meta": {
+    "title": "Dotilda · Une question par jour, un point dans votre ciel",
+    "description": "Dotilda est une app de journal tout en douceur pour le Mudita Kompakt et les liseuses Android. Une petite question par jour, un point dans votre ciel. Gratuite, privée, open source.",
+    "ogDescription": "Une app de journal tout en douceur pour l’e‑ink. Gratuite, privée, open source.",
+    "ogLocale": "fr_FR",
+    "ogImageAlt": "Dotilda, un point d’encre avec un chignon et des lunettes rondes, à côté des mots « A question a day, a dot in your sky » et de quelques rangées de points.",
+    "appDescription": "Une app de journal tout en douceur pour le Mudita Kompakt et les liseuses Android 11+. Dotilda pose une petite question par jour ; chaque réponse ajoute un point à une année dessinée à l’encre. Sans compte, sans pistage, sans publicité. Gratuite et open source sous licence Apache 2.0. L’app est pour l’instant en anglais."
+  },
+  "nav": {
+    "skip": "Aller au contenu",
+    "home": "Dotilda, accueil",
+    "by": "par readme.club",
+    "ritual": "Le rituel",
+    "sky": "Votre ciel",
+    "get": "Obtenir Dotilda",
+    "sections": "Sections",
+    "language": "Langue"
+  },
+  "hero": {
+    "label": "Journal quotidien pour l’e‑ink · gratuit et open source",
+    "title": "Une question par jour, un point dans votre ciel.",
+    "primary": "Obtenir Dotilda pour votre Kompakt",
+    "secondary": "Comment ça marche",
+    "note": "Conçue pour le Mudita Kompakt et les liseuses Android 11+. Sans compte, sans pistage, sans publicité.",
+    "asks": "Dotilda demande",
+    "question": "Qu’est-ce qui vous a fait sourire aujourd’hui ?",
+    "placeholder": "Une ligne suffit",
+    "submit": "Ajouter mon point",
+    "sample": "L’odeur du pain chaud en rentrant.",
+    "noted": "C’est noté. Un point de plus dans votre ciel.",
+    "privacy": "Essayez. Rien de ce que vous tapez ici n’est envoyé ni enregistré.",
+    "after": "Voilà tout le rituel. Demain, une nouvelle question."
+  },
+  "pause": {
+    "text": "Ralentissez. Une petite question, une ligne, et le reste de la journée vous appartient de nouveau."
+  },
+  "ritual": {
+    "label": "Le rituel · moins de deux minutes",
+    "title": "Une question, à l’heure que vous choisissez. Puis plus rien.",
+    "steps": [
+      {
+        "label": "1 · Dotilda demande",
+        "title": "Une petite question",
+        "text": "Un rappel tout doux par jour, à votre heure. Pas de fil, pas de boîte de réception, rien à rattraper."
+      },
+      {
+        "label": "2 · Vous répondez",
+        "title": "Une ligne suffit",
+        "text": "Écrivez une ligne, choisissez un mot, thé ou café. Les jours lourds, dites-lui simplement votre météo intérieure."
+      },
+      {
+        "label": "3 · Un point apparaît",
+        "title": "Votre ciel se remplit",
+        "text": "Chaque réponse ajoute un point à l’année. Il est dessiné une fois, à l’encre, et ne bouge plus."
+      }
+    ]
+  },
+  "try": {
+    "label": "Essayez",
+    "first": "Plutôt journée thé ou café ?",
+    "another": "Une autre question (encore {n})",
+    "meta": "Plus de 200 questions dans l’app, pour ne jamais avoir l’impression de tourner en rond.",
+    "done": "C’était ma dernière pour aujourd’hui. Ou dites-moi simplement votre météo intérieure."
+  },
+  "shapes": {
+    "label": "Huit façons de répondre",
+    "title": "Chaque réponse donne une forme à son point.",
+    "formats": [
+      {
+        "shape": "full",
+        "name": "Une ligne",
+        "text": "Qu’est-ce qui vous a fait sourire aujourd’hui ?"
+      },
+      {
+        "shape": "full",
+        "name": "Un mot",
+        "text": "Aujourd’hui en un mot ?"
+      },
+      {
+        "shape": "half",
+        "name": "Météo intérieure",
+        "text": "Du soleil à l’orage, en phase de lune."
+      },
+      {
+        "shape": "full",
+        "name": "Ceci ou cela",
+        "text": "Plutôt journée thé ou café ?"
+      },
+      {
+        "shape": "full",
+        "name": "Trois choses",
+        "text": "Trois petites victoires cette semaine."
+      },
+      {
+        "shape": "circled",
+        "name": "Photo du jour",
+        "text": "Tramée en quatre gris."
+      },
+      {
+        "shape": "double",
+        "name": "Miroir",
+        "text": "La même question, à 30 jours d’écart."
+      },
+      {
+        "shape": "diamond",
+        "name": "Lettre au futur",
+        "text": "Scellée jusqu’à la date choisie."
+      }
+    ]
+  },
+  "sky": {
+    "label": "Votre ciel",
+    "title": "Un jour manqué ? Rien ne casse.",
+    "lede": "Toute l’année tient sur un écran : douze rangées, un point par jour. Un jour vide est un tout petit point gris, une respiration dans la grille. Pas de série, pas de rouge, pas de culpabilité.",
+    "quotes": [
+      {
+        "text": "Vous voilà. Votre ciel vous a gardé votre place.",
+        "who": "Dotilda, après une semaine d’absence"
+      },
+      {
+        "text": "Sept jours, sept points. J’appellerai celle-ci Lenteur.",
+        "who": "À la fin d’un parcours"
+      },
+      {
+        "text": "Un début nuageux, une fin ensoleillée. Plutôt bien mené.",
+        "who": "En relisant le mois"
+      }
+    ],
+    "months": [
+      "Jan",
+      "Fév",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aoû",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Déc"
+    ],
+    "aria": "Une année d’exemple en points, de janvier à aujourd’hui, avec quelques jours calmes et une constellation en mars.",
+    "legend": {
+      "answer": "une réponse",
+      "quiet": "un jour calme",
+      "today": "aujourd’hui",
+      "journey": "— un parcours terminé : « 7 jours pour ralentir »"
+    }
+  },
+  "promises": [
+    {
+      "title": "À vous seul",
+      "text": "Sans compte. Tout reste sur l’appareil. Exportez ou déplacez votre journal quand vous voulez."
+    },
+    {
+      "title": "Pensée pour l’e‑ink",
+      "text": "Noir pur sur blanc, grands caractères, ni défilement ni animation. Les pages se tournent avec les touches de volume."
+    },
+    {
+      "title": "Récompense le recul",
+      "text": "Bilans du mois et de la saison, lettres au futur, et votre année en livre EPUB."
+    },
+    {
+      "title": "Calme par nature",
+      "text": "Un rappel par jour, à votre heure. Pas de relances, pas de classement, pas de fil social."
+    },
+    {
+      "title": "Respirer d’abord",
+      "text": "spira, une minute de respiration, plus le minuteur et le chronomètre qui manquent au Kompakt."
+    },
+    {
+      "title": "Gratuite, pour de bon",
+      "text": "Pas d’achat, pas d’abonnement, pas de publicité. Open source sous licence Apache 2.0."
+    }
+  ],
+  "get": {
+    "label": "Obtenir Dotilda",
+    "title": "Ce soir, elle a une question pour vous.",
+    "steps": [
+      {
+        "title": "Télécharger l’APK",
+        "text": "Depuis GitHub, toujours la dernière version. L’app vous prévient quand une nouvelle sort."
+      },
+      {
+        "title": "L’installer",
+        "text": "Avec Mudita Center sur le Kompakt, ou Obtainium sur toute liseuse Android 11+."
+      },
+      {
+        "title": "Choisir votre heure",
+        "text": "Dotilda frappera une fois par jour, jamais deux."
+      }
+    ],
+    "download": "Télécharger Dotilda",
+    "downloadVersion": "Télécharger Dotilda {v}",
+    "source": "Voir le code source",
+    "changes": "Nouveautés",
+    "line": "Version {v} · {date} · {size} Mo · Android 11+",
+    "device": {
+      "aria": "Dotilda sur un Mudita Kompakt, qui demande en anglais : What made you feel calm today?"
+    }
+  },
+  "footer": {
+    "appBy": "Une app de",
+    "madeBy": "Conçue et maintenue par",
+    "fine": "Cette page ne dépose aucun cookie. Elle compte les visites de façon anonyme, et c’est tout. Comme l’app, elle ne vous surveille pas."
+  },
+  "questions": [
+    "Quelle a été la meilleure bouchée de la journée ?",
+    "Ce soir : un livre ou un long bain ?",
+    "Un mot pour l’endroit où vous êtes.",
+    "Qu’attendez-vous avec impatience ?",
+    "À quoi avez-vous dit oui aujourd’hui ?",
+    "Un objet qui résume la journée ?",
+    "Ville ou campagne, aujourd’hui ?",
+    "Lac ou rivière ?",
+    "Qu’avez-vous fait de la première heure de votre journée ?",
+    "Quelle chanson irait bien avec aujourd’hui ?",
+    "Qu’est-ce qui vous a fait rire, même un peu ?",
+    "Crumpets ou scones ?",
+    "Pour quoi avez-vous envie de dire merci ce mois-ci ?",
+    "Qu’est-ce qui vous a apporté du calme aujourd’hui ?",
+    "Trois personnes qui comptent pour vous.",
+    "Trois plats qui ont le goût de la maison.",
+    "Quelle odeur a attiré votre attention aujourd’hui ?",
+    "Qu’avez-vous fait lentement aujourd’hui, exprès ou non ?",
+    "Aujourd’hui : abeille affairée ou chat paresseux ?",
+    "Un mot pour quelqu’un à qui vous avez parlé aujourd’hui.",
+    "Qu’est-ce que la journée vous a appris sur vous ?",
+    "Qu’est-ce qui vous a donné confiance aujourd’hui ?",
+    "Trois endroits que vous aimeriez voir un jour.",
+    "Trois choses que vous voyez depuis votre place.",
+    "Qu’est-ce qui vous a fait vous sentir chez vous aujourd’hui ?",
+    "Aujourd’hui, plutôt hibou ou alouette ?",
+    "Qu’avez-vous perdu puis retrouvé récemment ?",
+    "Une odeur pour aujourd’hui ?",
+    "Si vous étiez en cuisine, quel serait le menu du jour ?",
+    "À qui avez-vous beaucoup pensé ces derniers temps ?",
+    "Un mot pour ce que vous portez en vous.",
+    "À qui avez-vous pensé aujourd’hui, et pourquoi ?",
+    "Trois choses à portée de main, là, maintenant.",
+    "Chambre rangée ou joyeux désordre ?"
+  ]
+}

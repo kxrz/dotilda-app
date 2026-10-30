@@ -17,7 +17,7 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # static site in dist/
 npm run preview  # serve dist/, then in another terminal:
-npm run check:fit  # 13 screens, Kompakt included: no clipped text, no sideways scroll, hero fits
+npm run check:fit  # every language × 13 screens, Kompakt included: no clipped text, hero fits
 ```
 
 Run `check:fit` after any change to copy, type sizes or layout (it needs Playwright's Chromium:
@@ -52,9 +52,19 @@ the site gets `src/i18n/<code>.json`.
 2. That's it: the build adds `/<code>`, the language links in the header, the `hreflang` tags
    and the sitemap entry. Keys you leave out show in English until translated.
 
+Languages today: English (`/`), French (`/fr`), Spanish (`/es`), Portuguese (`/pt`, Brazilian
+Portuguese) and Polish (`/pl`).
+
+While the app itself is in English only, each translated file sets `appLanguage` (a short notice
+shown in the hero and next to the download steps, with an `EN` tag); English leaves it empty.
+The Kompakt mockup shows the app's real screen, so its texts (`get.device`) stay in English:
+translate only `get.device.aria`. When the app gets a language, empty that language's
+`appLanguage` and translate `get.device`.
+
 Placeholders such as `{n}`, `{v}`, `{date}` and `{size}` must be kept as they are.
-Fonts ship with the Latin subset only; a language in another script needs its subset added in
-`public/fonts` and `src/styles/global.css`.
+Fonts ship with the Latin and Latin Extended subsets (Polish, Czech, Romanian...); the browser
+fetches Latin Extended only on pages that need it. A language in another script (Greek, Cyrillic)
+needs its subset added in `public/fonts` and `src/styles/global.css`.
 
 ## Motion
 

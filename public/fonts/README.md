@@ -1,6 +1,6 @@
 # Fonts
 
-Latin subsets in WOFF2, taken from the Fontsource npm packages (v5.3.0).
+Latin and Latin Extended subsets in WOFF2, taken from the Fontsource npm packages (v5.3.0).
 All are licensed under the SIL Open Font License 1.1 (full text in `OFL.txt`).
 
 | File | Family | Copyright |

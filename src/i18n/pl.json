@@ -1,0 +1,248 @@
+{
+  "language": "Polski",
+  "dateLocale": "pl-PL",
+  "appLanguage": "Na razie aplikacja jest dostępna tylko po angielsku. Kolejne języki są w drodze.",
+  "meta": {
+    "title": "Dotilda · Jedno pytanie dziennie, jedna kropka na Twoim niebie",
+    "description": "Dotilda to łagodna aplikacja do codziennego dziennika na Mudita Kompakt i czytniki z Androidem. Jedno małe pytanie dziennie, jedna kropka na Twoim niebie. Darmowa, prywatna, open source.",
+    "ogDescription": "Łagodna aplikacja do dziennika na e‑papier. Darmowa, prywatna, open source.",
+    "ogLocale": "pl_PL",
+    "ogImageAlt": "Dotilda, kropka atramentu z kokiem i okrągłymi okularami, obok słów „A question a day, a dot in your sky” i kilku rzędów kropek.",
+    "appDescription": "Łagodna aplikacja do codziennego dziennika na Mudita Kompakt i czytniki z Androidem 11+. Dotilda zadaje jedno małe pytanie dziennie; każda odpowiedź dodaje kropkę do roku narysowanego atramentem. Bez konta, bez śledzenia, bez reklam. Darmowa i open source na licencji Apache 2.0. Na razie aplikacja jest po angielsku."
+  },
+  "nav": {
+    "skip": "Przejdź do treści",
+    "home": "Dotilda, strona główna",
+    "by": "od readme.club",
+    "ritual": "Rytuał",
+    "sky": "Twoje niebo",
+    "get": "Pobierz Dotildę",
+    "sections": "Sekcje",
+    "language": "Język"
+  },
+  "hero": {
+    "label": "Codzienny dziennik na e‑papier · darmowy i open source",
+    "title": "Jedno pytanie dziennie, jedna kropka na Twoim niebie.",
+    "primary": "Pobierz Dotildę na Kompakt",
+    "secondary": "Jak to działa",
+    "note": "Stworzona dla Mudita Kompakt i czytników z Androidem 11+. Bez konta, bez śledzenia, bez reklam.",
+    "asks": "Dotilda pyta",
+    "question": "Co dziś wywołało Twój uśmiech?",
+    "placeholder": "Wystarczy jedna linijka",
+    "submit": "Dodaj moją kropkę",
+    "sample": "Zapach ciepłego chleba w drodze do domu.",
+    "noted": "Zapisane. Jeszcze jedna kropka na Twoim niebie.",
+    "privacy": "Spróbuj. Nic, co tu wpiszesz, nie jest wysyłane ani zapisywane.",
+    "after": "To cały rytuał. Jutro nowe pytanie."
+  },
+  "pause": {
+    "text": "Zwolnij. Jedno małe pytanie, jedna linijka, a reszta dnia znów należy do Ciebie."
+  },
+  "ritual": {
+    "label": "Rytuał · niecałe dwie minuty",
+    "title": "Jedno pytanie, o wybranej przez Ciebie porze. I nic więcej.",
+    "steps": [
+      {
+        "label": "1 · Dotilda pyta",
+        "title": "Jedno małe pytanie",
+        "text": "Jedno łagodne przypomnienie dziennie, o Twojej porze. Bez feedu, bez skrzynki odbiorczej, bez nadrabiania."
+      },
+      {
+        "label": "2 · Ty odpowiadasz",
+        "title": "Wystarczy jedna linijka",
+        "text": "Napisz linijkę, wybierz słowo, herbata czy kawa. W cięższe dni po prostu powiedz jej, jaka jest pogoda w środku."
+      },
+      {
+        "label": "3 · Pojawia się kropka",
+        "title": "Twoje niebo się zapełnia",
+        "text": "Każda odpowiedź dodaje do roku jedną kropkę. Rysuje się ją raz, atramentem, i już się nie rusza."
+      }
+    ]
+  },
+  "try": {
+    "label": "Spróbuj",
+    "first": "Dzień na herbatę czy na kawę?",
+    "another": "Inne pytanie (zostały: {n})",
+    "meta": "Ponad 200 pytań w aplikacji, żeby nigdy nie mieć wrażenia, że kręcisz się w kółko.",
+    "done": "To było moje ostatnie na dziś. Albo po prostu powiedz mi, jaka jest pogoda w środku."
+  },
+  "shapes": {
+    "label": "Osiem sposobów odpowiedzi",
+    "title": "Każda odpowiedź nadaje kropce kształt.",
+    "formats": [
+      {
+        "shape": "full",
+        "name": "Jedna linijka",
+        "text": "Co dziś wywołało Twój uśmiech?"
+      },
+      {
+        "shape": "full",
+        "name": "Jedno słowo",
+        "text": "Dzisiejszy dzień w jednym słowie?"
+      },
+      {
+        "shape": "half",
+        "name": "Pogoda w środku",
+        "text": "Od słońca do burzy, jak faza księżyca."
+      },
+      {
+        "shape": "full",
+        "name": "To czy tamto",
+        "text": "Dzień na herbatę czy na kawę?"
+      },
+      {
+        "shape": "full",
+        "name": "Trzy rzeczy",
+        "text": "Trzy małe zwycięstwa w tym tygodniu."
+      },
+      {
+        "shape": "circled",
+        "name": "Zdjęcie dnia",
+        "text": "Rastrowane w czterech odcieniach szarości."
+      },
+      {
+        "shape": "double",
+        "name": "Lustro",
+        "text": "To samo pytanie co 30 dni."
+      },
+      {
+        "shape": "diamond",
+        "name": "List w przyszłość",
+        "text": "Zapieczętowany do wybranej daty."
+      }
+    ]
+  },
+  "sky": {
+    "label": "Twoje niebo",
+    "title": "Opuszczony dzień? Nic się nie psuje.",
+    "lede": "Cały rok mieści się na jednym ekranie: dwanaście rzędów, jedna kropka na dzień. Pusty dzień to malutka szara kropka, oddech w siatce. Bez serii, bez czerwieni, bez wyrzutów sumienia.",
+    "quotes": [
+      {
+        "text": "Jesteś. Twoje niebo zachowało Twoje miejsce.",
+        "who": "Dotilda, po tygodniu przerwy"
+      },
+      {
+        "text": "Siedem dni, siedem kropek. Nazwę ją Powoli.",
+        "who": "Na koniec ścieżki"
+      },
+      {
+        "text": "Pochmurny początek, słoneczny koniec. Całkiem nieźle.",
+        "who": "Podsumowując miesiąc"
+      }
+    ],
+    "months": [
+      "Sty",
+      "Lut",
+      "Mar",
+      "Kwi",
+      "Maj",
+      "Cze",
+      "Lip",
+      "Sie",
+      "Wrz",
+      "Paź",
+      "Lis",
+      "Gru"
+    ],
+    "aria": "Przykładowy rok w kropkach, od stycznia do dziś, z kilkoma spokojnymi dniami i jedną konstelacją w marcu.",
+    "legend": {
+      "answer": "odpowiedź",
+      "quiet": "spokojny dzień",
+      "today": "dziś",
+      "journey": "— ukończona ścieżka: „7 dni, by zwolnić”"
+    }
+  },
+  "promises": [
+    {
+      "title": "Tylko Twój",
+      "text": "Bez konta. Wszystko zostaje na urządzeniu. Eksportuj lub przenieś dziennik, kiedy chcesz."
+    },
+    {
+      "title": "Stworzona dla e‑papieru",
+      "text": "Czysta czerń na bieli, duże litery, bez przewijania i animacji. Strony przewraca się klawiszami głośności."
+    },
+    {
+      "title": "Docenia spojrzenie wstecz",
+      "text": "Podsumowania miesiąca i pory roku, listy w przyszłość i Twój rok jako książka EPUB."
+    },
+    {
+      "title": "Spokojna z założenia",
+      "text": "Jedno przypomnienie dziennie, o Twojej porze. Bez ponagleń, rankingów i społecznościowego feedu."
+    },
+    {
+      "title": "Najpierw oddech",
+      "text": "spira, minuta oddechu, a do tego minutnik i stoper, których brakuje w Kompakcie."
+    },
+    {
+      "title": "Darmowa, na zawsze",
+      "text": "Bez zakupów, bez subskrypcji, bez reklam. Open source na licencji Apache 2.0."
+    }
+  ],
+  "get": {
+    "label": "Pobierz Dotildę",
+    "title": "Dziś wieczorem ma dla Ciebie pytanie.",
+    "steps": [
+      {
+        "title": "Pobierz plik APK",
+        "text": "Z GitHuba, zawsze najnowsza wersja. Aplikacja da znać, gdy pojawi się nowa."
+      },
+      {
+        "title": "Zainstaluj",
+        "text": "Przez Mudita Center na Kompakcie albo przez Obtainium na dowolnym czytniku z Androidem 11+."
+      },
+      {
+        "title": "Wybierz porę",
+        "text": "Dotilda zapuka raz dziennie, nigdy dwa razy."
+      }
+    ],
+    "download": "Pobierz Dotildę",
+    "downloadVersion": "Pobierz Dotildę {v}",
+    "source": "Kod źródłowy",
+    "changes": "Co nowego",
+    "line": "Wersja {v} · {date} · {size} MB · Android 11+",
+    "device": {
+      "aria": "Dotilda na Mudita Kompakt, pyta po angielsku: What made you feel calm today?"
+    }
+  },
+  "footer": {
+    "appBy": "Aplikacja od",
+    "madeBy": "Stworzona i utrzymywana przez",
+    "fine": "Ta strona nie używa ciasteczek. Liczy odwiedziny anonimowo i na tym koniec. Tak jak aplikacja, nie śledzi Cię."
+  },
+  "questions": [
+    "Najlepszy kęs dnia?",
+    "Dziś wieczorem: książka czy długa kąpiel?",
+    "Jedno słowo o miejscu, w którym jesteś.",
+    "Na co czekasz z niecierpliwością?",
+    "Na co dziś padło Twoje „tak”?",
+    "Przedmiot, który podsumowuje dzień?",
+    "Dziś miasto czy wieś?",
+    "Jezioro czy rzeka?",
+    "Jak minęła pierwsza godzina Twojego dnia?",
+    "Jaka piosenka pasowałaby do dziś?",
+    "Co Cię dziś rozśmieszyło, choć trochę?",
+    "Crumpets czy scones?",
+    "Za co chcesz podziękować w tym miesiącu?",
+    "Co dało Ci dziś spokój?",
+    "Trzy osoby, z których istnienia się cieszysz.",
+    "Trzy potrawy, które smakują jak dom.",
+    "Jaki zapach Cię dziś zaskoczył?",
+    "Co dziś działo się powoli, celowo albo nie?",
+    "Dziś: pracowita pszczoła czy leniwy kot?",
+    "Jedno słowo o dzisiejszej rozmowie.",
+    "Czego dzisiejszy dzień nauczył Cię o sobie?",
+    "Co dało Ci dziś poczucie sprawczości?",
+    "Trzy miejsca, które chcesz kiedyś zobaczyć.",
+    "Trzy rzeczy, które widzisz ze swojego miejsca.",
+    "Co dało Ci dziś poczucie bycia w domu?",
+    "Dziś raczej sowa czy skowronek?",
+    "Co ostatnio udało się zgubić i odnaleźć?",
+    "Zapach na dziś?",
+    "Co byłoby dziś w menu, gdyby kuchnia należała do Ciebie?",
+    "Kto ostatnio często gości w Twoich myślach?",
+    "Jedno słowo na to, co w sobie nosisz.",
+    "Kto dziś przyszedł Ci na myśl i dlaczego?",
+    "Trzy rzeczy w zasięgu ręki, tu i teraz.",
+    "Uporządkowany pokój czy przytulny bałagan?"
+  ]
+}

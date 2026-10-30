@@ -1,6 +1,7 @@
 // Checks that the page fits every screen: no clipped or overflowing text, no sideways scroll,
 // the pinned sentence fits in one screen, the Kompakt mockup holds its content, and Dotilda's
 // question and the answer field are both visible on the first screen.
+// Every page in the sitemap is checked, so each language is covered.
 // Usage: npm run build && npm run preview, then in another terminal: npm run check:fit [url]
 // Needs Playwright with Chromium (npx playwright install chromium).
 import { chromium } from 'playwright';
@@ -13,13 +14,19 @@ const screens = [
   ['iPad landscape', 1024, 768], ['laptop', 1280, 720], ['desktop', 1440, 900], ['full HD', 1920, 1080],
 ];
 
+const origin = new URL(url).origin;
+const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
+const pages = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => origin + new URL(m[1]).pathname);
+
 const browser = await chromium.launch();
 let failed = 0;
+for (const pageUrl of pages) {
+console.log(`\n${new URL(pageUrl).pathname}`);
 for (const [name, width, height] of screens) {
   const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'reduce' });
   await page.route('https://api.github.com/**', r => r.fulfill({ status: 404, body: '{}' }));
   await page.route('**/_vercel/**', r => r.fulfill({ status: 200, body: '' }));
-  await page.goto(url);
+  await page.goto(pageUrl);
   await page.evaluate(() => document.fonts.ready);
   const issues = await page.evaluate(() => {
     const out = [], vw = innerWidth, vh = innerHeight;
@@ -47,6 +54,7 @@ for (const [name, width, height] of screens) {
   console.log(`${issues.length ? '✗' : '✓'} ${name} ${width}×${height}${issues.length ? '\n    ' + issues.join('\n    ') : ''}`);
   failed += issues.length ? 1 : 0;
   await page.close();
+}
 }
 await browser.close();
 process.exit(failed ? 1 : 0);
