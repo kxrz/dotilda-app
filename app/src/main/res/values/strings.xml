@@ -5,7 +5,7 @@
 
     <!-- Welcome -->
     <string name="welcome_tagline">A question a day, a dot in your sky.</string>
-    <string name="welcome_1">One small question a day.</string>
+    <string name="welcome_1">A line, a word or a tap.</string>
     <string name="welcome_2">Miss a day? Nothing breaks.</string>
     <string name="welcome_3">Everything stays on this phone.</string>
     <string name="begin">Begin</string>
