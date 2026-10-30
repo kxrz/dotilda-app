@@ -50,6 +50,7 @@ fun TodayScreen(
     onAnswer: () -> Unit,
     onNotebook: () -> Unit,
     onGalaxy: () -> Unit,
+    onSpira: () -> Unit,
     onSettings: () -> Unit,
     newVersion: String?,
     justUpdatedTo: String?,
@@ -84,6 +85,7 @@ fun TodayScreen(
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextLink(stringResource(R.string.notebook), onNotebook)
             TextLink(stringResource(R.string.galaxy), onGalaxy)
+            TextLink(stringResource(R.string.spira), onSpira)
             TextLink(stringResource(R.string.settings), onSettings)
         }
     }

@@ -8,7 +8,7 @@ plugins {
 
 // The single source of the version: the release workflow checks the tag against it,
 // and versionCode follows it (1.2.3 -> 10203) so it can never be forgotten.
-val appVersion = "0.3.0"
+val appVersion = "0.4.0"
 
 android {
     namespace = "com.dotilda.app"
@@ -43,9 +43,15 @@ android {
             // A separate app on the device, so test builds and the released app coexist.
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            // Shrunk like the release, so every test APK also checks the R8 rules on the device.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.findByName("release")
         }
     }

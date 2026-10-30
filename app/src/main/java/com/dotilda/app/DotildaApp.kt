@@ -1,6 +1,7 @@
 package com.dotilda.app
 
 import android.app.Application
+import com.dotilda.app.data.Backup
 import com.dotilda.app.data.DotildaDatabase
 import com.dotilda.app.data.Journal
 import com.dotilda.app.data.Prefs
@@ -22,6 +23,9 @@ class DotildaApp : Application() {
         private set
 
     lateinit var journal: Journal
+        private set
+
+    lateinit var backup: Backup
         private set
 
     /** Completes once assets/questions.json has been copied into Room. */
@@ -54,8 +58,10 @@ class DotildaApp : Application() {
         prefs = Prefs(this)
         bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }
         journal = Journal(db, prefs, bankReady)
+        backup = Backup(db.entryDao())
 
         Reminder.createChannel(this)
+        SpiraTimer.createChannel(this)
         MainScope().launch {
             val settings = prefs.settingsNow()
             Reminder.schedule(this@DotildaApp, settings.reminderOn, settings.reminderMinutes)

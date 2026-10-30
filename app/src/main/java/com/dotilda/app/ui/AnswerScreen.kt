@@ -55,7 +55,7 @@ private const val ONE_WORD_MAX = 30
 private const val THING_MAX = 60
 
 @Composable
-fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBack: () -> Unit) {
+fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBreathe: () -> Unit, onBack: () -> Unit) {
     val today = remember { LocalDate.now() }
     var question by remember { mutableStateOf<Question?>(null) }
     var saving by remember { mutableStateOf(false) }
@@ -77,7 +77,13 @@ fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBack: () -> Unit) {
         DotildaAsks()
         Spacer(Modifier.height(16.dp))
         TextMMD(q.text, style = MaterialTheme.typography.titleLarge)
-        Spacer(Modifier.height(24.dp))
+        // The formats that ask for writing can start with a breathing minute.
+        if (q.type in setOf(QuestionType.ONE_LINE, QuestionType.MIRROR, QuestionType.THREE_THINGS)) {
+            TextLink(stringResource(R.string.breathe_first), onBreathe)
+            Spacer(Modifier.height(8.dp))
+        } else {
+            Spacer(Modifier.height(24.dp))
+        }
         val rest = Modifier.weight(1f)
         when (q.type) {
             QuestionType.ONE_WORD -> TextInput(ONE_WORD_MAX, singleWord = true, onBack, rest) { save(Answer.Word(it)) }

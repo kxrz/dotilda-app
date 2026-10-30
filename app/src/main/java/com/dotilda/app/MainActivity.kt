@@ -23,7 +23,10 @@ import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
 import com.dotilda.app.ui.NotebookScreen
 import com.dotilda.app.ui.PageKeys
+import com.dotilda.app.ui.ReminderSetupScreen
 import com.dotilda.app.ui.SettingsScreen
+import com.dotilda.app.ui.SpiraMode
+import com.dotilda.app.ui.SpiraScreen
 import com.dotilda.app.ui.TodayScreen
 import com.dotilda.app.ui.UpdateScreen
 import com.dotilda.app.ui.WelcomeScreen
@@ -43,12 +46,15 @@ class MainActivity : ComponentActivity() {
                     var screen by rememberSaveable { mutableStateOf(if (welcomed) Screen.Today else Screen.Welcome) }
                     // The Notebook opens at a given day when reached from the Galaxy, and returns there.
                     var notebookDate by rememberSaveable { mutableStateOf<String?>(null) }
+                    // spira opened from Answer ("breathe first") returns to the question.
+                    var spiraFromAnswer by rememberSaveable { mutableStateOf(false) }
                     val scope = rememberCoroutineScope()
                     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
                     // Flat navigation: every screen goes back to Today (Diagnostics and About to Settings).
                     val parent = when (screen) {
-                        Screen.Welcome, Screen.Today -> null
+                        Screen.Welcome, Screen.Today, Screen.Setup -> null
+                        Screen.Spira -> if (spiraFromAnswer) Screen.Answer else Screen.Today
                         Screen.About, Screen.Diagnostics, Screen.Update -> Screen.Settings
                         Screen.Notebook -> if (notebookDate != null) Screen.Galaxy else Screen.Today
                         else -> Screen.Today
@@ -60,8 +66,16 @@ class MainActivity : ComponentActivity() {
                         Screen.Welcome -> WelcomeScreen(stringResource(R.string.begin)) {
                             if (Build.VERSION.SDK_INT >= 33) askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
                             scope.launch { app.prefs.setWelcomed() }
-                            screen = Screen.Today
+                            screen = Screen.Setup
                         }
+                        // Onboarding ends on the first question, straight away.
+                        Screen.Setup -> ReminderSetupScreen(app.prefs) { screen = Screen.Answer }
+                        Screen.Spira -> SpiraScreen(
+                            app.prefs,
+                            start = SpiraMode.Breathe,
+                            onWrite = if (spiraFromAnswer) back else null,
+                            onBack = back,
+                        )
                         Screen.About -> WelcomeScreen(stringResource(R.string.back), back)
                         Screen.Today -> TodayScreen(
                             app.journal,
@@ -71,6 +85,10 @@ class MainActivity : ComponentActivity() {
                                 screen = Screen.Notebook
                             },
                             onGalaxy = { screen = Screen.Galaxy },
+                            onSpira = {
+                                spiraFromAnswer = false
+                                screen = Screen.Spira
+                            },
                             onSettings = { screen = Screen.Settings },
                             newVersion = app.latestRelease?.takeIf { it.isNewer }?.version,
                             justUpdatedTo = app.justUpdatedTo,
@@ -85,7 +103,15 @@ class MainActivity : ComponentActivity() {
                             },
                             onBack = back,
                         )
-                        Screen.Answer -> AnswerScreen(app.journal, onSaved = { screen = Screen.Done }, onBack = back)
+                        Screen.Answer -> AnswerScreen(
+                            app.journal,
+                            onSaved = { screen = Screen.Done },
+                            onBreathe = {
+                                spiraFromAnswer = true
+                                screen = Screen.Spira
+                            },
+                            onBack = back,
+                        )
                         Screen.Done -> DoneScreen(app.journal, onBack = back)
                         Screen.Update -> app.latestRelease?.let { UpdateScreen(it, onBack = back) }
                         Screen.Settings -> SettingsScreen(
@@ -94,6 +120,7 @@ class MainActivity : ComponentActivity() {
                             checking = app.checkingUpdate,
                             onCheck = app::checkForUpdate,
                             onOpenUpdate = { screen = Screen.Update },
+                            backup = app.backup,
                             onAbout = { screen = Screen.About },
                             onDiagnostics = { screen = Screen.Diagnostics },
                             onBack = back,
@@ -124,4 +151,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Welcome, About, Today, Answer, Done, Notebook, Galaxy, Settings, Update, Diagnostics }
+private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Settings, Update, Diagnostics }
