@@ -43,7 +43,7 @@ import java.util.Locale
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-private val shortDate = java.time.format.DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
+private val shortDate = java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH)
 
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)

@@ -86,7 +86,7 @@
     <string name="letter_seal">Seal it</string>
     <string name="letter_summary">A letter, sealed</string>
     <string name="letter_sealed_until">Sealed until %1$s. I\'ll keep it safe.</string>
-    <string name="letter_ready">A letter from you, sealed on %1$s, is ready.</string>
+    <string name="letter_ready">Your letter from %1$s is ready.</string>
 
     <!-- Answer -->
     <string name="mirror_previous">%1$d days ago, you wrote:</string>

@@ -43,6 +43,7 @@ import com.dotilda.app.ui.Pose
 import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -103,18 +104,27 @@ class ScreensTest {
         shot("07-today-answered")
     }
 
-    @Test
-    fun c_answerFormats() {
-        for ((id, name) in listOf("ol-001" to "04-answer-line", "tt-001" to "08-answer-choice", "th-001" to "09-answer-things", "mi-001" to "10-answer-mirror")) {
-            seed(question = id)
-            val scenario = launch()
-            waitFor("Answer")
-            click("Answer")
-            waitFor("Back")
-            settle()
-            shot(name)
-            scenario.close()
-        }
+    @Test fun c1_answerLine() = answerShot("ol-001", "04-answer-line")
+
+    @Test fun c2_answerChoice() = answerShot("tt-001", "08-answer-choice")
+
+    @Test fun c3_answerThings() = answerShot("th-001", "09-answer-things")
+
+    @Test fun c4_answerMirror() = answerShot("mi-001", "10-answer-mirror")
+
+    @Test fun g1_answerLetter() = answerShot("le-001", "20-answer-letter")
+
+    @Test fun g2_answerPhoto() = answerShot("ph-001", "21-answer-photo")
+
+    /** One launch per test: several activities in a row make Robolectric's Compose flaky. */
+    private fun answerShot(question: String, name: String) {
+        seed(question = question)
+        launch()
+        waitFor("Answer")
+        click("Answer")
+        waitFor("Back")
+        settle()
+        shot(name)
     }
 
     @Test
@@ -175,22 +185,12 @@ class ScreensTest {
     }
 
     @Test
-    fun g_letterAndPhoto() {
-        for ((id, name) in listOf("le-001" to "20-answer-letter", "ph-001" to "21-answer-photo")) {
-            seed(question = id)
-            val scenario = launch()
-            waitFor("Answer")
-            click("Answer")
-            waitFor("Back")
-            settle()
-            shot(name)
-            scenario.close()
-        }
+    fun g3_letterReady() {
         seed(question = "ol-001")
         launch()
-        waitFor("A letter from you", substring = true)
+        waitFor("letter from", substring = true)
         shot("22-today-letter")
-        click("A letter from you", substring = true)
+        click("letter from", substring = true)
         waitFor(" / ", substring = true)
         settle()
         shot("23-notebook-letter")
@@ -211,7 +211,16 @@ class ScreensTest {
         shot("25-done-constellation")
     }
 
-    private fun launch(): ActivityScenario<MainActivity> = ActivityScenario.launch(MainActivity::class.java)
+    private var scenario: ActivityScenario<MainActivity>? = null
+
+    private fun launch() {
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+    }
+
+    @After
+    fun close() {
+        scenario?.close()
+    }
 
     /** Timestamped steps in the CI log, to see where a screenshot run spends its time. */
     private fun step(what: String) = println("[screens ${System.currentTimeMillis() % 1_000_000}] $what")
