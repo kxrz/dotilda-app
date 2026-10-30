@@ -26,6 +26,7 @@ over plain Material 3 ones.
 - Never punish missed days: no streak counters, no red states.
 - All user data stays local. Export/import must always work.
 - The dot galaxy is drawn with Compose Canvas, redrawn once per entry, never animated.
+  Dots stay free: never link a full week or month with a line (no streak in disguise).
 - Photos are dithered (Floyd-Steinberg, 4 grays) before saving.
 - One interaction per day; "Another question" at most 3 times a day, then only the
   inner weather is offered.

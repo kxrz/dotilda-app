@@ -70,6 +70,7 @@ Trois boucles imbriquées : les points récompensent la régularité, les parcou
 - Un point par jour, bien rangé : 12 lignes (les mois) de 31 colonnes (les jours). L'année entière tient sur un écran, dans l'esprit de Year in Pixels, mais en points.
 - Le point prend la forme de la réponse. La météo intérieure devient une phase de lune (point plein pour le soleil, simple anneau pour l'orage). Photo = point cerclé, Mirror = double cercle, Letter = losange scellé qui s'ouvre à sa date.
 - Jour sans entrée : un tout petit point gris, une respiration dans la grille, jamais un trou ni une alerte.
+- Pas de trait pour une semaine (ou un mois) complète : les points restent libres. La régularité se voit à la densité du ciel, pas à une ligne qui récompenserait la série. Les seuls traits possibles sont ceux des constellations de parcours (sprint 4).
 - Les années s'empilent dans la **Galaxy** : une page par année à feuilleter ; toucher un point rouvre l'entrée du jour.
 
 **Les parcours (boucle hebdomadaire)**
