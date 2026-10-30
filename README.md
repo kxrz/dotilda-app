@@ -8,7 +8,6 @@ One page, in five languages, that lets visitors live the app's ritual for a few 
 asks, you answer, a dot lands in your sky) and then sends them to the APK.
 
 This `website` branch holds only the site and shares no history with the app on `main`.
-Vercel builds it and deploys it to production on every push.
 
 ## Quick start
 
@@ -135,7 +134,7 @@ The page sets no cookies and stores nothing. What it asks of the outside world:
   notes link. If it fails, the download button still points to
   `releases/latest/download/dotilda.apk`, which the app's release workflow publishes.
 - Vercel Web Analytics: anonymous page views, no cookies, served from this domain
-  (`/_vercel/insights`). It is switched on in the Vercel project (Analytics tab).
+  (`/_vercel/insights`).
 
 What a visitor types in the hero never leaves the page. Keep the footer line ("counts visits
 anonymously, and that is all") true: any new tracking needs that line, and this section, changed.
@@ -174,18 +173,11 @@ LinkedIn cache share cards: pass the URL through their debuggers to refresh them
 3. After a change to the motion, scroll the page once with motion on and once with reduced motion.
 4. After a change to a tagline or a language, `npm run og`.
 
-## Deployment (Vercel)
+## Deployment
 
-Project `dotilda-app` in the LesWWW team, linked to `kxrz/dotilda-app`.
-
-- Production branch: `website`.
-- Ignored Build Step: `[ "$VERCEL_GIT_COMMIT_REF" != "website" ]`, so pushes to the app's
-  branches do not build the site.
-- Framework, build command and output directory come from `vercel.json`
-  (Astro, `npm run build`, `dist`).
-- Domains: `www.dotilda.com` (main), `dotilda.com` redirects to it with a 308. To make the bare
-  domain the main one, swap the redirect in Vercel and change `site` in `astro.config.mjs`.
-- Web Analytics is enabled in the project's Analytics tab.
+Vercel builds and deploys the `website` branch on every push, with the settings in `vercel.json`
+(Astro, `npm run build`, `dist`). `www.dotilda.com` is the main address; `dotilda.com` redirects
+to it. The address the site declares is `site` in `astro.config.mjs`.
 
 ## Credits and licences
 
