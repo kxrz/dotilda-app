@@ -4,7 +4,10 @@
   "meta": {
     "title": "Dotilda · A question a day, a dot in your sky",
     "description": "Dotilda is a gentle daily journaling app for the Mudita Kompakt and Android e-readers. One small question a day, a dot in your sky. Free, private, open source.",
-    "ogDescription": "A gentle daily journaling app for e-ink. Free, private, open source."
+    "ogDescription": "A gentle daily journaling app for e-ink. Free, private, open source.",
+    "ogLocale": "en_GB",
+    "ogImageAlt": "Dotilda, an ink dot with a bun and round glasses, beside the words “A question a day, a dot in your sky” and a few rows of dots.",
+    "appDescription": "A gentle daily journaling app for the Mudita Kompakt and Android 11+ e-readers. Dotilda asks one small question a day; each answer adds a dot to a year drawn in ink. No account, no tracking, no ads. Free and open source under Apache 2.0."
   },
   "nav": {
     "skip": "Skip to content",

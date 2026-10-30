@@ -7,6 +7,59 @@ const { locale } = Astro.props;
 const s = t(locale);
 const site = Astro.site!.origin;
 const url = site + pathFor(locale);
+const image = site + '/og.png';
+const repo = 'https://github.com/kxrz/dotilda-app';
+
+// Structured data for search engines and AI answer engines: the site, and the app it presents.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': site + '/#website',
+      url: site + '/',
+      name: 'Dotilda',
+      inLanguage: locales,
+      publisher: { '@id': 'https://readme.club/#organization' },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://readme.club/#organization',
+      name: 'readme.club',
+      url: 'https://readme.club',
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.leswww.com/#organization',
+      name: 'LesWWW',
+      url: 'https://www.leswww.com',
+    },
+    {
+      '@type': 'MobileApplication',
+      '@id': site + '/#app',
+      name: 'Dotilda',
+      alternateName: 'Dotilda journal',
+      description: s.meta.appDescription,
+      url: site + '/',
+      image,
+      applicationCategory: 'LifestyleApplication',
+      applicationSubCategory: 'Journaling',
+      operatingSystem: 'Android 11+',
+      availableOnDevice: 'Mudita Kompakt, Android e-readers',
+      downloadUrl: repo + '/releases/latest/download/dotilda.apk',
+      installUrl: repo + '/releases/latest',
+      softwareHelp: repo + '#readme',
+      license: 'https://www.apache.org/licenses/LICENSE-2.0',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+      publisher: { '@id': 'https://readme.club/#organization' },
+      creator: { '@id': 'https://www.leswww.com/#organization' },
+      maintainer: { '@id': 'https://www.leswww.com/#organization' },
+      inLanguage: locales,
+      sameAs: [repo],
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang={locale}>
@@ -24,14 +77,23 @@ const url = site + pathFor(locale);
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dotilda">
-<meta property="og:locale" content={locale}>
+<meta property="og:locale" content={s.meta.ogLocale}>
+{locales.filter(l => l !== locale).map(l => <meta property="og:locale:alternate" content={t(l).meta.ogLocale} />)}
 <meta property="og:url" content={url}>
 <meta property="og:title" content={s.meta.title}>
 <meta property="og:description" content={s.meta.ogDescription}>
-<meta property="og:image" content={site + '/og.png'}>
+<meta property="og:image" content={image}>
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={s.meta.ogImageAlt}>
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={s.meta.title}>
+<meta name="twitter:description" content={s.meta.ogDescription}>
+<meta name="twitter:image" content={image}>
+<meta name="twitter:image:alt" content={s.meta.ogImageAlt}>
+<link rel="sitemap" href="/sitemap.xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />
 <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script is:inline src="/motion.js"></script>

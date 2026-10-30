@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://dotilda.com',
+  site: 'https://www.dotilda.com',
   trailingSlash: 'never',
   build: {
     format: 'directory',

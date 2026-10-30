@@ -28,6 +28,7 @@ npm run build    # static site in dist/
 | `src/styles/global.css` | Tokens, self-hosted fonts, layout. |
 | `public/` | Fonts (SIL OFL, see `public/fonts/README.md`), icons, `og.png`, `motion.js`. |
 | `vercel.json` | Build settings, strict CSP, caching. |
+| `src/pages/sitemap.xml.ts`, `llms.txt.ts` | Sitemap, and a plain-text summary for AI answer engines. |
 
 The only outside request is to `api.github.com` for the latest release (version, date, size,
 release notes link). The download button points to `releases/latest/download/dotilda.apk`,
@@ -80,4 +81,5 @@ pass data to the browser through `#page-data`.
 
 - Production branch: `website`
 - Framework preset: Astro (read from `vercel.json`: `npm run build`, output `dist`)
-- Domain: `dotilda.com`, with `www.dotilda.com` redirecting to it
+- Domains: `www.dotilda.com` is the main address (canonical, sitemap, share image);
+  `dotilda.com` redirects to it. Changing this means changing `site` in `astro.config.mjs`.
