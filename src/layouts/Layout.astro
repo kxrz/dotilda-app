@@ -7,7 +7,7 @@ const { locale } = Astro.props;
 const s = t(locale);
 const site = Astro.site!.origin;
 const url = site + pathFor(locale);
-const image = site + '/og.png';
+const image = `${site}/og/${locale}.png`; // drawn per language by scripts/og.mjs
 const repo = 'https://github.com/kxrz/dotilda-app';
 
 // Structured data for search engines and AI answer engines: the site, and the app it presents.

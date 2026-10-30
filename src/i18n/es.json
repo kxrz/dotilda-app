@@ -7,7 +7,7 @@
     "description": "Dotilda es una app de diario tranquila para el Mudita Kompakt y los lectores electrónicos Android. Una pequeña pregunta al día, un punto en tu cielo. Gratis, privada y de código abierto.",
     "ogDescription": "Una app de diario tranquila para tinta electrónica. Gratis, privada y de código abierto.",
     "ogLocale": "es_ES",
-    "ogImageAlt": "Dotilda, un punto de tinta con moño y gafas redondas, junto a las palabras «A question a day, a dot in your sky» y unas filas de puntos.",
+    "ogImageAlt": "Dotilda, un punto de tinta con moño y gafas redondas, sobre las palabras «Una pregunta al día, un punto en tu cielo.» y unas filas de puntos.",
     "appDescription": "Una app de diario tranquila para el Mudita Kompakt y los lectores electrónicos Android 11+. Dotilda hace una pequeña pregunta al día; cada respuesta añade un punto a un año dibujado en tinta. Sin cuenta, sin rastreo, sin anuncios. Gratis y de código abierto con licencia Apache 2.0. Por ahora, la app está en inglés."
   },
   "nav": {

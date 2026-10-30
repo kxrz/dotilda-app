@@ -33,7 +33,8 @@ question and its field share the first screen, even on a phone in landscape.
 | `src/components/DotildaMark.astro` | Dotilda as drawn in the app, with her four poses. |
 | `src/scripts/landing.ts` | Month line, "Try one", the year of dots, latest release, motion. |
 | `src/styles/global.css` | Tokens, self-hosted fonts, layout. |
-| `public/` | Fonts (SIL OFL, see `public/fonts/README.md`), icons, `og.png`, `motion.js`. |
+| `public/` | Fonts (SIL OFL, see `public/fonts/README.md`), icons, `og/<code>.png`, `motion.js`. |
+| `scripts/og.mjs` | Draws the share image of each language (`npm run og`). |
 | `vercel.json` | Build settings, strict CSP, caching. |
 | `src/pages/sitemap.xml.ts`, `llms.txt.ts` | Sitemap, and a plain-text summary for AI answer engines. |
 
@@ -49,7 +50,8 @@ the site gets `src/i18n/<code>.json`.
 1. Copy `src/i18n/en.json` to `src/i18n/<code>.json` (e.g. `fr.json`) and translate it.
    Set `language` to the language's own name and `dateLocale` (e.g. `fr-FR`).
    Take the `questions` from the app's translated bank.
-2. That's it: the build adds `/<code>`, the language links in the header, the `hreflang` tags
+2. Run `npm run og` to draw its share image (`public/og/<code>.png`), and update `meta.ogImageAlt`.
+3. That's it: the build adds `/<code>`, the language links in the header, the `hreflang` tags
    and the sitemap entry. Keys you leave out show in English until translated.
 
 Languages today: English (`/`), French (`/fr`), Spanish (`/es`), Portuguese (`/pt`, Brazilian
