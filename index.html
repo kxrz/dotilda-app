@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dotilda · A question a day, a dot in your sky</title>
+<meta name="description" content="Dotilda is a gentle daily journaling app for the Mudita Kompakt and Android e-readers. One small question a day, a dot in your sky. Free, offline, open source.">
+<link rel="canonical" href="https://dotilda.com/">
+<link rel="alternate" hreflang="en" href="https://dotilda.com/">
+<link rel="alternate" hreflang="x-default" href="https://dotilda.com/">
+<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dotilda">
+<meta property="og:url" content="https://dotilda.com/">
+<meta property="og:title" content="Dotilda · A question a day, a dot in your sky">
+<meta property="og:description" content="A gentle daily journaling app for e-ink. Free, offline, open source.">
+<meta property="og:image" content="https://dotilda.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles.css">
+<script src="/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#ritual">Skip to content</a>
+<div class="wrap">
+
+<header class="top">
+  <a class="brand" href="/" aria-label="Dotilda, home">
+    <svg viewBox="30 26 48 54" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle cx="54" cy="61" r="17" stroke-width="3"/><circle cx="54" cy="38" r="5.5" stroke-width="3"/>
+      <circle cx="47.5" cy="61" r="4.5" stroke-width="2.5"/><circle cx="60.5" cy="61" r="4.5" stroke-width="2.5"/><path d="M52 61h4" stroke-width="2.5"/>
+    </svg>
+    Dotilda <small>by readme.club</small>
+  </a>
+  <nav class="top" aria-label="Sections">
+    <a class="hide-s" href="#ritual">The ritual</a>
+    <a class="hide-s" href="#sky">Your sky</a>
+    <a href="#get">Get Dotilda</a>
+  </nav>
+</header>
+
+<main>
+<!-- Attention -->
+<div class="hero">
+  <div>
+    <p class="label">Daily journaling for e‑ink · free and open source</p>
+    <h1>A question a day, a dot in your sky.</h1>
+    <p class="lede">Dotilda asks you one small question each day. A line, a word or a tap is enough. Then you put the phone down.</p>
+    <div class="actions">
+      <a class="btn solid" href="#get">Get Dotilda for your Kompakt</a>
+      <a class="btn" href="#ritual">How it works</a>
+    </div>
+    <p class="note">Made for the Mudita Kompakt and Android 11+ e‑readers. No account, no network, no ads.</p>
+  </div>
+  <div class="kompakt" role="img" aria-label="Dotilda on a Mudita Kompakt, asking: What made you feel calm today?">
+    <span class="cam"></span>
+    <div class="screen">
+      <div class="mo" id="monthLine"></div>
+      <p class="who">Dotilda asks</p>
+      <p class="q">What made you feel calm today?</p>
+      <span class="b s">Answer</span>
+      <span class="b">Another question (2 left)</span>
+    </div>
+    <span class="home"></span>
+  </div>
+</div>
+
+<!-- Interest -->
+<section id="ritual">
+  <div class="stack">
+    <p class="label">The ritual · under two minutes</p>
+    <h2>One question, at the hour you choose. Then nothing.</h2>
+  </div>
+  <div class="cols">
+    <div class="step"><span class="label">1 · Dotilda asks</span><h3>A small question</h3><p>One gentle reminder a day, at your time. No feed, no inbox, nothing to catch up on.</p></div>
+    <div class="step"><span class="label">2 · You answer</span><h3>A line is plenty</h3><p>Write a line, pick a word, choose tea or coffee. On heavy days, just tell her the weather inside.</p></div>
+    <div class="step"><span class="label">3 · A dot appears</span><h3>Your sky fills up</h3><p>Each answer adds one dot to the year. It is drawn once, in ink, and stays still.</p></div>
+  </div>
+
+  <div class="try">
+    <p class="label">Try one</p>
+    <p class="q" id="tryQ" aria-live="polite">Tea or coffee kind of day?</p>
+    <div class="actions">
+      <button class="btn" type="button" id="tryBtn" data-left="Another question ({n} left)">Another question (3 left)</button>
+    </div>
+    <p class="meta" id="tryMeta" data-done="That was my last one for today. Or just tell me the weather inside.">More than 200 questions in the app, so you never feel you are going round in circles.</p>
+  </div>
+
+  <div class="shapes stack">
+    <p class="label">Eight ways to answer</p>
+    <h2>Every answer gives its dot a shape.</h2>
+    <ul class="formats">
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="currentColor"/></svg><b>One line</b><span>What made you smile today?</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="currentColor"/></svg><b>One word</b><span>Today in one word?</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 5a6 6 0 0 1 0 12z" fill="currentColor"/></svg><b>Inner weather</b><span>Sun to storm, as a moon phase.</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="currentColor"/></svg><b>This or that</b><span>Tea or coffee kind of day?</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="currentColor"/></svg><b>Three things</b><span>Three small wins this week.</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="4" fill="currentColor"/><circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><b>Photo of the day</b><span>Dithered in four greys.</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><b>Mirror</b><span>The same question, 30 days apart.</span></li>
+      <li class="fmt"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3l7 8-7 8-7-8z" fill="currentColor"/></svg><b>Letter to future me</b><span>Sealed until the date you choose.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Desire -->
+<section id="sky">
+  <div class="split">
+    <div class="stack">
+      <p class="label">Your sky · <span id="skyYear">2026</span></p>
+      <h2>Miss a day? Nothing breaks.</h2>
+      <p class="lede">The whole year fits on one screen: twelve rows, one dot per day. An empty day is a tiny grey dot, a breath in the grid. No streak, no red, no guilt.</p>
+    </div>
+    <div class="quotes">
+      <figure><p class="voice">“There you are. Your sky kept your place.”</p><figcaption>Dotilda, after a week away</figcaption></figure>
+      <figure><p class="voice">“Seven days, seven dots. I’ll call this one Slow.”</p><figcaption>At the end of a journey</figcaption></figure>
+      <figure><p class="voice">“A cloudy start, a sunny finish. Rather well done.”</p><figcaption>Looking back on the month</figcaption></figure>
+    </div>
+  </div>
+
+  <figure class="galaxy">
+    <div class="months" aria-hidden="true"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span></div>
+    <canvas id="galaxy" role="img" aria-label="A sample year of dots, from January to today, with a few quiet days and one constellation in March."></canvas>
+    <figcaption><span><i class="k-ink"></i>an answer</span><span><i class="k-ghost"></i>a quiet day</span><span><i class="k-today"></i>today</span><span>— a finished journey: “7 days to slow down”</span></figcaption>
+  </figure>
+
+  <ul class="promises">
+    <li><b>Yours alone</b><span>No account. Everything stays on the device. Export or move your journal any time.</span></li>
+    <li><b>Made for e‑ink</b><span>Pure black on white, large type, no scrolling, no animation. Page with the volume keys.</span></li>
+    <li><b>Rewards looking back</b><span>Monthly and seasonal reviews, letters to future you, and your year as an EPUB book.</span></li>
+    <li><b>Quiet by design</b><span>One reminder a day, at your hour. No nudges, no rankings, no social feed.</span></li>
+    <li><b>Breathe first</b><span>spira, a one‑minute breathing break, plus a timer and stopwatch the Kompakt lacks.</span></li>
+    <li><b>Free, for good</b><span>No purchase, no subscription, no ads. Open source under Apache 2.0.</span></li>
+  </ul>
+</section>
+
+<!-- Action -->
+<section id="get">
+  <div class="get">
+    <p class="label">Get Dotilda</p>
+    <h2>Tonight, she has a question for you.</h2>
+    <ol class="how">
+      <li><div><b>Download the APK</b><br><span>From the GitHub releases page, always the latest version.</span></div></li>
+      <li><div><b>Install it</b><br><span>With Mudita Center on the Kompakt, or Obtainium on any Android 11+ e‑reader.</span></div></li>
+      <li><div><b>Pick your hour</b><br><span>Dotilda will knock once a day, never twice.</span></div></li>
+    </ol>
+    <div class="actions">
+      <a class="btn solid" id="dl" href="https://github.com/kxrz/dotilda-app/releases/latest" data-label="Download Dotilda {v}">Download Dotilda</a>
+      <a class="btn" href="https://github.com/kxrz/dotilda-app">Read the source</a>
+    </div>
+    <p class="dev" id="release" data-line="Version {v} · {date} · {size} MB · Android 11+" data-locale="en-GB">Android 11+ · com.dotilda.app</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="credits">
+    <a class="credit" href="https://readme.club"><span class="label">An app by</span><span class="rmc">readme.club</span></a>
+    <a class="credit www" href="https://www.leswww.com"><span class="label">Made and maintained by</span><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7848 2031" role="img" aria-label="LesWWW"><g fill="currentColor" transform="translate(94.6 1815.6) scale(1 -1)"><path transform="translate(0 0)" d="M102 0V1600H380V246H770V0Z"/><path transform="translate(795 0)" d="M102 0V1600H801V1354H380V935H781V690H380V246H801V0Z"/><path transform="translate(1651 0)" d="M491 -19Q276 -19 180.0 69.5Q84 158 75 364Q74 400 74.0 440.0Q74 480 76.0 520.5Q78 561 82 597H345Q341 521 340.0 448.5Q339 376 345 313Q349 262 386.0 235.5Q423 209 491 209Q555 209 590.0 235.5Q625 262 631 313Q635 349 636.0 385.0Q637 421 635.5 457.0Q634 493 631 528Q627 576 596.0 612.0Q565 648 514 659L342 699Q241 722 182.0 771.0Q123 820 97.0 894.5Q71 969 68 1069Q67 1116 67.0 1156.0Q67 1196 68 1238Q74 1374 118.5 1458.0Q163 1542 254.0 1580.5Q345 1619 491 1619Q704 1619 799.5 1531.0Q895 1443 903 1238Q905 1192 903.5 1128.0Q902 1064 899 1007H632Q635 1079 636.0 1149.0Q637 1219 634 1289Q632 1339 595.5 1365.5Q559 1392 490 1392Q425 1392 388.5 1365.5Q352 1339 347 1289Q341 1234 341.0 1179.0Q341 1124 347 1069Q351 1022 374.0 987.5Q397 953 448 941L601 909Q711 885 777.5 834.5Q844 784 875.5 707.5Q907 631 911 528Q912 502 912.0 474.0Q912 446 911.0 418.0Q910 390 909 364Q901 158 804.0 69.5Q707 -19 491 -19Z"/><path transform="translate(2630 0)" d="M190 0 44 1600H324L374 888L406 246H495L498 888L628 1590H1029L1159 888L1162 246H1251L1283 888L1333 1600H1613L1467 0H971L900 458L872 1354H785L757 458L686 0Z"/><path transform="translate(4287 0)" d="M190 0 44 1600H324L374 888L406 246H495L498 888L628 1590H1029L1159 888L1162 246H1251L1283 888L1333 1600H1613L1467 0H971L900 458L872 1354H785L757 458L686 0Z"/><path transform="translate(5944 0)" d="M190 0 44 1600H324L374 888L406 246H495L498 888L628 1590H1029L1159 888L1162 246H1251L1283 888L1333 1600H1613L1467 0H971L900 458L872 1354H785L757 458L686 0Z"/></g></svg></a>
+  </div>
+  <p class="fine">This page sets no cookies and counts no visitors. Like the app, it does not watch you.</p>
+</footer>
+
+</div>
+
+<script type="application/json" id="questions">["What was the best bite of the day?","Tonight: a book or a long bath?","One word for the place you're in.","What are you looking forward to?","What did you say yes to today?","An object that sums up today?","City or countryside, today?","Lake or river?","What did you do with the first hour of your day?","Which song would suit today?","What made you laugh, even a little?","Crumpets or scones?","What are you grateful for this month?","What made you feel calm today?","Three people you're glad exist.","Three foods that taste like home.","What smell caught you by surprise today?","What did you do slowly today, on purpose or not?","Today: busy bee or lazy cat?","One word for someone you spoke to today.","What did today teach you about yourself?","What made you feel capable today?","Three places you'd like to see one day.","Three things you can see from where you sit.","What made you feel at home today?","Today, more owl or lark?","What did you lose and find again lately?","A smell for today?","If you were the cook, what would be on today's menu?","Who has been on your mind lately?","One word for what you're carrying.","Who crossed your mind today, and why?","Three things within arm's reach right now.","Tidy room or cosy mess?"]</script>
+</body>
+</html>

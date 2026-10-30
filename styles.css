@@ -1,0 +1,159 @@
+/* Dotilda landing page.
+   A sheet of e-ink paper: one reading column, generous white, the year of dots as the only image.
+   Nothing moves: the page behaves like the screen it presents. */
+
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/instrument-serif-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(/fonts/instrument-serif-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/geist-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/geist-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Space Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/space-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/space-grotesk-latin-700-normal.woff2) format("woff2")}
+
+:root{
+  --paper:#FBFAF6;      /* readme.club cream, a touch whiter */
+  --ink:#141412;
+  --ink-2:#55534D;      /* secondary text, warm grey */
+  --rule:#E3E0D7;
+  --ghost:#C9C5BA;      /* quiet-day dot */
+  --today:#D1613E;      /* readme.club terracotta: used once, for today's dot */
+  --device:#1C1C1A;
+  --screen:#F4F3EE;
+  --www-lime:#d6ff3f;   /* LesWWW accent (action), only under its own logo */
+  --display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Space Mono",ui-monospace,Menlo,monospace;
+  --measure:36rem;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#151513;--ink:#ECEAE2;--ink-2:#A3A097;--rule:#2C2B27;--ghost:#4A4842;--today:#E2795A;
+  --device:#0B0B0A;--screen:#E9E7E0;--www-lime:#e2ff5c;color-scheme:dark}}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-font-smoothing:antialiased}
+img,svg,canvas{max-width:100%}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:68rem;margin:0 auto}
+.label{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.9rem,7vw,5.4rem);letter-spacing:-.01em}
+h2{font-size:clamp(2.1rem,4.4vw,3.2rem)}
+h3{font-size:1.6rem}
+p{margin:0}
+.lede{font-size:1.2rem;color:var(--ink-2);max-width:var(--measure)}
+.voice{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.3}
+section{padding-block:clamp(4rem,10vw,8rem);border-top:1px solid var(--rule)}
+.stack{display:grid;gap:1rem}
+.stack h2{max-width:22ch}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:1rem;top:1rem;background:var(--paper);padding:.5rem 1rem;border:1.5px solid var(--ink)}
+
+/* buttons: flat ink, no shadow, no transition */
+.btn{display:inline-flex;align-items:center;gap:.6rem;font:500 1rem/1 var(--body);padding:1rem 1.4rem;border:1.5px solid var(--ink);border-radius:.5rem;text-decoration:none;cursor:pointer;background:transparent;color:var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn:hover{text-decoration:underline}
+.actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+
+/* header */
+header.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.5rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:var(--display);font-size:1.6rem}
+.brand svg{width:34px;height:34px}
+.brand small{font-family:var(--mono);font-size:.7rem;color:var(--ink-2);letter-spacing:.04em;margin-left:.2rem}
+nav.top{display:flex;gap:1.5rem;font-size:.95rem}
+nav.top a{text-decoration:none;color:var(--ink-2)}
+nav.top a:hover{color:var(--ink);text-decoration:underline}
+@media (max-width:640px){nav.top .hide-s{display:none}.brand small{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(2rem,6vw,5rem);align-items:center;padding-block:clamp(2.5rem,7vw,6rem) clamp(4rem,9vw,7rem)}
+.hero>div{min-width:0;display:flex;flex-direction:column;gap:1.75rem}
+.hero .note{font-size:.9rem;color:var(--ink-2)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+
+/* Kompakt: 480x800 px screen, the app gets 360x564 dp */
+.kompakt{justify-self:center;width:min(300px,100%);background:var(--device);border-radius:28px;padding:22px 16px 30px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.kompakt .cam{width:8px;height:8px;border-radius:50%;background:#333}
+.screen{width:100%;aspect-ratio:360/564;background:var(--screen);color:#111;border-radius:4px;padding:18px 16px;display:flex;flex-direction:column;gap:12px}
+.screen .mo{display:flex;flex-wrap:wrap;gap:3px}
+.screen .mo i{width:5px;height:5px;border-radius:50%;background:#111}
+.screen .mo i.e{transform:scale(.45);background:#999}
+.screen .mo i.t{background:transparent;outline:1.5px solid #111;outline-offset:-1.5px}
+.screen .who{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#555;margin-top:auto}
+.screen .q{font-size:1.25rem;line-height:1.25;font-weight:500;text-wrap:balance}
+.screen .b{border:1.5px solid #111;border-radius:6px;padding:.55rem;text-align:center;font-size:.85rem;font-weight:500}
+.screen .b.s{background:#111;color:#F4F3EE}
+.kompakt .home{width:38px;height:6px;border-radius:3px;background:#333}
+
+/* ritual */
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,4vw,3rem);margin-top:3rem}
+.step{display:flex;flex-direction:column;gap:.75rem;border-top:1.5px solid var(--ink);padding-top:1.25rem}
+.step p{color:var(--ink-2)}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+.split>*{min-width:0}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+
+/* try a question */
+.try{margin-top:4rem;border:1.5px solid var(--ink);border-radius:.75rem;padding:clamp(1.5rem,4vw,2.5rem);display:grid;gap:1.25rem;max-width:44rem}
+.try .q{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.4rem);line-height:1.15;min-height:2.3em;text-wrap:balance}
+.try .meta{font-size:.9rem;color:var(--ink-2)}
+
+/* formats */
+.shapes{margin-top:6rem}
+.formats{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem 2rem;margin:3rem 0 0}
+.fmt{display:grid;grid-template-columns:22px 1fr;gap:.25rem .8rem;align-items:start}
+.fmt svg{width:22px;height:22px;margin-top:.15rem}
+.fmt b{font-weight:500}
+.fmt span{grid-column:2;font-size:.92rem;color:var(--ink-2);line-height:1.4}
+@media (max-width:860px){.formats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.formats{grid-template-columns:1fr}}
+
+/* galaxy */
+.galaxy{margin:3rem 0 0;display:grid;grid-template-columns:2.2rem minmax(0,1fr);gap:0 .5rem}
+.galaxy .months{display:grid;grid-template-rows:repeat(12,1fr);font-family:var(--mono);font-size:.7rem;color:var(--ink-2)}
+.galaxy .months span{display:flex;align-items:center}
+.galaxy canvas{width:100%;display:block}
+.galaxy figcaption{grid-column:2;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin-top:1rem;font-size:.85rem;color:var(--ink-2)}
+.galaxy figcaption i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem;vertical-align:middle}
+.galaxy .k-ink{background:var(--ink)}
+.galaxy .k-ghost{background:var(--ghost);transform:scale(.5)}
+.galaxy .k-today{background:var(--today)}
+
+/* promises */
+.promises{list-style:none;padding:0;margin:3rem 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.promises li{padding:1.5rem 1.5rem 1.5rem 0;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:.4rem}
+.promises b{font-weight:500}
+.promises span{color:var(--ink-2);font-size:.95rem}
+@media (max-width:760px){.promises{grid-template-columns:1fr}}
+
+/* Dotilda's voice */
+.quotes{display:grid;gap:1.75rem}
+.quotes figure{margin:0;display:grid;gap:.35rem}
+.quotes figcaption{font-size:.85rem;color:var(--ink-2)}
+
+/* get it */
+.get{display:grid;gap:2rem;max-width:46rem}
+.how{list-style:none;padding:0;margin:0;display:grid;gap:1rem;counter-reset:s}
+.how li{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;counter-increment:s}
+.how li::before{content:counter(s);font-family:var(--mono);font-size:.85rem;border:1.5px solid var(--ink);border-radius:50%;width:1.8rem;height:1.8rem;display:grid;place-items:center}
+.how span{color:var(--ink-2)}
+.dev{font-family:var(--mono);font-size:.82rem;color:var(--ink-2)}
+
+/* footer */
+footer{border-top:1px solid var(--rule);padding-block:3rem 4rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end}
+footer .credits{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:flex-start}
+footer .credit{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;text-decoration:none}
+footer .fine{font-size:.85rem;color:var(--ink-2);max-width:26rem}
+@media (max-width:760px){footer{grid-template-columns:1fr}}
+/* readme.club as a word, like its own site header */
+.rmc{font-family:"Space Grotesk",system-ui,sans-serif;font-weight:700;font-size:1.5rem;line-height:30px;letter-spacing:-.02em}
+footer .rmc:hover{text-decoration:underline}
+/* LesWWW signature, in LesWWW's own system: ink logo, Plex Mono label, lime only as the link underline */
+footer .www .label{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;color:var(--ink)}
+footer .www svg{height:30px;width:auto;flex:none;padding-bottom:6px;border-bottom:4px solid var(--www-lime)}
+footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
