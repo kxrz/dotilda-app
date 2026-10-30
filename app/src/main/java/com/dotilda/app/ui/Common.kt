@@ -93,10 +93,17 @@ fun Answer.summary(): String = when (this) {
 
 /** Previous page, Back, next page: the three buttons under every paginated screen. */
 @Composable
-fun PagerRow(canPrevious: Boolean, canNext: Boolean, onPage: (Int) -> Unit, onBack: () -> Unit) {
+fun PagerRow(
+    canPrevious: Boolean,
+    canNext: Boolean,
+    onPage: (Int) -> Unit,
+    onBack: () -> Unit,
+    previous: String = "‹",
+    next: String = "›",
+) {
     Row(Modifier.fillMaxWidth()) {
         OutlinedButtonMMD(onClick = { onPage(-1) }, enabled = canPrevious, modifier = Modifier.weight(1f)) {
-            TextMMD("‹")
+            TextMMD(previous, maxLines = 1)
         }
         Spacer(Modifier.width(8.dp))
         OutlinedButtonMMD(onClick = onBack, modifier = Modifier.weight(1.6f)) {
@@ -104,7 +111,7 @@ fun PagerRow(canPrevious: Boolean, canNext: Boolean, onPage: (Int) -> Unit, onBa
         }
         Spacer(Modifier.width(8.dp))
         OutlinedButtonMMD(onClick = { onPage(1) }, enabled = canNext, modifier = Modifier.weight(1f)) {
-            TextMMD("›")
+            TextMMD(next, maxLines = 1)
         }
     }
 }

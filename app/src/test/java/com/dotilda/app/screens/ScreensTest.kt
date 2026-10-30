@@ -33,9 +33,11 @@ import com.dotilda.app.ui.Pose
 import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
 import kotlinx.coroutines.runBlocking
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowLooper
@@ -51,6 +53,8 @@ import kotlin.random.Random
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [33], qualifiers = KOMPAKT)
+// DataStore keeps one instance per process, so "welcomed" outlives a test: onboarding runs first.
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class ScreensTest {
     @get:Rule
     val compose = createEmptyComposeRule()
@@ -59,7 +63,7 @@ class ScreensTest {
     private val today = LocalDate.now()
 
     @Test
-    fun onboarding() {
+    fun a_onboarding() {
         awaitBank()
         runBlocking { app.prefs.settingsNow() }
         launch()
@@ -71,7 +75,7 @@ class ScreensTest {
     }
 
     @Test
-    fun ritual() {
+    fun b_ritual() {
         seed(question = "iw-001")
         launch()
         waitFor("Answer")
@@ -89,7 +93,7 @@ class ScreensTest {
     }
 
     @Test
-    fun answerFormats() {
+    fun c_answerFormats() {
         for ((id, name) in listOf("ol-001" to "04-answer-line", "tt-001" to "08-answer-choice", "th-001" to "09-answer-things", "mi-001" to "10-answer-mirror")) {
             seed(question = id)
             val scenario = launch()
@@ -103,7 +107,7 @@ class ScreensTest {
     }
 
     @Test
-    fun rereading() {
+    fun d_rereading() {
         seed(question = "ol-001")
         launch()
         waitFor("Answer")
@@ -119,7 +123,7 @@ class ScreensTest {
     }
 
     @Test
-    fun spiraAndSettings() {
+    fun e_spiraAndSettings() {
         seed(question = "ol-001")
         launch()
         waitFor("Answer")

@@ -61,7 +61,14 @@ fun GalaxyScreen(journal: Journal, onOpenDay: (LocalDate) -> Unit, onBack: () ->
         Spacer(Modifier.height(8.dp))
         TextMMD(stringResource(R.string.galaxy_hint), style = MaterialTheme.typography.labelSmall)
         Spacer(Modifier.height(12.dp))
-        PagerRow(canPrevious = year > firstYear, canNext = year < today.year, onPage = turn, onBack = onBack)
+        PagerRow(
+            canPrevious = year > firstYear,
+            canNext = year < today.year,
+            onPage = turn,
+            onBack = onBack,
+            previous = if (year > firstYear) "‹ ${year - 1}" else "‹",
+            next = if (year < today.year) "${year + 1} ›" else "›",
+        )
     }
 }
 
