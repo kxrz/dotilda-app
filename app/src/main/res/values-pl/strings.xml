@@ -268,5 +268,5 @@
     <string name="intro_review_title">Spojrzenie wstecz</string>
     <string name="intro_review">Twoja pogoda, Twoje słowa, jedno Twoje zdanie i zdjęcia, zebrane z miesiąca albo pory roku. Przewracaj strony strzałkami ‹ ›.</string>
     <string name="intro_settings_title">Ustawienia</string>
-    <string name="intro_settings">Twoje imię, przypomnienie i aktualizacje. Na następnej stronie: eksport dziennika, książka z Twojego roku i wygląd nieba.</string>
+    <string name="intro_settings">Twoje imię i przypomnienie. Na następnej stronie: eksport dziennika, książka z Twojego roku i wygląd nieba; na ostatniej aktualizacje i reszta.</string>
 </resources>

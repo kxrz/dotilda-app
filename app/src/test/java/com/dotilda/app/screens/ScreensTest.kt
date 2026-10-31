@@ -182,6 +182,9 @@ open class ScreensTest {
         shot("16-settings")
         click("›")
         waitFor("Your sky")
+        click("›")
+        waitFor("Licences")
+        shot("37-settings-more")
         click("Licences")
         waitFor("Apache", substring = true)
         shot("30-licenses")
@@ -300,13 +303,15 @@ open class ScreensTest {
         click("Back")
         waitFor("Answer")
         click("Settings")
-        waitFor("Your name, your reminder", substring = true)
+        waitFor("Your name and your reminder", substring = true)
         shot("36-intro-settings")
         gotIt()
         click("›")
+        waitFor("Your sky")
+        click("›")
         waitFor("Introductions")
         click("Introductions")
-        waitFor("Your name, your reminder", substring = true)
+        waitFor("Your name and your reminder", substring = true)
     }
 
     private var scenario: ActivityScenario<MainActivity>? = null
