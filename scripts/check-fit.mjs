@@ -33,15 +33,19 @@ for (const [name, width, height] of screens) {
     if (document.documentElement.scrollWidth > vw) out.push(`scrolls sideways (${document.documentElement.scrollWidth}px)`);
     const texts = [...document.querySelectorAll('body *')].filter(e => e.offsetParent !== null && !e.closest('.sr-only')
       && [...e.childNodes].some(c => c.nodeType === 3 && c.textContent.trim()));
+    // A horizontal scroller (the screens carousel) hides nothing: its content is swiped into view.
+    const scrollsX = el => ['auto', 'scroll'].includes(getComputedStyle(el).overflowX);
     for (const e of texts) {
       const r = e.getBoundingClientRect(), label = `"${e.textContent.trim().slice(0, 32)}"`;
-      if (r.right > vw + 1) out.push(`${label} goes off the right edge`);
+      let inScroller = false;
       for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
         const cs = getComputedStyle(a);
         if (cs.overflowX === 'visible' && cs.overflowY === 'visible') continue;
         const ar = a.getBoundingClientRect();
+        if (scrollsX(a)) { inScroller = true; if (r.top < ar.top - 1 || r.bottom > ar.bottom + 1) { out.push(`${label} is clipped by .${a.className}`); break; } continue; }
         if (r.left < ar.left - 1 || r.right > ar.right + 1 || r.top < ar.top - 1 || r.bottom > ar.bottom + 1) { out.push(`${label} is clipped by .${a.className}`); break; }
       }
+      if (!inScroller && r.right > vw + 1) out.push(`${label} goes off the right edge`);
     }
     const screen = document.querySelector('.screen').getBoundingClientRect();
     for (const c of document.querySelectorAll('.screen > :not(.flash)')) {

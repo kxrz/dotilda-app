@@ -60,7 +60,7 @@ The page follows AIDA, in this order:
 | --- | --- | --- |
 | Attention | hero | Dotilda asks; the visitor answers and watches a dot land in the year. |
 | Interest | `#ritual` | The ritual in three steps. |
-| Interest | `#inside` | Eight real screens of the released app. |
+| Interest | `#inside` | Eight real screens of the released app, in a carousel to swipe, drag or page through. |
 | Interest | `#shapes` | The eight ways to answer, and "Try one" for a few more questions. |
 | Desire | `.pause` | One huge sentence, to slow down. |
 | Desire | `#sky` | The year of dots, Dotilda's voice, six promises, what comes next. |
@@ -157,7 +157,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 | Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
-| Inside the app | Each real screen arrives with its own e-ink blink. |
+| Inside the app | The strip of screens slides in; the screen in the middle stands straight with its caption and blinks like an e-ink refresh when it arrives. |
 | FAQ | Questions settle one after the other. |
 | Get Dotilda | Install ways slide in from their numbers; the Kompakt turns through real screens (Today, a finished journey, Galaxy, month review) every 4.5 s, each with a full e-ink refresh, only while it is in view. |
 
@@ -212,7 +212,8 @@ LinkedIn cache share cards: pass the URL through their debuggers to refresh them
 1. `npm run build` passes.
 2. `npm run preview`, then `npm run check:fit`. It opens every page of the sitemap on 13 screens,
    from the Mudita Kompakt (360×564) to full HD, phones in landscape included, and fails if any
-   text is clipped or off the screen, the page scrolls sideways, the pinned sentence is taller
+   text is clipped or off the screen (content of a horizontal scroller, like the carousel, counts as
+   in view), the page scrolls sideways, the pinned sentence is taller
    than the screen, the Kompakt mockup overflows, or the answer field is below the first screen.
 3. After a change to the motion, scroll the page once with motion on and once with reduced motion.
 4. After a change to a tagline or a language, `npm run og`.

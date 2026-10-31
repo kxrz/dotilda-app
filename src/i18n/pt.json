@@ -295,7 +295,9 @@
         "src": "spira",
         "caption": "Spira: um minuto de respiração antes de escrever."
       }
-    ]
+    ],
+    "prev": "Tela anterior",
+    "next": "Próxima tela"
   },
   "faq": {
     "label": "Perguntas",

@@ -176,6 +176,63 @@ ask.addEventListener('submit', e => {
     .to({}, { duration: .4 });
 });
 
+// Inside the app: a strip of real screens. Swipe, drag or use the page keys; the screen nearest
+// the middle stands straight and gets its caption, with an e-ink blink when motion is welcome.
+const track = $('#track');
+const slides = [...track.querySelectorAll<HTMLElement>('.slide')];
+const prevShot = $<HTMLButtonElement>('#prevShot'), nextShot = $<HTMLButtonElement>('#nextShot'), shotCount = $('#shotCount');
+let current = 0;
+const setActive = (i: number) => {
+  if (i === current && slides[i].classList.contains('active')) return;
+  slides[current].classList.remove('active');
+  current = i;
+  slides[i].classList.add('active');
+  shotCount.textContent = `${i + 1} / ${slides.length}`;
+  prevShot.disabled = i === 0;
+  nextShot.disabled = i === slides.length - 1;
+  if (root.classList.contains('motion')) {
+    gsap.timeline()
+      .set(slides[i].querySelector('.page'), { filter: 'invert(1)' }, .15)
+      .set(slides[i].querySelector('.page'), { filter: 'none' }, .24);
+  }
+};
+const nearest = () => {
+  const middle = track.scrollLeft + track.clientWidth / 2;
+  let best = 0;
+  slides.forEach((sl, i) => {
+    if (Math.abs(sl.offsetLeft + sl.offsetWidth / 2 - middle) < Math.abs(slides[best].offsetLeft + slides[best].offsetWidth / 2 - middle)) best = i;
+  });
+  return best;
+};
+const goTo = (i: number) => {
+  const sl = slides[Math.max(0, Math.min(slides.length - 1, i))];
+  track.scrollTo({ left: sl.offsetLeft - (track.clientWidth - sl.offsetWidth) / 2, behavior: root.classList.contains('motion') ? 'smooth' : 'auto' });
+};
+let scrollTick = 0;
+track.addEventListener('scroll', () => {
+  cancelAnimationFrame(scrollTick);
+  scrollTick = requestAnimationFrame(() => setActive(nearest()));
+}, { passive: true });
+prevShot.addEventListener('click', () => goTo(current - 1));
+nextShot.addEventListener('click', () => goTo(current + 1));
+track.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + (e.key === 'ArrowRight' ? 1 : -1)); }
+});
+// Mouse drag on desktop (touch and trackpads scroll natively).
+let drag: { x: number; left: number } | null = null;
+track.addEventListener('pointerdown', e => {
+  if (e.pointerType !== 'mouse') return;
+  drag = { x: e.clientX, left: track.scrollLeft };
+  track.classList.add('dragging');
+  track.setPointerCapture(e.pointerId);
+});
+track.addEventListener('pointermove', e => { if (drag) track.scrollLeft = drag.left - (e.clientX - drag.x); });
+const endDrag = () => { if (!drag) return; drag = null; track.classList.remove('dragging'); goTo(nearest()); };
+track.addEventListener('pointerup', endDrag);
+track.addEventListener('pointercancel', endDrag);
+track.addEventListener('dragstart', e => e.preventDefault());
+prevShot.disabled = true;
+
 // The year of dots: a sample year up to today. It inks in as you scroll past it, one day after
 // another, then stays still. Without motion it is drawn whole at once.
 const year = today.getFullYear();
@@ -353,11 +410,11 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     onToggle: st => (st.isActive ? turn.play() : turn.pause()),
   });
 
-  // Inside the app: each real screen arrives with its own e-ink blink, one after the other.
-  gsap.timeline({ scrollTrigger: onEnter('.pages') })
-    .from('[data-anim="page"]', { autoAlpha: 0, y: 18, ...calm, stagger: .12 })
-    .set('.pages .page', { filter: 'invert(1)', stagger: .12 }, .25)
-    .set('.pages .page', { filter: 'none', stagger: .12 }, .35);
+  // Inside the app: the strip of screens slides in from the right.
+  gsap.from('[data-anim="page"]', {
+    autoAlpha: 0, x: 80, ...calm, duration: 1.2, stagger: .08,
+    clearProps: 'transform,opacity,visibility', scrollTrigger: onEnter('.carousel'),
+  });
 
   // Section labels are typed, in their monospace, one character at a time.
   $$('section .stack > .label').forEach(label => gsap.from(label, {

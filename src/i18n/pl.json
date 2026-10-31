@@ -295,7 +295,9 @@
         "src": "spira",
         "caption": "Spira: minuta oddechu przed pisaniem."
       }
-    ]
+    ],
+    "prev": "Poprzedni ekran",
+    "next": "Następny ekran"
   },
   "faq": {
     "label": "Pytania",

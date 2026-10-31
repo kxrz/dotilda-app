@@ -159,12 +159,28 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .coming .label{margin-right:.5rem;color:var(--ink)}
 
 /* Inside the app: real screens of the current version */
-.pages{list-style:none;padding:0;margin:3rem 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,2.4vw,2rem);max-width:56rem}
-.pages figure{margin:0;display:grid;gap:.75rem}
-.pages .page{display:block;background:#fff;border-radius:6px;box-shadow:0 0 0 1px var(--rule),0 18px 30px -24px rgba(0,0,0,.35);overflow:hidden}
-.pages img{display:block;width:100%;height:auto}
-.pages figcaption{font-size:.85rem;color:var(--ink-2);line-height:1.4}
-@media (max-width:640px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* A strip of real screens, swiped or paged: the one in the middle stands straight and sharp,
+   the others lean a little and fade, like pages on a table. */
+.carousel{margin-top:2.5rem}
+.track{--w:clamp(190px,24vw,270px);position:relative;display:flex;gap:clamp(1rem,3vw,2.5rem);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;padding:1.5rem calc(50% - var(--w) / 2) 1rem}
+.track::-webkit-scrollbar{display:none}
+.track.dragging{scroll-snap-type:none;cursor:grabbing}
+@media (hover:hover){.track{cursor:grab}}
+.track:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.slide{flex:0 0 var(--w);margin:0;display:grid;gap:.9rem;scroll-snap-align:center;transform:rotate(var(--lean,-2deg)) scale(.9);opacity:.5}
+.slide:nth-child(even){--lean:1.6deg}
+.slide.active{transform:none;opacity:1}
+.motion .slide{transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.slide .page{display:block;background:#fff;border-radius:6px;box-shadow:0 0 0 1px var(--rule),0 24px 40px -28px rgba(0,0,0,.45);overflow:hidden}
+.slide img{display:block;width:100%;height:auto}
+.slide figcaption{font-size:.9rem;color:var(--ink-2);line-height:1.4;text-align:center;min-height:2.8em;visibility:hidden}
+.slide.active figcaption{visibility:visible}
+.carousel-nav{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:.5rem}
+.carousel-nav .count{font-family:var(--mono);font-size:.8rem;color:var(--ink-2);min-width:4.5em;text-align:center}
+/* Shaped like the Kompakt's side keys, which turn the pages in the app */
+.page-key{width:2.6rem;height:2.6rem;border:1.5px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);font:400 1.4rem/1 var(--body);cursor:pointer}
+.page-key:hover{background:var(--ink);color:var(--paper)}
+.page-key:disabled{opacity:.3;cursor:default;background:transparent;color:var(--ink)}
 
 .shapes{margin-top:6rem}
 .formats{list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem 2rem;margin:3rem 0 0}

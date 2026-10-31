@@ -296,7 +296,9 @@
         "src": "spira",
         "caption": "Spira: a breathing minute before writing."
       }
-    ]
+    ],
+    "prev": "Previous screen",
+    "next": "Next screen"
   },
   "faq": {
     "label": "Questions",

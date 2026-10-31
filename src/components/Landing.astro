@@ -112,16 +112,21 @@ const glyphs: Record<string, string> = {
     <h2 data-split><Words text={s.inside.title} /></h2>
     <p class="lede">{s.inside.lede}</p>
   </div>
-  <ul class="pages">
-    {s.inside.screens.map(sc => (
-      <li data-anim="page">
-        <figure>
-          <span class="page"><img src={`/app/${sc.src}.png`} width="479" height="750" alt={sc.caption} loading="lazy" decoding="async"></span>
+  <div class="carousel">
+    <div class="track" id="track" tabindex="0" role="region" aria-roledescription="carousel" aria-label={s.inside.label}>
+      {s.inside.screens.map((sc, i) => (
+        <figure class:list={['slide', { active: i === 0 }]} data-anim="page">
+          <span class="page"><img src={`/app/${sc.src}.png`} width="479" height="750" alt={sc.caption} loading={i < 3 ? 'eager' : 'lazy'} decoding="async"></span>
           <figcaption aria-hidden="true">{sc.caption}</figcaption>
         </figure>
-      </li>
-    ))}
-  </ul>
+      ))}
+    </div>
+    <div class="carousel-nav">
+      <button class="page-key" type="button" id="prevShot" aria-label={s.inside.prev}>‹</button>
+      <span class="count" id="shotCount" aria-live="polite">1 / {s.inside.screens.length}</span>
+      <button class="page-key" type="button" id="nextShot" aria-label={s.inside.next}>›</button>
+    </div>
+  </div>
 </section>
 
 <!-- Interest: the eight ways to answer, and a few more questions to try -->
