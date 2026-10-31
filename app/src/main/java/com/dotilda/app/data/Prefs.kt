@@ -70,6 +70,7 @@ class Prefs(private val context: Context) {
         val updateSeen = stringPreferencesKey("update_seen")
         val updatedOn = stringPreferencesKey("updated_on")
         val skyLayout = stringPreferencesKey("sky_layout")
+        val introsSeen = stringSetPreferencesKey("intros_seen")
     }
 
     val settings: Flow<Settings> = context.dataStore.data.map { it.toSettings() }
@@ -175,6 +176,17 @@ class Prefs(private val context: Context) {
 
     suspend fun dismissAside(key: String) {
         context.dataStore.edit { it[Keys.dismissedAsides] = it[Keys.dismissedAsides].orEmpty() + key }
+    }
+
+    /** The parts of the app whose introduction the user has already read. */
+    val introsSeen: Flow<Set<String>> = context.dataStore.data.map { it[Keys.introsSeen].orEmpty() }
+
+    suspend fun markIntroSeen(key: String) {
+        context.dataStore.edit { it[Keys.introsSeen] = it[Keys.introsSeen].orEmpty() + key }
+    }
+
+    suspend fun resetIntros() {
+        context.dataStore.edit { it.remove(Keys.introsSeen) }
     }
 
     /** Remembers the first day a new version was announced (kept if already set for it). */

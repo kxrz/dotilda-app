@@ -282,6 +282,32 @@ open class ScreensTest {
         waitFor("Answer")
     }
 
+    /** Dotilda introduces each part once: Today's icons, then the Galaxy, then Settings. */
+    @Test
+    fun k_intros() {
+        seed(question = "iw-001")
+        offMain { app.prefs.resetIntros() }
+        launch()
+        waitFor("my five doors", substring = true)
+        shot("33-intro-today")
+        click("Got it")
+        settle()
+        shot("34-today-icons")
+        click("Galaxy")
+        waitFor("One dot per day", substring = true)
+        shot("35-intro-galaxy")
+        click("Got it")
+        click("Back")
+        waitFor("Answer")
+        click("Settings")
+        waitFor("Your name, your reminder", substring = true)
+        shot("36-intro-settings")
+        click("Got it")
+        waitFor("Show my introductions again")
+        click("Show my introductions again")
+        waitFor("Your name, your reminder", substring = true)
+    }
+
     private var scenario: ActivityScenario<MainActivity>? = null
 
     private fun launch() {
@@ -301,8 +327,10 @@ open class ScreensTest {
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
     }
 
+    /** Clicks a text, or an icon by its label when no text says it (Today's places). */
     private fun click(text: String, substring: Boolean = false) {
-        compose.onNodeWithText(text, substring).performClick()
+        val byText = compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty()
+        (if (byText) compose.onNodeWithText(text, substring) else compose.onNodeWithContentDescription(text)).performClick()
         compose.waitForIdle()
     }
 
@@ -356,6 +384,8 @@ open class ScreensTest {
     private suspend fun seedJournal(question: String?, journeyDone: Int) {
         app.prefs.setWelcomed()
         if (!app.prefs.settingsNow().nameAsked) app.prefs.setName("Ada")
+        // The tour looks at the screens themselves; k_intros looks at the introductions.
+        INTROS.forEach { app.prefs.markIntroSeen(it) }
         val bank = app.db.questionDao().all()
         val byType = bank.filter { it.journeyId == null }.groupBy { it.type }
         val random = Random(7)
@@ -485,3 +515,5 @@ class DesignSheetTest {
 
 /** The Mudita Kompakt: 480 × 800 px at 213 dpi, of which the app gets 360 × 564 dp. */
 const val KOMPAKT = "w360dp-h564dp-port-tvdpi"
+
+private val INTROS = listOf("today", "notebook", "galaxy", "journeys", "spira", "review", "settings")

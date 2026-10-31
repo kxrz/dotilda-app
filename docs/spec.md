@@ -143,7 +143,12 @@ is the daily appointment the user chose.
 ## Screens
 
 Flat navigation: Today leads everywhere, and every screen goes back to Today in one gesture or
-one button.
+one button. Today reaches the other places through five ink icons (Notebook, Galaxy, Journeys,
+Spira, Settings), each labelled for screen readers.
+
+The first time a part opens (Today, Notebook, Galaxy, Journeys, Spira, Looking back, Settings),
+Dotilda introduces it in a card over the screen, closed with "Got it" or Back. It is never shown
+again, unless Settings is asked to show the introductions again.
 
 | Screen | Content | Actions |
 | --- | --- | --- |

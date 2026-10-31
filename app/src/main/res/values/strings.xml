@@ -250,4 +250,20 @@
     <string name="quip_named">Yes, %1$s?</string>
     <string name="book_title_named">%1$s\'s year with Dotilda</string>
     <string name="book_cover_subtitle_named">%1$s\'s year with Dotilda</string>
+    <string name="intro_ok">Got it</string>
+    <string name="intros_again">Show my introductions again</string>
+    <string name="intro_today_title">Today</string>
+    <string name="intro_today">One question a day, here. Down below, my five doors: the open book for your notebook, the dots for your galaxy, the star for journeys, the rings for Spira, the sliders for settings.</string>
+    <string name="intro_notebook_title">Notebook</string>
+    <string name="intro_notebook">Every answer you give lands here, one page per day. Turn the pages with ‹ › or the volume buttons.</string>
+    <string name="intro_galaxy_title">Galaxy</string>
+    <string name="intro_galaxy">One dot per day, one row per month. Its shape tells how you answered: a moon for the weather, a square for a photo, a diamond for a letter. Touch a dot to read that day, a month\'s initial for its review.</string>
+    <string name="intro_journeys_title">Journeys</string>
+    <string name="intro_journeys">A few days on one theme, one question a day in place of mine. Finish one and its days light up as a constellation. Skip a day: nothing breaks.</string>
+    <string name="intro_spira_title">Spira</string>
+    <string name="intro_spira">Spira means “breathe”. A breathing minute before writing, a timer that rings even with the screen off, and a stopwatch.</string>
+    <string name="intro_review_title">Looking back</string>
+    <string name="intro_review">Your weather, your words, a line of yours and your photos, gathered over a month or a season. Turn the pages with ‹ ›.</string>
+    <string name="intro_settings_title">Settings</string>
+    <string name="intro_settings">Your name, your reminder, your updates. On the next page: export your journal, make a book of your year, and choose the look of your sky.</string>
 </resources>
