@@ -11,6 +11,7 @@ const url = process.argv[2] || 'http://localhost:4321/';
 const screens = [
   ['Mudita Kompakt', 360, 564], ['small phone', 320, 568], ['Android', 360, 640],
   ['iPhone 8', 375, 667], ['iPhone', 390, 844], ['iPhone Max', 430, 932],
+  ['iPhone in an app browser', 430, 700], ['iPhone with browser bars', 390, 664],
   ['phone landscape', 844, 390], ['small landscape', 667, 375], ['iPad', 768, 1024],
   ['iPad landscape', 1024, 768], ['laptop', 1280, 720], ['desktop', 1440, 900], ['full HD', 1920, 1080],
 ];
@@ -67,6 +68,9 @@ for (const [name, width, height] of screens) {
     // Dotilda's playground fits in one screen on anything taller than a phone in landscape.
     const heroIn = document.querySelector('.hero-in');
     if (heroIn && vh >= 560 && heroIn.getBoundingClientRect().bottom + scrollY > vh + 1) out.push(`hero taller than the screen (${Math.round(heroIn.getBoundingClientRect().bottom + scrollY)}px)`);
+    // The calls to action come after the playground, never on its first screen.
+    const after = document.querySelector('.after-hero');
+    if (after && vh >= 560 && after.getBoundingClientRect().top + scrollY < vh - 1) out.push('calls to action on the first screen');
     return [...new Set(out)];
   });
   // The playground changes shape (choices, moons, Dotilda's reply): every state must still fit.
@@ -76,6 +80,12 @@ for (const [name, width, height] of screens) {
       if (height >= 560 && r.bottom > height + 1) issues.push(`hero taller than the screen with ${name} (${Math.round(r.bottom)}px)`);
       if (r.sw > width) issues.push(`scrolls sideways with ${name} (${r.sw}px)`);
     };
+    // A long answer wraps in the field instead of being cut off.
+    await page.evaluate(() => { const a = document.querySelector('#askInput'); a.value = document.querySelector('#page-data') && JSON.parse(document.querySelector('#page-data').textContent).hero.sample; a.dispatchEvent(new Event('input')); });
+    const cut = await page.evaluate(() => { const a = document.querySelector('#askInput'); return a.scrollHeight > a.clientHeight + 2 || a.scrollWidth > a.clientWidth + 1; });
+    if (cut) issues.push('the sample answer is cut off in the field');
+    await state('a long answer');
+    await page.evaluate(() => { const a = document.querySelector('#askInput'); a.value = ''; a.dispatchEvent(new Event('input')); });
     for (const name of ['a choice', 'one word', 'the moons']) { await page.click('#another'); await state(name); }
     await page.click('#moons button[data-w="4"]'); await state("Dotilda's reply");
   }

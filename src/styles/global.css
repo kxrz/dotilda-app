@@ -81,12 +81,13 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 @media (max-width:720px){nav.top .hide-s{display:none}}
 @media (max-width:640px){.brand small{display:none}}
 /* With the language links, the header link to Get Dotilda gives way on narrow phones (the hero has it). */
-@media (max-width:420px){nav.top:has(.langs) .nav-get{display:none}}
+.nav-get{white-space:nowrap}
+@media (max-width:480px){nav.top:has(.langs) .nav-get{display:none}}
 
 /* Big type is sized by width and by height (svh), so nothing is pushed off a short screen.
    hero: a plain title, then the stage: Dotilda, big, asks in her bubble as in the app; below,
    this month's dots, today waiting under its caret. */
-.hero{position:relative;display:grid;align-items:start;padding-block:clamp(.75rem,5svh,4.5rem) clamp(2rem,6svh,4rem)}
+.hero{position:relative;display:grid;align-items:start;min-height:calc(100svh - 3rem);padding-block:clamp(.5rem,4svh,4.5rem) clamp(2rem,6svh,4rem)}
 .hero-in{position:relative;display:grid;gap:clamp(.7rem,2.4svh,1.75rem);max-width:56rem;min-width:0}
 .hero h1{font-size:clamp(1.45rem,min(5.2vw,6.6svh),4.2rem);line-height:1.02;letter-spacing:-.01em}
 .hero h1 .line{display:block}
@@ -105,10 +106,10 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .ask-q .cw{white-space:nowrap}
 .ask{grid-area:answer;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(.45rem,1.4svh,.85rem);margin:0;min-width:0}
 @media (max-width:560px){.stage{grid-template-areas:"mark who" "mark bubble" "answer answer"}}
-.ask-field{display:flex;flex-wrap:wrap;gap:.75rem;align-items:stretch;max-width:38rem}
-.ask-field input{flex:1 1 12rem;min-width:0;font:400 1.15rem/1.3 var(--body);color:var(--ink);background:var(--paper);border:0;border-bottom:1.5px solid var(--ink);border-radius:0;padding:.7rem .1rem;caret-color:var(--today)}
-.ask-field input::placeholder{color:var(--ink-2);opacity:.7}
-.ask-field input:focus{outline:none;border-bottom-width:2.5px;padding-bottom:calc(.7rem - 1px)}
+.ask-field{display:flex;flex-wrap:wrap;gap:.75rem;align-items:flex-end;max-width:38rem}
+.ask-field textarea{flex:1 1 12rem;min-width:0;display:block;resize:none;overflow:hidden;field-sizing:content;font:400 1.15rem/1.3 var(--body);color:var(--ink);background:var(--paper);border:0;border-bottom:1.5px solid var(--ink);border-radius:0;padding:.7rem .1rem;caret-color:var(--today)}
+.ask-field textarea::placeholder{color:var(--ink-2);opacity:.7}
+.ask-field textarea:focus{outline:none;border-bottom-width:2.5px;padding-bottom:calc(.7rem - 1px)}
 .ask-field .btn{padding:.85rem 1.2rem}
 .btn.pressed{text-decoration:underline;transform:translateY(1px)}
 /* One kind of answer at a time, as in the app. */

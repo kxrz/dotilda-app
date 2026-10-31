@@ -66,7 +66,7 @@ tryBtn.addEventListener('click', () => {
 type Kind = 'line' | 'word' | 'choice' | 'weather';
 type DemoQ = { type: Kind; q: string; options?: string[] };
 const heroEl = $('.hero'), monthDots = $('#monthDots'), monthName = $('#monthName');
-const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLInputElement>('#askInput'), askBtn = $<HTMLButtonElement>('#askBtn');
+const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLTextAreaElement>('#askInput'), askBtn = $<HTMLButtonElement>('#askBtn');
 const askQ = $('#askQ'), askNote = $('#askNote'), askWho = $('#askWho'), askLabel = $('#askLabel'), heroMark = $('.hero-mark');
 const choicesEl = $('#choices'), moonsEl = $('#moons'), another = $<HTMLButtonElement>('#another'), nextDayBtn = $<HTMLButtonElement>('#nextDay');
 const poke = $<HTMLButtonElement>('#poke'), pokeHint = $('#pokeHint');
@@ -166,7 +166,7 @@ function showQuestion(q: DemoQ) {
   currentQ = q;
   ask.dataset.kind = q.type;
   ask.classList.remove('done');
-  askInput.value = '';
+  askInput.value = ''; fitAnswer();
   askInput.placeholder = q.type === 'word' ? data.hero.word : data.hero.placeholder;
   askInput.maxLength = q.type === 'word' ? 24 : 140;
   choicesEl.replaceChildren(...(q.options ?? []).map(o => {
@@ -252,7 +252,7 @@ ask.addEventListener('submit', e => {
   if (!typed) { askInput.focus(); return; }
   askInput.blur();
   answer(-1, askInput, typed);
-  askInput.value = '';
+  askInput.value = ''; fitAnswer();
 });
 choicesEl.addEventListener('click', e => {
   const b = (e.target as Element).closest('button');
@@ -308,17 +308,21 @@ function playDemo() {
   phase = 'demo';
   const sample = data.hero.sample, typing = { n: 0 };
   heroMark.dataset.pose = 'curious';
-  demo = gsap.timeline({ onComplete: () => { askBtn.classList.remove('pressed'); demo = null; answer(-1, askInput, sample); askInput.value = ''; } })
-    .to(typing, { n: sample.length, duration: sample.length * .04, ease: 'none', onUpdate: () => { askInput.value = sample.slice(0, Math.round(typing.n)); } })
+  demo = gsap.timeline({ onComplete: () => { askBtn.classList.remove('pressed'); demo = null; answer(-1, askInput, sample); askInput.value = ''; fitAnswer(); } })
+    .to(typing, { n: sample.length, duration: sample.length * .04, ease: 'none', onUpdate: () => { askInput.value = sample.slice(0, Math.round(typing.n)); fitAnswer(); } })
     .call(() => askBtn.classList.add('pressed'), [], '+=.35')
     .to({}, { duration: .3 });
 }
 // Starting yourself stops the scene (or keeps it from playing): the field is yours.
 function takeOver() {
   clearTimeout(demoTimer);
-  if (phase === 'demo' && demo) { demo.kill(); demo = null; askInput.value = ''; askBtn.classList.remove('pressed'); heroMark.dataset.pose = 'peering'; phase = 'yours'; }
+  if (phase === 'demo' && demo) { demo.kill(); demo = null; askInput.value = ''; fitAnswer(); askBtn.classList.remove('pressed'); heroMark.dataset.pose = 'peering'; phase = 'yours'; }
   else if (phase === 'waiting') phase = 'yours';
 }
+// The answer wraps and grows with its words, instead of being cut off; Enter adds the dot.
+function fitAnswer() { askInput.style.height = 'auto'; askInput.style.height = `${askInput.scrollHeight + 2}px`; }
+askInput.addEventListener('input', fitAnswer);
+askInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask.requestSubmit(); } });
 askInput.addEventListener('pointerdown', takeOver);
 askInput.addEventListener('focus', () => { if (phase !== 'demo' || demo) takeOver(); });
 

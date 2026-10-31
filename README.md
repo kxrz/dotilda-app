@@ -16,7 +16,7 @@ npm install
 npm run dev        # http://localhost:4321
 npm run build      # static site in dist/
 npm run preview    # serve dist/ on http://localhost:4321
-npm run check:fit  # with preview running: every language on 13 screens (see Checks)
+npm run check:fit  # with preview running: every language on 15 screens (see Checks)
 npm run og         # redraw the share images (see Share images)
 npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 ```
@@ -246,7 +246,7 @@ LinkedIn cache share cards: pass the URL through their debuggers to refresh them
 ## Checks before you push
 
 1. `npm run build` passes.
-2. `npm run preview`, then `npm run check:fit`. It opens every page of the sitemap on 13 screens,
+2. `npm run preview`, then `npm run check:fit`. It opens every page of the sitemap on 15 screens,
    from the Mudita Kompakt (360×564) to full HD, phones in landscape included, and fails if any
    text is clipped or off the screen (content of a horizontal scroller, like the carousel, counts as
    in view), the page scrolls sideways, the pinned sentence is taller

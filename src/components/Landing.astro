@@ -75,7 +75,7 @@ const pageData = {
       <form class="ask" id="ask" autocomplete="off" data-kind="line">
         <div class="ask-field" data-reveal="hero">
           <label class="sr-only" for="askInput" id="askLabel">{s.hero.question}</label>
-          <input id="askInput" name="answer" type="text" maxlength="140" placeholder={s.hero.placeholder}>
+          <textarea id="askInput" name="answer" rows="1" maxlength="140" enterkeyhint="done" placeholder={s.hero.placeholder}></textarea>
           <button class="btn solid" type="submit" id="askBtn">{s.hero.submit}</button>
         </div>
         <div class="choices" id="choices"></div>
