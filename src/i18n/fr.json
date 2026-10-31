@@ -1,7 +1,7 @@
 {
   "language": "Français",
   "dateLocale": "fr-FR",
-  "appLanguage": "L’app est pour l’instant en anglais uniquement. D’autres langues suivront.",
+  "appLanguage": "L’app est pour l’instant en anglais et en polonais. D’autres langues suivront.",
   "meta": {
     "title": "Dotilda · Une question par jour, un point dans votre ciel",
     "description": "Dotilda est une app de journal tout en douceur pour le Mudita Kompakt et les liseuses Android. Une petite question par jour, un point dans votre ciel. Gratuite, privée, open source.",
@@ -167,7 +167,7 @@
     },
     {
       "title": "Se relire",
-      "text": "Relisez chaque jour dans le Notebook, voyez l’année dans la Galaxy, relisez chaque mois sur deux pages, et scellez des lettres à votre futur vous."
+      "text": "Relisez chaque jour dans le Notebook, voyez l’année dans la Galaxy, relisez chaque mois et chaque saison, scellez des lettres à votre futur vous, et exportez votre année en livre."
     },
     {
       "title": "Calme par nature",
@@ -258,7 +258,7 @@
   ],
   "coming": {
     "label": "Bientôt",
-    "text": "Les bilans de saison, et toute votre année en livre EPUB, avec le ciel de l’année en couverture."
+    "text": ""
   },
   "inside": {
     "label": "Dans l’app · bêta publique",
@@ -268,6 +268,10 @@
       {
         "src": "today",
         "caption": "Today : les points du mois et la question du jour."
+      },
+      {
+        "src": "name",
+        "caption": "Dotilda vous demande comment vous appeler. Ça reste sur votre téléphone."
       },
       {
         "src": "journeys",
@@ -282,8 +286,16 @@
         "caption": "La Galaxy : toute l’année sur un écran."
       },
       {
+        "src": "nightsky",
+        "caption": "Votre ciel, à votre goût : la Galaxy en ciel de nuit, des points fins, classiques ou gras."
+      },
+      {
         "src": "review",
         "caption": "Le bilan du mois, avec le mot de Dotilda."
+      },
+      {
+        "src": "season",
+        "caption": "Le bilan de la saison : trois mois de météo et de mots."
       },
       {
         "src": "letter",
@@ -296,6 +308,14 @@
       {
         "src": "spira",
         "caption": "Spira : une minute de respiration avant d’écrire."
+      },
+      {
+        "src": "book",
+        "caption": "Exportez votre année en livre EPUB, à lire sur votre liseuse."
+      },
+      {
+        "src": "poked",
+        "caption": "Taquinez Dotilda : elle fait un clin d’œil, s’assoupit, sourit."
       }
     ],
     "prev": "Écran précédent",
@@ -314,8 +334,12 @@
         "a": "Nulle part. Il reste sur votre appareil, sans compte. Exportez-le quand vous voulez dans un fichier zip (du JSON lisible et vos photos, lisibles sans l’app)."
       },
       {
+        "q": "Puis-je relire mon journal comme un livre ?",
+        "a": "Oui. Exportez votre année en EPUB depuis les réglages : la galaxie de l’année en couverture, un chapitre par mois, vos photos et vos constellations. Ouvrez-le sur votre liseuse."
+      },
+      {
         "q": "Faut-il internet ?",
-        "a": "Non. La seule connexion est la vérification des mises à jour sur GitHub, qui n’envoie rien sur vous et se désactive dans Settings."
+        "a": "Non. La seule connexion est la vérification des mises à jour sur GitHub, qui n’envoie rien sur vous et se désactive dans Settings. Si elle plante un jour, le rapport reste sur le téléphone jusqu’à ce que vous choisissiez de l’exporter."
       },
       {
         "q": "Comment mettre à jour ?",
@@ -331,7 +355,7 @@
       },
       {
         "q": "Dans quelles langues ?",
-        "a": "L’app est en anglais pour l’instant. D’autres langues suivront."
+        "a": "En anglais et en polonais : l’app suit la langue de votre téléphone. D’autres langues suivront."
       },
       {
         "q": "Que veut dire « bêta » ici ?",
@@ -345,5 +369,6 @@
     "text": "Un bug, une idée, une question qui vous a fait sourire : chaque mot aide la version suivante.",
     "github": "Ouvrir une issue sur GitHub",
     "reddit": "Nous écrire sur Reddit"
-  }
+  },
+  "appLanguagePill": "EN · PL"
 }

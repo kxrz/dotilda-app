@@ -27,10 +27,14 @@ ${s.shapes.formats.map(f => `- ${f.name}: ${f.text}${'soon' in f && f.soon ? ' (
 ${s.promises.map(p => `- ${p.title}: ${p.text}`).join('\n')}
 - ${s.sky.title} ${s.sky.lede}
 
+## Inside the app
+
+${s.inside.screens.map(sc => `- ${sc.caption}`).join('\n')}
+
 ## Status
 
 ${s.get.beta}
-${s.coming.label}: ${s.coming.text}
+${s.coming.text ? `${s.coming.label}: ${s.coming.text}\n` : ''}Languages: ${s.faq.items.find(i => i.q === 'Which languages?')?.a ?? 'English.'}
 
 ## Get it
 

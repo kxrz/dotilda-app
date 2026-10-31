@@ -1,7 +1,7 @@
 {
   "language": "Polski",
   "dateLocale": "pl-PL",
-  "appLanguage": "Na razie aplikacja jest dostępna tylko po angielsku. Kolejne języki są w drodze.",
+  "appLanguage": "Aplikacja mówi po polsku, gdy telefon jest ustawiony na język polski.",
   "meta": {
     "title": "Dotilda · Jedno pytanie dziennie, jedna kropka na Twoim niebie",
     "description": "Dotilda to łagodna aplikacja do codziennego dziennika na Mudita Kompakt i czytniki z Androidem. Jedno małe pytanie dziennie, jedna kropka na Twoim niebie. Darmowa, prywatna, open source.",
@@ -167,7 +167,7 @@
     },
     {
       "title": "Spojrzenie wstecz",
-      "text": "Czytaj każdy dzień w Notebooku, oglądaj cały rok w Galaxy, wracaj do każdego miesiąca na dwóch stronach i pieczętuj listy w przyszłość."
+      "text": "Czytaj każdy dzień w Notebooku, oglądaj cały rok w Galaxy, wracaj do każdego miesiąca i każdej pory roku, pieczętuj listy w przyszłość i wyeksportuj swój rok jako książkę."
     },
     {
       "title": "Spokojna z założenia",
@@ -258,7 +258,7 @@
   ],
   "coming": {
     "label": "Wkrótce",
-    "text": "Podsumowania pór roku i cały Twój rok jako książka EPUB, z niebem roku na okładce."
+    "text": ""
   },
   "inside": {
     "label": "W aplikacji · publiczna beta",
@@ -268,6 +268,10 @@
       {
         "src": "today",
         "caption": "Today: kropki miesiąca i pytanie dnia."
+      },
+      {
+        "src": "name",
+        "caption": "Dotilda pyta, jak masz na imię. Imię zostaje w Twoim telefonie."
       },
       {
         "src": "journeys",
@@ -282,8 +286,16 @@
         "caption": "Galaxy: cały rok na jednym ekranie."
       },
       {
+        "src": "nightsky",
+        "caption": "Twoje niebo po Twojemu: Galaxy jako nocne niebo, kropki cienkie, klasyczne lub grube."
+      },
+      {
         "src": "review",
         "caption": "Podsumowanie miesiąca, ze słowem od Dotildy."
+      },
+      {
+        "src": "season",
+        "caption": "Podsumowanie pory roku: trzy miesiące pogody i słów."
       },
       {
         "src": "letter",
@@ -296,6 +308,14 @@
       {
         "src": "spira",
         "caption": "Spira: minuta oddechu przed pisaniem."
+      },
+      {
+        "src": "book",
+        "caption": "Wyeksportuj swój rok jako książkę EPUB i czytaj go na czytniku."
+      },
+      {
+        "src": "poked",
+        "caption": "Zaczep Dotildę: puszcza oko, przysypia, uśmiecha się."
       }
     ],
     "prev": "Poprzedni ekran",
@@ -314,8 +334,12 @@
         "a": "Nigdzie. Zostaje na Twoim urządzeniu, bez konta. Wyeksportuj go, kiedy chcesz, do pliku zip (czytelny JSON i Twoje zdjęcia, do odczytania bez aplikacji)."
       },
       {
+        "q": "Czy mogę czytać swój dziennik jak książkę?",
+        "a": "Tak. Wyeksportuj swój rok w ustawieniach jako EPUB: galaktyka roku na okładce, rozdział na każdy miesiąc, Twoje zdjęcia i konstelacje. Otwórz go na czytniku."
+      },
+      {
         "q": "Czy potrzebny jest internet?",
-        "a": "Nie. Jedyne połączenie to sprawdzanie aktualizacji na GitHubie, które nie wysyła nic o Tobie i można je wyłączyć w Settings."
+        "a": "Nie. Jedyne połączenie to sprawdzanie aktualizacji na GitHubie, które nie wysyła nic o Tobie i można je wyłączyć w Settings. Jeśli aplikacja kiedyś się zawiesi, raport zostaje w telefonie, dopóki nie zdecydujesz się go wyeksportować."
       },
       {
         "q": "Jak aktualizować?",
@@ -331,7 +355,7 @@
       },
       {
         "q": "W jakich językach?",
-        "a": "Na razie aplikacja jest po angielsku. Kolejne języki są w drodze."
+        "a": "Po angielsku i po polsku: aplikacja mówi w języku Twojego telefonu. Kolejne języki są w drodze."
       },
       {
         "q": "Co tu znaczy beta?",
@@ -345,5 +369,6 @@
     "text": "Błąd, pomysł, pytanie, które Cię rozśmieszyło: każde słowo pomaga kolejnej wersji.",
     "github": "Zgłoś to na GitHubie",
     "reddit": "Napisz do nas na Reddicie"
-  }
+  },
+  "appLanguagePill": "PL"
 }

@@ -1,7 +1,7 @@
 {
   "language": "Español",
   "dateLocale": "es-ES",
-  "appLanguage": "Por ahora la app solo está en inglés. Pronto llegarán más idiomas.",
+  "appLanguage": "Por ahora la app está en inglés y polaco. Pronto llegarán más idiomas.",
   "meta": {
     "title": "Dotilda · Una pregunta al día, un punto en tu cielo",
     "description": "Dotilda es una app de diario tranquila para el Mudita Kompakt y los lectores electrónicos Android. Una pequeña pregunta al día, un punto en tu cielo. Gratis, privada y de código abierto.",
@@ -167,7 +167,7 @@
     },
     {
       "title": "Mirar atrás",
-      "text": "Relee cada día en el Notebook, mira el año en la Galaxy, vuelve a leer cada mes en dos páginas y sella cartas a tu yo futuro."
+      "text": "Relee cada día en el Notebook, mira el año en la Galaxy, vuelve a leer cada mes y cada estación, sella cartas a tu yo futuro y exporta tu año como libro."
     },
     {
       "title": "Tranquila por diseño",
@@ -258,7 +258,7 @@
   ],
   "coming": {
     "label": "Próximamente",
-    "text": "Los resúmenes de la estación, y todo tu año como libro EPUB, con el cielo del año en la portada."
+    "text": ""
   },
   "inside": {
     "label": "Dentro de la app · beta pública",
@@ -268,6 +268,10 @@
       {
         "src": "today",
         "caption": "Today: los puntos del mes y la pregunta del día."
+      },
+      {
+        "src": "name",
+        "caption": "Dotilda te pregunta cómo llamarte. Se queda en tu teléfono."
       },
       {
         "src": "journeys",
@@ -282,8 +286,16 @@
         "caption": "La Galaxy: todo el año en una pantalla."
       },
       {
+        "src": "nightsky",
+        "caption": "Tu cielo, a tu manera: la Galaxy como cielo nocturno, puntos finos, clásicos o gruesos."
+      },
+      {
         "src": "review",
         "caption": "El resumen del mes, con la palabra de Dotilda."
+      },
+      {
+        "src": "season",
+        "caption": "El resumen de la estación: tres meses de clima y palabras."
       },
       {
         "src": "letter",
@@ -296,6 +308,14 @@
       {
         "src": "spira",
         "caption": "Spira: un minuto de respiración antes de escribir."
+      },
+      {
+        "src": "book",
+        "caption": "Exporta tu año como libro EPUB, para leerlo en tu lector."
+      },
+      {
+        "src": "poked",
+        "caption": "Toca a Dotilda: guiña un ojo, se adormece, sonríe."
       }
     ],
     "prev": "Pantalla anterior",
@@ -314,8 +334,12 @@
         "a": "A ninguna parte. Se queda en tu dispositivo, sin cuenta. Expórtalo cuando quieras a un archivo zip (JSON legible y tus fotos, legibles sin la app)."
       },
       {
+        "q": "¿Puedo leer mi diario como un libro?",
+        "a": "Sí. Exporta tu año en EPUB desde los ajustes: la galaxia del año en la portada, un capítulo por mes, tus fotos y tus constelaciones. Ábrelo en tu lector."
+      },
+      {
         "q": "¿Necesita internet?",
-        "a": "No. La única conexión es la comprobación de actualizaciones en GitHub, que no envía nada sobre ti y se puede desactivar en Settings."
+        "a": "No. La única conexión es la comprobación de actualizaciones en GitHub, que no envía nada sobre ti y se puede desactivar en Settings. Si alguna vez falla, el informe se queda en el teléfono hasta que decidas exportarlo."
       },
       {
         "q": "¿Cómo se actualiza?",
@@ -331,7 +355,7 @@
       },
       {
         "q": "¿En qué idiomas?",
-        "a": "Por ahora la app está en inglés. Llegarán más idiomas."
+        "a": "En inglés y polaco: la app sigue el idioma de tu teléfono. Llegarán más idiomas."
       },
       {
         "q": "¿Qué significa beta aquí?",
@@ -345,5 +369,6 @@
     "text": "Un fallo, una idea, una pregunta que te hizo sonreír: cada palabra ayuda a la próxima versión.",
     "github": "Abrir una incidencia en GitHub",
     "reddit": "Escríbenos en Reddit"
-  }
+  },
+  "appLanguagePill": "EN · PL"
 }

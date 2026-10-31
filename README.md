@@ -126,12 +126,14 @@ greys, as on the e-ink screen. To refresh them after a release:
 
 ```bash
 git fetch origin screenshots/main
-for f in 03-today:today 17-journeys:journeys 25-done-constellation:constellation 12-galaxy:galaxy \
-         18-review-weather:review 20-answer-letter:letter 21-answer-photo:photo 13-spira-breathe:spira; do
+for f in 03-today:today 02-name:name 17-journeys:journeys 25-done-constellation:constellation \
+         12-galaxy:galaxy 27-galaxy-night-sky:nightsky 18-review-weather:review 28-review-season:season \
+         20-answer-letter:letter 21-answer-photo:photo 13-spira-breathe:spira 26-settings-journal:book \
+         31-today-poked:poked; do
   git show origin/screenshots/main:${f%%:*}.png > /tmp/${f##*:}.png
 done
 python3 -c "from PIL import Image; import sys
-for n in sys.argv[1:]: Image.open(f'/tmp/{n}.png').convert('L').quantize(colors=16).save(f'public/app/{n}.png', optimize=True)" today journeys constellation galaxy review letter photo spira
+for n in sys.argv[1:]: Image.open(f'/tmp/{n}.png').convert('L').quantize(colors=16).save(f'public/app/{n}.png', optimize=True)" today name journeys constellation galaxy nightsky review season letter photo spira book poked
 ```
 
 Use only screens from `screenshots/main` (the released app), never from a feature branch.

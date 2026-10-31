@@ -76,7 +76,7 @@ const pageData = {
         <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
       </div>
       <p class="note">{s.hero.note}</p>
-      {s.appLanguage && <p class="lang-note"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
+      {s.appLanguage && <p class="lang-note"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
     </div>
   </div>
 </div>
@@ -185,7 +185,7 @@ const pageData = {
   <ul class="promises">
     {s.promises.map(p => <li data-anim="promise"><b>{p.title}</b><span>{p.text}</span></li>)}
   </ul>
-  <p class="coming" data-anim="promise"><span class="label">{s.coming.label}</span> {s.coming.text}</p>
+  {s.coming.text && <p class="coming" data-anim="promise"><span class="label">{s.coming.label}</span> {s.coming.text}</p>}
 </section>
 
 <!-- Action: install the beta -->
@@ -197,7 +197,7 @@ const pageData = {
       <h2 data-split><Words text={s.get.title} /></h2>
     </div>
     <p class="lang-note" data-anim="how"><span class="lang-pill">{s.get.betaTag}</span>{s.get.beta}</p>
-    {s.appLanguage && <p class="lang-note" data-anim="how"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
+    {s.appLanguage && <p class="lang-note" data-anim="how"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
     <ol class="how">
       {s.get.ways.map((way, i) => (
         <li data-anim="how"><div>

@@ -166,7 +166,7 @@
     },
     {
       "title": "Look back",
-      "text": "Reread every day in the Notebook, see the year in the Galaxy, read each month again on two pages, and seal letters to your future self."
+      "text": "Reread every day in the Notebook, see the year in the Galaxy, read each month and each season again, seal letters to your future self, and export your year as a book."
     },
     {
       "title": "Quiet by design",
@@ -259,7 +259,7 @@
   "appLanguage": "",
   "coming": {
     "label": "Coming next",
-    "text": "Season reviews, and your whole year as an EPUB book, with the year’s sky on the cover."
+    "text": ""
   },
   "inside": {
     "label": "Inside the app · public beta",
@@ -269,6 +269,10 @@
       {
         "src": "today",
         "caption": "Today: the month’s dots and the question of the day."
+      },
+      {
+        "src": "name",
+        "caption": "Dotilda asks what to call you. It stays on your phone."
       },
       {
         "src": "journeys",
@@ -283,8 +287,16 @@
         "caption": "The Galaxy: the whole year on one screen."
       },
       {
+        "src": "nightsky",
+        "caption": "Your sky, your way: the Galaxy as a night sky, dots fine, classic or bold."
+      },
+      {
         "src": "review",
         "caption": "The month in review, with Dotilda’s word."
+      },
+      {
+        "src": "season",
+        "caption": "The season in review: three months of weather and words."
       },
       {
         "src": "letter",
@@ -297,6 +309,14 @@
       {
         "src": "spira",
         "caption": "Spira: a breathing minute before writing."
+      },
+      {
+        "src": "book",
+        "caption": "Export your year as an EPUB book, to read on your e-reader."
+      },
+      {
+        "src": "poked",
+        "caption": "Poke Dotilda: she winks, dozes off, smiles."
       }
     ],
     "prev": "Previous screen",
@@ -315,8 +335,12 @@
         "a": "Nowhere. It stays on your device, with no account. Export it whenever you like to a zip file (plain JSON and your photos, readable without the app)."
       },
       {
+        "q": "Can I read my journal like a book?",
+        "a": "Yes. Export your year from Settings as an EPUB: the year’s galaxy on the cover, one chapter per month, your photos and constellations. Open it on your e-reader."
+      },
+      {
         "q": "Does it need the internet?",
-        "a": "No. The only connection is the update check against GitHub, which sends nothing about you and can be turned off in Settings."
+        "a": "No. The only connection is the update check against GitHub, which sends nothing about you and can be turned off in Settings. If it ever crashes, the report stays on the phone until you choose to export it."
       },
       {
         "q": "How do I update?",
@@ -332,7 +356,7 @@
       },
       {
         "q": "Which languages?",
-        "a": "English for now. Other languages will follow."
+        "a": "English and Polish: the app follows your phone’s language. Other languages will follow."
       },
       {
         "q": "What does beta mean here?",
@@ -346,5 +370,6 @@
     "text": "A bug, an idea, a question that made you smile: every word helps the next version.",
     "github": "Open an issue on GitHub",
     "reddit": "Message us on Reddit"
-  }
+  },
+  "appLanguagePill": "EN"
 }
