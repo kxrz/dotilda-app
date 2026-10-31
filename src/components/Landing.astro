@@ -17,7 +17,9 @@ const feedback = { github: `${repo}/issues/new`, reddit: 'https://www.reddit.com
 // What the browser script needs, as data (the CSP runs no inline script).
 const pageData = {
   dateLocale: s.dateLocale,
-  hero: { sample: s.hero.sample, noted: s.hero.noted, after: s.hero.after, privacy: s.hero.privacy, asks: s.hero.asks, quips: s.hero.quips },
+  hero: { sample: s.hero.sample, noted: s.hero.noted, after: s.hero.after, privacy: s.hero.privacy, asks: s.hero.asks, quips: s.hero.quips,
+    demo: s.hero.demo, placeholder: s.hero.placeholder, word: s.hero.word, justWeather: s.hero.justWeather, yourTurn: s.hero.yourTurn, nextDay: s.hero.nextDay,
+    weatherLabels: s.hero.weatherLabels, weatherPhrases: s.hero.weatherPhrases },
   questions: s.questions,
   try: s.try,
   get: { downloadVersion: s.get.downloadVersion, line: s.get.line },
@@ -59,21 +61,30 @@ const pageData = {
     <h1 data-hero-title>{s.hero.headline.split(/(?<=\.) /).map(line => <span class="line">{line.split(' ').map(w => <><span class="w">{w}</span>{' '}</>)}</span>)}</h1>
     <p class="hero-lede" data-reveal="hero">{s.hero.lede}</p>
 
-    <!-- The stage: Dotilda, big, asks in her bubble as in the app. Poke her and she pulls a face. -->
+    <!-- Dotilda's playground: she asks in her bubble, as in the app; answer in a line, a word, a
+         choice or a moon, change the question, go on to the next day. Poke her: she plays along. -->
     <div class="stage">
-      <button class="poke" id="poke" type="button" aria-label={s.hero.poke} data-reveal="hero"><DotildaMark pose="peering" class="hero-mark" /></button>
-      <form class="ask" id="ask" autocomplete="off">
-        <p class="label ask-who" id="askWho" aria-live="polite" data-reveal="hero">{s.hero.asks}</p>
-        <div class="bubble" data-reveal="hero">
-          <p class="ask-q" id="askQ" aria-live="polite"><span class="sr-only">{s.hero.question}</span><span aria-hidden="true" class="ask-chars">{s.hero.question.split(' ').map(w => <><span class="cw">{[...w].map(c => <span class="c">{c}</span>)}</span>{' '}</>)}</span></p>
-        </div>
+      <div class="dotilda" data-reveal="hero">
+        <button class="poke" id="poke" type="button" aria-label={s.hero.poke}><DotildaMark pose="peering" class="hero-mark" /></button>
+        <span class="poke-hint label" id="pokeHint" hidden>{s.hero.pokeHint}</span>
+      </div>
+      <p class="label ask-who" id="askWho" aria-live="polite" data-reveal="hero">{s.hero.asks}</p>
+      <div class="bubble" data-reveal="hero">
+        <p class="ask-q" id="askQ" aria-live="polite"><span class="sr-only">{s.hero.question}</span><span aria-hidden="true" class="ask-chars">{s.hero.question.split(' ').map(w => <><span class="cw">{[...w].map(c => <span class="c">{c}</span>)}</span>{' '}</>)}</span></p>
+      </div>
+      <form class="ask" id="ask" autocomplete="off" data-kind="line">
         <div class="ask-field" data-reveal="hero">
-          <label class="sr-only" for="askInput">{s.hero.question}</label>
+          <label class="sr-only" for="askInput" id="askLabel">{s.hero.question}</label>
           <input id="askInput" name="answer" type="text" maxlength="140" placeholder={s.hero.placeholder}>
           <button class="btn solid" type="submit" id="askBtn">{s.hero.submit}</button>
         </div>
+        <div class="choices" id="choices"></div>
+        <div class="moons" id="moons"></div>
         <p class="ask-note" id="askNote" data-reveal="hero">{s.hero.privacy}</p>
-        <button class="btn turn" id="yourTurn" type="button" hidden>{s.hero.yourTurn}</button>
+        <div class="ask-more" data-reveal="hero">
+          <button class="link-btn" type="button" id="another">{s.try.another.replace('{n}', '3')}</button>
+          <button class="btn turn" type="button" id="nextDay" hidden>{s.hero.yourTurn}</button>
+        </div>
       </form>
     </div>
 
@@ -82,16 +93,17 @@ const pageData = {
       <span class="label" id="monthName"></span>
       <svg id="monthDots" preserveAspectRatio="xMinYMid meet"></svg>
     </div>
-
-    <div class="hero-foot" data-reveal="hero">
-      <div class="actions">
-        <a class="btn" id="heroGet" href="#get">{s.hero.primary}</a>
-        <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
-      </div>
-      <p class="note">{s.hero.note}</p>
-      {s.appLanguage && <p class="lang-note"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
-    </div>
   </div>
+</div>
+
+<!-- After the playground: the way to get her. -->
+<div class="after-hero">
+  <div class="actions">
+    <a class="btn solid" id="heroGet" href="#get">{s.hero.primary}</a>
+    <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
+  </div>
+  <p class="note">{s.hero.note}</p>
+  {s.appLanguage && <p class="lang-note"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
 </div>
 
 <!-- Interest: the ritual in three steps -->

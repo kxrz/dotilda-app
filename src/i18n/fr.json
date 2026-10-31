@@ -49,6 +49,78 @@
       "Je suis bien réelle, vous savez.",
       "Attention aux lunettes.",
       "On s’y remet ?"
+    ],
+    "demo": [
+      {
+        "type": "line",
+        "q": "Qu’est-ce qui vous a fait sourire aujourd’hui ?"
+      },
+      {
+        "type": "choice",
+        "q": "Plutôt journée thé ou café ?",
+        "options": [
+          "Thé",
+          "Café"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Aujourd’hui en un mot ?"
+      },
+      {
+        "type": "weather",
+        "q": "Quelle météo à l’intérieur ?"
+      },
+      {
+        "type": "line",
+        "q": "Qui a rendu votre journée un peu plus légère ?"
+      },
+      {
+        "type": "choice",
+        "q": "Plutôt une balade ou une sieste ?",
+        "options": [
+          "Balade",
+          "Sieste"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Une couleur pour aujourd’hui ?"
+      },
+      {
+        "type": "weather",
+        "q": "Quel ciel au réveil ?"
+      },
+      {
+        "type": "line",
+        "q": "Qu’avez-vous remarqué aujourd’hui qui vous échappe d’habitude ?"
+      },
+      {
+        "type": "choice",
+        "q": "Aujourd’hui, plutôt hibou ou alouette ?",
+        "options": [
+          "Hibou",
+          "Alouette"
+        ]
+      }
+    ],
+    "word": "Un mot",
+    "justWeather": "Dites-moi juste la météo intérieure",
+    "nextDay": "Jour suivant",
+    "pokeHint": "psst... taquinez-moi",
+    "weatherLabels": [
+      "Ensoleillé",
+      "Éclaircies",
+      "Nuageux",
+      "Pluvieux",
+      "Orageux"
+    ],
+    "weatherPhrases": [
+      "Grand ciel bleu. Splendide.",
+      "Plutôt beau, un nuage ou deux.",
+      "Gris, mais ça tient.",
+      "Un peu humide à l’intérieur.",
+      "Orage en vue. Une tasse de thé s’impose."
     ]
   },
   "pause": {

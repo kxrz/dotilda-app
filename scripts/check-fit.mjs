@@ -1,6 +1,7 @@
 // Checks that the page fits every screen: no clipped or overflowing text, no sideways scroll,
 // the pinned sentence fits in one screen, the Kompakt mockup holds its content, and Dotilda's
-// question and the answer field are both visible on the first screen.
+// question and the answer field are both visible on the first screen, and the whole hero (Dotilda's
+// playground) fits in it on any screen at least 560 px tall.
 // Every page in the sitemap is checked, so each language is covered.
 // Usage: npm run build && npm run preview, then in another terminal: npm run check:fit [url]
 // Needs Playwright with Chromium (npx playwright install chromium).
@@ -63,8 +64,21 @@ for (const [name, width, height] of screens) {
     const pause = document.querySelector('.pause-text'), field = document.querySelector('.ask-field');
     if (pause && pause.getBoundingClientRect().height > vh) out.push('pause sentence taller than the screen');
     if (field && field.getBoundingClientRect().bottom + scrollY > vh) out.push('answer field below the first screen');
+    // Dotilda's playground fits in one screen on anything taller than a phone in landscape.
+    const heroIn = document.querySelector('.hero-in');
+    if (heroIn && vh >= 560 && heroIn.getBoundingClientRect().bottom + scrollY > vh + 1) out.push(`hero taller than the screen (${Math.round(heroIn.getBoundingClientRect().bottom + scrollY)}px)`);
     return [...new Set(out)];
   });
+  // The playground changes shape (choices, moons, Dotilda's reply): every state must still fit.
+  if (await page.$('#another')) {
+    const state = async name => {
+      const r = await page.evaluate(() => ({ bottom: document.querySelector('.hero-in').getBoundingClientRect().bottom + scrollY, sw: document.documentElement.scrollWidth }));
+      if (height >= 560 && r.bottom > height + 1) issues.push(`hero taller than the screen with ${name} (${Math.round(r.bottom)}px)`);
+      if (r.sw > width) issues.push(`scrolls sideways with ${name} (${r.sw}px)`);
+    };
+    for (const name of ['a choice', 'one word', 'the moons']) { await page.click('#another'); await state(name); }
+    await page.click('#moons button[data-w="4"]'); await state("Dotilda's reply");
+  }
   console.log(`${issues.length ? '✗' : '✓'} ${name} ${width}×${height}${issues.length ? '\n    ' + issues.join('\n    ') : ''}`);
   failed += issues.length ? 1 : 0;
   await page.close();

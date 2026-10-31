@@ -49,6 +49,78 @@
       "Eu sou bem real, sabia?",
       "Cuidado com os óculos.",
       "Vamos continuar?"
+    ],
+    "demo": [
+      {
+        "type": "line",
+        "q": "O que fez você sorrir hoje?"
+      },
+      {
+        "type": "choice",
+        "q": "Dia de chá ou de café?",
+        "options": [
+          "Chá",
+          "Café"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Hoje em uma palavra?"
+      },
+      {
+        "type": "weather",
+        "q": "Como está o tempo por dentro?"
+      },
+      {
+        "type": "line",
+        "q": "Quem deixou o seu dia um pouco mais leve?"
+      },
+      {
+        "type": "choice",
+        "q": "Melhor uma caminhada ou um cochilo?",
+        "options": [
+          "Caminhada",
+          "Cochilo"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Uma cor para hoje?"
+      },
+      {
+        "type": "weather",
+        "q": "Com que céu você acordou?"
+      },
+      {
+        "type": "line",
+        "q": "O que você notou hoje que normalmente passa despercebido?"
+      },
+      {
+        "type": "choice",
+        "q": "Hoje, mais coruja ou cotovia?",
+        "options": [
+          "Coruja",
+          "Cotovia"
+        ]
+      }
+    ],
+    "word": "Uma palavra",
+    "justWeather": "Só me diga o tempo aí dentro",
+    "nextDay": "Dia seguinte",
+    "pokeHint": "psst... me cutuca",
+    "weatherLabels": [
+      "Sol",
+      "Claro",
+      "Nublado",
+      "Chuva",
+      "Tempestade"
+    ],
+    "weatherPhrases": [
+      "Céu limpo. Esplêndido.",
+      "Quase tudo bem, uma ou outra nuvem.",
+      "Cinzento, mas aguentando.",
+      "Meio úmido por dentro.",
+      "Trovoada à vista. Recomenda-se um chá."
     ]
   },
   "pause": {

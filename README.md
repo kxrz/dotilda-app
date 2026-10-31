@@ -69,7 +69,7 @@ The page follows AIDA, in this order:
 
 | | Section | What it does |
 | --- | --- | --- |
-| Attention | hero | A plain title (a journal for e-ink phones, one question a day); Dotilda, big, asks in her bubble; the scene plays once, then it is the visitor's turn, and their dot lands in this month. |
+| Attention | hero | A plain title (a journal for e-ink phones, one question a day) and Dotilda's playground: she asks in her bubble, the visitor answers as in the app (a line, a word, a choice, a moon), changes the question, goes on to the next day and watches this month fill up. Poke her and she plays along. The ways to get her come right after the hero, not in it. |
 | Interest | `#ritual` | The ritual in three steps. |
 | Interest | `#inside` | Eight real screens of the released app, in a carousel to swipe, drag or page through. |
 | Interest | `#shapes` | The eight ways to answer, and "Try one" for a few more questions. |
@@ -185,7 +185,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 
 | Where | What moves |
 | --- | --- |
-| Hero | The title settles, Dotilda pops up, her bubble opens and the question types itself. Unless the visitor starts typing, the scene plays once: a sample answer writes itself, becomes a drop of ink and lands on today's dot in this month's row; she smiles and says "Noted". "Your turn" sets it up again with a new question. Poke her: she pulls a face in one step (wink, surprised, glance, nap, smile, as in the app) and, poked on, has a word with you (`hero.quips`). Nothing is sent or saved. |
+| Hero | The title settles, Dotilda pops up, her bubble opens and the question types itself. Unless the visitor starts first, the scene plays once: a sample answer writes itself, becomes a drop of ink and lands on today's dot; she smiles and says "Noted". Then it is the visitor's turn: every answer (words, a choice or a moon, `hero.demo`) flies to its day with the shape it has in the app (a dot, or a moon phase for the inner weather), and she replies (`hero.weatherPhrases` for the weather). "Another question" works 3 times, then only the weather, as in the app; "Next day" moves the caret on. Poke her: she hops and pulls a face (wink, surprised, glance, nap, smile, as in the app) and, poked on, has a word with you (`hero.quips`). Nothing is sent or saved. |
 | Pause | One huge sentence, pinned while you scroll, inks in word by word; Dotilda smiles at the end. |
 | Labels | Typed one character at a time, in their monospace. |
 | Headings | Rise word by word out of a mask (`Words.astro`). |
@@ -251,6 +251,8 @@ LinkedIn cache share cards: pass the URL through their debuggers to refresh them
    text is clipped or off the screen (content of a horizontal scroller, like the carousel, counts as
    in view), the page scrolls sideways, the pinned sentence is taller
    than the screen, the Kompakt mockup overflows, or the answer field is below the first screen.
+   On any screen at least 560 px tall, the whole hero (Dotilda's playground) must fit in the first
+   screen, in each of its states (a choice, one word, the moons, Dotilda's reply).
 3. After a change to the motion, scroll the page once with motion on and once with reduced motion.
 4. After a change to a tagline or a language, `npm run og`.
 

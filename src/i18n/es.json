@@ -49,6 +49,78 @@
       "Soy bastante real, ¿sabes?",
       "Cuidado con las gafas.",
       "¿Seguimos?"
+    ],
+    "demo": [
+      {
+        "type": "line",
+        "q": "¿Qué te ha hecho sonreír hoy?"
+      },
+      {
+        "type": "choice",
+        "q": "¿Día de té o de café?",
+        "options": [
+          "Té",
+          "Café"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "¿Hoy en una palabra?"
+      },
+      {
+        "type": "weather",
+        "q": "¿Qué tiempo hace por dentro?"
+      },
+      {
+        "type": "line",
+        "q": "¿Quién hizo tu día un poco más ligero?"
+      },
+      {
+        "type": "choice",
+        "q": "¿Mejor un paseo o una siesta?",
+        "options": [
+          "Paseo",
+          "Siesta"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "¿Un color para hoy?"
+      },
+      {
+        "type": "weather",
+        "q": "¿Bajo qué cielo te despertaste?"
+      },
+      {
+        "type": "line",
+        "q": "¿Qué notaste hoy que normalmente se te escapa?"
+      },
+      {
+        "type": "choice",
+        "q": "Hoy, ¿más búho o alondra?",
+        "options": [
+          "Búho",
+          "Alondra"
+        ]
+      }
+    ],
+    "word": "Una palabra",
+    "justWeather": "Solo dime el tiempo de dentro",
+    "nextDay": "Día siguiente",
+    "pokeHint": "psst... tócame",
+    "weatherLabels": [
+      "Soleado",
+      "Despejado",
+      "Nublado",
+      "Lluvioso",
+      "Tormenta"
+    ],
+    "weatherPhrases": [
+      "Cielo despejado. Espléndido.",
+      "Casi todo bien, alguna nube.",
+      "Gris, pero aguantando.",
+      "Un poco húmedo por dentro.",
+      "Hay tormenta. Se recomienda un té."
     ]
   },
   "pause": {

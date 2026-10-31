@@ -49,6 +49,78 @@
       "Jestem całkiem prawdziwa.",
       "Uwaga na okulary.",
       "To co, wracamy do pytania?"
+    ],
+    "demo": [
+      {
+        "type": "line",
+        "q": "Co dziś wywołało Twój uśmiech?"
+      },
+      {
+        "type": "choice",
+        "q": "Dzień na herbatę czy na kawę?",
+        "options": [
+          "Herbata",
+          "Kawa"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Dziś w jednym słowie?"
+      },
+      {
+        "type": "weather",
+        "q": "Jaka jest pogoda w środku?"
+      },
+      {
+        "type": "line",
+        "q": "Kto dziś trochę rozjaśnił Twój dzień?"
+      },
+      {
+        "type": "choice",
+        "q": "Raczej spacer czy drzemka?",
+        "options": [
+          "Spacer",
+          "Drzemka"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Kolor na dziś?"
+      },
+      {
+        "type": "weather",
+        "q": "Jakie niebo przywitało Cię rano?"
+      },
+      {
+        "type": "line",
+        "q": "Co dziś rzuciło Ci się w oczy, choć zwykle umyka?"
+      },
+      {
+        "type": "choice",
+        "q": "Dziś bardziej sowa czy skowronek?",
+        "options": [
+          "Sowa",
+          "Skowronek"
+        ]
+      }
+    ],
+    "word": "Jedno słowo",
+    "justWeather": "Powiedz mi tylko, jaka pogoda w środku",
+    "nextDay": "Następny dzień",
+    "pokeHint": "psst... zaczep mnie",
+    "weatherLabels": [
+      "Słonecznie",
+      "Pogodnie",
+      "Pochmurno",
+      "Deszczowo",
+      "Burzowo"
+    ],
+    "weatherPhrases": [
+      "Czyste niebo. Wręcz wspaniale.",
+      "Przeważnie ładnie, chmurka czy dwie.",
+      "Szaro, ale się trzyma.",
+      "Trochę wilgotno w środku.",
+      "Grzmi w oddali. Zalecana herbata."
     ]
   },
   "pause": {

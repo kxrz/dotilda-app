@@ -86,30 +86,51 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 /* Big type is sized by width and by height (svh), so nothing is pushed off a short screen.
    hero: a plain title, then the stage: Dotilda, big, asks in her bubble as in the app; below,
    this month's dots, today waiting under its caret. */
-.hero{position:relative;min-height:min(100svh,60rem);display:grid;align-items:start;padding-block:clamp(.75rem,5svh,4.5rem) clamp(2.5rem,7svh,5rem)}
+.hero{position:relative;display:grid;align-items:start;padding-block:clamp(.75rem,5svh,4.5rem) clamp(2rem,6svh,4rem)}
 .hero-in{position:relative;display:grid;gap:clamp(.7rem,2.4svh,1.75rem);max-width:56rem;min-width:0}
-.hero h1{font-size:clamp(1.75rem,min(5.2vw,7svh),4.2rem);line-height:1.02;letter-spacing:-.01em}
+.hero h1{font-size:clamp(1.45rem,min(5.2vw,6.6svh),4.2rem);line-height:1.02;letter-spacing:-.01em}
 .hero h1 .line{display:block}
 .hero-lede{font-size:clamp(1rem,min(1.7vw,2.7svh),1.25rem);color:var(--ink-2);max-width:36rem}
-@media (max-height:620px){.hero-lede{display:none}}
-.stage{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(.75rem,3vw,2.25rem);align-items:start;margin-top:clamp(0rem,1.5svh,1rem)}
-.poke{padding:0;border:0;background:none;cursor:pointer;width:clamp(64px,min(22vw,21svh),184px);-webkit-tap-highlight-color:transparent}
+@media (max-height:700px){.hero-lede{display:none}}
+.stage{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"mark who" "mark bubble" "mark answer";gap:clamp(.45rem,1.4svh,.9rem) clamp(.75rem,3vw,2.25rem);align-items:start;margin-top:clamp(0rem,1svh,.75rem)}
+.dotilda{grid-area:mark;display:grid;justify-items:center;gap:.5rem}
+.poke{padding:0;border:0;background:none;cursor:pointer;width:clamp(64px,min(22vw,19svh),176px);-webkit-tap-highlight-color:transparent}
 .poke .mark{width:100%;height:auto}
-.ask{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(.55rem,1.6svh,1rem);margin:0;min-width:0}
-.ask-who{min-height:1.2em}
+.poke-hint{font-size:.68rem;text-transform:none;letter-spacing:.02em;white-space:nowrap}
+.ask-who{grid-area:who;min-height:1.2em}
 /* The bubble, drawn like the app's: an ink outline, round corners, a small tail towards her. */
-.bubble{position:relative;border:2px solid var(--ink);border-radius:1.1rem;padding:clamp(.6rem,1.8svh,1.3rem) clamp(.85rem,2.4vw,1.6rem);background:var(--paper)}
+.bubble{grid-area:bubble;position:relative;border:2px solid var(--ink);border-radius:1.1rem;padding:clamp(.55rem,1.6svh,1.2rem) clamp(.85rem,2.4vw,1.6rem);background:var(--paper)}
 .bubble::before{content:"";position:absolute;left:-9px;top:clamp(14px,28%,44px);width:15px;height:15px;background:var(--paper);border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg)}
-.ask-q{font-family:var(--display);font-size:clamp(1.55rem,min(4.6vw,6.6svh),3.6rem);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
+.ask-q{font-family:var(--display);font-size:clamp(1.3rem,min(4.4vw,5.6svh),3.4rem);line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
 .ask-q .cw{white-space:nowrap}
+.ask{grid-area:answer;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(.45rem,1.4svh,.85rem);margin:0;min-width:0}
+@media (max-width:560px){.stage{grid-template-areas:"mark who" "mark bubble" "answer answer"}}
 .ask-field{display:flex;flex-wrap:wrap;gap:.75rem;align-items:stretch;max-width:38rem}
-.ask-field input{flex:1 1 14rem;min-width:0;font:400 1.15rem/1.3 var(--body);color:var(--ink);background:var(--paper);border:0;border-bottom:1.5px solid var(--ink);border-radius:0;padding:.75rem .1rem;caret-color:var(--today)}
+.ask-field input{flex:1 1 12rem;min-width:0;font:400 1.15rem/1.3 var(--body);color:var(--ink);background:var(--paper);border:0;border-bottom:1.5px solid var(--ink);border-radius:0;padding:.7rem .1rem;caret-color:var(--today)}
 .ask-field input::placeholder{color:var(--ink-2);opacity:.7}
-.ask-field input:focus{outline:none;border-bottom-width:2.5px;padding-bottom:calc(.75rem - 1px)}
-.ask-field .btn.pressed{text-decoration:underline;transform:translateY(1px)}
-.ask-note{font-size:.9rem;color:var(--ink-2)}
-.ask.done .ask-field{display:none}
-.ask .turn{justify-self:start}
+.ask-field input:focus{outline:none;border-bottom-width:2.5px;padding-bottom:calc(.7rem - 1px)}
+.ask-field .btn{padding:.85rem 1.2rem}
+.btn.pressed{text-decoration:underline;transform:translateY(1px)}
+/* One kind of answer at a time, as in the app. */
+.ask .choices,.ask .moons{display:none}
+.ask[data-kind="choice"] .ask-field,.ask[data-kind="weather"] .ask-field{display:none}
+.ask[data-kind="choice"] .choices{display:flex;flex-wrap:wrap;gap:.75rem}
+.ask[data-kind="weather"] .moons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;max-width:30rem}
+.choices .btn{min-width:7rem;justify-content:center}
+.moons button{display:grid;justify-items:center;gap:.3rem;padding:.55rem .1rem .45rem;border:1.5px solid var(--ink);border-radius:.5rem;background:none;color:var(--ink);cursor:pointer;font:400 .72rem/1.15 var(--body);min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.moons button:hover span{text-decoration:underline}
+.moons svg{width:22px;height:22px}
+.moon-o{fill:none;stroke:currentColor;stroke-width:1.5}
+.moon-l{fill:currentColor}
+.ask-note{font-size:.88rem;color:var(--ink-2)}
+.ask-note:empty{display:none}
+.ask-more{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;min-height:1.5rem}
+.link-btn{padding:0;border:0;background:none;font:inherit;font-size:.95rem;color:var(--ink-2);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px;cursor:pointer}
+.link-btn:hover{color:var(--ink)}
+.ask.done .ask-field,.ask.done .choices,.ask.done .moons,.ask.done #another{display:none}
+/* After the hero: the way to get her. */
+.after-hero{display:grid;gap:.9rem;padding-block:0 clamp(3rem,8vw,5rem)}
+.after-hero .note{font-size:.9rem;color:var(--ink-2)}
 /* This month: one dot per day so far. Colours come from the tokens, so the theme switch needs no redraw. */
 .month{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;align-items:center;max-width:44rem}
 html:not(.js) .month{display:none}
@@ -118,9 +139,11 @@ html:not(.js) .month{display:none}
 .month .d-quiet{fill:var(--ghost)}
 .month .d-today{fill:none;stroke:var(--today);stroke-width:1.6}
 .month .d-today.inked{fill:var(--today)}
+.month .m-o{fill:none;stroke:var(--ink);stroke-width:1.2}
+.month .m-l{fill:var(--ink)}
+.month .warm .m-o{stroke:var(--today)}
+.month .warm .m-l,.month .d-ink.warm{fill:var(--today)}
 .month .caret{fill:var(--ink)}
-.hero-foot{display:grid;gap:.9rem;padding-top:.5rem}
-.hero-foot .note{font-size:.9rem;color:var(--ink-2)}
 /* On translated pages: the app itself is in English for now. */
 .lang-note{display:flex;align-items:baseline;gap:.6rem;font-size:.95rem;color:var(--ink)}
 .lang-pill{flex:none;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;border:1.5px solid var(--ink);border-radius:.3rem;padding:.05rem .35rem}

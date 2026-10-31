@@ -48,6 +48,78 @@
       "I’m quite real, you know.",
       "Mind the glasses.",
       "Shall we get on?"
+    ],
+    "demo": [
+      {
+        "type": "line",
+        "q": "What made you smile today?"
+      },
+      {
+        "type": "choice",
+        "q": "Tea or coffee kind of day?",
+        "options": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "Today in one word?"
+      },
+      {
+        "type": "weather",
+        "q": "How’s the weather inside?"
+      },
+      {
+        "type": "line",
+        "q": "Who made your day a little lighter?"
+      },
+      {
+        "type": "choice",
+        "q": "Rather a walk or a nap?",
+        "options": [
+          "Walk",
+          "Nap"
+        ]
+      },
+      {
+        "type": "word",
+        "q": "A colour for today?"
+      },
+      {
+        "type": "weather",
+        "q": "What sky did you wake up under?"
+      },
+      {
+        "type": "line",
+        "q": "What did you notice today that you usually miss?"
+      },
+      {
+        "type": "choice",
+        "q": "Today, more owl or lark?",
+        "options": [
+          "Owl",
+          "Lark"
+        ]
+      }
+    ],
+    "word": "One word",
+    "justWeather": "Just tell me the weather inside",
+    "nextDay": "Next day",
+    "pokeHint": "psst... poke me",
+    "weatherLabels": [
+      "Sunny",
+      "Bright",
+      "Cloudy",
+      "Rainy",
+      "Stormy"
+    ],
+    "weatherPhrases": [
+      "Clear skies. Rather splendid.",
+      "Mostly fine, a cloud or two.",
+      "Grey, but holding up.",
+      "A little damp inside.",
+      "Thunder about. Tea is advised."
     ]
   },
   "pause": {
