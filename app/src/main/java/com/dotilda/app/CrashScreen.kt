@@ -49,7 +49,10 @@ fun Activity.showCrashReport(report: String, onSave: () -> Unit, onContinue: (()
     // The header (version, device) and the top of the trace, which says what went wrong.
     root.addView(
         TextView(this).apply {
-            text = report.lineSequence().filter { it.isNotBlank() }.take(40).joinToString("\n")
+            // The root cause ("Caused by…") usually sits at the bottom: brought up under the header.
+            val lines = report.lines().filter { it.isNotBlank() }
+            val causes = lines.filter { it.trimStart().startsWith("Caused by") }
+            text = (lines.take(4) + causes + lines.drop(4)).take(40).joinToString("\n")
             typeface = Typeface.MONOSPACE
             textSize = 10f
             setTextColor(Color.BLACK)
