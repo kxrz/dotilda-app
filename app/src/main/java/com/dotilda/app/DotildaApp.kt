@@ -44,6 +44,10 @@ class DotildaApp : Application() {
     var justUpdatedTo by mutableStateOf<String?>(null)
         private set
 
+    /** Set when the app could not even start: MainActivity then shows the crash report only. */
+    var startupError: Throwable? = null
+        private set
+
     fun checkForUpdate() {
         if (checkingUpdate) return
         checkingUpdate = true
@@ -56,6 +60,15 @@ class DotildaApp : Application() {
     override fun onCreate() {
         super.onCreate()
         CrashLog.install(this)
+        try {
+            start()
+        } catch (e: Exception) {
+            CrashLog.save(this, e)
+            startupError = e
+        }
+    }
+
+    private fun start() {
         db = DotildaDatabase.create(this)
         prefs = Prefs(this)
         bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }

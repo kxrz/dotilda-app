@@ -266,4 +266,8 @@
     <string name="intro_review">Your weather, your words, a line of yours and your photos, gathered over a month or a season. Turn the pages with ‹ ›.</string>
     <string name="intro_settings_title">Settings</string>
     <string name="intro_settings">Your name and your reminder. Turn the page to export your journal, make a book of your year and choose the look of your sky; once more for updates and the rest.</string>
+    <string name="crash_title">Dotilda stumbled</string>
+    <string name="crash_text">She closed by surprise. Here is what happened: save it, or take a photo of it, and send it to us on GitHub (kxrz/dotilda-app) so we can mend it.</string>
+    <string name="crash_save">Save the report</string>
+    <string name="crash_continue">Open Dotilda</string>
 </resources>

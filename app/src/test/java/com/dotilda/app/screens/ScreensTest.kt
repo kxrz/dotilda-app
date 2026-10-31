@@ -43,6 +43,8 @@ import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.Pose
 import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.github.takahirom.roborazzi.captureScreenRoboImage
+import com.dotilda.app.CrashLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -312,6 +314,30 @@ open class ScreensTest {
         waitFor("Introductions")
         click("Introductions")
         waitFor("Your name and your reminder", substring = true)
+    }
+
+    /** After a crash, the next launch shows the report on a plain screen, then Dotilda as usual. */
+    @OptIn(com.github.takahirom.roborazzi.ExperimentalRoborazziApi::class)
+    @Test
+    fun l_crashReport() {
+        seed(question = "iw-001")
+        CrashLog.save(app, IllegalStateException("A made-up stumble, for the screenshot"))
+        launch()
+        settle()
+        step("shot 38-crash")
+        captureScreenRoboImage("screenshots/${prefix}38-crash.png")
+        scenario?.onActivity {
+            it.findViewById<android.view.View>(android.R.id.content).let { root ->
+                fun find(v: android.view.View): android.widget.Button? = when (v) {
+                    is android.widget.Button -> v.takeIf { b -> b.text == "Open Dotilda" }
+                    is android.view.ViewGroup -> (0 until v.childCount).firstNotNullOfOrNull { i -> find(v.getChildAt(i)) }
+                    else -> null
+                }
+                find(root)!!.performClick()
+            }
+        }
+        waitFor("Answer")
+        CrashLog.clear(app)
     }
 
     private var scenario: ActivityScenario<MainActivity>? = null
