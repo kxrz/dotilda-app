@@ -303,8 +303,9 @@ open class ScreensTest {
         waitFor("Your name, your reminder", substring = true)
         shot("36-intro-settings")
         gotIt()
-        waitFor("Show my introductions again")
-        click("Show my introductions again")
+        click("›")
+        waitFor("Introductions")
+        click("Introductions")
         waitFor("Your name, your reminder", substring = true)
     }
 

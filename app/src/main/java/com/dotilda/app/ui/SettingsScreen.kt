@@ -171,11 +171,6 @@ fun SettingsScreen(
                     latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
                     else -> TextLink(stringResource(R.string.check_now, version), onCheck)
                 }
-                Spacer(Modifier.height(12.dp))
-                HorizontalDividerMMD(thickness = 1.dp)
-                Spacer(Modifier.height(4.dp))
-                // Each introduction then shows again (this page's own first, as a sign it worked).
-                TextLink(stringResource(R.string.intros_again), { scope.launch { prefs.resetIntros() } })
             } else {
                 TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -208,6 +203,8 @@ fun SettingsScreen(
                     TextLink(stringResource(R.string.about), onAbout)
                     TextLink(stringResource(R.string.licenses), onLicenses)
                     TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+                    // Each introduction then shows again (this page's own first, as a sign it worked).
+                    TextLink(stringResource(R.string.intros_again), { scope.launch { prefs.resetIntros() } })
                 }
             }
         }

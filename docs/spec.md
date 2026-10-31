@@ -148,7 +148,7 @@ Spira, Settings), each labelled for screen readers.
 
 The first time a part opens (Today, Notebook, Galaxy, Journeys, Spira, Looking back, Settings),
 Dotilda introduces it in a card over the screen, closed with "Got it" or Back. It is never shown
-again, unless Settings is asked to show the introductions again.
+again, unless "Introductions" on the second page of Settings shows them all again.
 
 | Screen | Content | Actions |
 | --- | --- | --- |

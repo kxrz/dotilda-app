@@ -254,7 +254,7 @@
     <string name="book_title_named">Rok z Dotildą · %1$s</string>
     <string name="book_cover_subtitle_named">Rok z Dotildą · %1$s</string>
     <string name="intro_ok">Rozumiem</string>
-    <string name="intros_again">Pokaż ponownie wprowadzenia</string>
+    <string name="intros_again">Wprowadzenia</string>
     <string name="intro_today_title">Dziś</string>
     <string name="intro_today">Tu czeka jedno pytanie dziennie. Na dole moje pięcioro drzwi: otwarta książka to Twój notatnik, kropki to galaktyka, gwiazda to ścieżki, kręgi to Spira, suwaki to ustawienia.</string>
     <string name="intro_notebook_title">Notatnik</string>
