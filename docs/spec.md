@@ -250,7 +250,7 @@ Short steps, each one usable on a real Kompakt. Every push builds a debug APK on
 5. ✅ **Depth** (0.5.0): journeys and constellations, the month review, Photo of the day with dithering,
    Letter to future me.
    Done when a 7-day journey ends by drawing its constellation.
-6. **Looking back:** season reviews, the yearly EPUB export, dot and sky styles.
+6. ✅ **Looking back** (0.6.0): season reviews, the yearly EPUB export, dot and sky styles.
    Done when the generated EPUB opens cleanly in KOReader.
 
 A milestone is done when the app installs through Mudita Center, runs on a Kompakt for a full day

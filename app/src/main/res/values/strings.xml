@@ -69,6 +69,15 @@
         <item>A bright start, a greyer end. Tea is advised.</item>
         <item>Sun and showers, like any honest month.</item>
     </string-array>
+    <!-- The same, for a season of three months. -->
+    <string-array name="review_comments_season">
+        <item>A season in words. Lovely to read.</item>
+        <item>A sunny season. Splendid, really.</item>
+        <item>A stormy season. You kept writing; that counts.</item>
+        <item>It began cloudy and ended in sunshine. Rather well done.</item>
+        <item>A bright start, a greyer end. Tea and a blanket are advised.</item>
+        <item>Sun and showers, like any honest season.</item>
+    </string-array>
 
     <!-- Year book -->
     <string name="book_cover_subtitle">A year with Dotilda</string>

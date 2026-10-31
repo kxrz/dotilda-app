@@ -111,7 +111,8 @@ fun periodTitle(first: YearMonth, last: YearMonth): String {
 @Composable
 private fun Weather(first: YearMonth, months: Int, entries: List<Entry>) {
     val weather = entries.mapNotNull { e -> (e.answer() as? Answer.Weather)?.let { e.date to it.level } }
-    val comment = stringArrayResource(R.array.review_comments)[weatherTrend(weather.map { it.second }).ordinal]
+    val comments = stringArrayResource(if (months > 1) R.array.review_comments_season else R.array.review_comments)
+    val comment = comments[weatherTrend(weather.map { it.second }).ordinal]
     DotildaBeside(Pose.Pleased, markSize = 32.dp) {
         TextMMD(comment, fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodyLarge)
     }
