@@ -209,6 +209,13 @@ function drawSky() {
   const w = canvas.clientWidth, cell = w / 31, h = cell * 12, dpr = window.devicePixelRatio || 1;
   canvas.style.height = h + 'px';
   months.style.height = h + 'px';
+  // Each label fits its row: smaller type on narrow screens, and only the initial when a row is
+  // too short for three letters (as in the app's Galaxy).
+  months.style.fontSize = Math.min(11.2, cell * .78) + 'px';
+  months.querySelectorAll<HTMLElement>('span').forEach(m => {
+    m.dataset.full ??= m.textContent!;
+    m.textContent = cell < 16 ? m.dataset.full[0] : m.dataset.full;
+  });
   canvas.width = w * dpr;
   canvas.height = h * dpr;
   const g = canvas.getContext('2d')!;
