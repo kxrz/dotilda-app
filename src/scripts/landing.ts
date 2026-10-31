@@ -177,7 +177,7 @@ ask.addEventListener('submit', e => {
 });
 
 // Inside the app: a strip of real screens. Swipe, drag or use the page keys; the screen nearest
-// the middle stands straight and gets its caption, with an e-ink blink when motion is welcome.
+// the middle stands straight and gets its caption.
 const track = $('#track');
 const slides = [...track.querySelectorAll<HTMLElement>('.slide')];
 const prevShot = $<HTMLButtonElement>('#prevShot'), nextShot = $<HTMLButtonElement>('#nextShot'), shotCount = $('#shotCount');
@@ -190,11 +190,6 @@ const setActive = (i: number) => {
   shotCount.textContent = `${i + 1} / ${slides.length}`;
   prevShot.disabled = i === 0;
   nextShot.disabled = i === slides.length - 1;
-  if (root.classList.contains('motion')) {
-    gsap.timeline()
-      .set(slides[i].querySelector('.page'), { filter: 'invert(1)' }, .15)
-      .set(slides[i].querySelector('.page'), { filter: 'none' }, .24);
-  }
 };
 const nearest = () => {
   const middle = track.scrollLeft + track.clientWidth / 2;
@@ -388,23 +383,18 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .from('.pause .wi', { opacity: .12, stagger: .5, duration: 1, ease: 'none' })
     .from(pauseMark, { opacity: .12, duration: 1, ease: 'none' });
 
-  // Get Dotilda: the Kompakt comes up, then turns its real screens like an e-ink page:
-  // a full refresh (ink, white), then the next screen, every few seconds, while it is in view.
+  // Get Dotilda: the Kompakt comes up, then its real screens fade one into the next every few
+  // seconds (CSS transition on .on), while it is in view.
   const shots = $$('.screen .shots img');
-  const refresh = (show: () => void) => gsap.timeline()
-    .set('.flash', { autoAlpha: 1, backgroundColor: '#111' })
-    .set('.flash', { backgroundColor: '#fff' }, '+=.09')
-    .call(show, undefined, '+=.02')
-    .set('.flash', { autoAlpha: 0 }, '+=.07');
   let shot = 0;
   const next = () => {
-    refresh(() => { shots[shot].classList.remove('on'); shot = (shot + 1) % shots.length; shots[shot].classList.add('on'); });
+    shots[shot].classList.remove('on');
+    shot = (shot + 1) % shots.length;
+    shots[shot].classList.add('on');
     turn.restart(true);
   };
   const turn = gsap.delayedCall(4.5, next).pause();
-  gsap.timeline({ scrollTrigger: onEnter('.kompakt', 'top 80%') })
-    .from('.kompakt', { autoAlpha: 0, y: 30, ...calm, duration: 1.3 })
-    .add(refresh(() => {}), '-=.4');
+  gsap.from('.kompakt', { autoAlpha: 0, y: 30, ...calm, duration: 1.3, scrollTrigger: onEnter('.kompakt', 'top 80%') });
   ScrollTrigger.create({
     trigger: '.kompakt', start: 'top bottom', end: 'bottom top',
     onToggle: st => (st.isActive ? turn.play() : turn.pause()),

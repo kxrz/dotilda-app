@@ -130,9 +130,9 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .screen .status svg{height:38%;width:auto;fill:currentColor}
 /* Real screenshots of the current version, shown one at a time (see landing.ts) */
 .screen .shots{position:relative;flex:1}
-.screen .shots img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;visibility:hidden}
-.screen .shots img.on{visibility:visible}
-.screen .flash{position:absolute;inset:0;visibility:hidden;opacity:0}
+.screen .shots img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.screen .shots img.on{opacity:1}
+.motion .screen .shots img{transition:opacity .8s ease}
 .k-nav{width:100%;display:flex;justify-content:space-around;align-items:center;padding:7% 6% 9%;color:#f2f2ee}
 .k-nav svg{width:22px;height:22px}
 

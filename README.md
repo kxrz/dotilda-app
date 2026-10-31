@@ -157,9 +157,9 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 | Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
-| Inside the app | The strip of screens slides in; the screen in the middle stands straight with its caption and blinks like an e-ink refresh when it arrives. |
+| Inside the app | The strip of screens slides in; the screen in the middle stands straight with its caption. |
 | FAQ | Questions settle one after the other. |
-| Get Dotilda | Install ways slide in from their numbers; the Kompakt turns through real screens (Today, a finished journey, Galaxy, month review) every 4.5 s, each with a full e-ink refresh, only while it is in view. |
+| Get Dotilda | Install ways slide in from their numbers; the Kompakt fades from one real screen to the next (Today, a finished journey, Galaxy, month review) every 4.5 s, only while it is in view. |
 
 - Dotilda changes pose in one step, as in the app, never with a tween.
 - Reduced motion: people who ask for it get the complete page, still, and the hero still works.
