@@ -1,0 +1,11 @@
+name: An idea
+description: Something you would like Dotilda to do, a question you would like her to ask.
+labels: ["idea"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: What you would like, and why it would help your daily ritual.
+    validations:
+      required: true

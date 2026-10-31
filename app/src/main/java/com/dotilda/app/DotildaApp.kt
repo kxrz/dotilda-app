@@ -55,6 +55,7 @@ class DotildaApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CrashLog.install(this)
         db = DotildaDatabase.create(this)
         prefs = Prefs(this)
         bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }

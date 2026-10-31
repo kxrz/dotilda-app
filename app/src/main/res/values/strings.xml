@@ -220,4 +220,8 @@
     <!-- Reminder -->
     <string name="reminder_channel">Daily question</string>
     <string name="reminder_text">I have a question for you.</string>
+    <string name="licenses">Licences</string>
+    <string name="no_crash">None, all is well</string>
+    <string name="crash_export">Export the crash report</string>
+    <string name="crash_clear">Clear it</string>
 </resources>

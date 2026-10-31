@@ -1,0 +1,20 @@
+Dotilda
+Copyright 2026 LesWWW. Licensed under the Apache License, Version 2.0.
+Source code: https://github.com/kxrz/dotilda-app
+
+Dotilda is built with the following open source software. Their licences follow.
+
+Mudita Mindful Design (MMD)
+Copyright 2025 Mudita Sp. z o.o., based on Material 3, Copyright The Android Open Source Project.
+Licensed under the Apache License, Version 2.0.
+https://github.com/mudita/MMD
+
+Lato typeface (shipped with MMD)
+Copyright (c) 2010-2011 by tyPoland Lukasz Dziedzic (http://www.typoland.com/) with Reserved Font Name "Lato".
+Licensed under the SIL Open Font License, Version 1.1.
+
+Android Jetpack (AndroidX: Compose, Activity, Room, DataStore, Core)
+Copyright The Android Open Source Project. Licensed under the Apache License, Version 2.0.
+
+Kotlin, kotlinx.coroutines, kotlinx.serialization
+Copyright JetBrains s.r.o. and contributors. Licensed under the Apache License, Version 2.0.

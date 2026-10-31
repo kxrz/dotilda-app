@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -59,10 +60,11 @@ fun TodayScreen(
     justUpdatedTo: String?,
     onUpdate: () -> Unit,
 ) {
-    val today = remember { LocalDate.now() }
-    val month = remember { YearMonth.from(today) }
-    val day by remember { journal.entryOn(today).map(::Today) }.collectAsState(initial = null)
-    val monthEntries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
+    // Read again each time the app comes back, so a phone left on Today overnight wakes up on the new day.
+    val today = rememberToday()
+    val month = remember(today) { YearMonth.from(today) }
+    val day by remember(today) { journal.entryOn(today).map(::Today) }.collectAsState(initial = null)
+    val monthEntries by remember(month) { journal.entriesOf(month) }.collectAsState(initial = emptyList())
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
         TextMMD(
@@ -77,17 +79,18 @@ fun TodayScreen(
         when {
             day == null -> Spacer(Modifier.weight(1f))
             entry != null -> Answered(journal, entry, Modifier.weight(1f))
-            else -> Open(journal, today, onAnswer, Modifier.weight(1f))
+            // A new day starts afresh: a new question, a new offer.
+            else -> key(today) { Open(journal, today, onAnswer, Modifier.weight(1f)) }
         }
 
         // Dotilda's asides, one at most, never more than a line: a letter whose day has come,
         // last month's review in the first days of a month, then versions.
-        val letter by produceState<Entry?>(null) { value = journal.lettersReady(today).firstOrNull() }
+        val letter by produceState<Entry?>(null, today) { value = journal.lettersReady(today).firstOrNull() }
         val lastMonth = month.minusMonths(1)
         // In the first days of January, April, July and October: the season just ended, else the month.
         val seasonStart = month.monthValue % 3 == 1
         val lastSeason = month.minusMonths(3)
-        val hasLastMonth by produceState(false) { value = journal.hasEntries(lastMonth) }
+        val hasLastMonth by produceState(false, lastMonth) { value = journal.hasEntries(lastMonth) }
         val letterOpen = letter
         when {
             letterOpen != null -> DotildaSays(
