@@ -231,7 +231,7 @@ anonymously, and that is all") true: any new tracking needs that line, and this 
 ### Share images
 
 `npm run og` draws `public/og/<code>.png` (1200×630) for every language file: Dotilda, the
-tagline (`hero.title`), the label and a few rows of dots. Long taglines shrink to fit.
+hero title (`hero.headline`, one sentence per line), its small line (`hero.kicker`) and a few rows of dots. Long titles shrink to fit.
 Run it after changing a tagline or adding a language, and commit the images. Facebook and
 LinkedIn cache share cards: pass the URL through their debuggers to refresh them.
 

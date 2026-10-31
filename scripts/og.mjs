@@ -1,6 +1,6 @@
 // Draws one share image per language (1200x630) from src/i18n/<code>.json into public/og/<code>.png:
-// Dotilda, the tagline in the language, the label, and a few rows of the year's dots.
-// Run after changing a tagline or adding a language: npm run og
+// Dotilda, the hero's title in the language, its small line, and a few rows of the year's dots.
+// Run after changing the hero's title or adding a language: npm run og
 import { chromium } from 'playwright';
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, mkdtempSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -49,7 +49,9 @@ const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 for (const code of locales) {
   const s = code === 'en' ? en : { ...en, ...JSON.parse(readFileSync(join(i18n, `${code}.json`), 'utf8')) };
   const file = join(tmp, `${code}.html`);
-  writeFileSync(file, html({ code, title: s.hero.title, label: s.hero.label }));
+  // The hero's title, one sentence per line, and its small line above.
+  const hero = { ...en.hero, ...s.hero };
+  writeFileSync(file, html({ code, title: hero.headline.split(/(?<=\.) /).join('<br>'), label: hero.kicker }));
   await page.goto(pathToFileURL(file).href);
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(200);
