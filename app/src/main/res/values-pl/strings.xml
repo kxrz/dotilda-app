@@ -190,4 +190,37 @@
     <!-- Reminder -->
     <string name="reminder_channel">Codzienne pytanie</string>
     <string name="reminder_text">Mam dla Ciebie pytanie.</string>
+    <!-- Sezon, książka, niebo -->
+    <string name="review_season_ready">Ostatnie trzy miesiące czekają, by je przeczytać jeszcze raz.</string>
+    <string name="review_choices">To czy tamto</string>
+    <string-array name="review_comments_season">
+        <item>Sezon w słowach. Miło się czyta.</item>
+        <item>Słoneczny sezon. Doprawdy znakomity.</item>
+        <item>Burzliwy sezon. A zapiski i tak powstawały; to się liczy.</item>
+        <item>Zaczęło się pochmurnie, skończyło w słońcu. Całkiem nieźle.</item>
+        <item>Jasny początek, szarszy koniec. Zalecam herbatę i koc.</item>
+        <item>Słońce i przelotne deszcze, jak w każdym uczciwym sezonie.</item>
+    </string-array>
+    <string name="book_cover_subtitle">Rok z Dotildą</string>
+    <string name="book_title">Mój rok z Dotildą</string>
+    <string name="book_contents">Spis treści</string>
+    <string name="book_cover_alt">Rok w kropkach</string>
+    <string name="book_constellations">Konstelacje</string>
+    <string name="book_constellations_intro">Podróże ukończone w tym roku, każda jak mała konstelacja na niebie:</string>
+    <string name="book_letter_sealed">List do przyszłości, zapieczętowany do %1$s.</string>
+    <string name="book_export">Eksportuj rok jako książkę</string>
+    <string name="book_exported">Twoja książka jest gotowa. Otwórz ją na swoim czytniku.</string>
+    <string name="sky_title">Twoje niebo</string>
+    <string name="sky_dots">Kropki</string>
+    <string-array name="sky_dot_sizes">
+        <item>Drobne</item>
+        <item>Klasyczne</item>
+        <item>Wyraźne</item>
+    </string-array>
+    <string name="sky_layout">Galaktyka</string>
+    <string-array name="sky_layouts">
+        <item>Równe rzędy</item>
+        <item>Nocne niebo</item>
+    </string-array>
+    <string name="settings_journal">Twój dziennik</string>
 </resources>

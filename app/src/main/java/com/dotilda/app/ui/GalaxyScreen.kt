@@ -3,6 +3,7 @@ package com.dotilda.app.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import com.dotilda.app.R
 import com.dotilda.app.data.Entry
 import com.dotilda.app.data.Journal
+import com.dotilda.app.data.SkyLayout
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
 import java.time.Month
@@ -44,7 +46,13 @@ private val LABEL_WIDTH = 18.dp
 
 /** A year on one page: 12 rows (months) of up to 31 dots (days). The volume buttons turn the years. */
 @Composable
-fun GalaxyScreen(journal: Journal, onOpenDay: (LocalDate) -> Unit, onOpenMonth: (YearMonth) -> Unit, onBack: () -> Unit) {
+fun GalaxyScreen(
+    journal: Journal,
+    onOpenDay: (LocalDate) -> Unit,
+    onOpenMonth: (YearMonth) -> Unit,
+    onOpenSeason: (YearMonth) -> Unit,
+    onBack: () -> Unit,
+) {
     val today = remember { LocalDate.now() }
     var year by rememberSaveable { mutableIntStateOf(today.year) }
     var firstYear by remember { mutableIntStateOf(today.year) }
@@ -63,7 +71,19 @@ fun GalaxyScreen(journal: Journal, onOpenDay: (LocalDate) -> Unit, onOpenMonth: 
         Spacer(Modifier.height(16.dp))
         val stars = remember(constellations) { constellations.flatMap { it.dates }.toSet() }
         YearGrid(year, entries, stars, today, onOpenDay, onOpenMonth, Modifier.weight(1f).fillMaxWidth())
-        Spacer(Modifier.height(8.dp))
+        // The year's seasons, each opening its review (only those already begun).
+        val locale = appLocale()
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            for (q in 0 until 4) {
+                val first = YearMonth.of(year, q * 3 + 1)
+                if (first.atDay(1).isAfter(today)) continue
+                TextLink(
+                    "${first.month.getDisplayName(DateTextStyle.SHORT_STANDALONE, locale)}–${first.plusMonths(2).month.getDisplayName(DateTextStyle.SHORT_STANDALONE, locale)}",
+                    { onOpenSeason(first) },
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        }
         TextMMD(
             if (constellations.isEmpty()) stringResource(R.string.galaxy_hint)
             else stringResource(R.string.galaxy_constellations, constellations.map { it.name }.distinct().joinToString(", ")),
@@ -93,6 +113,7 @@ private fun YearGrid(
     modifier: Modifier,
 ) {
     val shapes = remember(entries) { entries.groupBy { it.date }.mapValues { it.value.first().dotShape(today) } }
+    val style = LocalSkyStyle.current
     val locale = appLocale()
 
     Row(modifier) {
@@ -130,14 +151,15 @@ private fun YearGrid(
         ) {
             val cell = size.width / 31
             val row = size.height / 12
-            val radius = minOf(cell, row) * DOT_FILL
+            val radius = minOf(cell, row) * style.dots.galaxy
             for (m in 1..12) {
                 val month = Month.of(m)
                 val y = row * (m - 0.5f)
                 for (d in 1..month.length(java.time.Year.isLeap(year.toLong()))) {
                     val date = LocalDate.of(year, m, d)
                     if (date.isAfter(today)) break
-                    val center = Offset(cell * (d - 0.5f), y)
+                    val jitter = if (style.layout == SkyLayout.NightSky) nightOffset(date.toString()) else Offset.Zero
+                    val center = Offset(cell * (d - 0.5f + jitter.x), y + minOf(cell, row) * jitter.y * 2)
                     val shape = shapes[date.toString()]
                     if (shape != null) drawDot(shape, center, radius) else drawRestDot(center, radius)
                     if (shape != null && date.toString() in stars) drawStarRays(center, radius)

@@ -45,7 +45,7 @@ An app by readme.club, made and maintained by LesWWW.
 | **Spira** | A breathing minute before writing, a timer that rings with the screen off, and a stopwatch, which the Kompakt lacks. |
 | **Made for e-ink** | Pure black on white, large type, no animation, no scrolling. Dotilda changes pose in a single step, like turning a page. |
 
-**Coming next:** seasonal reviews and the year as an EPUB book to read on your e-reader.
+**Also:** season reviews, your year as an EPUB book to read on your e-reader, and a sky in your own style.
 
 <p align="center">
   <img src="docs/screenshots/welcome.png" width="180" alt="Welcome: Dotilda introduces herself">

@@ -7,15 +7,22 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [Unreleased]
+## [0.6.0] - 2026-10-31
 
 ### Added
 - Dotilda speaks Polish: on a phone set to Polish, every screen, the 229 questions and the four
   journeys are in Polish, and so are the dates.
+- The season in review, on three pages: the weather of three months, your words and your
+  This-or-that tallies, a line of yours and your photos. From the Galaxy (Jan–Mar to Oct–Dec), or
+  from Dotilda's note in the first days of January, April, July and October.
+- Your year as a book: export it as an EPUB to read on your e-reader, with the year's galaxy on
+  the cover, one chapter per month, your photos and your constellations.
+- Your sky, your way: dots Fine, Classic or Bold, and the Galaxy in neat rows or as a night sky.
 
 ### Changed
 - Dates (months, days in the Notebook, letters) follow the app's language instead of always
   being in English.
+- Settings now fit on two pages: reminder and updates, then your journal and your sky.
 
 ## [0.5.0] - 2026-10-31
 

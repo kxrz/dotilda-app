@@ -146,6 +146,15 @@ class ReviewTest {
     }
 
     @Test
+    fun talliesThisOrThat() {
+        fun e(q: String, i: Int, label: String) =
+            Entry(date = "2026-07-0$i", questionId = q, type = QuestionType.THIS_OR_THAT, payload = Answer.Choice(i, label).toPayload())
+        val tallies = choiceTallies(listOf(e("tt-1", 0, "Tea"), e("tt-1", 1, "Coffee"), e("tt-1", 2, "Tea"), e("tt-2", 3, "Sea")))
+        assertEquals(listOf("tt-1", "tt-2"), tallies.keys.toList())
+        assertEquals(listOf("Tea" to 2, "Coffee" to 1), tallies["tt-1"])
+    }
+
+    @Test
     fun countsWordsIgnoringCase() {
         assertEquals(listOf("Quiet" to 2, "Busy" to 1), wordCloud(listOf("quiet", "Busy", "QUIET ")))
     }
