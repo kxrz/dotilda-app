@@ -1,0 +1,102 @@
+DesignSheetTest > sheet STARTED
+DesignSheetTest > sheet PASSED
+ScreensTest > a_onboarding STARTED
+    [screens 572714] wait for 'Begin'
+    [screens 572920] shot 01-welcome
+    [screens 573516] wait for 'When shall I come by?'
+    [screens 573517] shot 02-setup
+ScreensTest > a_onboarding PASSED
+ScreensTest > b_ritual STARTED
+    [screens 573920] seed iw-001
+    [screens 574749] wait for 'Answer'
+    [screens 574905] shot 03-today
+    [screens 575292] wait for 'Stormy'
+    [screens 575340] shot 05-answer-weather
+    [screens 575690] wait for 'Noted'
+    [screens 575732] shot 06-done
+    [screens 576092] wait for 'See you tomorrow.'
+    [screens 576139] shot 07-today-answered
+ScreensTest > b_ritual PASSED
+ScreensTest > c1_answerLine STARTED
+    [screens 576513] seed ol-001
+    [screens 577202] wait for 'Answer'
+    [screens 577273] wait for 'Back'
+    [screens 577824] shot 04-answer-line
+ScreensTest > c1_answerLine PASSED
+ScreensTest > c2_answerChoice STARTED
+    [screens 578261] seed tt-001
+    [screens 578896] wait for 'Answer'
+    [screens 578951] wait for 'Back'
+    [screens 579275] shot 08-answer-choice
+ScreensTest > c2_answerChoice PASSED
+ScreensTest > c3_answerThings STARTED
+    [screens 579639] seed th-001
+    [screens 580290] wait for 'Answer'
+    [screens 580350] wait for 'Back'
+    [screens 580715] shot 09-answer-things
+ScreensTest > c3_answerThings PASSED
+ScreensTest > c4_answerMirror STARTED
+    [screens 581084] seed mi-001
+    [screens 581712] wait for 'Answer'
+    [screens 581765] wait for 'Back'
+    [screens 582114] shot 10-answer-mirror
+ScreensTest > c4_answerMirror PASSED
+ScreensTest > d_rereading STARTED
+    [screens 582481] seed ol-001
+    [screens 583133] wait for 'Answer'
+    [screens 583185] wait for ' / '
+    [screens 583227] shot 11-notebook
+    [screens 583582] wait for 'Answer'
+    [screens 583655] wait for 'Constellations'
+    [screens 583959] shot 12-galaxy
+ScreensTest > d_rereading PASSED
+ScreensTest > e_spiraAndSettings STARTED
+    [screens 584355] seed ol-001
+    [screens 584999] wait for 'Answer'
+    [screens 585066] wait for 'One minute'
+    [screens 585067] shot 13-spira-breathe
+    [screens 585413] shot 14-spira-timer
+    [screens 585763] shot 15-spira-stopwatch
+    [screens 586107] wait for 'Answer'
+    [screens 586151] wait for 'Daily reminder'
+    [screens 586171] shot 16-settings
+ScreensTest > e_spiraAndSettings PASSED
+ScreensTest > f_journeysAndReview STARTED
+    [screens 586529] seed ol-001
+    [screens 587169] wait for 'Answer'
+    [screens 587242] wait for '7 days to slow down'
+    [screens 587242] shot 17-journeys
+    [screens 587581] wait for 'Answer'
+    [screens 587635] wait for 'Constellations'
+    [screens 587639] wait for '1 / 2'
+    [screens 587988] shot 18-review-weather
+    [screens 588332] wait for '2 / 2'
+    [screens 588633] shot 19-review-photos
+ScreensTest > f_journeysAndReview PASSED
+ScreensTest > g1_answerLetter STARTED
+    [screens 589005] seed le-001
+    [screens 589688] wait for 'Answer'
+    [screens 589738] wait for 'Back'
+    [screens 590152] shot 20-answer-letter
+ScreensTest > g1_answerLetter PASSED
+ScreensTest > g2_answerPhoto STARTED
+    [screens 590508] seed ph-001
+    [screens 591112] wait for 'Answer'
+    [screens 591157] wait for 'Back'
+    [screens 591478] shot 21-answer-photo
+ScreensTest > g2_answerPhoto PASSED
+ScreensTest > g3_letterReady STARTED
+    [screens 591841] seed ol-001
+    [screens 592445] wait for 'letter from'
+    [screens 592467] shot 22-today-letter
+    [screens 592817] wait for ' / '
+    [screens 593144] shot 23-notebook-letter
+ScreensTest > g3_letterReady PASSED
+ScreensTest > h_journeyEnds STARTED
+    [screens 593502] seed null
+    [screens 594088] wait for 'day 7 of 7'
+    [screens 594135] shot 24-today-journey
+    [screens 594469] wait for 'Back'
+    [screens 594527] wait for 'I'll call this one'
+    [screens 594555] shot 25-done-constellation
+ScreensTest > h_journeyEnds PASSED
