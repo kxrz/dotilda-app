@@ -4,8 +4,8 @@ Gentle daily journaling app for e-ink Android devices. Free, open source (Apache
 Primary target: Mudita Kompakt (MuditaOS K, AOSP 12, no Google services).
 Secondary: Android 11+ e-readers. minSdk 30. Application id: `com.dotilda.app`.
 
-The full product spec (French) is kept outside this public repository; ask for it when a task
-needs more than this file. The rules below are the ones that matter for the code.
+Product spec: `docs/spec.md` (what the app is and how it behaves). The rules below are the ones
+that matter for the code.
 
 **Never touch the `website` branch** (the dotilda.com site, deployed by Vercel): no commit,
 no merge, no rebase, no deletion. It is maintained separately.
