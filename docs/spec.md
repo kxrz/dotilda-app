@@ -36,8 +36,12 @@ askew (another question, a little mischief); a small smile (noted). On the Done 
 her glasses up and smiles, in one step, never looping.
 
 **Conventions:** "Dotilda" always takes a capital D, like a first name. The breathing module keeps
-its Latin name, **spira** ("breathe"), lowercase: it is the exercise Dotilda suggests before
-writing.
+its Latin name, **Spira** ("breathe"), with a capital S: it is the exercise Dotilda suggests
+before writing.
+
+**Speech bubbles:** when Dotilda asks or announces something, her words sit in a light speech
+bubble: a fine ink outline, round corners, white inside and a small tail pointing at her. Her
+asides on Today never take more than one line.
 
 ## Concept and principles
 
@@ -103,7 +107,7 @@ None of them punishes absence.
   opens on its date.
 - A day without an entry is a tiny grey dot: a breath in the grid, never a hole or an alert.
 - Dots stay free: no line for a complete week or month. Regularity shows in how dense the sky is,
-  not in a line that would reward a streak. The only lines are the constellations of journeys.
+  not in a line that would reward a streak. Not even constellations use lines.
 - Dots are spaced so that a run of days never merges into a bar; today is marked by a small caret.
 - Years pile up in the **Galaxy**, one page per year; touching a dot reopens that day's entry.
 
@@ -111,8 +115,8 @@ None of them punishes absence.
 
 - Themed series of 5 to 10 questions, one a day: "7 days to slow down", "Gratitude",
   "Season review", "Unplugged".
-- A finished journey links its days with fine lines: a constellation, named after the journey,
-  is added to the sky.
+- A finished journey becomes a constellation, named after the journey: its days light up as stars
+  (four short rays around each dot), with no line between them, and its name shows under the sky.
 - One journey at a time; outside a journey, the question of the day comes from the general bank.
 
 **Reviews (long loops)**
@@ -134,22 +138,22 @@ one button.
 | Screen | Content | Actions |
 | --- | --- | --- |
 | Today | The month's line of dots, the question of the day, the current journey | Answer, another question (3 max), open the notebook |
-| Answer | The question and its input; for a Mirror, the answer from 30 days ago | Save, breathe with spira first |
+| Answer | The question and its input; for a Mirror, the answer from 30 days ago | Save, breathe with Spira first |
 | Done | The day's dot filling in; the constellation if a journey ends | Back to Today |
 | Notebook | Entries by month, one page per day, paginated | Read, filter by format or journey |
 | Journeys | Available, current and finished journeys | Start a journey |
 | Galaxy | Every year in dots, with the journeys' constellations | Page through the years, touch a dot to reread the day |
 | Review | Month or season review | Read, export as an image |
-| spira | Breathing minute, timer, stopwatch | Start, set |
+| Spira | Breathing minute, timer, stopwatch | Start, set |
 | Settings | Reminder time, backup, EPUB export, updates, about | Export, import |
 
 Onboarding: a welcome screen where Dotilda introduces herself in three short promises (reachable
 later from Settings > About Dotilda), the choice of the reminder time, then the first question
 right away.
 
-## spira
+## Spira
 
-spira fills a real gap on the Kompakt, which has no timer or stopwatch out of the box, and serves
+Spira fills a real gap on the Kompakt, which has no timer or stopwatch out of the box, and serves
 as a pause before writing. It lives inside Dotilda; a standalone app may follow if it is used.
 
 - **Breathing minute:** a circle that changes size in steps (breathe in 4 s, out 6 s), with no
@@ -181,7 +185,7 @@ Secondary: Android 11+ e-readers.
   (`KEYCODE_VOLUME_DOWN`, 25), only on paginated screens; elsewhere volume keeps its role. The back
   key under the screen sends `KEYCODE_BACK` (4), the standard system back.
 - **Battery:** no background service; one daily reminder scheduled with AlarmManager, plus the
-  spira timer when the user starts it.
+  Spira timer when the user starts it.
 
 ## Architecture and data
 
@@ -191,7 +195,8 @@ Application id: `com.dotilda.app`.
 - **UI:** Compose + MMD, flat Compose navigation.
 - **Data:** Room (SQLite). The question bank and journeys are JSON assets, synced at every launch
   (an app update can fix or add questions). Preferences in DataStore.
-- **Photos:** CameraX, dithered, then stored in the app's private folder.
+- **Photos:** taken with the system camera app (no CameraX, no camera permission), shrunk to the
+  Kompakt's width, dithered, then stored in the app's private folder.
 - **Reminder:** exact AlarmManager alarm, re-armed after reboot.
 - **Export:** a local EPUB 3 (XHTML and images in a zip), and a backup zip (JSON and photos),
   through the Android file picker.
@@ -200,9 +205,11 @@ Application id: `com.dotilda.app`.
 | --- | --- | --- |
 | Question | id, type, text, options, tags, journeyId?, mirrorGroup? | Question bank |
 | Entry | id, date, questionId, type, payload (JSON), photoPath? | Answers; the day's first one gives its dot a shape |
-| Journey | id, title, length, constellationName | Journeys |
-| JourneyProgress | journeyId, step, startedAt, completedAt? | Progress |
-| Constellation | id, journeyId, dates, completedAt | Constellations drawn by journeys |
+
+Journeys are not tables: they live in `assets/journeys.json`, and their questions are synced into
+the Question table with their journeyId. The journey under way, the finished constellations
+(journey, name, dates) and the letters already opened live in DataStore and travel in the backup
+zip. So far the database schema has not changed since the first public release: no migration.
 
 The JSON payload depends on the format (text, word, weather index, choice, three lines, letter
 with its unsealing date), which keeps a single Entry table that is simple to export. The dot's
@@ -237,10 +244,10 @@ Short steps, each one usable on a real Kompakt. Every push builds a debug APK on
 3. ✅ **Notebook and sky:** paginated Notebook, the year's sky and the month's line, dot shapes;
    Three things and Mirror.
    Done when every entry fills the right dot with the right shape, and empty days stay quiet.
-4. ✅ **spira and backup** (0.4.0): the full spira module, zip export and import, onboarding,
+4. ✅ **Spira and backup** (0.4.0): the full Spira module, zip export and import, onboarding,
    public release.
    Done when a whole journal is restored on a second device.
-5. **Depth:** journeys and constellations, the month review, Photo of the day with dithering,
+5. ✅ **Depth** (0.5.0): journeys and constellations, the month review, Photo of the day with dithering,
    Letter to future me.
    Done when a 7-day journey ends by drawing its constellation.
 6. **Looking back:** season reviews, the yearly EPUB export, dot and sky styles.

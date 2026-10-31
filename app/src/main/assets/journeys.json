@@ -1,0 +1,60 @@
+{
+  "journeys": [
+    {
+      "id": "slow",
+      "title": "7 days to slow down",
+      "description": "A week of small pauses. Nothing to fix, only to notice.",
+      "constellation": "Slow",
+      "questions": [
+        { "id": "j-slow-1", "type": "one_line", "text": "What did you rush through today that could have waited?" },
+        { "id": "j-slow-2", "type": "inner_weather", "text": "Stop for a moment. What's the weather inside?" },
+        { "id": "j-slow-3", "type": "one_line", "text": "What did you do today at half your usual speed?" },
+        { "id": "j-slow-4", "type": "one_word", "text": "One word for the quietest minute of your day." },
+        { "id": "j-slow-5", "type": "three_things", "text": "Three things you noticed only because you slowed down." },
+        { "id": "j-slow-6", "type": "this_or_that", "text": "Tonight, a long dinner or an early night?", "options": ["Dinner", "Early night"] },
+        { "id": "j-slow-7", "type": "one_line", "text": "What will you keep from this slower week?" }
+      ]
+    },
+    {
+      "id": "gratitude",
+      "title": "Gratitude",
+      "description": "Seven days of small thank-yous, to people, places and plain things.",
+      "constellation": "Thankful",
+      "questions": [
+        { "id": "j-grat-1", "type": "one_line", "text": "Who did something kind for you lately?" },
+        { "id": "j-grat-2", "type": "three_things", "text": "Three ordinary things you'd miss if they vanished." },
+        { "id": "j-grat-3", "type": "one_word", "text": "One word for what your body did well today." },
+        { "id": "j-grat-4", "type": "one_line", "text": "Which place are you glad exists?" },
+        { "id": "j-grat-5", "type": "one_line", "text": "What did someone teach you, long ago, that you still use?" },
+        { "id": "j-grat-6", "type": "this_or_that", "text": "Today, more thankful for people or for quiet?", "options": ["People", "Quiet"] },
+        { "id": "j-grat-7", "type": "one_line", "text": "Write the thank-you you never got round to saying." }
+      ]
+    },
+    {
+      "id": "unplugged",
+      "title": "Unplugged",
+      "description": "Five days with a little less screen and a little more world.",
+      "constellation": "Quiet",
+      "questions": [
+        { "id": "j-unp-1", "type": "one_line", "text": "When did you reach for a screen today without needing to?" },
+        { "id": "j-unp-2", "type": "one_line", "text": "What did you do with ten minutes of no screen at all?" },
+        { "id": "j-unp-3", "type": "photo", "text": "Show me something you'd have missed looking at a screen." },
+        { "id": "j-unp-4", "type": "inner_weather", "text": "A little less noise: how's the weather inside?" },
+        { "id": "j-unp-5", "type": "one_line", "text": "Which small habit from these days would you like to keep?" }
+      ]
+    },
+    {
+      "id": "season",
+      "title": "Season review",
+      "description": "Five evenings to look back on the last three months, gently.",
+      "constellation": "Turning",
+      "questions": [
+        { "id": "j-sea-1", "type": "one_word", "text": "The last three months, in one word?" },
+        { "id": "j-sea-2", "type": "three_things", "text": "Three moments from this season worth keeping." },
+        { "id": "j-sea-3", "type": "one_line", "text": "What turned out better than you feared?" },
+        { "id": "j-sea-4", "type": "one_line", "text": "What would you like to leave behind with this season?" },
+        { "id": "j-sea-5", "type": "letter", "text": "Write to the you of next season." }
+      ]
+    }
+  ]
+}

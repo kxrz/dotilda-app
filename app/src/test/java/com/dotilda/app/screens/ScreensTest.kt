@@ -19,7 +19,17 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.dotilda.app.DotildaApp
 import com.dotilda.app.MainActivity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performTextInput
+import com.dotilda.app.Photos
+import com.dotilda.app.data.ActiveJourney
 import com.dotilda.app.data.Answer
+import com.dotilda.app.data.Constellation
 import com.dotilda.app.data.DayState
 import com.dotilda.app.data.Entry
 import com.dotilda.app.data.Question
@@ -32,7 +42,11 @@ import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.Pose
 import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -41,6 +55,7 @@ import org.junit.runners.MethodSorters
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import org.robolectric.shadows.ShadowLooper
+import java.io.File
 import java.time.LocalDate
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -65,7 +80,7 @@ class ScreensTest {
     @Test
     fun a_onboarding() {
         awaitBank()
-        runBlocking { app.prefs.settingsNow() }
+        offMain { app.prefs.settingsNow() }
         launch()
         waitFor("Begin")
         shot("01-welcome")
@@ -92,18 +107,27 @@ class ScreensTest {
         shot("07-today-answered")
     }
 
-    @Test
-    fun c_answerFormats() {
-        for ((id, name) in listOf("ol-001" to "04-answer-line", "tt-001" to "08-answer-choice", "th-001" to "09-answer-things", "mi-001" to "10-answer-mirror")) {
-            seed(question = id)
-            val scenario = launch()
-            waitFor("Answer")
-            click("Answer")
-            waitFor("Back")
-            settle()
-            shot(name)
-            scenario.close()
-        }
+    @Test fun c1_answerLine() = answerShot("ol-001", "04-answer-line")
+
+    @Test fun c2_answerChoice() = answerShot("tt-001", "08-answer-choice")
+
+    @Test fun c3_answerThings() = answerShot("th-001", "09-answer-things")
+
+    @Test fun c4_answerMirror() = answerShot("mi-001", "10-answer-mirror")
+
+    @Test fun g1_answerLetter() = answerShot("le-001", "20-answer-letter")
+
+    @Test fun g2_answerPhoto() = answerShot("ph-001", "21-answer-photo")
+
+    /** One launch per test: several activities in a row make Robolectric's Compose flaky. */
+    private fun answerShot(question: String, name: String) {
+        seed(question = question)
+        launch()
+        waitFor("Answer")
+        click("Answer")
+        waitFor("Back")
+        settle()
+        shot(name)
     }
 
     @Test
@@ -117,7 +141,7 @@ class ScreensTest {
         click("Back")
         waitFor("Answer")
         click("Galaxy")
-        waitFor("Touch a dot", substring = true)
+        waitFor("Constellations", substring = true)
         settle()
         shot("12-galaxy")
     }
@@ -127,7 +151,7 @@ class ScreensTest {
         seed(question = "ol-001")
         launch()
         waitFor("Answer")
-        click("spira")
+        click("Spira")
         waitFor("One minute", substring = true)
         shot("13-spira-breathe")
         click("Timer")
@@ -141,14 +165,76 @@ class ScreensTest {
         shot("16-settings")
     }
 
-    private fun launch(): ActivityScenario<MainActivity> = ActivityScenario.launch(MainActivity::class.java)
+    @Test
+    fun f_journeysAndReview() {
+        seed(question = "ol-001")
+        launch()
+        waitFor("Answer")
+        click("Journeys")
+        waitFor("7 days to slow down")
+        shot("17-journeys")
+        click("Back")
+        waitFor("Answer")
+        click("Galaxy")
+        waitFor("Constellations", substring = true)
+        compose.onNodeWithContentDescription(today.minusMonths(1).month.getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH)).performClick()
+        waitFor("1 / 2")
+        settle()
+        shot("18-review-weather")
+        click("›")
+        waitFor("2 / 2")
+        settle()
+        shot("19-review-photos")
+    }
+
+    @Test
+    fun g3_letterReady() {
+        seed(question = "ol-001")
+        launch()
+        waitFor("letter from", substring = true)
+        shot("22-today-letter")
+        click("letter from", substring = true)
+        waitFor(" / ", substring = true)
+        settle()
+        shot("23-notebook-letter")
+    }
+
+    @Test
+    fun h_journeyEnds() {
+        seed(question = null, journeyDone = 6)
+        launch()
+        waitFor("day 7 of 7", substring = true)
+        shot("24-today-journey")
+        click("Answer")
+        waitFor("Back")
+        compose.onNode(hasSetTextAction()).performTextInput("Thank you, Mrs Pell, for the piano lessons.")
+        click("Save")
+        waitFor("I'll call this one", substring = true)
+        ShadowLooper.idleMainLooper(1, TimeUnit.SECONDS)
+        shot("25-done-constellation")
+    }
+
+    private var scenario: ActivityScenario<MainActivity>? = null
+
+    private fun launch() {
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+    }
+
+    @After
+    fun close() {
+        scenario?.close()
+    }
+
+    /** Timestamped steps in the CI log, to see where a screenshot run spends its time. */
+    private fun step(what: String) = println("[screens ${System.currentTimeMillis() % 1_000_000}] $what")
 
     private fun waitFor(text: String, substring: Boolean = false) {
+        step("wait for '$text'")
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
     }
 
-    private fun click(text: String) {
-        compose.onNodeWithText(text).performClick()
+    private fun click(text: String, substring: Boolean = false) {
+        compose.onNodeWithText(text, substring).performClick()
         compose.waitForIdle()
     }
 
@@ -160,14 +246,30 @@ class ScreensTest {
     }
 
     private fun shot(name: String) {
+        step("shot $name")
         settle()
         compose.onRoot().captureRoboImage("screenshots/$name.png")
     }
 
-    /** Ten months of journal: most days answered, a Mirror each month, today open on [question]. */
-    private fun seed(question: String) {
+    private fun seed(question: String?, journeyDone: Int = 0) {
+        step("seed $question")
         awaitBank()
-        runBlocking { seedJournal(question) }
+        offMain { seedJournal(question, journeyDone) }
+    }
+
+    /**
+     * Runs [block] on a background thread while this (main) thread keeps its looper turning:
+     * blocking the main thread can deadlock Room, DataStore or the bank sync.
+     */
+    private fun offMain(block: suspend () -> Unit) {
+        val job = CoroutineScope(Dispatchers.IO).async { block() }
+        val deadline = System.currentTimeMillis() + 30_000
+        while (!job.isCompleted) {
+            check(System.currentTimeMillis() < deadline) { "seeding took more than 30 s" }
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+        }
+        runBlocking { job.await() }
     }
 
     /** The bank loads on the main thread, which is this test's thread: let its looper run. */
@@ -178,16 +280,34 @@ class ScreensTest {
         }
     }
 
-    private suspend fun seedJournal(question: String) {
+    /**
+     * Ten months of journal: most days answered, a Mirror each month, a photo now and then
+     * (yesterday's too), two letters (one ready to open), a finished journey in early spring
+     * and, with [journeyDone] > 0, the Gratitude journey under way. Today opens on [question].
+     */
+    private suspend fun seedJournal(question: String?, journeyDone: Int) {
         app.prefs.setWelcomed()
         val bank = app.db.questionDao().all()
-        val byType = bank.groupBy { it.type }
+        val byType = bank.filter { it.journeyId == null }.groupBy { it.type }
         val random = Random(7)
         val entries = mutableListOf<Entry>()
+        val slow = app.journal.journeys.first { it.id == "slow" }
+        val gratitude = app.journal.journeys.first { it.id == "gratitude" }
+        val slowStart = today.minusDays(220)
         var date = today.minusDays(300)
         while (date.isBefore(today)) {
+            val slowStep = java.time.temporal.ChronoUnit.DAYS.between(slowStart, date).toInt()
+            val gratitudeStep = journeyDone - java.time.temporal.ChronoUnit.DAYS.between(date, today).toInt()
+            var photo: String? = null
             val q = when {
+                slowStep in 0 until slow.length -> slow.questions[slowStep]
+                journeyDone > 0 && gratitudeStep in 0 until journeyDone -> gratitude.questions[gratitudeStep]
                 date == today.minusDays(32) -> bank.first { it.id == "mi-001" }
+                date == today.minusDays(100) || date == today.minusDays(20) -> byType.getValue(QuestionType.LETTER).random(random)
+                date == today.minusDays(1) || date.dayOfMonth == 20 || date.dayOfMonth == 5 -> {
+                    photo = samplePhoto(date.toString())
+                    byType.getValue(QuestionType.PHOTO).random(random)
+                }
                 random.nextFloat() > 0.8f -> null
                 date.dayOfMonth == 12 -> byType.getValue(QuestionType.MIRROR).random(random)
                 else -> byType.getValue(
@@ -198,18 +318,55 @@ class ScreensTest {
                 ).random(random)
             }
             if (q != null) {
+                val answer = when (q.type) {
+                    QuestionType.LETTER -> Answer.Letter(
+                        "Dear me, I hope the bike is fixed, the plants are alive, and you still take the long way home.",
+                        (if (date == today.minusDays(100)) today.minusDays(1) else today.plusMonths(5)).toString(),
+                    )
+                    QuestionType.PHOTO -> Answer.Photo(if (random.nextBoolean()) "The view from the bench" else "")
+                    else -> sampleAnswer(q, random)
+                }
                 entries += Entry(
                     date = date.toString(),
                     questionId = q.id,
                     type = q.type,
-                    payload = sampleAnswer(q, random).toPayload(),
+                    payload = answer.toPayload(),
                     createdAt = date.toEpochDay() * 86_400_000,
+                    photoPath = photo,
                 )
             }
             date = date.plusDays(1)
         }
         app.db.entryDao().insertAll(entries)
-        app.prefs.saveDay(DayState(today.toString(), question, listOf(question), 0, false))
+        app.prefs.addConstellations(
+            listOf(Constellation("slow", slow.constellation, (0 until slow.length).map { slowStart.plusDays(it.toLong()).toString() })),
+        )
+        if (journeyDone > 0) app.prefs.setActiveJourney(ActiveJourney("gratitude", today.minusDays(journeyDone.toLong()).toString()))
+        // DataStore outlives a test (one instance per process): always reset the day.
+        app.prefs.saveDay(DayState(if (question != null) today.toString() else "", question, listOfNotNull(question), 0, false))
+    }
+
+    /** A made-up snapshot (sky, sun, a bench), dithered like a real one. */
+    private fun samplePhoto(name: String): String {
+        val bitmap = Bitmap.createBitmap(480, 360, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        for (y in 0 until 360 step 4) {
+            val v = 235 - y * 150 / 360
+            paint.color = Color.rgb(v, v, v)
+            canvas.drawRect(0f, y.toFloat(), 480f, y + 4f, paint)
+        }
+        paint.color = Color.rgb(250, 250, 250)
+        canvas.drawCircle(360f, 90f, 46f, paint)
+        paint.color = Color.rgb(60, 60, 60)
+        canvas.drawRect(0f, 280f, 480f, 360f, paint)
+        paint.color = Color.rgb(25, 25, 25)
+        canvas.drawRect(120f, 230f, 300f, 250f, paint)
+        canvas.drawRect(135f, 250f, 145f, 290f, paint)
+        canvas.drawRect(275f, 250f, 285f, 290f, paint)
+        val path = "photos/seed-$name.png"
+        Photos.save(Photos.dither(bitmap), File(app.filesDir, path))
+        return path
     }
 
     private fun sampleAnswer(q: Question, random: Random): Answer = when (q.type) {

@@ -9,7 +9,7 @@ plugins {
 
 // The single source of the version: the release workflow checks the tag against it,
 // and versionCode follows it (1.2.3 -> 10203) so it can never be forgotten.
-val appVersion = "0.4.0"
+val appVersion = "0.5.0"
 
 android {
     namespace = "com.dotilda.app"
@@ -69,6 +69,12 @@ android {
     // Screenshot tests (Robolectric + Roborazzi) render the real screens on the JVM.
     testOptions {
         unitTests.isIncludeAndroidResources = true
+        unitTests.all {
+            it.testLogging {
+                events("started", "passed", "failed")
+                showStandardStreams = true
+            }
+        }
     }
 
     buildFeatures {

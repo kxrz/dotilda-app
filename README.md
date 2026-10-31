@@ -39,18 +39,20 @@ An app by readme.club, made and maintained by LesWWW.
 | **A sky of dots** | Each dot takes the shape of its answer: the inner weather is a moon phase, a Mirror a dot inside a ring. The Galaxy shows the whole year on one screen; touch a dot to reread that day. |
 | **A notebook** | Reread your days page by page, turning pages with the volume buttons, like on an e-reader. |
 | **Nothing to lose** | Miss a day and nothing breaks: an empty day is a tiny grey dot. No streaks, no red, no guilt. |
-| **spira** | A breathing minute before writing, a timer that rings with the screen off, and a stopwatch, which the Kompakt lacks. |
+| **Journeys** | Short series, one question a day: 7 days to slow down, Gratitude, Unplugged, Season review. Finish one and its days light up as a named constellation. |
+| **Looking back** | The month in review: Dotilda's word on your weather, your words, a line of yours and your photos. |
+| **Photos and letters** | A photo of the day, kept small in four greys. Letters to your future self, sealed for up to a year. |
+| **Spira** | A breathing minute before writing, a timer that rings with the screen off, and a stopwatch, which the Kompakt lacks. |
 | **Made for e-ink** | Pure black on white, large type, no animation, no scrolling. Dotilda changes pose in a single step, like turning a page. |
 
-**Coming next:** journeys that draw constellations, monthly and seasonal reviews, a photo of the
-day dithered in four greys, sealed letters to your future self, and the year as an EPUB book.
+**Coming next:** seasonal reviews and the year as an EPUB book to read on your e-reader.
 
 <p align="center">
   <img src="docs/screenshots/welcome.png" width="180" alt="Welcome: Dotilda introduces herself">
   <img src="docs/screenshots/answer-weather.png" width="180" alt="The inner weather, from sunny to stormy">
   <img src="docs/screenshots/answer-mirror.png" width="180" alt="A Mirror question, with what was written a month ago">
   <img src="docs/screenshots/notebook.png" width="180" alt="The notebook, one page per day">
-  <img src="docs/screenshots/spira-breathe.png" width="180" alt="spira, a breathing minute">
+  <img src="docs/screenshots/spira-breathe.png" width="180" alt="Spira, a breathing minute">
 </p>
 
 ## Privacy

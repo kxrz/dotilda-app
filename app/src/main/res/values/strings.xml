@@ -27,6 +27,67 @@
     <string name="galaxy">Galaxy</string>
     <string name="galaxy_hint">Touch a dot to read that day.</string>
 
+    <!-- Journeys -->
+    <string name="journeys">Journeys</string>
+    <string name="journey_start">Start</string>
+    <string name="journey_stop">Stop</string>
+    <string name="journey_day">Day %1$d of %2$d. One question a day, nothing to catch up on.</string>
+    <string name="journey_done">Finished. Its constellation is called %1$s.</string>
+    <string name="journey_about">%1$d days. %2$s</string>
+    <string name="journey_step">%1$s · day %2$d of %3$d</string>
+    <string name="constellation_named">%1$s days, %2$s dots. I\'ll call this one %3$s.</string>
+    <string-array name="number_words">
+        <item>Zero</item>
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+        <item>Six</item>
+        <item>Seven</item>
+        <item>Eight</item>
+        <item>Nine</item>
+        <item>Ten</item>
+    </string-array>
+    <string name="galaxy_constellations">Constellations: %1$s</string>
+
+    <!-- Review -->
+    <string name="review_ready">Your %1$s is ready to read again.</string>
+    <string name="review_weather">The weather inside</string>
+    <string name="review_words">In a word</string>
+    <string name="review_line">A line of yours</string>
+    <string name="review_photos">Photos</string>
+    <string name="review_quiet">A quiet month on paper. Nothing wrong with that.</string>
+    <!-- One per weather trend, in the order of data/Review.kt: None, Sunny, Stormy, Brightening, Clouding, Mixed. -->
+    <string-array name="review_comments">
+        <item>A month in words. Lovely to read.</item>
+        <item>Clear skies most days. Splendid.</item>
+        <item>A stormy month. You kept writing; that counts.</item>
+        <item>A cloudy start, a sunny finish. Rather well done.</item>
+        <item>A bright start, a greyer end. Tea is advised.</item>
+        <item>Sun and showers, like any honest month.</item>
+    </string-array>
+
+    <!-- Photo and letter -->
+    <string name="photo_hint">Dotilda keeps it small, in four greys.</string>
+    <string name="photo_take">Take the photo</string>
+    <string name="photo_retake">Take another</string>
+    <string name="photo_caption">A word about it (optional)</string>
+    <string name="photo_developing">Developing…</string>
+    <string name="photo_no_camera">I can\'t find a camera app on this device.</string>
+    <string name="photo_failed">That picture didn\'t develop. Shall we try another?</string>
+    <string name="photo_summary">A photo</string>
+    <string name="letter_hint">Dear me,</string>
+    <string name="letter_open_in">Open it in</string>
+    <plurals name="letter_months">
+        <item quantity="one">%1$d month</item>
+        <item quantity="other">%1$d months</item>
+    </plurals>
+    <string name="letter_seal">Seal it</string>
+    <string name="letter_summary">A letter, sealed</string>
+    <string name="letter_sealed_until">Sealed until %1$s. I\'ll keep it safe.</string>
+    <string name="letter_ready">Your letter from %1$s is ready.</string>
+
     <!-- Answer -->
     <string name="mirror_previous">%1$d days ago, you wrote:</string>
     <string name="one_line_hint">A line is plenty</string>
@@ -55,8 +116,8 @@
     <string name="setup_remind_me">Remind me at this time</string>
     <string name="setup_no_reminder">No reminder, I\'ll come myself</string>
 
-    <!-- spira -->
-    <string name="spira">spira</string>
+    <!-- Spira -->
+    <string name="spira">Spira</string>
     <string name="spira_breathe">Breathe</string>
     <string name="spira_timer">Timer</string>
     <string name="spira_stopwatch">Stopwatch</string>
@@ -73,7 +134,7 @@
     <string name="timer_rings_at">Rings at %1$s, even with the screen off.</string>
     <string name="timer_start">Start</string>
     <string name="timer_cancel">Cancel the timer</string>
-    <string name="spira_timer_channel">spira timer</string>
+    <string name="spira_timer_channel">Spira timer</string>
     <string name="spira_timer_done">Time\'s up.</string>
     <string name="stopwatch_fast">Show the seconds</string>
     <string name="stopwatch_lap">Lap %1$d · %2$s</string>

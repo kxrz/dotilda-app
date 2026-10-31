@@ -1,5 +1,14 @@
 package com.dotilda.app.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextOverflow
+import com.dotilda.app.Photos
+import com.dotilda.app.data.key
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -96,6 +105,35 @@ private fun NotebookPage(journal: Journal, entry: Entry, modifier: Modifier) {
                 Column {
                     TextMMD(weatherLabel(answer.level), style = MaterialTheme.typography.titleLarge)
                     TextMMD(stringArrayResource(R.array.weather_phrases)[answer.level], style = MaterialTheme.typography.bodySmall)
+                }
+            }
+            is Answer.Photo -> {
+                val context = LocalContext.current
+                val photo = remember(entry.photoPath) { entry.photoPath?.let { Photos.load(context, it)?.asImageBitmap() } }
+                photo?.let {
+                    Image(it, contentDescription = answer.caption, contentScale = ContentScale.Fit, modifier = Modifier.weight(1f).fillMaxWidth())
+                }
+                if (answer.caption.isNotEmpty()) {
+                    Spacer(Modifier.height(8.dp))
+                    TextMMD(answer.caption, fontStyle = FontStyle.Italic)
+                }
+            }
+            is Answer.Letter -> {
+                val today = remember { LocalDate.now() }
+                if (answer.sealedUntil > today.toString()) {
+                    TextMMD(
+                        stringResource(R.string.letter_sealed_until, LocalDate.parse(answer.sealedUntil).format(dayFormat)),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                } else {
+                    // Read on or after its day: it no longer waits on Today.
+                    LaunchedEffect(entry.key) { journal.markLetterOpened(entry) }
+                    TextMMD(
+                        answer.text,
+                        modifier = Modifier.weight(1f),
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
                 }
             }
             else -> TextMMD(answer.summary(), style = MaterialTheme.typography.headlineLarge)

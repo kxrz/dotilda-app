@@ -7,10 +7,24 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.5.0] - 2026-10-31
+
+### Added
+- Journeys: 7 days to slow down, Gratitude, Unplugged and Season review. One question a day;
+  finish a journey and its days light up as a constellation in your Galaxy, with its name.
+- The month in review, on two pages: Dotilda's word on your weather, the weather as a row of
+  moons, your words, a line of yours and your photos. Touch a month's initial in the Galaxy,
+  or follow Dotilda's note in the first days of a month.
+- Photo of the day, taken with your camera app and kept small, in four greys.
+- Letters to your future self, sealed for one to twelve months. Dotilda tells you when one
+  is ready to open. A letter comes once a season.
+- New dots: a little square for a photo, a diamond for a letter (hollow while sealed).
+- Export and import now carry your photos and constellations too.
+
 ## [0.4.0] - 2026-10-30
 
 ### Added
-- spira: a breathing minute (in for four, out for six, with a light tap at each step), a timer
+- Spira: a breathing minute (in for four, out for six, with a light tap at each step), a timer
   that rings even with the screen off, and a stopwatch. "Breathe first" before writing.
 - Export your whole journal to a zip file, and import it on another device.
 - A gentler start: after the welcome page, choose when Dotilda comes by, then answer your

@@ -12,7 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.R
 import com.dotilda.app.data.Answer
@@ -33,31 +35,32 @@ fun DotildaAsks(modifier: Modifier = Modifier, pose: Pose = Pose.Peering) {
 /** A short aside from Dotilda, with her face; tappable when [onClick] is given. */
 @Composable
 fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    DotildaBeside(
+        pose = pose,
+        markSize = 22.dp,
         modifier = Modifier
             .fillMaxWidth()
             .let { if (onClick != null) it.clickable(onClick = onClick) else it }
-            .padding(vertical = 6.dp),
+            .padding(vertical = 4.dp),
     ) {
-        DotildaMark(size = 22.dp, pose = pose)
-        Spacer(Modifier.width(10.dp))
         TextMMD(
             text,
             textDecoration = if (onClick != null) TextDecoration.Underline else null,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }
 
 /** A quiet underlined text link, for secondary destinations. */
 @Composable
-fun TextLink(text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+fun TextLink(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, style: TextStyle = MaterialTheme.typography.bodyMedium) {
     TextMMD(
         text,
         modifier = modifier.clickable(onClick = onClick).padding(vertical = 8.dp),
         textDecoration = TextDecoration.Underline,
-        style = MaterialTheme.typography.bodyMedium,
+        style = style,
     )
 }
 
@@ -89,6 +92,8 @@ fun Answer.summary(): String = when (this) {
     is Answer.Weather -> weatherLabel(level)
     is Answer.Choice -> label
     is Answer.Things -> items.joinToString(" · ")
+    is Answer.Photo -> caption.ifEmpty { stringResource(R.string.photo_summary) }
+    is Answer.Letter -> stringResource(R.string.letter_summary)
 }
 
 /** Previous page, Back, next page: the three buttons under every paginated screen. */

@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -28,6 +29,7 @@ import com.dotilda.app.R
 import com.dotilda.app.data.DayState
 import com.dotilda.app.data.Entry
 import com.dotilda.app.data.Journal
+import com.dotilda.app.data.JourneyProgress
 import com.dotilda.app.data.MAX_CHANGES
 import com.dotilda.app.data.Question
 import com.dotilda.app.data.answer
@@ -41,6 +43,8 @@ import java.util.Locale
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+private val shortDate = java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH)
+
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)
 
@@ -52,6 +56,9 @@ fun TodayScreen(
     onGalaxy: () -> Unit,
     onSpira: () -> Unit,
     onSettings: () -> Unit,
+    onJourneys: () -> Unit,
+    onLetter: (date: String) -> Unit,
+    onReview: (YearMonth) -> Unit,
     newVersion: String?,
     justUpdatedTo: String?,
     onUpdate: () -> Unit,
@@ -77,16 +84,31 @@ fun TodayScreen(
             else -> Open(journal, today, onAnswer, Modifier.weight(1f))
         }
 
-        // Dotilda mentions versions herself, in a word, never more than one line.
+        // Dotilda's asides, one at most, never more than a line: a letter whose day has come,
+        // last month's review in the first days of a month, then versions.
+        val letter by produceState<Entry?>(null) { value = journal.lettersReady(today).firstOrNull() }
+        val lastMonth = month.minusMonths(1)
+        val hasLastMonth by produceState(false) { value = journal.hasEntries(lastMonth) }
+        val letterOpen = letter
         when {
+            letterOpen != null -> DotildaSays(
+                stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).format(shortDate)),
+                Pose.Pleased,
+            ) { onLetter(letterOpen.date) }
+            today.dayOfMonth <= 3 && hasLastMonth -> DotildaSays(
+                stringResource(R.string.review_ready, lastMonth.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)),
+                Pose.Peering,
+            ) { onReview(lastMonth) }
             newVersion != null -> DotildaSays(stringResource(R.string.update_ready), Pose.Curious, onUpdate)
             justUpdatedTo != null -> DotildaSays(stringResource(R.string.just_updated, justUpdatedTo), Pose.Pleased)
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextLink(stringResource(R.string.notebook), onNotebook)
-            TextLink(stringResource(R.string.galaxy), onGalaxy)
-            TextLink(stringResource(R.string.spira), onSpira)
-            TextLink(stringResource(R.string.settings), onSettings)
+            val small = MaterialTheme.typography.bodySmall
+            TextLink(stringResource(R.string.notebook), onNotebook, style = small)
+            TextLink(stringResource(R.string.galaxy), onGalaxy, style = small)
+            TextLink(stringResource(R.string.journeys), onJourneys, style = small)
+            TextLink(stringResource(R.string.spira), onSpira, style = small)
+            TextLink(stringResource(R.string.settings), onSettings, style = small)
         }
     }
 }
@@ -97,12 +119,12 @@ private fun Answered(journal: Journal, entry: Entry, modifier: Modifier) {
     LaunchedEffect(entry.questionId) { question = journal.question(entry.questionId) }
 
     Column(modifier) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            DotildaMark(size = 40.dp, pose = Pose.Pleased)
-            Spacer(Modifier.width(12.dp))
-            DayDot(entry.dotShape(), size = 24.dp)
-            Spacer(Modifier.width(12.dp))
-            TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
+        DotildaBeside(Pose.Pleased, markSize = 40.dp) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                DayDot(entry.dotShape(), size = 20.dp)
+                Spacer(Modifier.width(10.dp))
+                TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
+            }
         }
         Spacer(Modifier.height(32.dp))
         TextMMD(question?.text.orEmpty(), style = MaterialTheme.typography.bodyMedium)
@@ -131,9 +153,19 @@ private fun Open(journal: Journal, today: LocalDate, onAnswer: () -> Unit, modif
             Spacer(Modifier.height(16.dp))
         }
         // A new question, a new look: she alternates poses instead of animating.
-        DotildaAsks(pose = if (state.changes % 2 == 1) Pose.Curious else Pose.Peering)
-        Spacer(Modifier.height(20.dp))
-        TextMMD(question.text, style = MaterialTheme.typography.headlineLarge)
+        val progress by produceState<JourneyProgress?>(null, question.id) { value = journal.journeyProgress() }
+        progress?.takeIf { it.next?.id == question.id }?.let {
+            TextMMD(
+                stringResource(R.string.journey_step, it.journey.title, it.done + 1, it.journey.length),
+                style = MaterialTheme.typography.labelMedium,
+            )
+            Spacer(Modifier.height(10.dp))
+        }
+        DotildaQuestion(
+            question.text,
+            style = MaterialTheme.typography.headlineLarge,
+            pose = if (state.changes % 2 == 1) Pose.Curious else Pose.Peering,
+        )
         Spacer(Modifier.weight(1f))
 
         ButtonMMD(onClick = onAnswer, modifier = Modifier.fillMaxWidth()) {
