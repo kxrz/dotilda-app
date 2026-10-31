@@ -1,6 +1,7 @@
 // Draws the brand files served by /brand into public/brand/:
 // Dotilda's four poses as SVG, in ink (for light backgrounds) and paper (for dark ones),
-// the app's line icon, and the mark + name lockup as PNG.
+// the app's line icon, the mark + name lockup as PNG, and the wallpapers (desktop and mobile,
+// light and dark) with their thumbnails in public/brand/thumbs/.
 // Geometry follows the app (ui/DotildaMark.kt) on a 100-unit grid. Run: npm run brand
 import { chromium } from 'playwright';
 import { writeFileSync, mkdirSync } from 'node:fs';
@@ -64,6 +65,71 @@ for (const [name, fill, bg] of [['light', INK, PAPER], ['dark', LIGHT_INK, DARK]
   await page.evaluate(() => document.fonts.ready);
   await page.locator('.l').screenshot({ path: join(out, `dotilda-lockup-${name}.png`) });
   files.push(`dotilda-lockup-${name}.png`);
+}
+
+// Wallpapers. Every size is a share of the short side (u), so a thumbnail is the same drawing.
+// Moon: an almost empty page; Dotilda, small, glances up at one warm dot.
+// Year: a whole year as a sky of fine dots (12 months, real month lengths), the last day warm.
+// On phones the drawing keeps clear of the clock (top) and the dock (bottom).
+const tones = {
+  light: { bg: PAPER, ink: INK, ghost: '#C9C5BA', warm: '#D1613E' },
+  dark: { bg: DARK, ink: LIGHT_INK, ghost: '#4A4842', warm: '#E2795A' },
+};
+const dotilda = (pose, fill, cx, cy, size) =>
+  `<image href="data:image/svg+xml,${encodeURIComponent(mark(pose, fill))}" x="${cx - size / 2}" y="${cy - size / 2}" width="${size}" height="${size}"/>`;
+const circle = (x, y, r, fill) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${fill}"/>`;
+
+function moon(W, H, t) {
+  const u = Math.min(W, H), wide = W > H;
+  const [mx, my, ms, dx, dy, dr] = wide
+    ? [0.3 * W, 0.68 * H, 0.11 * u, 0.7 * W, 0.3 * H, 0.012 * u]
+    : [0.36 * W, 0.68 * H, 0.2 * u, 0.66 * W, 0.34 * H, 0.022 * u];
+  return dotilda('curious', t.ink, mx, my, ms) + circle(dx, dy, dr, t.warm);
+}
+
+function year(W, H, t) {
+  const u = Math.min(W, H), wide = W > H;
+  const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  // Wide: a row per month. Tall: a column per month.
+  const c = wide ? 0.016 * W : 0.034 * W;
+  const cols = wide ? 31 : 12, rows = wide ? 12 : 31;
+  const x0 = (W - cols * c) / 2, y0 = (wide ? 0.42 * H : 0.48 * H) - (rows * c) / 2;
+  let dots = '';
+  days.forEach((n, m) => {
+    for (let d = 0; d < n; d++) {
+      const [col, row] = wide ? [d, m] : [m, d];
+      const x = x0 + (col + 0.5) * c, y = y0 + (row + 0.5) * c;
+      if (m === 11 && d === n - 1) dots += circle(x, y, 0.2 * c, t.warm);
+      else if (rnd() < 0.62) dots += circle(x, y, 0.15 * c, t.ink);
+      else dots += circle(x, y, 0.06 * c, t.ghost);
+    }
+  });
+  const ms = wide ? 0.07 * u : 0.11 * u;
+  const my = y0 + rows * c + (wide ? 0.13 * H : 0.06 * H);
+  return dots + dotilda('pleased', t.ink, W / 2, my, ms);
+}
+
+const wallpaper = (draw, W, H, t) =>
+  `<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:${t.bg}}svg{display:block}</style>` +
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${t.bg}"/>${draw(W, H, t)}</svg>`;
+
+mkdirSync(join(out, 'thumbs'), { recursive: true });
+for (const [design, draw] of [['moon', moon], ['year', year]]) {
+  for (const [device, W, H] of [['desktop', 3840, 2160], ['mobile', 1290, 2796]]) {
+    for (const tone of ['light', 'dark']) {
+      const name = `dotilda-wallpaper-${design}-${device}-${tone}.png`;
+      for (const [scale, dir] of [[1, out], [W > H ? 640 / W : 300 / W, join(out, 'thumbs')]]) {
+        const w = Math.round(W * scale), h = Math.round(H * scale);
+        await page.setViewportSize({ width: w, height: h });
+        await page.setContent(wallpaper(draw, w, h, tones[tone]));
+        await page.waitForFunction(() => [...document.images].every(i => i.complete));
+        await page.screenshot({ path: join(dir, name) });
+      }
+      files.push(name, `thumbs/${name}`);
+    }
+  }
 }
 await browser.close();
 console.log(files.map(f => `public/brand/${f}`).join('\n'));

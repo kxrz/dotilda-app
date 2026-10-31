@@ -6,9 +6,9 @@
 .bk .cols{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:1.5rem}
 @media (max-width:760px){.bk .cols{grid-template-columns:1fr}}
 .plain{list-style:none;margin:0;padding:0}
-.bk ul.plain:not(.poses,.swatches,.faces,.dots,.bk-shots)>li+li{margin-top:.5rem}
-.bk ul.plain:not(.quotes,.poses,.swatches,.faces,.dots,.bk-shots)>li{padding-left:1.1rem;position:relative}
-.bk ul.plain:not(.quotes,.poses,.swatches,.faces,.dots,.bk-shots)>li::before{content:"";position:absolute;left:0;top:.68em;width:.35rem;height:.35rem;border-radius:50%;background:var(--ink)}
+.bk ul.plain:not(.poses,.swatches,.faces,.dots,.bk-shots,.wp-list)>li+li{margin-top:.5rem}
+.bk ul.plain:not(.quotes,.poses,.swatches,.faces,.dots,.bk-shots,.wp-list)>li{padding-left:1.1rem;position:relative}
+.bk ul.plain:not(.quotes,.poses,.swatches,.faces,.dots,.bk-shots,.wp-list)>li::before{content:"";position:absolute;left:0;top:.68em;width:.35rem;height:.35rem;border-radius:50%;background:var(--ink)}
 .quotes>li+li{margin-top:1rem}
 
 /* name and facts */
@@ -68,3 +68,11 @@
 .bk-shots a{display:grid;gap:.5rem;text-decoration:none;font-size:.9rem;color:var(--ink-2)}
 .bk-shots img{width:100%;height:auto;border:1px solid var(--rule);border-radius:.4rem;background:#fff}
 .bk-shots a:hover span{text-decoration:underline}
+
+/* wallpapers: desktop thumbnails wide, phone thumbnails narrow, on one wrapping row */
+.wp{margin-top:2rem;gap:.6rem}
+.wp-list{display:grid;grid-template-columns:repeat(2,minmax(0,2.2fr)) repeat(2,minmax(0,1fr));gap:1rem;align-items:start}
+.wp-item a{display:grid;gap:.5rem;text-decoration:none;font-size:.85rem;color:var(--ink-2)}
+.wp-item img{width:100%;height:auto;border:1px solid var(--rule);border-radius:.4rem}
+.wp-item a:hover span{text-decoration:underline}
+@media (max-width:760px){.wp-list{grid-template-columns:repeat(2,minmax(0,1fr))}}

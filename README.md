@@ -57,7 +57,7 @@ npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 | `public/fonts/` | WOFF2 files, SIL OFL (see `public/fonts/README.md`). |
 | `public/app/*.png` | Real screens of the released app, shown in the Kompakt and in "Inside the app". |
 | `public/og/<code>.png` | Share image of each language, drawn by `scripts/og.mjs`. |
-| `public/brand/` | Brand kit files: poses (SVG, ink and paper), app icon, lockups (PNG), drawn by `scripts/brand.mjs`. |
+| `public/brand/` | Brand kit files: poses (SVG, ink and paper), app icon, lockups and wallpapers (PNG, thumbnails in `thumbs/`), drawn by `scripts/brand.mjs`. |
 | `public/theme.js` | Runs before first paint: applies the light or dark theme chosen in the header. |
 | `public/motion.js` | Runs before first paint; see Motion. |
 | `scripts/check-fit.mjs` | The fit check (`npm run check:fit`). |
@@ -157,7 +157,8 @@ as the only image.
 ### Brand kit
 
 `/brand` gathers the name and voice, Dotilda's four poses, the lockup and app icon, the colours
-(tap to copy), the type, the dot shapes, the real screens and share images, and usage rules.
+(tap to copy), the type, the dot shapes, the real screens and share images, two wallpapers
+(Moon and Year; desktop 3840×2160 and phone 1290×2796, light and dark), and usage rules.
 It exists in English only: no `hreflang`, no FAQ data. Its files are drawn by `npm run brand`
 from the app's geometry (`ui/DotildaMark.kt`, `ic_launcher_foreground.xml`); the glasses and the
 smile are cut out with a mask, so every SVG works on any background. When the app's drawing

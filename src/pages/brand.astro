@@ -44,6 +44,12 @@ const dots = [
   ['sealed', 'A sealed letter', 'opens on the date you chose'],
 ];
 
+const wallpapers = ['moon', 'year'].map(id => ({
+  id,
+  name: id === 'moon' ? 'Moon' : 'Year',
+  files: ['desktop', 'mobile'].flatMap(device => ['light', 'dark'].map(tone => ({ device, tone }))),
+}));
+
 const voice = [
   'There you are. Your sky kept your place.',
   'Noted. One more dot in your sky.',
@@ -64,6 +70,7 @@ const voice = [
     <a class="hide-s" href="#mark">Mark</a>
     <a class="hide-s" href="#colour">Colour</a>
     <a class="hide-s" href="#type">Type</a>
+    <a class="hide-s" href="#wallpapers">Wallpapers</a>
     <a href="/">Home</a>
     <button class="theme-toggle" type="button" id="themeToggle" aria-label={s.nav.toDark} data-to-dark={s.nav.toDark} data-to-light={s.nav.toLight}>
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -202,6 +209,28 @@ const voice = [
     ))}
   </ul>
   <p class="note">Share images, 1200 × 630: {locales.map((l, i) => <>{i > 0 && ', '}<a href={`/og/${l}.png`} download>{l.toUpperCase()}</a></>)}.</p>
+</section>
+
+<section id="wallpapers" class="stack">
+  <p class="label">Wallpapers</p>
+  <h2>A quiet screen, with Dotilda.</h2>
+  <p class="lede">Two calm drawings for a computer and a phone, in light and dark. <i>Moon</i>: Dotilda glances up at one warm dot. <i>Year</i>: a whole year of dots, the last day warm.</p>
+  {wallpapers.map(w => (
+    <div class="wp stack">
+      <h3>{w.name}</h3>
+      <ul class="wp-list plain">
+        {w.files.map(f => (
+          <li class:list={['wp-item', f.device]}>
+            <a href={`/brand/dotilda-wallpaper-${w.id}-${f.device}-${f.tone}.png`} download>
+              <img src={`/brand/thumbs/dotilda-wallpaper-${w.id}-${f.device}-${f.tone}.png`} width={f.device === 'desktop' ? 640 : 300} height={f.device === 'desktop' ? 360 : 650} alt={`${w.name}, ${f.device}, ${f.tone}`} loading="lazy" decoding="async">
+              <span>{f.device === 'desktop' ? 'Desktop' : 'Phone'}, {f.tone} · {f.device === 'desktop' ? '3840 × 2160' : '1290 × 2796'}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <p class="note">PNG files. The phone versions keep clear of the clock and the dock, and fit other phones once cropped.</p>
 </section>
 
 <section id="usage" class="stack">
