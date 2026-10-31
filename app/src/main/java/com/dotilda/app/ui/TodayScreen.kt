@@ -42,6 +42,9 @@ import java.time.YearMonth
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
+/** How many days a new version is announced on Today (it stays in Settings after that). */
+private const val UPDATE_ASIDE_DAYS = 3L
+
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)
 
@@ -92,21 +95,50 @@ fun TodayScreen(
         val lastSeason = month.minusMonths(3)
         val hasLastMonth by produceState(false, lastMonth) { value = journal.hasEntries(lastMonth) }
         val letterOpen = letter
-        when {
-            letterOpen != null -> DotildaSays(
-                stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).monthYear(appLocale())),
-                Pose.Pleased,
-            ) { onLetter(letterOpen.date) }
-            today.dayOfMonth <= 3 && hasLastMonth && seasonStart -> DotildaSays(
-                stringResource(R.string.review_season_ready),
-                Pose.Peering,
-            ) { onReview(lastSeason, 3) }
-            today.dayOfMonth <= 3 && hasLastMonth -> DotildaSays(
-                stringResource(R.string.review_ready, lastMonth.month.standalone(appLocale())),
-                Pose.Peering,
-            ) { onReview(lastMonth, 1) }
-            newVersion != null -> DotildaSays(stringResource(R.string.update_ready), Pose.Curious, onUpdate)
-            justUpdatedTo != null -> DotildaSays(stringResource(R.string.just_updated, justUpdatedTo), Pose.Pleased)
+        // Each aside can be closed with its ×, for good; version news also fades on its own:
+        // a new version is announced for 3 days, "Fresh ink" stays for the day of the update.
+        val asides by remember { journal.asides }.collectAsState(initial = null)
+        val scope = rememberCoroutineScope()
+        LaunchedEffect(newVersion, today) { newVersion?.let { journal.markUpdateSeen(it, today) } }
+        val shown = asides
+        if (shown != null) {
+            fun open(key: String) = key !in shown.dismissed
+            fun dismiss(key: String): () -> Unit = { scope.launch { journal.dismissAside(key) } }
+            val updateFresh = newVersion != null && shown.updateSeen?.let { (v, since) ->
+                v != newVersion || !today.isAfter(LocalDate.parse(since).plusDays(UPDATE_ASIDE_DAYS))
+            } != false
+            val updated = shown.updatedOn?.takeIf { (_, on) -> on == today.toString() }?.first ?: justUpdatedTo?.takeIf { shown.updatedOn == null }
+            when {
+                letterOpen != null && open("letter-$today") -> DotildaSays(
+                    stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).monthYear(appLocale())),
+                    Pose.Pleased,
+                    onClick = { onLetter(letterOpen.date) },
+                    onDismiss = dismiss("letter-$today"),
+                )
+                today.dayOfMonth <= 3 && hasLastMonth && seasonStart && open("season-$lastSeason") -> DotildaSays(
+                    stringResource(R.string.review_season_ready),
+                    Pose.Peering,
+                    onClick = { onReview(lastSeason, 3) },
+                    onDismiss = dismiss("season-$lastSeason"),
+                )
+                today.dayOfMonth <= 3 && hasLastMonth && !seasonStart && open("review-$lastMonth") -> DotildaSays(
+                    stringResource(R.string.review_ready, lastMonth.month.standalone(appLocale())),
+                    Pose.Peering,
+                    onClick = { onReview(lastMonth, 1) },
+                    onDismiss = dismiss("review-$lastMonth"),
+                )
+                newVersion != null && updateFresh && open("update-$newVersion") -> DotildaSays(
+                    stringResource(R.string.update_ready),
+                    Pose.Curious,
+                    onClick = onUpdate,
+                    onDismiss = dismiss("update-$newVersion"),
+                )
+                updated != null && open("updated-$updated") -> DotildaSays(
+                    stringResource(R.string.just_updated, updated),
+                    Pose.Pleased,
+                    onDismiss = dismiss("updated-$updated"),
+                )
+            }
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             val small = MaterialTheme.typography.bodySmall

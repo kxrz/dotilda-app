@@ -68,7 +68,10 @@ class DotildaApp : Application() {
             val settings = prefs.settingsNow()
             Reminder.schedule(this@DotildaApp, settings.reminderOn, settings.reminderMinutes)
             val previous = prefs.swapLastVersion(BuildConfig.VERSION_NAME)
-            if (previous != null && previous != BuildConfig.VERSION_NAME) justUpdatedTo = BuildConfig.VERSION_NAME
+            if (previous != null && previous != BuildConfig.VERSION_NAME) {
+                justUpdatedTo = BuildConfig.VERSION_NAME
+                prefs.setUpdatedOn(BuildConfig.VERSION_NAME, java.time.LocalDate.now().toString())
+            }
             if (settings.checkUpdates) checkForUpdate()
         }
     }

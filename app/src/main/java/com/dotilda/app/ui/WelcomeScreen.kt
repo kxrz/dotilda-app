@@ -31,7 +31,7 @@ fun WelcomeScreen(button: String, onContinue: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.weight(1f))
-        DotildaMark(size = 96.dp, pose = Pose.Pleased)
+        PlayfulDotilda(size = 96.dp, pose = Pose.Pleased)
         Spacer(Modifier.height(20.dp))
         TextMMD(stringResource(R.string.dotilda), style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.height(6.dp))

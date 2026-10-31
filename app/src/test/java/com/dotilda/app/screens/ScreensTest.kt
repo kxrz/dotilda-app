@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
@@ -95,6 +96,13 @@ class ScreensTest {
         launch()
         waitFor("Answer")
         shot("03-today")
+        // The hidden game: poke Dotilda and she makes faces, then answers back.
+        repeat(4) {
+            compose.onAllNodesWithTag("dotilda")[0].performClick()
+            compose.waitForIdle()
+        }
+        waitFor("That tickles.")
+        shot("31-today-poked")
         click("Answer")
         waitFor("Stormy")
         shot("05-answer-weather")
@@ -431,10 +439,10 @@ class DesignSheetTest {
         compose.setContent {
             DotildaTheme {
                 Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Pose.entries.forEach { DotildaMark(size = 56.dp, pose = it) }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Pose.entries.forEach { DotildaMark(size = 36.dp, pose = it) }
                     }
-                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Pose.entries.forEach { DotildaMark(size = 24.dp, pose = it) }
                     }
                     val shapes = listOf(DotShape.Full, DotShape.Double) + (0..4).map { DotShape.Moon(it) }

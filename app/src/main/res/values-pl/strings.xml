@@ -227,4 +227,13 @@
     <string name="no_crash">Brak, wszystko w porządku</string>
     <string name="crash_export">Eksportuj raport o awarii</string>
     <string name="crash_clear">Wyczyść</string>
+    <string name="aside_dismiss">Zamknij</string>
+    <string-array name="dotilda_quips">
+        <item>Tak, słucham?</item>
+        <item>To łaskocze.</item>
+        <item>Ehem. A pytanie?</item>
+        <item>Jestem całkiem prawdziwa.</item>
+        <item>Uwaga na okulary.</item>
+        <item>To co, wracamy do pytania?</item>
+    </string-array>
 </resources>

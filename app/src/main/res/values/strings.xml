@@ -224,4 +224,14 @@
     <string name="no_crash">None, all is well</string>
     <string name="crash_export">Export the crash report</string>
     <string name="crash_clear">Clear it</string>
+    <string name="aside_dismiss">Close</string>
+    <!-- What Dotilda says when poked once too often, in place of "Dotilda asks". -->
+    <string-array name="dotilda_quips">
+        <item>Yes, dear?</item>
+        <item>That tickles.</item>
+        <item>Ahem. The question?</item>
+        <item>I\'m quite real, you know.</item>
+        <item>Mind the glasses.</item>
+        <item>Shall we get on?</item>
+    </string-array>
 </resources>

@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,16 +37,25 @@ import com.mudita.mmd.components.text.TextMMD
 /** Dotilda's signature above every question. */
 @Composable
 fun DotildaAsks(modifier: Modifier = Modifier, pose: Pose = Pose.Peering) {
+    // Poke her a few times and she stops asking, to answer you back.
+    var pokes by remember { mutableIntStateOf(0) }
+    val quips = stringArrayResource(R.array.dotilda_quips)
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        DotildaMark(size = 32.dp, pose = pose)
+        PlayfulDotilda(size = 32.dp, pose = pose) { pokes = it }
         Spacer(Modifier.width(12.dp))
-        TextMMD(stringResource(R.string.dotilda_asks), style = MaterialTheme.typography.titleMedium)
+        TextMMD(
+            if (pokes < 3) stringResource(R.string.dotilda_asks) else quips[(pokes - 3) % quips.size],
+            style = MaterialTheme.typography.titleMedium,
+        )
     }
 }
 
-/** A short aside from Dotilda, with her face; tappable when [onClick] is given. */
+/**
+ * A short aside from Dotilda, with her face; tappable when [onClick] is given, and closed with
+ * its × when [onDismiss] is given.
+ */
 @Composable
-fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
+fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null, onDismiss: (() -> Unit)? = null) {
     DotildaBeside(
         pose = pose,
         markSize = 22.dp,
@@ -52,13 +64,28 @@ fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
             .let { if (onClick != null) it.clickable(onClick = onClick) else it }
             .padding(vertical = 4.dp),
     ) {
-        TextMMD(
-            text,
-            textDecoration = if (onClick != null) TextDecoration.Underline else null,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            TextMMD(
+                text,
+                modifier = Modifier.weight(1f, fill = false),
+                textDecoration = if (onClick != null) TextDecoration.Underline else null,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            if (onDismiss != null) {
+                val close = stringResource(R.string.aside_dismiss)
+                TextMMD(
+                    "×",
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .clickable(onClick = onDismiss)
+                        .semantics { contentDescription = close }
+                        .padding(horizontal = 4.dp),
+                    style = MaterialTheme.typography.titleMedium,
+                )
+            }
+        }
     }
 }
 

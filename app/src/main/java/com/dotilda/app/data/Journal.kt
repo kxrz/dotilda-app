@@ -109,6 +109,12 @@ class Journal(
 
     val activeJourney: Flow<ActiveJourney?> get() = prefs.activeJourney
 
+    val asides: Flow<Asides> get() = prefs.asides
+
+    suspend fun dismissAside(key: String) = prefs.dismissAside(key)
+
+    suspend fun markUpdateSeen(version: String, today: LocalDate) = prefs.markUpdateSeen(version, today.toString())
+
     suspend fun markLetterOpened(entry: Entry) = prefs.markLetterOpened(entry.key)
 
     /** Sealed letters whose day has come and that haven't been read yet. */
