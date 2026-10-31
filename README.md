@@ -1,7 +1,7 @@
 # dotilda.com
 
-The website of [Dotilda](https://github.com/kxrz/dotilda-app), a gentle daily journaling app for
-the Mudita Kompakt and Android 11+ e-readers. An app by [readme.club](https://readme.club), made
+The website of [Dotilda](https://github.com/kxrz/dotilda-app), a gentle daily journaling app born on
+e-ink, for any Android 11+ phone, tablet or e-reader (designed first for the Mudita Kompakt). An app by [readme.club](https://readme.club), made
 and maintained by [LesWWW](https://www.leswww.com).
 
 One page, in five languages, that lets visitors live the app's ritual for a few seconds (Dotilda
