@@ -20,7 +20,7 @@
     "language": "Language"
   },
   "hero": {
-    "label": "Daily journaling for e‑ink · free and open source",
+    "label": "Daily journaling for e‑ink · public beta",
     "title": "A question a day, a dot in your sky.",
     "primary": "Get Dotilda for your Kompakt",
     "secondary": "How it works",
@@ -97,7 +97,8 @@
       {
         "shape": "circled",
         "name": "Photo of the day",
-        "text": "Dithered in four greys."
+        "text": "Dithered in four greys.",
+        "soon": true
       },
       {
         "shape": "double",
@@ -107,9 +108,11 @@
       {
         "shape": "diamond",
         "name": "Letter to future me",
-        "text": "Sealed until the date you choose."
+        "text": "Sealed until the date you choose.",
+        "soon": true
       }
-    ]
+    ],
+    "soon": "soon"
   },
   "sky": {
     "label": "Your sky",
@@ -118,15 +121,15 @@
     "quotes": [
       {
         "text": "There you are. Your sky kept your place.",
-        "who": "Dotilda, after a week away"
+        "who": "Dotilda, after a few days away"
       },
       {
-        "text": "Seven days, seven dots. I’ll call this one Slow.",
-        "who": "At the end of a journey"
+        "text": "Thunder about. Tea is advised.",
+        "who": "On a stormy day inside"
       },
       {
-        "text": "A cloudy start, a sunny finish. Rather well done.",
-        "who": "Looking back on the month"
+        "text": "That’s a minute. Well breathed.",
+        "who": "After a breathing minute with spira"
       }
     ],
     "months": [
@@ -143,12 +146,11 @@
       "Nov",
       "Dec"
     ],
-    "aria": "A sample year of dots, from January to today, with a few quiet days and one constellation in March.",
+    "aria": "A sample year of dots, from January to today, with a few quiet days.",
     "legend": {
       "answer": "an answer",
       "quiet": "a quiet day",
-      "today": "today",
-      "journey": "— a finished journey: “7 days to slow down”"
+      "today": "today"
     }
   },
   "promises": [
@@ -161,8 +163,8 @@
       "text": "Pure black on white, large type, no scrolling, no animation. Page with the volume keys."
     },
     {
-      "title": "Rewards looking back",
-      "text": "Monthly and seasonal reviews, letters to future you, and your year as an EPUB book."
+      "title": "Look back",
+      "text": "Reread every day in the Notebook, see the year in the Galaxy, and meet your own words again with Mirror questions."
     },
     {
       "title": "Quiet by design",
@@ -201,12 +203,10 @@
     "line": "Version {v} · {date} · {size} MB · Android 11+",
     "fallback": "Android 11+ · com.dotilda.app",
     "device": {
-      "aria": "Dotilda on a Mudita Kompakt, asking: What made you feel calm today?",
-      "asks": "Dotilda asks",
-      "question": "What made you feel calm today?",
-      "answer": "Answer",
-      "another": "Another question (2 left)"
-    }
+      "aria": "A Mudita Kompakt showing real screens of Dotilda: Today, the inner weather, the day’s dot and the Galaxy."
+    },
+    "betaTag": "Beta",
+    "beta": "Dotilda is in public beta. It works every day already, new versions arrive on their own, and your journal is kept from one version to the next."
   },
   "footer": {
     "appBy": "An app by",
@@ -249,5 +249,40 @@
     "Three things within arm's reach right now.",
     "Tidy room or cosy mess?"
   ],
-  "appLanguage": ""
+  "appLanguage": "",
+  "coming": {
+    "label": "Coming next",
+    "text": "Journeys that draw constellations, monthly reviews, a photo of the day dithered in four greys, sealed letters to your future self, and your year as an EPUB book."
+  },
+  "inside": {
+    "label": "Inside the app · public beta",
+    "title": "What you’ll find on your Kompakt.",
+    "lede": "Real screens from the current version, nothing staged. Dotilda is in beta: it already works every day, and it keeps growing.",
+    "screens": [
+      {
+        "src": "today",
+        "caption": "Today: the month’s dots and the question of the day."
+      },
+      {
+        "src": "weather",
+        "caption": "The inner weather, from sunny to stormy."
+      },
+      {
+        "src": "done",
+        "caption": "Noted: the day’s dot fills in."
+      },
+      {
+        "src": "notebook",
+        "caption": "The Notebook, one page per day."
+      },
+      {
+        "src": "galaxy",
+        "caption": "The Galaxy: the whole year on one screen."
+      },
+      {
+        "src": "spira",
+        "caption": "spira: a breathing minute before writing."
+      }
+    ]
+  }
 }

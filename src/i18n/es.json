@@ -21,7 +21,7 @@
     "language": "Idioma"
   },
   "hero": {
-    "label": "Diario para tinta electrónica · gratis y de código abierto",
+    "label": "Diario para tinta electrónica · beta pública",
     "title": "Una pregunta al día, un punto en tu cielo.",
     "primary": "Consigue Dotilda para tu Kompakt",
     "secondary": "Cómo funciona",
@@ -98,7 +98,8 @@
       {
         "shape": "circled",
         "name": "Foto del día",
-        "text": "Tramada en cuatro grises."
+        "text": "Tramada en cuatro grises.",
+        "soon": true
       },
       {
         "shape": "double",
@@ -108,9 +109,11 @@
       {
         "shape": "diamond",
         "name": "Carta al futuro",
-        "text": "Sellada hasta la fecha que elijas."
+        "text": "Sellada hasta la fecha que elijas.",
+        "soon": true
       }
-    ]
+    ],
+    "soon": "pronto"
   },
   "sky": {
     "label": "Tu cielo",
@@ -119,15 +122,15 @@
     "quotes": [
       {
         "text": "Ahí estás. Tu cielo te ha guardado el sitio.",
-        "who": "Dotilda, tras una semana fuera"
+        "who": "Dotilda, tras unos días fuera"
       },
       {
-        "text": "Siete días, siete puntos. A esta la llamaré Calma.",
-        "who": "Al final de un recorrido"
+        "text": "Se acerca tormenta. Se recomienda té.",
+        "who": "Un día de tormenta por dentro"
       },
       {
-        "text": "Un comienzo nublado, un final soleado. Muy bien hecho.",
-        "who": "Repasando el mes"
+        "text": "Eso es un minuto. Bien respirado.",
+        "who": "Tras un minuto de respiración con spira"
       }
     ],
     "months": [
@@ -144,12 +147,11 @@
       "Nov",
       "Dic"
     ],
-    "aria": "Un año de ejemplo en puntos, de enero a hoy, con algunos días tranquilos y una constelación en marzo.",
+    "aria": "Un año de ejemplo en puntos, de enero a hoy, con algunos días tranquilos.",
     "legend": {
       "answer": "una respuesta",
       "quiet": "un día tranquilo",
-      "today": "hoy",
-      "journey": "— un recorrido terminado: «7 días para ir más despacio»"
+      "today": "hoy"
     }
   },
   "promises": [
@@ -162,8 +164,8 @@
       "text": "Negro puro sobre blanco, letra grande, sin desplazamiento ni animaciones. Pasa página con las teclas de volumen."
     },
     {
-      "title": "Premia mirar atrás",
-      "text": "Resúmenes del mes y de la estación, cartas al futuro y tu año como libro EPUB."
+      "title": "Mirar atrás",
+      "text": "Relee cada día en el Notebook, mira el año en la Galaxy y reencuentra tus propias palabras con las preguntas Mirror."
     },
     {
       "title": "Tranquila por diseño",
@@ -201,8 +203,10 @@
     "changes": "Novedades",
     "line": "Versión {v} · {date} · {size} MB · Android 11+",
     "device": {
-      "aria": "Dotilda en un Mudita Kompakt, preguntando en inglés: What made you feel calm today?"
-    }
+      "aria": "Un Mudita Kompakt con pantallas reales de Dotilda (en inglés): Today, el tiempo interior, el punto del día y la Galaxy."
+    },
+    "betaTag": "Beta",
+    "beta": "Dotilda está en beta pública. Ya funciona cada día, las versiones nuevas llegan solas y tu diario se conserva de una versión a otra."
   },
   "footer": {
     "appBy": "Una app de",
@@ -244,5 +248,40 @@
     "¿Quién se te pasó por la cabeza hoy, y por qué?",
     "Tres cosas al alcance de tu mano ahora mismo.",
     "¿Habitación ordenada o desorden acogedor?"
-  ]
+  ],
+  "coming": {
+    "label": "Próximamente",
+    "text": "Recorridos que dibujan constelaciones, resúmenes del mes, una foto del día tramada en cuatro grises, cartas selladas a tu yo futuro y tu año como libro EPUB."
+  },
+  "inside": {
+    "label": "Dentro de la app · beta pública",
+    "title": "Lo que encontrarás en tu Kompakt.",
+    "lede": "Pantallas reales de la versión actual, nada preparado. Dotilda está en beta: ya funciona cada día y sigue creciendo.",
+    "screens": [
+      {
+        "src": "today",
+        "caption": "Today: los puntos del mes y la pregunta del día."
+      },
+      {
+        "src": "weather",
+        "caption": "El tiempo interior, del sol a la tormenta."
+      },
+      {
+        "src": "done",
+        "caption": "Anotado: el punto del día se llena."
+      },
+      {
+        "src": "notebook",
+        "caption": "El Notebook, una página por día."
+      },
+      {
+        "src": "galaxy",
+        "caption": "La Galaxy: todo el año en una pantalla."
+      },
+      {
+        "src": "spira",
+        "caption": "spira: un minuto de respiración antes de escribir."
+      }
+    ]
+  }
 }

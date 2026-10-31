@@ -121,11 +121,30 @@ const glyphs: Record<string, string> = {
       {s.shapes.formats.map(f => (
         <li class="fmt" data-anim="fmt">
           <svg viewBox="0 0 22 22" aria-hidden="true" set:html={glyphs[f.shape] ?? glyphs.full} />
-          <b>{f.name}</b><span>{f.text}</span>
+          <b>{f.name}{'soon' in f && f.soon && <em class="soon">{s.shapes.soon}</em>}</b><span>{f.text}</span>
         </li>
       ))}
     </ul>
   </div>
+</section>
+
+<!-- Interest, for real: screens of the current version, as they are on the Kompakt -->
+<section id="inside">
+  <div class="stack">
+    <p class="label">{s.inside.label}</p>
+    <h2 data-split><Words text={s.inside.title} /></h2>
+    <p class="lede">{s.inside.lede}</p>
+  </div>
+  <ul class="pages">
+    {s.inside.screens.map(sc => (
+      <li data-anim="page">
+        <figure>
+          <span class="page"><img src={`/app/${sc.src}.png`} width="479" height="750" alt={sc.caption} loading="lazy" decoding="async"></span>
+          <figcaption aria-hidden="true">{sc.caption}</figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
 </section>
 
 <!-- Desire -->
@@ -150,13 +169,13 @@ const glyphs: Record<string, string> = {
       <span><i class="k-ink"></i>{s.sky.legend.answer}</span>
       <span><i class="k-ghost"></i>{s.sky.legend.quiet}</span>
       <span><i class="k-today"></i>{s.sky.legend.today}</span>
-      <span>{s.sky.legend.journey}</span>
     </figcaption>
   </figure>
 
   <ul class="promises">
     {s.promises.map(p => <li data-anim="promise"><b>{p.title}</b><span>{p.text}</span></li>)}
   </ul>
+  <p class="coming" data-anim="promise"><span class="label">{s.coming.label}</span> {s.coming.text}</p>
 </section>
 
 <!-- Action -->
@@ -167,6 +186,7 @@ const glyphs: Record<string, string> = {
       <p class="label">{s.get.label}</p>
       <h2 data-split><Words text={s.get.title} /></h2>
     </div>
+    <p class="lang-note" data-anim="how"><span class="lang-pill">{s.get.betaTag}</span>{s.get.beta}</p>
     {s.appLanguage && <p class="lang-note" data-anim="how"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
     <ol class="how">
       {s.get.steps.map(step => <li data-anim="how"><div><b>{step.title}</b><br><span>{step.text}</span></div></li>)}
@@ -187,11 +207,9 @@ const glyphs: Record<string, string> = {
         <svg viewBox="0 0 30 10"><path d="M1 9h2V7H1zM5 9h2V5H5zM9 9h2V3H9z"/><path d="M17 8.6a1 1 0 1 0 0 .1zM14 6.4a4.3 4.3 0 0 1 6 0M12.2 4.4a7 7 0 0 1 9.6 0" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         <svg viewBox="0 0 20 10"><rect x=".6" y=".6" width="16" height="8.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2.4" y="2.4" width="10" height="5.2" rx=".6"/><rect x="17.6" y="3.4" width="1.6" height="3.2" rx=".6"/></svg>
       </div>
-      <div class="mo" id="monthLine"></div>
-      <div class="who"><DotildaMark pose="peering" class="screen-mark" /> {s.get.device.asks}</div>
-      <p class="q">{s.get.device.question}</p>
-      <span class="b s">{s.get.device.answer}</span>
-      <span class="b">{s.get.device.another}</span>
+      <div class="shots">
+        {['today', 'weather', 'done', 'galaxy'].map((src, i) => <img src={`/app/${src}.png`} width="479" height="750" alt="" class:list={[{ on: i === 0 }]} decoding="async">)}
+      </div>
       <span class="flash" aria-hidden="true"></span>
     </div>
     <div class="k-nav" aria-hidden="true">

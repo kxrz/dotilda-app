@@ -28,16 +28,6 @@ const root = document.documentElement;
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
-// Month line on the device: this month up to today, a few quiet days, today outlined.
-const quietDays = new Set([5, 6, 13, 21, 22]);
-const monthLine = $('#monthLine');
-for (let d = 1; d <= today.getDate(); d++) {
-  const i = document.createElement('i');
-  if (d === today.getDate()) i.className = 't';
-  else if (quietDays.has(d)) i.className = 'e';
-  monthLine.appendChild(i);
-}
-
 // Try one: three changes, then only the inner weather, as in the app.
 // Dotilda changes pose in one step, like on the Kompakt: curious while you browse, pleased at the end.
 const tryQ = $('#tryQ'), tryBtn = $<HTMLButtonElement>('#tryBtn'), tryMeta = $('#tryMeta'), tryMark = $('.try-mark');
@@ -192,7 +182,6 @@ const year = today.getFullYear();
 $('#skyYear').textContent = String(year);
 let seed = 7;
 const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-const journey = [9, 10, 11, 12, 13, 14, 15]; // March, "7 days to slow down"
 type Day = { m: number; d: number; kind: string };
 const days: Day[] = [];
 for (let m = 0; m < 12; m++) {
@@ -204,8 +193,8 @@ for (let m = 0; m < 12; m++) {
     days.push({
       m, d,
       kind: +date === +today ? 'today'
-        : m === 2 && journey.includes(d) ? 'full'
-        : r < .13 ? 'quiet' : r < .25 ? 'weather' + w : r < .29 ? 'photo' : r < .31 ? 'mirror' : r < .32 ? 'letter' : 'full',
+        // Only what the app draws today: answers, inner weather, Mirror, quiet days.
+        : r < .13 ? 'quiet' : r < .25 ? 'weather' + w : r < .28 ? 'mirror' : 'full',
     });
   }
 }
@@ -226,18 +215,6 @@ function drawSky() {
   const at = (m: number, d: number) => [(d - 1) * cell + cell / 2, m * cell + cell / 2];
   const shown = Math.round(sky.shown);
 
-  // The journey's constellation: a fine thread through its days, behind the dots,
-  // reaching each day as it is inked.
-  const linked = journey.filter(d => { const i = days.findIndex(x => x.m === 2 && x.d === d); return i >= 0 && i < shown; });
-  if (linked.length > 1) {
-    const [x0, y] = at(2, linked[0]), [x1] = at(2, linked[linked.length - 1]);
-    g.strokeStyle = ink;
-    g.lineWidth = Math.max(1, R * .3);
-    g.beginPath();
-    g.moveTo(x0, y);
-    g.lineTo(x1, y);
-    g.stroke();
-  }
 
   days.slice(0, shown).forEach(({ m, d, kind }) => {
     const [x, y] = at(m, d);
@@ -248,14 +225,8 @@ function drawSky() {
     if (kind === 'quiet') { g.fillStyle = ghost; dot(R * .35, true); }
     else if (kind === 'today') { g.fillStyle = todayColor; dot(R, true); }
     else if (kind === 'full') dot(R, true);
-    else if (kind === 'photo') { dot(R * .55, true); dot(R * 1.05, false); }
     else if (kind === 'mirror') { dot(R * .55, false); dot(R * 1.05, false); }
-    else if (kind === 'letter') {
-      g.beginPath();
-      g.moveTo(x, y - R * 1.1); g.lineTo(x + R, y); g.lineTo(x, y + R * 1.1); g.lineTo(x - R, y);
-      g.closePath();
-      g.fill();
-    } else {
+    else {
       // Inner weather as a moon phase: 0 sunny (full) .. 4 stormy (ring).
       const p = +kind.slice(7), r = R * .85;
       if (p === 0) dot(R, true);
@@ -296,15 +267,8 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .from('.ask-field', { autoAlpha: 0, y: 16 }, '-=.2')
     .from('#askNote, .hero-foot', { autoAlpha: 0, y: 10, stagger: .15 }, '-=.7');
 
-  // Get Dotilda: the Kompakt does a full e-ink refresh (ink, white, page) as it comes into view.
-  gsap.timeline({ scrollTrigger: onEnter('.kompakt', 'top 80%') })
-    .from('.kompakt', { autoAlpha: 0, y: 30, ...calm, duration: 1.3 })
-    .set('.screen > :not(.flash)', { autoAlpha: 0 }, 0)
-    .set('.flash', { autoAlpha: 1, backgroundColor: '#111' }, '-=.4')
-    .set('.flash', { backgroundColor: '#F4F3EE' }, '+=.09')
-    .set('.flash', { autoAlpha: 0 }, '+=.09')
-    .set('.screen > :not(.flash)', { autoAlpha: 1 })
-    .from('#monthLine i', { autoAlpha: 0, duration: .01, stagger: .035 }, '+=.1');
+  // ScrollTriggers are created in page order, the pinned pause first, so that every trigger
+  // below it counts the pin's extra scroll.
 
   // The pause: the sentence is pinned while you scroll, and inks in word by word, from pale
   // grey to black. When it is complete, Dotilda pushes her glasses up (one step, as in the app).
@@ -317,6 +281,34 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   })
     .from('.pause .wi', { opacity: .12, stagger: .5, duration: 1, ease: 'none' })
     .from(pauseMark, { opacity: .12, duration: 1, ease: 'none' });
+
+  // Get Dotilda: the Kompakt comes up, then turns its real screens like an e-ink page:
+  // a full refresh (ink, white), then the next screen, every few seconds, while it is in view.
+  const shots = $$('.screen .shots img');
+  const refresh = (show: () => void) => gsap.timeline()
+    .set('.flash', { autoAlpha: 1, backgroundColor: '#111' })
+    .set('.flash', { backgroundColor: '#fff' }, '+=.09')
+    .call(show, undefined, '+=.02')
+    .set('.flash', { autoAlpha: 0 }, '+=.07');
+  let shot = 0;
+  const next = () => {
+    refresh(() => { shots[shot].classList.remove('on'); shot = (shot + 1) % shots.length; shots[shot].classList.add('on'); });
+    turn.restart(true);
+  };
+  const turn = gsap.delayedCall(4.5, next).pause();
+  gsap.timeline({ scrollTrigger: onEnter('.kompakt', 'top 80%') })
+    .from('.kompakt', { autoAlpha: 0, y: 30, ...calm, duration: 1.3 })
+    .add(refresh(() => {}), '-=.4');
+  ScrollTrigger.create({
+    trigger: '.kompakt', start: 'top bottom', end: 'bottom top',
+    onToggle: st => (st.isActive ? turn.play() : turn.pause()),
+  });
+
+  // Inside the app: each real screen arrives with its own e-ink blink, one after the other.
+  gsap.timeline({ scrollTrigger: onEnter('.pages') })
+    .from('[data-anim="page"]', { autoAlpha: 0, y: 18, ...calm, stagger: .12 })
+    .set('.pages .page', { filter: 'invert(1)', stagger: .12 }, .25)
+    .set('.pages .page', { filter: 'none', stagger: .12 }, .35);
 
   // Section labels are typed, in their monospace, one character at a time.
   $$('section .stack > .label').forEach(label => gsap.from(label, {

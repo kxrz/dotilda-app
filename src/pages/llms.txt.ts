@@ -20,12 +20,17 @@ ${s.ritual.steps.map(st => `- ${st.title}: ${st.text}`).join('\n')}
 
 ## Eight ways to answer
 
-${s.shapes.formats.map(f => `- ${f.name}: ${f.text}`).join('\n')}
+${s.shapes.formats.map(f => `- ${f.name}: ${f.text}${'soon' in f && f.soon ? ' (coming soon)' : ''}`).join('\n')}
 
 ## Promises
 
 ${s.promises.map(p => `- ${p.title}: ${p.text}`).join('\n')}
 - ${s.sky.title} ${s.sky.lede}
+
+## Status
+
+${s.get.beta}
+${s.coming.label}: ${s.coming.text}
 
 ## Get it
 

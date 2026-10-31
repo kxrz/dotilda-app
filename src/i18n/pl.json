@@ -21,7 +21,7 @@
     "language": "Język"
   },
   "hero": {
-    "label": "Codzienny dziennik na e‑papier · darmowy i open source",
+    "label": "Codzienny dziennik na e‑papier · publiczna beta",
     "title": "Jedno pytanie dziennie, jedna kropka na Twoim niebie.",
     "primary": "Pobierz Dotildę na Kompakt",
     "secondary": "Jak to działa",
@@ -98,7 +98,8 @@
       {
         "shape": "circled",
         "name": "Zdjęcie dnia",
-        "text": "Rastrowane w czterech odcieniach szarości."
+        "text": "Rastrowane w czterech odcieniach szarości.",
+        "soon": true
       },
       {
         "shape": "double",
@@ -108,9 +109,11 @@
       {
         "shape": "diamond",
         "name": "List w przyszłość",
-        "text": "Zapieczętowany do wybranej daty."
+        "text": "Zapieczętowany do wybranej daty.",
+        "soon": true
       }
-    ]
+    ],
+    "soon": "wkrótce"
   },
   "sky": {
     "label": "Twoje niebo",
@@ -119,15 +122,15 @@
     "quotes": [
       {
         "text": "Jesteś. Twoje niebo zachowało Twoje miejsce.",
-        "who": "Dotilda, po tygodniu przerwy"
+        "who": "Dotilda, po kilku dniach przerwy"
       },
       {
-        "text": "Siedem dni, siedem kropek. Nazwę ją Powoli.",
-        "who": "Na koniec ścieżki"
+        "text": "Zanosi się na burzę. Zalecana herbata.",
+        "who": "W dzień burzy w środku"
       },
       {
-        "text": "Pochmurny początek, słoneczny koniec. Całkiem nieźle.",
-        "who": "Podsumowując miesiąc"
+        "text": "To była minuta. Pięknie oddychane.",
+        "who": "Po minucie oddechu ze spirą"
       }
     ],
     "months": [
@@ -144,12 +147,11 @@
       "Lis",
       "Gru"
     ],
-    "aria": "Przykładowy rok w kropkach, od stycznia do dziś, z kilkoma spokojnymi dniami i jedną konstelacją w marcu.",
+    "aria": "Przykładowy rok w kropkach, od stycznia do dziś, z kilkoma spokojnymi dniami.",
     "legend": {
       "answer": "odpowiedź",
       "quiet": "spokojny dzień",
-      "today": "dziś",
-      "journey": "— ukończona ścieżka: „7 dni, by zwolnić”"
+      "today": "dziś"
     }
   },
   "promises": [
@@ -162,8 +164,8 @@
       "text": "Czysta czerń na bieli, duże litery, bez przewijania i animacji. Strony przewraca się klawiszami głośności."
     },
     {
-      "title": "Docenia spojrzenie wstecz",
-      "text": "Podsumowania miesiąca i pory roku, listy w przyszłość i Twój rok jako książka EPUB."
+      "title": "Spojrzenie wstecz",
+      "text": "Czytaj każdy dzień w Notebooku, oglądaj cały rok w Galaxy i odnajduj własne słowa dzięki pytaniom Mirror."
     },
     {
       "title": "Spokojna z założenia",
@@ -201,8 +203,10 @@
     "changes": "Co nowego",
     "line": "Wersja {v} · {date} · {size} MB · Android 11+",
     "device": {
-      "aria": "Dotilda na Mudita Kompakt, pyta po angielsku: What made you feel calm today?"
-    }
+      "aria": "Mudita Kompakt z prawdziwymi ekranami Dotildy (po angielsku): Today, pogoda w środku, kropka dnia i Galaxy."
+    },
+    "betaTag": "Beta",
+    "beta": "Dotilda jest w publicznej becie. Już działa na co dzień, nowe wersje przychodzą same, a Twój dziennik zostaje z wersji na wersję."
   },
   "footer": {
     "appBy": "Aplikacja od",
@@ -244,5 +248,40 @@
     "Kto dziś przyszedł Ci na myśl i dlaczego?",
     "Trzy rzeczy w zasięgu ręki, tu i teraz.",
     "Uporządkowany pokój czy przytulny bałagan?"
-  ]
+  ],
+  "coming": {
+    "label": "Wkrótce",
+    "text": "Ścieżki, które rysują konstelacje, podsumowania miesiąca, zdjęcie dnia rastrowane w czterech odcieniach szarości, zapieczętowane listy w przyszłość i Twój rok jako książka EPUB."
+  },
+  "inside": {
+    "label": "W aplikacji · publiczna beta",
+    "title": "To znajdziesz na swoim Kompakcie.",
+    "lede": "Prawdziwe ekrany obecnej wersji, nic upozowanego. Dotilda jest w fazie beta: już działa na co dzień i wciąż się rozwija.",
+    "screens": [
+      {
+        "src": "today",
+        "caption": "Today: kropki miesiąca i pytanie dnia."
+      },
+      {
+        "src": "weather",
+        "caption": "Pogoda w środku, od słońca do burzy."
+      },
+      {
+        "src": "done",
+        "caption": "Zapisane: kropka dnia się wypełnia."
+      },
+      {
+        "src": "notebook",
+        "caption": "Notebook, jedna strona na dzień."
+      },
+      {
+        "src": "galaxy",
+        "caption": "Galaxy: cały rok na jednym ekranie."
+      },
+      {
+        "src": "spira",
+        "caption": "spira: minuta oddechu przed pisaniem."
+      }
+    ]
+  }
 }

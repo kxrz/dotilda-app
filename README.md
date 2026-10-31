@@ -46,6 +46,7 @@ npm run og         # redraw the share images (see Share images)
 | `src/pages/llms.txt.ts` | `/llms.txt`, a plain-text summary for AI answer engines, built from `en.json`. |
 | `src/assets/leswww-logo.svg` | LesWWW wordmark, from the LesWWW brand repo. |
 | `public/fonts/` | WOFF2 files, SIL OFL (see `public/fonts/README.md`). |
+| `public/app/*.png` | Real screens of the released app, shown in the Kompakt and in "Inside the app". |
 | `public/og/<code>.png` | Share image of each language, drawn by `scripts/og.mjs`. |
 | `public/motion.js` | Runs before first paint; see Motion. |
 | `scripts/check-fit.mjs` | The fit check (`npm run check:fit`). |
@@ -53,13 +54,18 @@ npm run og         # redraw the share images (see Share images)
 | `vercel.json` | Build settings, security headers (strict CSP), caching. |
 
 The page follows AIDA, in this order: **hero** (Dotilda asks, you answer), **pause** (one huge
-sentence to slow down), **ritual** (three steps, "Try one", the eight dot shapes), **your sky**
-(the year of dots, Dotilda's voice, six promises), **get Dotilda** (three steps, the download, the
+sentence to slow down), **ritual** (three steps, "Try one", the eight dot shapes), **inside the app** (six real screens), **your sky**
+(the year of dots, Dotilda's voice, six promises, what comes next), **get Dotilda** (three steps, the download, the
 Kompakt), footer (readme.club, LesWWW).
 
 ## Content and languages
 
 All copy lives in `src/i18n/`. Change a word there, never in the components.
+
+**Show only what the released app does.** The site recruits beta testers: what they read must be
+what they install. Features still in development are tagged `soon` (`shapes.formats[].soon`) or
+listed under `coming`; Dotilda's quotes are real lines from the app's `strings.xml`. When a
+release ships a feature, remove its `soon` tag, update `coming`, and refresh the screens.
 Languages today: English (`/`), French (`/fr`), Spanish (`/es`), Portuguese (`/pt`, Brazilian)
 and Polish (`/pl`).
 
@@ -88,6 +94,23 @@ entry. Keys you leave out show in English until translated.
   on pages that need it (Polish). A language in another script (Greek, Cyrillic) needs its
   subset added in `public/fonts/`, `src/styles/global.css` and `scripts/og.mjs`.
 
+## Real screens
+
+`public/app/` holds screenshots of the released app, made by the app repository's Screenshots
+workflow (branch `screenshots/main`, 479×750, the Kompakt's app area). They are converted to 16
+greys, as on the e-ink screen. To refresh them after a release:
+
+```bash
+git fetch origin screenshots/main
+for f in 03-today:today 05-answer-weather:weather 06-done:done 11-notebook:notebook 12-galaxy:galaxy 13-spira-breathe:spira; do
+  git show origin/screenshots/main:${f%%:*}.png > /tmp/${f##*:}.png
+done
+python3 -c "from PIL import Image; import sys
+for n in sys.argv[1:]: Image.open(f'/tmp/{n}.png').convert('L').quantize(colors=16).save(f'public/app/{n}.png', optimize=True)" today weather done notebook galaxy spira
+```
+
+Use only screens from `screenshots/main` (the released app), never from a feature branch.
+
 ## Design
 
 The page is a sheet of e-ink paper: ink on a warm off-white, one reading column, the year of dots
@@ -101,7 +124,8 @@ as the only image.
 - Big type is sized by width *and* height (`min(vw, svh)`), so Dotilda's question and the answer
   field share the first screen everywhere, a phone in landscape and the Kompakt included.
 - The Kompakt is drawn after the real phone: black slab, speaker and camera, side buttons,
-  status bar, white back / home / menu keys. It keeps its own colours in both themes.
+  status bar, white back / home / menu keys, with real screens of the app inside. It keeps its
+  own colours in both themes.
 
 ## Motion
 
@@ -117,12 +141,15 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 | Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
-| Get Dotilda | Steps slide in from their numbers; the Kompakt does a full e-ink refresh. |
+| Inside the app | Each real screen arrives with its own e-ink blink. |
+| Get Dotilda | Steps slide in from their numbers; the Kompakt turns through real screens (Today, inner weather, Done, Galaxy) every 4.5 s, each with a full e-ink refresh, only while it is in view. |
 
 - Dotilda changes pose in one step, as in the app, never with a tween.
 - Reduced motion: people who ask for it get the complete page, still, and the hero still works.
 - `public/motion.js` hides what GSAP reveals before first paint, only for people who accept
   motion, and shows it again after two seconds if the script never runs.
+- ScrollTriggers are created in page order, the pinned pause first, so every trigger below it
+  counts the pin's extra scroll.
 - The pause is pinned with `anticipatePin`, and ScrollTrigger measures again once the fonts are
   in and when the hero text changes, so the pin never jumps.
 
