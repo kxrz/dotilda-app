@@ -72,6 +72,11 @@ class Prefs(private val context: Context) {
 
     suspend fun settingsNow(): Settings = settings.first()
 
+    /** Forgets every preference, as on a fresh install (used by the screenshot tests). */
+    suspend fun resetAll() {
+        context.dataStore.edit { it.clear() }
+    }
+
     suspend fun setWelcomed() {
         context.dataStore.edit { it[Keys.welcomed] = true }
     }

@@ -69,9 +69,13 @@ import kotlin.random.Random
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [33], qualifiers = KOMPAKT)
-// DataStore keeps one instance per process, so "welcomed" outlives a test: onboarding runs first.
+// DataStore keeps one instance per process, so "welcomed" outlives a test: onboarding runs first
+// and starts from a clean slate. Open, so the same tour runs at other sizes (SizesTest.kt).
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class ScreensTest {
+open class ScreensTest {
+    /** Folder of this tour's images, inside screenshots/ ("" for the Kompakt). */
+    protected open val prefix: String = ""
+
     @get:Rule
     val compose = createEmptyComposeRule()
 
@@ -81,7 +85,7 @@ class ScreensTest {
     @Test
     fun a_onboarding() {
         awaitBank()
-        offMain { app.prefs.settingsNow() }
+        offMain { app.prefs.resetAll() }
         launch()
         waitFor("Begin")
         shot("01-welcome")
@@ -290,7 +294,7 @@ class ScreensTest {
     private fun shot(name: String) {
         step("shot $name")
         settle()
-        compose.onRoot().captureRoboImage("screenshots/$name.png")
+        compose.onRoot().captureRoboImage("screenshots/$prefix$name.png")
     }
 
     private fun seed(question: String?, journeyDone: Int = 0) {
