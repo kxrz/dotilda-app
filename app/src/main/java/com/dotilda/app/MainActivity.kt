@@ -3,6 +3,9 @@ package com.dotilda.app
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.content.ActivityNotFoundException
+import android.widget.Toast
+import kotlinx.coroutines.MainScope
 import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -65,7 +68,19 @@ class MainActivity : ComponentActivity() {
             crashReport = report
             showCrashReport(
                 report,
-                onSave = { saveCrash.launch("dotilda-crash.txt") },
+                onSave = {
+                    try {
+                        saveCrash.launch("dotilda-crash.txt")
+                    } catch (e: ActivityNotFoundException) {
+                        // No file picker (Xteink S4): straight into Download/Dotilda.
+                        MainScope().launch {
+                            val where = runCatching {
+                                getString(R.string.saved_in, DownloadsFolder.save(this@MainActivity, "dotilda-crash.txt", "text/plain") { it.write(report.toByteArray()) })
+                            }.getOrElse { it.message.orEmpty() }
+                            Toast.makeText(this@MainActivity, where, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                },
                 onContinue = if (failed != null) null else ({
                     CrashLog.markSeen(this)
                     recreate()

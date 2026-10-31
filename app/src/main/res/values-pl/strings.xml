@@ -162,7 +162,6 @@
     <string name="backup_import">Importuj</string>
     <string name="backup_exported">Zapisane. Schowaj to w bezpiecznym miejscu.</string>
     <string name="backup_failed">Nie udało się (%1$s).</string>
-    <string name="backup_no_picker">To urządzenie nie ma wyboru plików, z którego mogłabym skorzystać.</string>
     <plurals name="backup_imported">
         <item quantity="one">%1$d strona dodana do Twojego dziennika.</item>
         <item quantity="few">%1$d strony dodane do Twojego dziennika.</item>
@@ -273,4 +272,6 @@
     <string name="crash_text">Aplikacja nagle się zamknęła. Oto co się stało: zapisz to albo zrób zdjęcie i wyślij nam na GitHubie (kxrz/dotilda-app), żebyśmy mogli to naprawić.</string>
     <string name="crash_save">Zapisz raport</string>
     <string name="crash_continue">Otwórz Dotildę</string>
+    <string name="saved_in">Zapisano w %1$s.</string>
+    <string name="import_put_it_there">Umieść plik dotilda-….zip w %1$s i dotknij Importuj ponownie.</string>
 </resources>

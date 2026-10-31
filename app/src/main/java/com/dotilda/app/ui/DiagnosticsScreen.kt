@@ -28,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.rememberCoroutineScope
 import com.dotilda.app.CrashLog
+import com.dotilda.app.DownloadsFolder
 import com.dotilda.app.DotildaApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,6 +46,8 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
     val bounds = context.getSystemService(WindowManager::class.java).maximumWindowMetrics.bounds
     var count by remember { mutableStateOf<Int?>(null) }
     var crash by remember { mutableStateOf(CrashLog.read(context)) }
+    var savedTo by remember { mutableStateOf<String?>(null) }
+    val savedIn = stringResource(R.string.saved_in)
     val scope = rememberCoroutineScope()
     val saveCrash = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
         val text = crash
@@ -86,7 +89,13 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
                     try {
                         saveCrash.launch("dotilda-crash.txt")
                     } catch (e: ActivityNotFoundException) {
-                        // No file picker: the report stays here; nothing else to do.
+                        // No file picker: straight into Download/Dotilda.
+                        val text = crash ?: return@TextLink
+                        scope.launch {
+                            savedTo = runCatching {
+                                savedIn.format(DownloadsFolder.save(context, "dotilda-crash.txt", "text/plain") { it.write(text.toByteArray()) })
+                            }.getOrElse { it.message }
+                        }
                     }
                 })
                 TextLink(stringResource(R.string.crash_clear), {
@@ -94,6 +103,7 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
                     crash = null
                 })
             }
+            savedTo?.let { TextMMD(it, style = MaterialTheme.typography.bodySmall) }
         }
         Spacer(Modifier.weight(1f))
         ButtonMMD(onClick = onBack, modifier = Modifier.fillMaxWidth()) {

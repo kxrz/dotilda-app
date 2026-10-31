@@ -7,6 +7,13 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [Unreleased]
+
+### Fixed
+- On a device without a file picker (the Xteink S4), "Save the report" closed Dotilda. Saving
+  the report, exporting your journal or your year's book now goes straight to Download/Dotilda,
+  and Import takes the newest dotilda-….zip found there.
+
 ## [0.7.2] - 2026-10-31
 
 ### Fixed

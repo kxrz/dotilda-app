@@ -194,7 +194,6 @@
     <string name="backup_import">Import</string>
     <string name="backup_exported">Saved. Keep it somewhere safe.</string>
     <string name="backup_failed">That didn\'t work (%1$s).</string>
-    <string name="backup_no_picker">This device has no file picker for me to use.</string>
     <plurals name="backup_imported">
         <item quantity="one">%1$d page added to your journal.</item>
         <item quantity="other">%1$d pages added to your journal.</item>
@@ -270,4 +269,6 @@
     <string name="crash_text">She closed by surprise. Here is what happened: save it, or take a photo of it, and send it to us on GitHub (kxrz/dotilda-app) so we can mend it.</string>
     <string name="crash_save">Save the report</string>
     <string name="crash_continue">Open Dotilda</string>
+    <string name="saved_in">Saved in %1$s.</string>
+    <string name="import_put_it_there">Put your dotilda-….zip in %1$s, then tap Import again.</string>
 </resources>
