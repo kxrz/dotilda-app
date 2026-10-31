@@ -69,7 +69,7 @@ The page follows AIDA, in this order:
 
 | | Section | What it does |
 | --- | --- | --- |
-| Attention | hero | A plain title (a journal for e-ink phones, one question a day) and Dotilda's playground: she asks in her bubble, the visitor answers as in the app (a line, a word, a choice, a moon), changes the question, goes on to the next day and watches this month fill up. Poke her and she plays along. The ways to get her come right after the hero, not in it: a big ink card says what the buttons do (`cta`), then the buttons. |
+| Attention | hero | A plain title (a journal born on e-ink, for any Android: the Kompakt is where Dotilda was designed first, not a requirement) and Dotilda's playground: she asks in her bubble, the visitor answers as in the app (a line, a word, a choice, a moon), changes the question, goes on to the next day and watches this month fill up. Poke her and she plays along. The ways to get her come right after the hero, not in it: a big ink card says what the buttons do (`cta`), then the buttons. |
 | Interest | `#ritual` | The ritual in three steps. |
 | Interest | `#inside` | Eight real screens of the released app, in a carousel to swipe, drag or page through. |
 | Interest | `#shapes` | The eight ways to answer, and "Try one" for a few more questions. |

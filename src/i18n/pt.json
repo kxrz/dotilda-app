@@ -4,11 +4,11 @@
   "appLanguage": "Por enquanto, o app está em inglês e polonês. Outros idiomas virão.",
   "meta": {
     "title": "Dotilda · Uma pergunta por dia, um ponto no seu céu",
-    "description": "Dotilda é um app de diário tranquilo para o Mudita Kompakt e leitores digitais Android. Uma pequena pergunta por dia, um ponto no seu céu. Gratuito, privado e de código aberto.",
-    "ogDescription": "Um app de diário tranquilo para tinta eletrônica. Gratuito, privado e de código aberto.",
+    "description": "A Dotilda é um app de diário tranquilo nascido no e‑ink, para qualquer celular, tablet ou leitor Android 11+. Uma pequena pergunta por dia, um ponto no seu céu. Gratuito, privado e de código aberto.",
+    "ogDescription": "Um diário tranquilo nascido no e‑ink, para qualquer Android. Gratuito, privado e de código aberto.",
     "ogLocale": "pt_BR",
-    "ogImageAlt": "Dotilda, um ponto de tinta com coque e óculos redondos, acima das palavras “Um diário para celulares e‑ink. Uma pergunta por dia.” e algumas fileiras de pontos.",
-    "appDescription": "Um app de diário tranquilo para o Mudita Kompakt e leitores digitais Android 11+. A Dotilda faz uma pequena pergunta por dia; cada resposta acrescenta um ponto a um ano desenhado a tinta. Sem conta, sem rastreamento, sem anúncios. Gratuito e de código aberto sob a licença Apache 2.0. O app está em inglês e polonês."
+    "ogImageAlt": "Dotilda, um ponto de tinta com coque e óculos redondos, acima das palavras “Um diário nascido no e‑ink. Para qualquer Android.” e algumas fileiras de pontos.",
+    "appDescription": "Um app de diário tranquilo para qualquer celular, tablet ou leitor Android 11+, pensado primeiro para a tela e‑ink do Mudita Kompakt. A Dotilda faz uma pequena pergunta por dia; cada resposta acrescenta um ponto a um ano desenhado a tinta. Sem conta, sem rastreamento, sem anúncios. Gratuito e de código aberto sob a licença Apache 2.0. O app está em inglês e polonês."
   },
   "nav": {
     "skip": "Pular para o conteúdo",
@@ -26,9 +26,9 @@
   "hero": {
     "label": "Diário para tinta eletrônica · beta pública",
     "title": "Uma pergunta por dia, um ponto no seu céu.",
-    "primary": "Baixe a Dotilda para o seu Kompakt",
+    "primary": "Baixe a Dotilda para Android",
     "secondary": "Como funciona",
-    "note": "Feito para o Mudita Kompakt e leitores digitais Android 11+. Sem conta, sem rastreamento, sem anúncios.",
+    "note": "Funciona em qualquer celular, tablet ou leitor Android 11+, pensado primeiro para o Mudita Kompakt. Sem conta, sem rastreamento, sem anúncios.",
     "asks": "A Dotilda pergunta",
     "question": "O que fez você sorrir hoje?",
     "placeholder": "Uma linha basta",
@@ -38,7 +38,7 @@
     "privacy": "Experimente. Nada do que você digita aqui é enviado ou guardado.",
     "after": "Esse é todo o ritual. Amanhã, uma nova pergunta.",
     "kicker": "Gratuito · código aberto · beta pública",
-    "headline": "Um diário para celulares e‑ink. Uma pergunta por dia.",
+    "headline": "Um diário nascido no e‑ink. Para qualquer Android.",
     "lede": "Todo dia, a Dotilda faz uma pequena pergunta. Responda em uma linha e ela vira um ponto no seu ano.",
     "yourTurn": "Sua vez",
     "poke": "Cutucar a Dotilda",
@@ -247,8 +247,8 @@
       "text": "Sem conta. Tudo fica no aparelho. Exporte ou leve seu diário quando quiser."
     },
     {
-      "title": "Feito para tinta eletrônica",
-      "text": "Preto puro sobre branco, letras grandes, sem rolagem, sem animação. Vire as páginas com as teclas de volume."
+      "title": "Calmo em qualquer tela",
+      "text": "Preto puro sobre branco, letra grande, sem rolagem nem animação. Nascido no e‑ink, tranquilo em qualquer tela. As páginas viram com os botões de volume."
     },
     {
       "title": "Olhar para trás",
@@ -260,7 +260,7 @@
     },
     {
       "title": "Respire primeiro",
-      "text": "Spira, um minuto para respirar, além do timer e do cronômetro que faltam no Kompakt."
+      "text": "Spira, um minuto de respiração, mais um temporizador e um cronômetro simples."
     },
     {
       "title": "Gratuito, para sempre",
@@ -276,22 +276,23 @@
     "changes": "Novidades",
     "line": "Versão {v} · {date} · {size} MB · Android 11+",
     "device": {
-      "aria": "Um Mudita Kompakt com telas reais da Dotilda (em inglês): Today, uma jornada concluída, a Galaxy e o resumo do mês."
+      "aria": "Um Mudita Kompakt com telas reais da Dotilda (em inglês): Today, uma jornada concluída, a Galaxy e o resumo do mês.",
+      "caption": "Pensado primeiro para o Mudita Kompakt."
     },
     "betaTag": "Beta",
     "beta": "A Dotilda está em beta pública. Já funciona todos os dias, as novas versões chegam sozinhas e o seu diário é mantido de uma versão para a outra.",
     "ways": [
       {
-        "title": "No Mudita Kompakt",
-        "text": "Baixe o dotilda.apk no computador, conecte o Kompakt com o cabo USB e envie o APK para ele com o Mudita Center. Confirme a instalação no telefone."
-      },
-      {
-        "title": "Em outro leitor Android 11+",
-        "text": "Baixe o APK no leitor, ou copie-o por USB. Abra-o e permita instalações desta fonte quando o Android pedir."
+        "title": "Em qualquer Android 11+",
+        "text": "Baixe o APK no celular, tablet ou leitor (ou copie por USB), abra-o e permita instalações desta fonte quando o Android pedir."
       },
       {
         "title": "Com o Obtainium",
         "text": "O Obtainium acompanha as versões publicadas e instala cada nova versão para você."
+      },
+      {
+        "title": "No Mudita Kompakt",
+        "text": "Baixe o dotilda.apk no computador, conecte o Kompakt com o cabo USB e envie o APK para ele com o Mudita Center. Confirme a instalação no telefone."
       }
     ],
     "obtainium": "Adicionar ao Obtainium",
@@ -347,7 +348,7 @@
   },
   "inside": {
     "label": "Dentro do app · beta pública",
-    "title": "O que você vai encontrar no seu Kompakt.",
+    "title": "O que você vai encontrar no seu celular.",
     "lede": "Telas reais da versão atual, nada encenado. A Dotilda está em beta: já funciona todos os dias e continua crescendo.",
     "screens": [
       {
@@ -412,7 +413,7 @@
     "items": [
       {
         "q": "Em quais aparelhos funciona?",
-        "a": "Em qualquer aparelho com Android 11 ou mais recente. A Dotilda foi pensada para a tela de tinta eletrônica do Mudita Kompakt e funciona também em outros leitores Android."
+        "a": "Qualquer celular, tablet ou leitor com Android 11 ou mais recente. A Dotilda foi pensada primeiro para a tela e‑ink do Mudita Kompakt, então é calma em qualquer lugar."
       },
       {
         "q": "Para onde vai o meu diário?",
@@ -458,11 +459,11 @@
   "appLanguagePill": "EN · PL",
   "cta": {
     "label": "Antes de tocar",
-    "title": "Gratuito, privado e feito para o seu Kompakt.",
+    "title": "Gratuito, privado e calmo por natureza.",
     "facts": [
       {
         "title": "Para onde o botão leva",
-        "text": "Para os passos de instalação, logo abaixo: um APK do GitHub, enviado ao seu Kompakt com o Mudita Center, ou aberto direto em outro leitor Android 11+."
+        "text": "Para os passos de instalação, logo abaixo: um APK do GitHub, para abrir no seu celular, tablet ou leitor Android, ou enviar a um Mudita Kompakt com o Mudita Center."
       },
       {
         "title": "O que você não vai encontrar",

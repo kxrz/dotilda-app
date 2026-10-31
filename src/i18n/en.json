@@ -3,11 +3,11 @@
   "dateLocale": "en-GB",
   "meta": {
     "title": "Dotilda · A question a day, a dot in your sky",
-    "description": "Dotilda is a gentle daily journaling app for the Mudita Kompakt and Android e-readers. One small question a day, a dot in your sky. Free, private, open source.",
-    "ogDescription": "A gentle daily journaling app for e-ink. Free, private, open source.",
+    "description": "Dotilda is a gentle daily journaling app born on e‑ink, for any Android 11+ phone, tablet or e‑reader. One small question a day, a dot in your sky. Free, private, open source.",
+    "ogDescription": "A gentle daily journal born on e‑ink, for any Android. Free, private, open source.",
     "ogLocale": "en_GB",
-    "ogImageAlt": "Dotilda, an ink dot with a bun and round glasses, beside the words “A journal for e‑ink phones. One question a day.” and a few rows of dots.",
-    "appDescription": "A gentle daily journaling app for the Mudita Kompakt and Android 11+ e-readers. Dotilda asks one small question a day; each answer adds a dot to a year drawn in ink. No account, no tracking, no ads. Free and open source under Apache 2.0."
+    "ogImageAlt": "Dotilda, an ink dot with a bun and round glasses, beside the words “A journal born on e‑ink. For any Android.” and a few rows of dots.",
+    "appDescription": "A gentle daily journaling app for any Android 11+ phone, tablet or e‑reader, designed first for the Mudita Kompakt’s e‑ink screen. Dotilda asks one small question a day; each answer adds a dot to a year drawn in ink. No account, no tracking, no ads. Free and open source under Apache 2.0."
   },
   "nav": {
     "skip": "Skip to content",
@@ -25,9 +25,9 @@
   "hero": {
     "label": "Daily journaling for e‑ink · public beta",
     "title": "A question a day, a dot in your sky.",
-    "primary": "Get Dotilda for your Kompakt",
+    "primary": "Get Dotilda for Android",
     "secondary": "How it works",
-    "note": "Made for the Mudita Kompakt and Android 11+ e‑readers. No account, no tracking, no ads.",
+    "note": "Works on any Android 11+ phone, tablet or e‑reader, designed first for the Mudita Kompakt. No account, no tracking, no ads.",
     "asks": "Dotilda asks",
     "question": "What made you smile today?",
     "placeholder": "A line is plenty",
@@ -37,7 +37,7 @@
     "privacy": "Try it. Nothing you type here is sent or saved.",
     "after": "That is the whole ritual. Tomorrow, a new question.",
     "kicker": "Free · open source · public beta",
-    "headline": "A journal for e‑ink phones. One question a day.",
+    "headline": "A journal born on e‑ink. For any Android.",
     "lede": "Each day, Dotilda asks you one small question. Answer in a line, and it becomes a dot in your year.",
     "yourTurn": "Your turn",
     "poke": "Poke Dotilda",
@@ -246,8 +246,8 @@
       "text": "No account. Everything stays on the device. Export or move your journal any time."
     },
     {
-      "title": "Made for e‑ink",
-      "text": "Pure black on white, large type, no scrolling, no animation. Page with the volume keys."
+      "title": "Calm on any screen",
+      "text": "Pure black on white, large type, no scrolling, no animation. Born on e‑ink, restful on any screen. Page with the volume keys."
     },
     {
       "title": "Look back",
@@ -259,7 +259,7 @@
     },
     {
       "title": "Breathe first",
-      "text": "Spira, a one‑minute breathing break, plus a timer and stopwatch the Kompakt lacks."
+      "text": "Spira, a one‑minute breathing break, plus a quiet timer and stopwatch."
     },
     {
       "title": "Free, for good",
@@ -276,22 +276,23 @@
     "line": "Version {v} · {date} · {size} MB · Android 11+",
     "fallback": "Android 11+ · com.dotilda.app",
     "device": {
-      "aria": "A Mudita Kompakt showing real screens of Dotilda: Today, a finished journey, the Galaxy and the month in review."
+      "aria": "A Mudita Kompakt showing real screens of Dotilda: Today, a finished journey, the Galaxy and the month in review.",
+      "caption": "Designed first for the Mudita Kompakt."
     },
     "betaTag": "Beta",
     "beta": "Dotilda is in public beta. It works every day already, new versions arrive on their own, and your journal is kept from one version to the next.",
     "ways": [
       {
-        "title": "On the Mudita Kompakt",
-        "text": "Download dotilda.apk on your computer, connect the Kompakt with its USB cable and send the APK to it with Mudita Center. Confirm the install on the phone."
-      },
-      {
-        "title": "On another Android 11+ e‑reader",
-        "text": "Download the APK on the reader, or copy it over USB. Open it, and allow installs from this source when Android asks."
+        "title": "On any Android 11+ device",
+        "text": "Download the APK on the phone, tablet or e‑reader (or copy it over USB), open it, and allow installs from this source when Android asks."
       },
       {
         "title": "With Obtainium",
         "text": "Obtainium follows the releases and installs each new version for you."
+      },
+      {
+        "title": "On the Mudita Kompakt",
+        "text": "Download dotilda.apk on your computer, connect the Kompakt with its USB cable and send the APK to it with Mudita Center. Confirm the install on the phone."
       }
     ],
     "obtainium": "Add to Obtainium",
@@ -348,7 +349,7 @@
   },
   "inside": {
     "label": "Inside the app · public beta",
-    "title": "What you’ll find on your Kompakt.",
+    "title": "What you’ll find on your phone.",
     "lede": "Real screens from the current version, nothing staged. Dotilda is in beta: it already works every day, and it keeps growing.",
     "screens": [
       {
@@ -413,7 +414,7 @@
     "items": [
       {
         "q": "Which devices does it work on?",
-        "a": "Any device with Android 11 or later. Dotilda is designed for the Mudita Kompakt’s e‑ink screen and works on other Android e‑readers too."
+        "a": "Any Android 11+ phone, tablet or e‑reader. Dotilda was designed first for the Mudita Kompakt’s e‑ink screen, so it stays calm everywhere."
       },
       {
         "q": "Where does my journal go?",
@@ -459,11 +460,11 @@
   "appLanguagePill": "EN",
   "cta": {
     "label": "Before you tap",
-    "title": "Free, private, and made for your Kompakt.",
+    "title": "Free, private, and calm by design.",
     "facts": [
       {
         "title": "Where the button leads",
-        "text": "To the install steps below: one APK from GitHub, sent to your Kompakt with Mudita Center, or opened straight on another Android 11+ e‑reader."
+        "text": "To the install steps below: one APK from GitHub, opened on your Android phone, tablet or e‑reader, or sent to a Mudita Kompakt with Mudita Center."
       },
       {
         "title": "What you won’t find",

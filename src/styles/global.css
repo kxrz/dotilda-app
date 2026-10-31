@@ -357,3 +357,6 @@ footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
 footer .brand-link{display:inline-block;margin-top:.6rem;white-space:nowrap}
 .cta-card .lang-note,.cta-card .lang-pill{color:var(--paper)}
 @media (max-width:560px){.cta-main{width:100%;justify-content:center;text-align:center}}
+/* Under the phone: the Kompakt is where Dotilda was designed first, not the only place she lives. */
+.device{margin:0;display:grid;justify-items:center;gap:1rem;min-width:0}
+.device-caption{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);text-align:center}

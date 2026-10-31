@@ -240,7 +240,7 @@ const pageData = {
       {s.get.ways.map((way, i) => (
         <li data-anim="how"><div>
           <b>{way.title}</b><br><span>{way.text}</span>
-          {i === 2 && <><br><a class="quiet-link" href={obtainium}>{s.get.obtainium}</a></>}
+          {i === 1 && <><br><a class="quiet-link" href={obtainium}>{s.get.obtainium}</a></>}
         </div></li>
       ))}
     </ol>
@@ -253,6 +253,7 @@ const pageData = {
     <p class="dev" id="release">{s.get.fallback}</p>
     <p class="dev">{s.get.adb} <code>adb install dotilda.apk</code></p>
   </div>
+  <figure class="device">
   <div class="kompakt" role="img" aria-label={s.get.device.aria} data-anim="device">
     <span class="k-btn k-left" aria-hidden="true"></span>
     <span class="k-btn k-right" aria-hidden="true"></span>
@@ -272,6 +273,8 @@ const pageData = {
       <svg viewBox="0 0 24 24"><path d="M9 5v5M9 14v5M15 5v5M15 14v5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
     </div>
   </div>
+  <figcaption class="device-caption">{s.get.device.caption}</figcaption>
+  </figure>
   </div>
 </section>
 
