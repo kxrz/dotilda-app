@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dotilda.app.screens.ScreensTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-31T10:24:51.193Z" hostname="runnervmnwato" time="9.774">
+  <properties/>
+  <testcase name="a_onboarding" classname="com.dotilda.app.screens.ScreensTest" time="1.348"/>
+  <testcase name="b_ritual" classname="com.dotilda.app.screens.ScreensTest" time="1.87"/>
+  <testcase name="c_answerFormats" classname="com.dotilda.app.screens.ScreensTest" time="3.599"/>
+  <testcase name="d_rereading" classname="com.dotilda.app.screens.ScreensTest" time="1.323"/>
+  <testcase name="e_spiraAndSettings" classname="com.dotilda.app.screens.ScreensTest" time="1.634"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
