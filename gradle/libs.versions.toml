@@ -9,6 +9,7 @@ serialization = "1.7.3"
 mmd = "1.0.2"
 datastore = "1.1.1"
 junit = "4.13.2"
+epubcheck = "5.1.0"
 robolectric = "4.13"
 roborazzi = "1.26.0"
 androidx-test-core = "1.6.1"
@@ -26,6 +27,7 @@ serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serializ
 mmd = { group = "com.mudita", name = "MMD", version.ref = "mmd" }
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+epubcheck = { group = "org.w3c", name = "epubcheck", version.ref = "epubcheck" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }

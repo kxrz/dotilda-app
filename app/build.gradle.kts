@@ -99,6 +99,7 @@ dependencies {
     implementation(libs.serialization.json)
     implementation(libs.datastore.preferences)
     testImplementation(libs.junit)
+    testImplementation(libs.epubcheck)
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)
     testImplementation(libs.roborazzi.compose)

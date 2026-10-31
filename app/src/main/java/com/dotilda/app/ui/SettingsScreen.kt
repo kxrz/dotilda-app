@@ -15,7 +15,20 @@ import androidx.compose.runtime.Composable
 import android.content.ActivityNotFoundException
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import com.dotilda.app.YearBookExport
+import com.dotilda.app.data.DotSize
+import com.dotilda.app.data.Journal
+import com.dotilda.app.data.SkyLayout
+import com.dotilda.app.data.SkyStyle
+import java.time.YearMonth
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,6 +62,7 @@ fun SettingsScreen(
     onCheck: () -> Unit,
     onOpenUpdate: () -> Unit,
     backup: Backup,
+    journal: Journal,
     onAbout: () -> Unit,
     onDiagnostics: () -> Unit,
     onBack: () -> Unit,
@@ -78,6 +92,20 @@ fun SettingsScreen(
             }.fold({ context.resources.getQuantityString(R.plurals.backup_imported, it, it) }, { failed.format(it.message) })
         }
     }
+    val bookReady = stringResource(R.string.book_exported)
+    val bookTo = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/epub+zip")) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch {
+            backupStatus = runCatching {
+                context.contentResolver.openOutputStream(uri)!!.use { YearBookExport.export(context, journal, LocalDate.now().year, it) }
+            }.fold({ bookReady }, { failed.format(it.message) })
+        }
+    }
+    val sky by prefs.sky.collectAsState(initial = SkyStyle())
+    var page by rememberSaveable { mutableIntStateOf(0) }
+    val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, 1) }
+    PageKeysEffect(turn)
+
     fun pick(launch: () -> Unit) {
         try {
             launch()
@@ -95,49 +123,92 @@ fun SettingsScreen(
     }
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
-        TextMMD(stringResource(R.string.settings), style = MaterialTheme.typography.headlineLarge)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            TextMMD(stringResource(R.string.settings), modifier = Modifier.weight(1f), style = MaterialTheme.typography.headlineLarge)
+            TextMMD("${page + 1} / 2", style = MaterialTheme.typography.labelMedium)
+        }
         Spacer(Modifier.height(16.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            TextMMD(stringResource(R.string.daily_reminder), modifier = Modifier.weight(1f))
-            SwitchMMD(checked = s.reminderOn, onCheckedChange = { update(it, s.reminderMinutes) })
+        Column(Modifier.weight(1f)) {
+            if (page == 0) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextMMD(stringResource(R.string.daily_reminder), modifier = Modifier.weight(1f))
+                    SwitchMMD(checked = s.reminderOn, onCheckedChange = { update(it, s.reminderMinutes) })
+                }
+                if (s.reminderOn) {
+                    Spacer(Modifier.height(8.dp))
+                    ReminderTime(s.reminderMinutes) { update(true, it) }
+                }
+                Spacer(Modifier.height(20.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                Spacer(Modifier.height(12.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
+                    SwitchMMD(
+                        checked = s.checkUpdates,
+                        onCheckedChange = { on ->
+                            scope.launch { prefs.setCheckUpdates(on) }
+                            if (on) onCheck()
+                        },
+                    )
+                }
+                val version = BuildConfig.VERSION_NAME
+                when {
+                    checking -> TextMMD(stringResource(R.string.checking_updates), style = MaterialTheme.typography.bodySmall)
+                    latest?.isNewer == true -> TextLink(stringResource(R.string.update_available, latest.version), onOpenUpdate)
+                    latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
+                    else -> TextLink(stringResource(R.string.check_now, version), onCheck)
+                }
+                Spacer(Modifier.height(8.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                    TextLink(stringResource(R.string.about), onAbout)
+                    TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+                }
+            } else {
+                TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    TextLink(stringResource(R.string.backup_export), { pick { exportTo.launch("dotilda-${LocalDate.now()}.zip") } })
+                    TextLink(stringResource(R.string.backup_import), { pick { importFrom.launch(arrayOf("application/zip", "application/octet-stream")) } })
+                }
+                TextLink(stringResource(R.string.book_export), { pick { bookTo.launch("dotilda-${LocalDate.now().year}.epub") } })
+                backupStatus?.let { TextMMD(it, style = MaterialTheme.typography.bodySmall) }
+                Spacer(Modifier.height(12.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                Spacer(Modifier.height(12.dp))
+                TextMMD(stringResource(R.string.sky_title), style = MaterialTheme.typography.labelMedium)
+                Spacer(Modifier.height(8.dp))
+                Choice(stringResource(R.string.sky_dots), stringArrayResource(R.array.sky_dot_sizes).toList(), sky.dots.ordinal) {
+                    scope.launch { prefs.setSky(sky.copy(dots = DotSize.entries[it])) }
+                }
+                Choice(stringResource(R.string.sky_layout), stringArrayResource(R.array.sky_layouts).toList(), sky.layout.ordinal) {
+                    scope.launch { prefs.setSky(sky.copy(layout = SkyLayout.entries[it])) }
+                }
+                Spacer(Modifier.height(12.dp))
+                // A preview of the month's line in the chosen style.
+                val today = remember { LocalDate.now() }
+                val month = remember { YearMonth.from(today) }
+                val entries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
+                CompositionLocalProvider(LocalSkyStyle provides sky) { MonthLine(month, entries, today) }
+            }
         }
-        if (s.reminderOn) {
-            Spacer(Modifier.height(8.dp))
-            ReminderTime(s.reminderMinutes) { update(true, it) }
-        }
-        Spacer(Modifier.height(20.dp))
-        HorizontalDividerMMD(thickness = 1.dp)
-        Spacer(Modifier.height(12.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
-            SwitchMMD(
-                checked = s.checkUpdates,
-                onCheckedChange = { on ->
-                    scope.launch { prefs.setCheckUpdates(on) }
-                    if (on) onCheck()
-                },
+        PagerRow(canPrevious = page > 0, canNext = page < 1, onPage = turn, onBack = onBack)
+    }
+}
+
+/** A label and a few options in a row; the chosen one bold and underlined. */
+@Composable
+private fun Choice(label: String, options: List<String>, selected: Int, onSelect: (Int) -> Unit) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        TextMMD(label, modifier = Modifier.width(72.dp), style = MaterialTheme.typography.bodyMedium)
+        options.forEachIndexed { i, option ->
+            TextMMD(
+                option,
+                modifier = Modifier.clickable { onSelect(i) }.padding(end = 14.dp, top = 8.dp, bottom = 8.dp),
+                fontWeight = if (i == selected) FontWeight.Bold else null,
+                textDecoration = if (i == selected) TextDecoration.Underline else null,
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
-        val version = BuildConfig.VERSION_NAME
-        when {
-            checking -> TextMMD(stringResource(R.string.checking_updates), style = MaterialTheme.typography.bodySmall)
-            latest?.isNewer == true -> TextLink(stringResource(R.string.update_available, latest.version), onOpenUpdate)
-            latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
-            else -> TextLink(stringResource(R.string.check_now, version), onCheck)
-        }
-        Spacer(Modifier.height(8.dp))
-        HorizontalDividerMMD(thickness = 1.dp)
-        Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextLink(stringResource(R.string.backup_export), { pick { exportTo.launch("dotilda-${LocalDate.now()}.zip") } })
-            TextLink(stringResource(R.string.backup_import), { pick { importFrom.launch(arrayOf("application/zip", "application/octet-stream")) } })
-        }
-        backupStatus?.let { TextMMD(it, style = MaterialTheme.typography.bodySmall) }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextLink(stringResource(R.string.about), onAbout)
-            TextLink(stringResource(R.string.diagnostics), onDiagnostics)
-        }
-        Spacer(Modifier.weight(1f))
-        ActionRow(back = stringResource(R.string.back), onBack = onBack)
     }
 }
 

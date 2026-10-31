@@ -54,6 +54,8 @@ class Prefs(private val context: Context) {
         val activeJourney = stringPreferencesKey("active_journey")
         val constellations = stringPreferencesKey("constellations")
         val openedLetters = stringSetPreferencesKey("opened_letters")
+        val dotSize = stringPreferencesKey("dot_size")
+        val skyLayout = stringPreferencesKey("sky_layout")
     }
 
     val settings: Flow<Settings> = context.dataStore.data.map { it.toSettings() }
@@ -128,6 +130,21 @@ class Prefs(private val context: Context) {
 
     suspend fun markLetterOpened(key: String) {
         context.dataStore.edit { it[Keys.openedLetters] = it[Keys.openedLetters].orEmpty() + key }
+    }
+
+    /** The look of the dots and of the Galaxy. */
+    val sky: Flow<SkyStyle> = context.dataStore.data.map { p ->
+        SkyStyle(
+            dots = DotSize.entries.firstOrNull { it.name == p[Keys.dotSize] } ?: DotSize.Classic,
+            layout = SkyLayout.entries.firstOrNull { it.name == p[Keys.skyLayout] } ?: SkyLayout.Rows,
+        )
+    }
+
+    suspend fun setSky(style: SkyStyle) {
+        context.dataStore.edit {
+            it[Keys.dotSize] = style.dots.name
+            it[Keys.skyLayout] = style.layout.name
+        }
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {

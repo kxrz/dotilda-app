@@ -185,6 +185,16 @@ class ScreensTest {
         waitFor("2 / 2")
         settle()
         shot("19-review-photos")
+        click("Back")
+        waitFor("Constellations", substring = true)
+        click("Jul–Sep")
+        waitFor("1 / 3")
+        settle()
+        shot("28-review-season")
+        click("›")
+        waitFor("2 / 3")
+        settle()
+        shot("29-review-season-choices")
     }
 
     @Test
@@ -212,6 +222,27 @@ class ScreensTest {
         waitFor("I'll call this one", substring = true)
         ShadowLooper.idleMainLooper(1, TimeUnit.SECONDS)
         shot("25-done-constellation")
+    }
+
+    @Test
+    fun i_skyStyle() {
+        seed(question = "ol-001")
+        launch()
+        waitFor("Answer")
+        click("Settings")
+        waitFor("Daily reminder")
+        click("›")
+        waitFor("Your sky")
+        click("Night sky")
+        click("Bold")
+        settle()
+        shot("26-settings-journal")
+        click("Back")
+        waitFor("Answer")
+        click("Galaxy")
+        waitFor("Constellations", substring = true)
+        settle()
+        shot("27-galaxy-night-sky")
     }
 
     private var scenario: ActivityScenario<MainActivity>? = null

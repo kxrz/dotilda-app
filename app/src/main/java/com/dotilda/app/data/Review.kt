@@ -27,3 +27,15 @@ fun wordCloud(words: List<String>, max: Int = 12): List<Pair<String, Int>> =
         .entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
         .take(max)
         .map { it.key to it.value }
+
+/**
+ * This-or-that answers counted per question, the most answered questions first; within one,
+ * the choices from most to least picked: "Tea 9 · Coffee 4".
+ */
+fun choiceTallies(entries: List<Entry>): Map<String, List<Pair<String, Int>>> =
+    entries.mapNotNull { e -> (e.answer() as? Answer.Choice)?.let { e.questionId to it.label } }
+        .groupBy({ it.first }, { it.second })
+        .entries.sortedByDescending { it.value.size }
+        .associate { (id, labels) ->
+            id to labels.groupingBy { it }.eachCount().entries.sortedByDescending { it.value }.map { it.key to it.value }
+        }

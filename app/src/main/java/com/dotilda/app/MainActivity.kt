@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import com.dotilda.app.ui.AnswerScreen
 import com.dotilda.app.ui.DiagnosticsScreen
 import com.dotilda.app.ui.DoneScreen
+import com.dotilda.app.data.SkyStyle
 import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
 import com.dotilda.app.ui.JourneysScreen
@@ -42,7 +43,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val app = application as DotildaApp
         setContent {
-            DotildaTheme {
+            val sky by app.prefs.sky.collectAsState(initial = SkyStyle())
+            DotildaTheme(sky) {
                 val settings by app.prefs.settings.collectAsState(initial = null)
                 val welcomed = settings?.welcomed
                 if (welcomed != null) {
@@ -51,14 +53,16 @@ class MainActivity : ComponentActivity() {
                     var notebookDate by rememberSaveable { mutableStateOf<String?>(null) }
                     var notebookFrom by rememberSaveable { mutableStateOf(Screen.Today) }
                     var reviewMonth by rememberSaveable { mutableStateOf<String?>(null) }
+                    var reviewMonths by rememberSaveable { mutableStateOf(1) }
                     var reviewFrom by rememberSaveable { mutableStateOf(Screen.Today) }
                     fun openDay(date: String, from: Screen) {
                         notebookDate = date
                         notebookFrom = from
                         screen = Screen.Notebook
                     }
-                    fun openReview(month: YearMonth, from: Screen) {
+                    fun openReview(month: YearMonth, from: Screen, months: Int = 1) {
                         reviewMonth = month.toString()
+                        reviewMonths = months
                         reviewFrom = from
                         screen = Screen.Review
                     }
@@ -104,7 +108,7 @@ class MainActivity : ComponentActivity() {
                             },
                             onJourneys = { screen = Screen.Journeys },
                             onLetter = { openDay(it, Screen.Today) },
-                            onReview = { openReview(it, Screen.Today) },
+                            onReview = { month, months -> openReview(month, Screen.Today, months) },
                             onGalaxy = { screen = Screen.Galaxy },
                             onSpira = {
                                 spiraFromAnswer = false
@@ -120,11 +124,12 @@ class MainActivity : ComponentActivity() {
                             app.journal,
                             onOpenDay = { openDay(it.toString(), Screen.Galaxy) },
                             onOpenMonth = { openReview(it, Screen.Galaxy) },
+                            onOpenSeason = { openReview(it, Screen.Galaxy, months = 3) },
                             onBack = back,
                         )
                         Screen.Journeys -> JourneysScreen(app.journal, onStarted = { screen = Screen.Today }, onBack = back)
                         Screen.Review -> reviewMonth?.let { m ->
-                            ReviewScreen(app.journal, YearMonth.parse(m), onOpenDay = { openDay(it.toString(), Screen.Review) }, onBack = back)
+                            ReviewScreen(app.journal, YearMonth.parse(m), reviewMonths, onOpenDay = { openDay(it.toString(), Screen.Review) }, onBack = back)
                         }
                         Screen.Answer -> AnswerScreen(
                             app.journal,
@@ -144,6 +149,7 @@ class MainActivity : ComponentActivity() {
                             onCheck = app::checkForUpdate,
                             onOpenUpdate = { screen = Screen.Update },
                             backup = app.backup,
+                            journal = app.journal,
                             onAbout = { screen = Screen.About },
                             onDiagnostics = { screen = Screen.Diagnostics },
                             onBack = back,

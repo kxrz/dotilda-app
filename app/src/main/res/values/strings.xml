@@ -53,6 +53,8 @@
 
     <!-- Review -->
     <string name="review_ready">Your %1$s is ready to read again.</string>
+    <string name="review_season_ready">The last three months are ready to read again.</string>
+    <string name="review_choices">This or that</string>
     <string name="review_weather">The weather inside</string>
     <string name="review_words">In a word</string>
     <string name="review_line">A line of yours</string>
@@ -67,6 +69,27 @@
         <item>A bright start, a greyer end. Tea is advised.</item>
         <item>Sun and showers, like any honest month.</item>
     </string-array>
+
+    <!-- Year book -->
+    <string name="book_cover_subtitle">A year with Dotilda</string>
+    <string name="book_letter_sealed">A letter to the future, sealed until %1$s.</string>
+    <string name="book_export">Export the year as a book</string>
+    <string name="book_exported">Your book is ready. Open it on your e-reader.</string>
+
+    <!-- Sky style -->
+    <string name="sky_title">Your sky</string>
+    <string name="sky_dots">Dots</string>
+    <string-array name="sky_dot_sizes">
+        <item>Fine</item>
+        <item>Classic</item>
+        <item>Bold</item>
+    </string-array>
+    <string name="sky_layout">Galaxy</string>
+    <string-array name="sky_layouts">
+        <item>Neat rows</item>
+        <item>Night sky</item>
+    </string-array>
+    <string name="settings_journal">Your journal</string>
 
     <!-- Photo and letter -->
     <string name="photo_hint">Dotilda keeps it small, in four greys.</string>

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
+import com.dotilda.app.data.SkyStyle
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -56,8 +58,17 @@ fun Entry.dotShape(today: LocalDate = LocalDate.now()): DotShape = when {
     }
 }
 
-/** Share of the cell a dot's radius takes: small enough that neighbours never touch. */
-const val DOT_FILL = 0.3f
+/** The look of the dots and of the Galaxy, chosen in Settings. */
+val LocalSkyStyle = staticCompositionLocalOf { SkyStyle() }
+
+/**
+ * In the night sky layout, how far a dot sits from its place, as a share of its cell: a fixed
+ * offset per date, so the sky never shifts from one look to the next.
+ */
+fun nightOffset(date: String): Offset {
+    val h = date.hashCode()
+    return Offset(((h and 0xFF) / 255f - 0.5f) * 0.5f, ((h shr 8 and 0xFF) / 255f - 0.5f) * 0.5f)
+}
 
 fun DrawScope.drawDot(shape: DotShape, center: Offset, radius: Float) {
     val outline = Stroke(width = maxOf(1f, radius * 0.22f))
@@ -151,9 +162,10 @@ fun DayDot(shape: DotShape, modifier: Modifier = Modifier, size: Dp = 72.dp) {
 @Composable
 fun MonthLine(month: YearMonth, entries: List<Entry>, today: LocalDate, modifier: Modifier = Modifier) {
     val shapes = entries.groupBy { it.date }.mapValues { it.value.first().dotShape(today) }
+    val lineFill = LocalSkyStyle.current.dots.line
     Canvas(modifier.fillMaxWidth().height(22.dp)) {
         val cell = size.width / 31
-        val radius = cell * 0.36f
+        val radius = cell * lineFill
         val y = radius + 1f
         for (day in 1..month.lengthOfMonth()) {
             val date = month.atDay(day)

@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -40,6 +41,7 @@ import com.dotilda.app.data.Entry
 import com.dotilda.app.data.Journal
 import com.dotilda.app.data.Trend
 import com.dotilda.app.data.answer
+import com.dotilda.app.data.choiceTallies
 import com.dotilda.app.data.weatherTrend
 import com.dotilda.app.data.wordCloud
 import com.mudita.mmd.components.text.TextMMD
@@ -53,33 +55,62 @@ import java.util.Locale
  * the words; then a line of yours and the contact sheet of photos.
  */
 @Composable
-fun ReviewScreen(journal: Journal, month: YearMonth, onOpenDay: (LocalDate) -> Unit, onBack: () -> Unit) {
-    val loaded by remember(month) { journal.entriesOf(month) }.collectAsState(initial = null)
+fun ReviewScreen(
+    journal: Journal,
+    first: YearMonth,
+    months: Int,
+    onOpenDay: (LocalDate) -> Unit,
+    onBack: () -> Unit,
+) {
+    val last = first.plusMonths(months - 1L)
+    val loaded by remember(first, months) { journal.entriesBetween(first.atDay(1), last.atEndOfMonth()) }.collectAsState(initial = null)
     val entries = loaded ?: return
+    val season = months > 1
+    // A month on two pages; a season on three, with its This-or-that tallies.
+    val pages: List<@Composable () -> Unit> = if (season) {
+        listOf(
+            { Weather(first, months, entries) },
+            { WordsAndChoices(journal, entries) },
+            { LineAndPhotos(entries, onOpenDay) },
+        )
+    } else {
+        listOf(
+            {
+                Weather(first, months, entries)
+                Spacer(Modifier.height(24.dp))
+                WordsAndChoices(journal, entries, choices = false)
+            },
+            { LineAndPhotos(entries, onOpenDay) },
+        )
+    }
     var page by rememberSaveable { mutableIntStateOf(0) }
-    val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, 1) }
+    val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, pages.lastIndex) }
     PageKeysEffect(turn)
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextMMD(
-                "${month.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)} ${month.year}",
+                periodTitle(first, last),
                 modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.headlineLarge,
+                style = if (season) MaterialTheme.typography.titleLarge else MaterialTheme.typography.headlineLarge,
             )
-            TextMMD("${page + 1} / 2", style = MaterialTheme.typography.labelMedium)
+            TextMMD("${page + 1} / ${pages.size}", style = MaterialTheme.typography.labelMedium)
         }
         Spacer(Modifier.height(16.dp))
-        Column(Modifier.weight(1f)) {
-            if (page == 0) WeatherAndWords(month, entries) else LineAndPhotos(entries, onOpenDay)
-        }
-        PagerRow(canPrevious = page > 0, canNext = page < 1, onPage = turn, onBack = onBack)
+        Column(Modifier.weight(1f)) { pages[page.coerceIn(0, pages.lastIndex)]() }
+        PagerRow(canPrevious = page > 0, canNext = page < pages.lastIndex, onPage = turn, onBack = onBack)
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+/** "September 2026", or "July – September 2026" for a season. */
+fun periodTitle(first: YearMonth, last: YearMonth): String {
+    fun name(m: YearMonth) = m.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+    return if (first == last) "${name(first)} ${first.year}" else "${name(first)} – ${name(last)} ${last.year}"
+}
+}
+
 @Composable
-private fun WeatherAndWords(month: YearMonth, entries: List<Entry>) {
+private fun Weather(first: YearMonth, months: Int, entries: List<Entry>) {
     val weather = entries.mapNotNull { e -> (e.answer() as? Answer.Weather)?.let { e.date to it.level } }
     val comment = stringArrayResource(R.array.review_comments)[weatherTrend(weather.map { it.second }).ordinal]
     DotildaBeside(Pose.Pleased, markSize = 32.dp) {
@@ -88,16 +119,29 @@ private fun WeatherAndWords(month: YearMonth, entries: List<Entry>) {
     Spacer(Modifier.height(24.dp))
     TextMMD(stringResource(R.string.review_weather), style = MaterialTheme.typography.labelMedium)
     Spacer(Modifier.height(8.dp))
-    // The frieze: each weather answer as a moon, at its day of the month.
-    Canvas(Modifier.fillMaxWidth().height(16.dp)) {
-        val cell = size.width / 31
-        val radius = cell * 0.4f
-        for ((date, level) in weather) {
-            val day = LocalDate.parse(date).dayOfMonth
-            drawDot(DotShape.Moon(level), Offset(cell * (day - 0.5f), size.height / 2), radius)
+    // The frieze: each weather answer as a moon, at its day of the month, one line per month.
+    for (k in 0 until months) {
+        val month = first.plusMonths(k.toLong())
+        if (months > 1) {
+            Spacer(Modifier.height(10.dp))
+            TextMMD(month.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH), style = MaterialTheme.typography.labelSmall)
+        }
+        Canvas(Modifier.fillMaxWidth().height(16.dp)) {
+            val cell = size.width / 31
+            val radius = cell * 0.4f
+            for ((date, level) in weather) {
+                val day = LocalDate.parse(date)
+                if (YearMonth.from(day) != month) continue
+                drawDot(DotShape.Moon(level), Offset(cell * (day.dayOfMonth - 0.5f), size.height / 2), radius)
+            }
         }
     }
-    Spacer(Modifier.height(24.dp))
+}
+
+/** The words of the period as a small cloud, and for a season the This-or-that tallies. */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun WordsAndChoices(journal: Journal, entries: List<Entry>, choices: Boolean = true) {
     val words = wordCloud(entries.mapNotNull { (it.answer() as? Answer.Word)?.word })
     if (words.isNotEmpty()) {
         TextMMD(stringResource(R.string.review_words), style = MaterialTheme.typography.labelMedium)
@@ -110,6 +154,21 @@ private fun WeatherAndWords(month: YearMonth, entries: List<Entry>) {
                     else -> MaterialTheme.typography.bodyMedium
                 }
                 TextMMD(word, style = style)
+            }
+        }
+    }
+    if (choices) {
+        val tallies = remember(entries) { choiceTallies(entries) }
+        val texts by produceState(emptyMap<String, String>(), tallies) {
+            value = tallies.keys.associateWith { id -> journal.question(id)?.text.orEmpty() }
+        }
+        if (tallies.isNotEmpty()) {
+            Spacer(Modifier.height(24.dp))
+            TextMMD(stringResource(R.string.review_choices), style = MaterialTheme.typography.labelMedium)
+            tallies.entries.take(3).forEach { (id, counts) ->
+                Spacer(Modifier.height(8.dp))
+                TextMMD(texts[id].orEmpty(), fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodySmall)
+                TextMMD(counts.joinToString("  ·  ") { (label, n) -> "$label $n" }, style = MaterialTheme.typography.titleMedium)
             }
         }
     }

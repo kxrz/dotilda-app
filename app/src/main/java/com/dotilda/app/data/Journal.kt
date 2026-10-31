@@ -46,6 +46,8 @@ class Journal(
     suspend fun previousAnswer(question: Question, today: LocalDate): Entry? =
         entries.previousAnswer(question.id, today.toString())
 
+    fun entriesBetween(from: LocalDate, to: LocalDate): Flow<List<Entry>> = entries.between(from.toString(), to.toString())
+
     fun entriesOfYear(year: Int): Flow<List<Entry>> = entries.between("$year-01-01", "$year-12-31")
 
     fun entriesOf(month: YearMonth): Flow<List<Entry>> =

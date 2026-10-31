@@ -58,7 +58,7 @@ fun TodayScreen(
     onSettings: () -> Unit,
     onJourneys: () -> Unit,
     onLetter: (date: String) -> Unit,
-    onReview: (YearMonth) -> Unit,
+    onReview: (first: YearMonth, months: Int) -> Unit,
     newVersion: String?,
     justUpdatedTo: String?,
     onUpdate: () -> Unit,
@@ -88,6 +88,9 @@ fun TodayScreen(
         // last month's review in the first days of a month, then versions.
         val letter by produceState<Entry?>(null) { value = journal.lettersReady(today).firstOrNull() }
         val lastMonth = month.minusMonths(1)
+        // In the first days of January, April, July and October: the season just ended, else the month.
+        val seasonStart = month.monthValue % 3 == 1
+        val lastSeason = month.minusMonths(3)
         val hasLastMonth by produceState(false) { value = journal.hasEntries(lastMonth) }
         val letterOpen = letter
         when {
@@ -95,10 +98,14 @@ fun TodayScreen(
                 stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).format(shortDate)),
                 Pose.Pleased,
             ) { onLetter(letterOpen.date) }
+            today.dayOfMonth <= 3 && hasLastMonth && seasonStart -> DotildaSays(
+                stringResource(R.string.review_season_ready),
+                Pose.Peering,
+            ) { onReview(lastSeason, 3) }
             today.dayOfMonth <= 3 && hasLastMonth -> DotildaSays(
                 stringResource(R.string.review_ready, lastMonth.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)),
                 Pose.Peering,
-            ) { onReview(lastMonth) }
+            ) { onReview(lastMonth, 1) }
             newVersion != null -> DotildaSays(stringResource(R.string.update_ready), Pose.Curious, onUpdate)
             justUpdatedTo != null -> DotildaSays(stringResource(R.string.just_updated, justUpdatedTo), Pose.Pleased)
         }
