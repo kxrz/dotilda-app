@@ -2,6 +2,8 @@
     <string name="app_name">Dotilda</string>
     <!-- The character, also in test builds (whose app name is "Dotilda dev"). -->
     <string name="dotilda">Dotilda</string>
+    <!-- Language tag of these strings: dates and the question bank follow it. Each translation sets its own. -->
+    <string name="app_locale">en</string>
 
     <!-- Welcome -->
     <string name="welcome_tagline">A question a day, a dot in your sky.</string>

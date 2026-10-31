@@ -34,7 +34,7 @@ private class JourneyFile(val journeys: List<Journey>)
 private val json = Json { ignoreUnknownKeys = true }
 
 fun loadJourneys(context: Context): List<Journey> {
-    val text = context.assets.open("journeys.json").bufferedReader().use { it.readText() }
+    val text = readLocalizedAsset(context, "journeys")
     return json.decodeFromString(JourneyFile.serializer(), text).journeys.map { journey ->
         journey.copy(questions = journey.questions.map { it.copy(journeyId = journey.id) })
     }

@@ -258,6 +258,7 @@ of use without a crash, and meets the criteria above.
 
 ## Languages
 
-The interface is in English for now, with every string in `res/values/strings.xml` so that other
-languages can follow. A language needs `res/values-<code>/strings.xml` and a translated question
-bank.
+The interface speaks English and Polish, following the phone's language; on a phone in another
+language it stays in English. A language needs `res/values-<code>/strings.xml` (with its
+`app_locale` tag, which dates and questions follow), and translated `questions-<code>.json` and
+`journeys-<code>.json` that keep every id, type and tag.

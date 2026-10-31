@@ -7,6 +7,16 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [Unreleased]
+
+### Added
+- Dotilda speaks Polish: on a phone set to Polish, every screen, the 229 questions and the four
+  journeys are in Polish, and so are the dates.
+
+### Changed
+- Dates (months, days in the Notebook, letters) follow the app's language instead of always
+  being in English.
+
 ## [0.5.0] - 2026-10-31
 
 ### Added

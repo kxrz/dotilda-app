@@ -114,8 +114,11 @@ branch, with its own README.
 
 ### Translations
 
-The interface is in English for now. A language is added with
-`app/src/main/res/values-<code>/strings.xml` and a translated question bank.
+The interface speaks English and Polish, following the phone's language. A language is added
+with `app/src/main/res/values-<code>/strings.xml` (including its `app_locale` tag, which dates
+and questions follow), `app/src/main/assets/questions-<code>.json` and `journeys-<code>.json`.
+The translated files keep every id, type, tag and Mirror group of the English ones:
+`TranslationsTest` checks it.
 
 ## Credits
 

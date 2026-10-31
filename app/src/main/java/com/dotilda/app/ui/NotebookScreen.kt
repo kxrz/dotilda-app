@@ -41,10 +41,6 @@ import com.dotilda.app.data.answer
 import com.mudita.mmd.components.divider.HorizontalDividerMMD
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Locale
-
-private val dayFormat = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.ENGLISH)
 
 /** The journal as a book: one page per entry, oldest first, opened at [startDate] or the last page. */
 @Composable
@@ -87,7 +83,7 @@ fun NotebookScreen(journal: Journal, startDate: String?, onBack: () -> Unit) {
 private fun NotebookPage(journal: Journal, entry: Entry, modifier: Modifier) {
     val question by produceState<Question?>(null, entry.questionId) { value = journal.question(entry.questionId) }
     Column(modifier) {
-        TextMMD(LocalDate.parse(entry.date).format(dayFormat), style = MaterialTheme.typography.titleLarge)
+        TextMMD(LocalDate.parse(entry.date).longTitle(appLocale()), style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             DayDot(entry.dotShape(), size = 20.dp)
@@ -122,7 +118,7 @@ private fun NotebookPage(journal: Journal, entry: Entry, modifier: Modifier) {
                 val today = remember { LocalDate.now() }
                 if (answer.sealedUntil > today.toString()) {
                     TextMMD(
-                        stringResource(R.string.letter_sealed_until, LocalDate.parse(answer.sealedUntil).format(dayFormat)),
+                        stringResource(R.string.letter_sealed_until, LocalDate.parse(answer.sealedUntil).longTitle(appLocale())),
                         style = MaterialTheme.typography.titleMedium,
                     )
                 } else {

@@ -1,0 +1,60 @@
+{
+  "journeys": [
+    {
+      "id": "slow",
+      "title": "7 dni, by zwolnić",
+      "description": "Tydzień małych przerw. Nic do naprawiania, tylko do zauważania.",
+      "constellation": "Powoli",
+      "questions": [
+        { "id": "j-slow-1", "type": "one_line", "text": "Co dziś działo się w biegu, choć mogło poczekać?" },
+        { "id": "j-slow-2", "type": "inner_weather", "text": "Zatrzymaj się na chwilę. Jaka pogoda w środku?" },
+        { "id": "j-slow-3", "type": "one_line", "text": "Co dziś działo się o połowę wolniej niż zwykle?" },
+        { "id": "j-slow-4", "type": "one_word", "text": "Jedno słowo o najcichszej minucie dnia." },
+        { "id": "j-slow-5", "type": "three_things", "text": "Trzy rzeczy, które widać dopiero po zwolnieniu." },
+        { "id": "j-slow-6", "type": "this_or_that", "text": "Dziś wieczorem: długa kolacja czy wcześnie spać?", "options": ["Kolacja", "Wcześnie spać"] },
+        { "id": "j-slow-7", "type": "one_line", "text": "Co zabierzesz z tego wolniejszego tygodnia?" }
+      ]
+    },
+    {
+      "id": "gratitude",
+      "title": "Wdzięczność",
+      "description": "Siedem dni małych podziękowań: ludziom, miejscom i zwykłym rzeczom.",
+      "constellation": "Dzięki",
+      "questions": [
+        { "id": "j-grat-1", "type": "one_line", "text": "Kto ostatnio zrobił dla Ciebie coś miłego?" },
+        { "id": "j-grat-2", "type": "three_things", "text": "Trzy zwykłe rzeczy, których by Ci brakowało, gdyby zniknęły." },
+        { "id": "j-grat-3", "type": "one_word", "text": "Jedno słowo o tym, co dziś dobrze zrobiło Twoje ciało." },
+        { "id": "j-grat-4", "type": "one_line", "text": "Które miejsce cieszy Cię samym swoim istnieniem?" },
+        { "id": "j-grat-5", "type": "one_line", "text": "Czego ktoś Cię kiedyś nauczył, co przydaje się do dziś?" },
+        { "id": "j-grat-6", "type": "this_or_that", "text": "Dziś więcej wdzięczności za ludzi czy za ciszę?", "options": ["Ludzie", "Cisza"] },
+        { "id": "j-grat-7", "type": "one_line", "text": "Napisz podziękowanie, na które nigdy nie było okazji." }
+      ]
+    },
+    {
+      "id": "unplugged",
+      "title": "Z dala od ekranu",
+      "description": "Pięć dni: trochę mniej ekranu, trochę więcej świata.",
+      "constellation": "Cisza",
+      "questions": [
+        { "id": "j-unp-1", "type": "one_line", "text": "Kiedy dziś ręka sięgnęła po ekran bez potrzeby?" },
+        { "id": "j-unp-2", "type": "one_line", "text": "Na co poszło dziś dziesięć minut zupełnie bez ekranu?" },
+        { "id": "j-unp-3", "type": "photo", "text": "Pokaż mi coś, co umknęłoby Ci z nosem w ekranie." },
+        { "id": "j-unp-4", "type": "inner_weather", "text": "Trochę mniej hałasu: jaka pogoda w środku?" },
+        { "id": "j-unp-5", "type": "one_line", "text": "Który mały nawyk z tych dni chcesz zatrzymać?" }
+      ]
+    },
+    {
+      "id": "season",
+      "title": "Podsumowanie pory roku",
+      "description": "Pięć wieczorów, by łagodnie spojrzeć na ostatnie trzy miesiące.",
+      "constellation": "Przemiana",
+      "questions": [
+        { "id": "j-sea-1", "type": "one_word", "text": "Ostatnie trzy miesiące w jednym słowie?" },
+        { "id": "j-sea-2", "type": "three_things", "text": "Trzy chwile z tej pory roku warte zachowania." },
+        { "id": "j-sea-3", "type": "one_line", "text": "Co wyszło lepiej, niż podpowiadały obawy?" },
+        { "id": "j-sea-4", "type": "one_line", "text": "Co chcesz zostawić za sobą razem z tą porą roku?" },
+        { "id": "j-sea-5", "type": "letter", "text": "Napisz do siebie na następną porę roku." }
+      ]
+    }
+  ]
+}
