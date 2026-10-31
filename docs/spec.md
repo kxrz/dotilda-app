@@ -22,7 +22,7 @@ Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, j
 
 **Les poses de Dotilda.** Sur e-ink, pas d'animation fluide : Dotilda change de pose d'un coup, comme une page qu'on tourne (un seul rafraîchissement). Quatre poses : neutre, lunettes au bout du nez (elle pose la question), lunettes de travers (une autre question, un brin malicieuse), petit sourire (c'est noté). Sur l'écran Done, elle remonte ses lunettes et sourit, en une seule étape, jamais en boucle.
 
-Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
+Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **Spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
 
 Domaine réservé : dotilda.com. Reste à vérifier : les handles réseaux et l'absence d'app homonyme sur le Play Store et F-Droid.
 
@@ -94,20 +94,20 @@ Neuf écrans, une navigation à plat : l'accueil mène à tout, chaque écran re
 | Écran | Contenu | Actions |
 | --- | --- | --- |
 | Today (accueil) | La ligne du mois en points, la question du jour, le parcours en cours | Répondre, autre question (3 max), ouvrir le carnet |
-| Answer | Question + saisie selon le type ; pour Mirror, la réponse d'il y a 30 jours | Valider, passer à spira avant d'écrire |
+| Answer | Question + saisie selon le type ; pour Mirror, la réponse d'il y a 30 jours | Valider, passer à Spira avant d'écrire |
 | Done | Le point du jour qui se remplit, constellation si parcours fini | Retour accueil |
 | Notebook | Entrées par mois, une page par jour, pagination | Lire, filtrer par type ou parcours |
 | Journeys | Parcours disponibles, en cours, terminés | Démarrer un parcours |
 | Galaxy | Toutes les années en points, constellations des parcours | Feuilleter les années, toucher un point pour relire le jour |
 | Review | Bilan du mois ou de la saison | Lire, exporter en image |
-| spira | Minute de respiration et minuteur | Lancer, régler |
+| Spira | Minute de respiration et minuteur | Lancer, régler |
 | Settings | Heure du rendez-vous, sauvegarde, export EPUB, à propos | Exporter, importer |
 
 Onboarding : un écran d'accueil où Dotilda se présente en trois promesses courtes (accessible ensuite via Settings > About Dotilda), le choix de l'heure du rappel, puis la première question tout de suite.
 
-## Module spira
+## Module Spira
 
-spira comble un manque réel du Kompakt (pas de minuteur ni de chrono en stock) et sert de sas avant d'écrire. Il vit dans Dotilda en v1 ; une sortie en app autonome se décidera selon l'usage.
+Spira comble un manque réel du Kompakt (pas de minuteur ni de chrono en stock) et sert de sas avant d'écrire. Il vit dans Dotilda en v1 ; une sortie en app autonome se décidera selon l'usage.
 
 - **Minute de respiration** : un cercle qui change de taille par paliers (inspire 4 s, expire 6 s), sans animation fluide : 3 états fixes, compatibles e-ink. Vibration légère à chaque changement.
 - **Minuteur** : durée réglable par gros boutons +1 / +5 min, alarme à la fin, fonctionne écran éteint.
@@ -178,7 +178,7 @@ En parallèle des sprints 1 et 2 : rédaction de la banque complète (plus de 20
    - Fait quand : une semaine d'usage réel sans bug, rappel reçu chaque jour à l'heure.
 3. ✅ **Sprint 2, carnet et galaxie** : Notebook paginé, galaxie de l'année et ligne du mois, encodage des formes de points ; formats Three things et Mirror.
    - Fait quand : chaque entrée remplit le bon point avec la bonne forme, et les jours vides restent discrets.
-4. ✅ **Sprint 3, spira et sauvegarde** (v0.4.0) : module spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
+4. ✅ **Sprint 3, Spira et sauvegarde** (v0.4.0) : module Spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
    - Fait quand : restauration complète d'un journal sur un second appareil.
 5. ✅ **Sprint 4, profondeur** (v0.5.0) : parcours et constellations, bilan mensuel, Photo of the day avec tramage, Letter to future me.
    - Fait quand : un parcours de 7 jours se termine en traçant sa constellation.

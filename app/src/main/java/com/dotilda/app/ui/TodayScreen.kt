@@ -119,12 +119,12 @@ private fun Answered(journal: Journal, entry: Entry, modifier: Modifier) {
     LaunchedEffect(entry.questionId) { question = journal.question(entry.questionId) }
 
     Column(modifier) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            DotildaMark(size = 40.dp, pose = Pose.Pleased)
-            Spacer(Modifier.width(12.dp))
-            DayDot(entry.dotShape(), size = 24.dp)
-            Spacer(Modifier.width(12.dp))
-            TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
+        DotildaBeside(Pose.Pleased, markSize = 40.dp) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                DayDot(entry.dotShape(), size = 20.dp)
+                Spacer(Modifier.width(10.dp))
+                TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
+            }
         }
         Spacer(Modifier.height(32.dp))
         TextMMD(question?.text.orEmpty(), style = MaterialTheme.typography.bodyMedium)
@@ -161,9 +161,11 @@ private fun Open(journal: Journal, today: LocalDate, onAnswer: () -> Unit, modif
             )
             Spacer(Modifier.height(10.dp))
         }
-        DotildaAsks(pose = if (state.changes % 2 == 1) Pose.Curious else Pose.Peering)
-        Spacer(Modifier.height(20.dp))
-        TextMMD(question.text, style = MaterialTheme.typography.headlineLarge)
+        DotildaQuestion(
+            question.text,
+            style = MaterialTheme.typography.headlineLarge,
+            pose = if (state.changes % 2 == 1) Pose.Curious else Pose.Peering,
+        )
         Spacer(Modifier.weight(1f))
 
         ButtonMMD(onClick = onAnswer, modifier = Modifier.fillMaxWidth()) {

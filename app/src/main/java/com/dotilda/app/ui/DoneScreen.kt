@@ -54,25 +54,18 @@ fun DoneScreen(journal: Journal, onBack: () -> Unit) {
     ) {
         Spacer(Modifier.weight(1f))
         DotildaMark(size = 56.dp, pose = pose)
-        Spacer(Modifier.height(20.dp))
-        if (finished != null) {
-            Stars(finished.dates.size)
-            Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(6.dp))
+        val words = if (finished != null) {
             val count = stringArrayResource(R.array.number_words).getOrNull(finished.dates.size) ?: finished.dates.size.toString()
-            TextMMD(
-                stringResource(R.string.constellation_named, count, count.lowercase(), finished.name),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-            )
+            stringResource(R.string.constellation_named, count, count.lowercase(), finished.name)
         } else {
-            entry?.let { DayDot(it.dotShape(), size = 96.dp) }
-            Spacer(Modifier.height(28.dp))
-            TextMMD(
-                stringResource(R.string.noted),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineLarge,
-            )
+            stringResource(R.string.noted)
         }
+        SpeechBubble(tail = Tail.Up, tailAt = null) {
+            TextMMD(words, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleLarge)
+        }
+        Spacer(Modifier.height(28.dp))
+        if (finished != null) Stars(finished.dates.size) else entry?.let { DayDot(it.dotShape(), size = 88.dp) }
         Spacer(Modifier.height(32.dp))
         MonthLine(month, monthEntries, today)
         Spacer(Modifier.weight(1f))

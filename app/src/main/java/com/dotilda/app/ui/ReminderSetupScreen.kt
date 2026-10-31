@@ -41,10 +41,8 @@ fun ReminderSetupScreen(prefs: Prefs, onDone: () -> Unit) {
     }
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
-        DotildaAsks(pose = Pose.Curious)
-        Spacer(Modifier.height(20.dp))
-        TextMMD(stringResource(R.string.setup_question), style = MaterialTheme.typography.headlineLarge)
-        Spacer(Modifier.height(8.dp))
+        DotildaQuestion(stringResource(R.string.setup_question), style = MaterialTheme.typography.headlineLarge, pose = Pose.Curious)
+        Spacer(Modifier.height(12.dp))
         TextMMD(stringResource(R.string.setup_hint), style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.height(28.dp))
         ReminderTime(minutes) { minutes = it }

@@ -82,9 +82,7 @@ fun ReviewScreen(journal: Journal, month: YearMonth, onOpenDay: (LocalDate) -> U
 private fun WeatherAndWords(month: YearMonth, entries: List<Entry>) {
     val weather = entries.mapNotNull { e -> (e.answer() as? Answer.Weather)?.let { e.date to it.level } }
     val comment = stringArrayResource(R.array.review_comments)[weatherTrend(weather.map { it.second }).ordinal]
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        DotildaMark(size = 32.dp, pose = Pose.Pleased)
-        Spacer(Modifier.width(12.dp))
+    DotildaBeside(Pose.Pleased, markSize = 32.dp) {
         TextMMD(comment, fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodyLarge)
     }
     Spacer(Modifier.height(24.dp))

@@ -148,7 +148,7 @@ class ScreensTest {
         seed(question = "ol-001")
         launch()
         waitFor("Answer")
-        click("spira")
+        click("Spira")
         waitFor("One minute", substring = true)
         shot("13-spira-breathe")
         click("Timer")

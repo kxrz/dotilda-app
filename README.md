@@ -42,7 +42,7 @@ An app by readme.club, made and maintained by LesWWW.
 | **Journeys** | Short series, one question a day: 7 days to slow down, Gratitude, Unplugged, Season review. Finish one and its days light up as a named constellation. |
 | **Looking back** | The month in review: Dotilda's word on your weather, your words, a line of yours and your photos. |
 | **Photos and letters** | A photo of the day, kept small in four greys. Letters to your future self, sealed for up to a year. |
-| **spira** | A breathing minute before writing, a timer that rings with the screen off, and a stopwatch, which the Kompakt lacks. |
+| **Spira** | A breathing minute before writing, a timer that rings with the screen off, and a stopwatch, which the Kompakt lacks. |
 | **Made for e-ink** | Pure black on white, large type, no animation, no scrolling. Dotilda changes pose in a single step, like turning a page. |
 
 **Coming next:** seasonal reviews and the year as an EPUB book to read on your e-reader.
@@ -52,7 +52,7 @@ An app by readme.club, made and maintained by LesWWW.
   <img src="docs/screenshots/answer-weather.png" width="180" alt="The inner weather, from sunny to stormy">
   <img src="docs/screenshots/answer-mirror.png" width="180" alt="A Mirror question, with what was written a month ago">
   <img src="docs/screenshots/notebook.png" width="180" alt="The notebook, one page per day">
-  <img src="docs/screenshots/spira-breathe.png" width="180" alt="spira, a breathing minute">
+  <img src="docs/screenshots/spira-breathe.png" width="180" alt="Spira, a breathing minute">
 </p>
 
 ## Privacy

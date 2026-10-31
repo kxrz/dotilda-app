@@ -24,7 +24,7 @@ The release workflow publishes the section of the tagged version as the GitHub r
 ## [0.4.0] - 2026-10-30
 
 ### Added
-- spira: a breathing minute (in for four, out for six, with a light tap at each step), a timer
+- Spira: a breathing minute (in for four, out for six, with a light tap at each step), a timer
   that rings even with the screen off, and a stopwatch. "Breathe first" before writing.
 - Export your whole journal to a zip file, and import it on another device.
 - A gentler start: after the welcome page, choose when Dotilda comes by, then answer your

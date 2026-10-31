@@ -116,8 +116,8 @@
     <string name="setup_remind_me">Remind me at this time</string>
     <string name="setup_no_reminder">No reminder, I\'ll come myself</string>
 
-    <!-- spira -->
-    <string name="spira">spira</string>
+    <!-- Spira -->
+    <string name="spira">Spira</string>
     <string name="spira_breathe">Breathe</string>
     <string name="spira_timer">Timer</string>
     <string name="spira_stopwatch">Stopwatch</string>
@@ -134,7 +134,7 @@
     <string name="timer_rings_at">Rings at %1$s, even with the screen off.</string>
     <string name="timer_start">Start</string>
     <string name="timer_cancel">Cancel the timer</string>
-    <string name="spira_timer_channel">spira timer</string>
+    <string name="spira_timer_channel">Spira timer</string>
     <string name="spira_timer_done">Time\'s up.</string>
     <string name="stopwatch_fast">Show the seconds</string>
     <string name="stopwatch_lap">Lap %1$d · %2$s</string>

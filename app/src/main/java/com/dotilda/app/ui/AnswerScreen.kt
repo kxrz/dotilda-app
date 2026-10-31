@@ -88,9 +88,7 @@ fun AnswerScreen(journal: Journal, onSaved: () -> Unit, onBreathe: () -> Unit, o
     }
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
-        DotildaAsks()
-        Spacer(Modifier.height(16.dp))
-        TextMMD(q.text, style = MaterialTheme.typography.titleLarge)
+        DotildaQuestion(q.text, style = MaterialTheme.typography.titleLarge)
         // The formats that ask for writing can start with a breathing minute.
         if (q.type in setOf(QuestionType.ONE_LINE, QuestionType.MIRROR, QuestionType.THREE_THINGS)) {
             TextLink(stringResource(R.string.breathe_first), onBreathe)

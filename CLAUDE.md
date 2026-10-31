@@ -25,7 +25,7 @@ over plain Material 3 ones.
   at most once per moment, never looping (e.g. glasses pushed up on the Done screen).
 - Pure black on white. No gradients. Large type (MMD defaults).
 - No Google Play Services, no Firebase, no analytics, no network calls besides the updater.
-- No background services. One exact daily alarm only, plus the spira timer the user starts.
+- No background services. One exact daily alarm only, plus the Spira timer the user starts.
 - Never punish missed days: no streak counters, no red states.
 - All user data stays local. Export/import must always work.
 - The dot galaxy is drawn with Compose Canvas, redrawn once per entry, never animated.
