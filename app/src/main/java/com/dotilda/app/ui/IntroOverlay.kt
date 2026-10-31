@@ -58,7 +58,8 @@ fun IntroOverlay(intro: Intro, onDismiss: () -> Unit) {
                 TextMMD(stringResource(intro.title), style = MaterialTheme.typography.headlineLarge)
             }
             Spacer(Modifier.height(16.dp))
-            TextMMD(stringResource(intro.text), style = MaterialTheme.typography.bodyLarge)
+            // Gives way first on a tiny screen with huge text, so "Got it" always stays in sight.
+            TextMMD(stringResource(intro.text), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f, fill = false))
             Spacer(Modifier.height(20.dp))
             ButtonMMD(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
                 TextMMD(stringResource(R.string.intro_ok))
