@@ -65,7 +65,7 @@ The page follows AIDA, in this order:
 | Desire | `#sky` | The year of dots, Dotilda's voice, six promises, what comes next. |
 | Action | `#get` | Beta status, three ways to install (Kompakt, other e-readers, Obtainium), download, the Kompakt. |
 | Action | `#faq` | The questions people ask before installing (also in JSON-LD as `FAQPage`). |
-| Action | `#feedback` | Where beta testers talk back: GitHub issues, and Reddit once its link is set. |
+| Action | `#feedback` | Where beta testers talk back: GitHub issues, or a message on Reddit. |
 
 ## Content and languages
 
@@ -91,8 +91,8 @@ The build adds `/<code>`, the language links in the header, the `hreflang` tags 
 entry. Keys you leave out show in English until translated.
 
 - Keep placeholders such as `{n}`, `{v}`, `{date}` and `{size}` as they are.
-- Feedback links live in `Landing.astro` (`feedback`): GitHub issues, and Reddit, hidden while
-  its URL is empty. The Obtainium button opens `obtainium://add/<repo>` through Obtainium's
+- Feedback links live in `Landing.astro` (`feedback`): GitHub issues and a Reddit profile to
+  message (a link is hidden while its URL is empty). The Obtainium button opens `obtainium://add/<repo>` through Obtainium's
   redirect page.
 - **The app is in English for now.** Each translated file sets `appLanguage`, a short notice shown
   with an `EN` tag in the hero and next to the download steps; English leaves it empty.
