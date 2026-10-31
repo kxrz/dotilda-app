@@ -40,13 +40,17 @@ npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 | `src/layouts/Layout.astro` | `<head>`: title, description, canonical, `hreflang`, share tags, JSON-LD. |
 | `src/components/Landing.astro` | The page itself, top to bottom (see below). |
 | `src/pages/brand.astro` | `/brand`, the brand kit (English only), linked discreetly from the footer. |
+| `src/pages/stats.astro` | `/stats`, usage from GitHub Releases' counters. Unlisted (see Stats). |
 | `src/components/DotildaMark.astro` | Dotilda as drawn in the app (`ui/DotildaMark.kt`), with her four poses. |
 | `src/components/Words.astro` | Splits a heading into words for the motion; screen readers get the sentence whole. |
 | `src/scripts/landing.ts` | The hero sky and ink drop, the month line, "Try one", the year of dots, the latest release, the motion, analytics. |
-| `src/scripts/brand.ts` | `/brand`: the theme switch and tap-to-copy colour codes. |
+| `src/scripts/brand.ts` | `/brand`: tap-to-copy colour codes, analytics. |
+| `src/scripts/stats.ts` | `/stats`: reads the GitHub releases, draws totals, bars and table. No analytics. |
+| `src/scripts/theme-toggle.ts` | The light / dark switch of `/brand` and `/stats`. |
 | `src/glyphs.ts` | The dot shapes (answer, weather, photo, mirror, letter), shared by both pages. |
 | `src/styles/global.css` | Tokens, `@font-face`, layout. |
-| `src/styles/brand.css` | Layout of `/brand`. |
+| `src/styles/brand.css` | Layout of `/brand` (also used by `/stats`). |
+| `src/styles/stats.css` | Layout of `/stats`. |
 | `src/pages/sitemap.xml.ts` | Sitemap, one entry per language, plus `/brand`. |
 | `src/pages/llms.txt.ts` | `/llms.txt`, a plain-text summary for AI answer engines, built from `en.json`. |
 | `src/assets/leswww-logo.svg` | LesWWW wordmark, from the LesWWW brand repo. |
@@ -158,6 +162,18 @@ It exists in English only: no `hreflang`, no FAQ data. Its files are drawn by `n
 from the app's geometry (`ui/DotildaMark.kt`, `ic_launcher_foreground.xml`); the glasses and the
 smile are cut out with a mask, so every SVG works on any background. When the app's drawing
 of Dotilda changes, update `DotildaMark.astro` and `scripts/brand.mjs`, then run `npm run brand`.
+
+### Stats
+
+`/stats` shows how much Dotilda is used without the app counting anything: the browser reads
+`api.github.com/repos/kxrz/dotilda-app/releases` (no token, 60 reads an hour per address; the page
+says so when GitHub refuses). APK downloads = `dotilda.apk` (people and the in-app updater) +
+`dotilda-x.y.z.apk` (manual downloads); update checks = `manifest.json`, read at each launch while
+that release is the latest, so it measures activity, not people. Pre-releases are left out; the
+numbers are GitHub's, raw (about one per file and version is the developer's test).
+The page is unlisted: not in the navigation, the sitemap or `llms.txt`, with `noindex`, and it
+loads no analytics. `check:fit` checks it too, with a long fake release list.
+GitHub keeps totals only; a daily snapshot (Vercel Cron + Blob) would be needed for a curve.
 
 ## Motion
 

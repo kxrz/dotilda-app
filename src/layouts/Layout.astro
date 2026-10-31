@@ -3,8 +3,8 @@ import '../styles/global.css';
 import { locales, pathFor, t } from '../i18n';
 
 // The landing page in each language, or another page (path given) that exists in English only.
-interface Props { locale: string; path?: string; title?: string; description?: string }
-const { locale, path } = Astro.props;
+interface Props { locale: string; path?: string; title?: string; description?: string; noindex?: boolean }
+const { locale, path, noindex } = Astro.props;
 const s = t(locale);
 const site = Astro.site!.origin;
 const url = site + (path ?? pathFor(locale));
@@ -82,6 +82,7 @@ const jsonLd = {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content={description}>
+{noindex && <meta name="robots" content="noindex" />}
 <link rel="canonical" href={url}>
 {!path && locales.map(l => <link rel="alternate" hreflang={l} href={site + pathFor(l)} />)}
 {!path && <link rel="alternate" hreflang="x-default" href={site + '/'} />}

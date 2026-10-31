@@ -1,0 +1,73 @@
+---
+// /stats: how much Dotilda is used, from GitHub Releases' public download counters only.
+// The app counts nothing. Unlisted: not in the navigation, the sitemap or llms.txt, and noindex.
+// The browser reads the GitHub API itself (src/scripts/stats.ts); no analytics on this page.
+import Layout from '../layouts/Layout.astro';
+import DotildaMark from '../components/DotildaMark.astro';
+import { t } from '../i18n';
+import '../styles/brand.css';
+import '../styles/stats.css';
+
+const s = t('en');
+---
+<Layout locale="en" path="/stats" title="Dotilda · Stats" description="Dotilda's downloads and update checks, from GitHub Releases' public counters." noindex>
+<div class="wrap">
+
+<header class="top">
+  <a class="brand" href="/" aria-label="Dotilda, home">
+    <DotildaMark class="brand-mark" />
+    Dotilda <small>{s.nav.by}</small>
+  </a>
+  <nav class="top" aria-label="Stats">
+    <a href="/">Home</a>
+    <button class="theme-toggle" type="button" id="themeToggle" aria-label={s.nav.toDark} data-to-dark={s.nav.toDark} data-to-light={s.nav.toLight}>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main class="bk st">
+<div class="bk-intro stack">
+  <p class="label">Stats</p>
+  <h1>Counted by GitHub, not by the app.</h1>
+  <p class="lede">Dotilda sends nothing about you. These numbers are GitHub Releases' public download counters, read just now by your browser.</p>
+</div>
+
+<p class="st-status" id="status" aria-live="polite">Reading GitHub…</p>
+<noscript><p class="st-status">This page reads GitHub's counters in your browser, so it needs JavaScript.</p></noscript>
+
+<div id="data" hidden>
+  <dl class="st-big">
+    <div><dt>APK downloads</dt><dd id="totalApk">–</dd><p>Installs and updates, every version.</p></div>
+    <div><dt>Update checks</dt><dd id="totalChecks">–</dd><p>App launches that looked for a new version. Not people: one phone counts many times.</p></div>
+    <div><dt>Versions</dt><dd id="versions">–</dd><p id="latest"></p></div>
+  </dl>
+
+  <p class="note st-caveat">Counters add up from each release's publication: GitHub keeps no history. After each release the developer fetches the APK and the manifest once to test it, so about one per file and version is ours. Pre-releases (a tag with a dash) are left out.</p>
+
+  <section class="stack" aria-labelledby="perVersion">
+    <p class="label">By version</p>
+    <h2 id="perVersion">APK downloads per version</h2>
+    <ol class="st-bars plain" id="bars"></ol>
+    <div class="st-table">
+      <table>
+        <thead><tr><th scope="col">Version</th><th scope="col">Published</th><th scope="col" class="num">APK downloads</th><th scope="col" class="num">Update checks</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="note">An update check counts for the version that was the latest at the time: the app reads the newest release's manifest at each launch, unless its user turned the check off.</p>
+  </section>
+</div>
+
+<p class="note st-read" id="readAt"></p>
+</main>
+
+<footer class="st-foot">
+  <p class="fine">This page sets no cookies and counts no visits. Source: <a href="https://github.com/kxrz/dotilda-app/releases">GitHub Releases</a>.</p>
+</footer>
+</div>
+<script>
+  import '../scripts/stats.ts';
+</script>
+</Layout>

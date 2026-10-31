@@ -1,0 +1,27 @@
+/* /stats: three big numbers, bars, a table. Ink on paper, no motion. */
+.st h1{max-width:16ch}
+.st-status{font-size:1.05rem;padding-block:1rem 3rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.st-error{color:var(--ink)}
+.st-big{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin:0;padding-block:2.5rem;border-top:1px solid var(--rule)}
+.st-big>div{display:grid;gap:.4rem;align-content:start}
+.st-big dt{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.st-big dd{margin:0;font-family:var(--display);font-size:clamp(3rem,9vw,5.5rem);line-height:1;font-variant-numeric:tabular-nums}
+.st-big p{font-size:.9rem;color:var(--ink-2);max-width:18rem}
+@media (max-width:760px){.st-big{grid-template-columns:1fr;gap:1.75rem}}
+.st-caveat{padding-bottom:1rem}
+/* One grid for all rows, so every bar starts and ends at the same place whatever the label widths. */
+.st-bars{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.55rem .75rem;align-items:center;margin-top:1rem}
+.st-bars li{display:contents}
+.st-v,.st-n{font-family:var(--mono);font-size:.85rem}
+.st-n{text-align:right;font-variant-numeric:tabular-nums}
+.st-bars svg{width:100%;height:14px;display:block}
+.st-bars .bar{fill:var(--ink)}
+.st-bars .track{fill:var(--rule)}
+.st-table{margin-top:2rem;overflow-x:auto}
+.st-table table{width:100%;border-collapse:collapse;font-size:.95rem}
+.st-table th,.st-table td{text-align:left;padding:.7rem .75rem .7rem 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+.st-table thead th{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-2);white-space:normal;vertical-align:bottom}
+.st-table tbody th{font-family:var(--mono);font-weight:400}
+.st-table .num{text-align:right;font-variant-numeric:tabular-nums;padding-right:0;padding-left:.75rem}
+.st-read{padding-block:2rem 1rem}
+.st-foot{grid-template-columns:1fr}

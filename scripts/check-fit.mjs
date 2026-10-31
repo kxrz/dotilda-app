@@ -16,15 +16,24 @@ const screens = [
 
 const origin = new URL(url).origin;
 const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
-const pages = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => origin + new URL(m[1]).pathname);
+// Unlisted pages (not in the sitemap) are checked too.
+const pages = [...[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(m[1]).pathname), '/stats'].map(p => origin + p);
 
+// /stats gets a long, busy release list (40 versions, six-figure counters) to test its widths.
+const releases = JSON.stringify(Array.from({ length: 40 }, (_, i) => ({
+  tag_name: `v1.${39 - i}.10`, published_at: new Date(Date.UTC(2027, 0, 40 - i)).toISOString(), prerelease: false, draft: false,
+  assets: [{ name: 'dotilda.apk', download_count: 123456 * (i + 1) }, { name: `dotilda-1.${39 - i}.10.apk`, download_count: 999 },
+    { name: 'manifest.json', download_count: 987654 }],
+})));
 const browser = await chromium.launch();
 let failed = 0;
 for (const pageUrl of pages) {
 console.log(`\n${new URL(pageUrl).pathname}`);
 for (const [name, width, height] of screens) {
   const page = await browser.newPage({ viewport: { width, height }, reducedMotion: 'reduce' });
-  await page.route('https://api.github.com/**', r => r.fulfill({ status: 404, body: '{}' }));
+  await page.route('https://api.github.com/**', r => r.request().url().includes('/releases?')
+    ? r.fulfill({ status: 200, contentType: 'application/json', body: releases })
+    : r.fulfill({ status: 404, body: '{}' }));
   await page.route('**/_vercel/**', r => r.fulfill({ status: 200, body: '' }));
   await page.goto(pageUrl);
   await page.evaluate(() => document.fonts.ready);
