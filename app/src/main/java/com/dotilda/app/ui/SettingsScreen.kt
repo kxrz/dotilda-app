@@ -65,6 +65,7 @@ fun SettingsScreen(
     journal: Journal,
     onAbout: () -> Unit,
     onDiagnostics: () -> Unit,
+    onLicenses: () -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -162,6 +163,7 @@ fun SettingsScreen(
                 HorizontalDividerMMD(thickness = 1.dp)
                 Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                     TextLink(stringResource(R.string.about), onAbout)
+                    TextLink(stringResource(R.string.licenses), onLicenses)
                     TextLink(stringResource(R.string.diagnostics), onDiagnostics)
                 }
             } else {

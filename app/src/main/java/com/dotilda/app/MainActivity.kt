@@ -23,6 +23,7 @@ import com.dotilda.app.data.SkyStyle
 import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
 import com.dotilda.app.ui.JourneysScreen
+import com.dotilda.app.ui.LicensesScreen
 import com.dotilda.app.ui.ReviewScreen
 import com.dotilda.app.ui.NotebookScreen
 import com.dotilda.app.ui.PageKeys
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
                     val parent = when (screen) {
                         Screen.Welcome, Screen.Today, Screen.Setup -> null
                         Screen.Spira -> if (spiraFromAnswer) Screen.Answer else Screen.Today
-                        Screen.About, Screen.Diagnostics, Screen.Update -> Screen.Settings
+                        Screen.About, Screen.Diagnostics, Screen.Update, Screen.Licenses -> Screen.Settings
                         Screen.Notebook -> notebookFrom
                         Screen.Review -> reviewFrom
                         else -> Screen.Today
@@ -152,9 +153,11 @@ class MainActivity : ComponentActivity() {
                             journal = app.journal,
                             onAbout = { screen = Screen.About },
                             onDiagnostics = { screen = Screen.Diagnostics },
+                            onLicenses = { screen = Screen.Licenses },
                             onBack = back,
                         )
                         Screen.Diagnostics -> DiagnosticsScreen(app, lastKey.value, onBack = back)
+                        Screen.Licenses -> LicensesScreen(onBack = back)
                     }
                 }
             }
@@ -180,4 +183,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Journeys, Review, Settings, Update, Diagnostics }
+private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Journeys, Review, Settings, Update, Diagnostics, Licenses }

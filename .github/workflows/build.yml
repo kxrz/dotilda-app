@@ -29,6 +29,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       # The screenshot tests run in their own workflow.
       - run: ./gradlew testDebugUnitTest --tests "com.dotilda.app.data.*" --tests "com.dotilda.app.update.*" assembleDebug
+      # Room writes its schema to app/schemas on every build: it must already be committed,
+      # so that every schema change comes with a migration.
+      - name: Room schema committed
+        run: |
+          if [ -n "$(git status --porcelain -- app/schemas)" ]; then
+            git status --porcelain -- app/schemas
+            echo "::error::The Room schema changed: commit app/schemas and write the migration"; exit 1
+          fi
       - name: APK size
         run: ls -l app/build/outputs/apk/debug/*.apk
       - uses: actions/upload-artifact@v4

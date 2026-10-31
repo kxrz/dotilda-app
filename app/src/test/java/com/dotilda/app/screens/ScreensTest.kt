@@ -163,6 +163,9 @@ class ScreensTest {
         click("Settings")
         waitFor("Daily reminder")
         shot("16-settings")
+        click("Licences")
+        waitFor("Apache", substring = true)
+        shot("30-licenses")
     }
 
     @Test

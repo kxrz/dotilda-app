@@ -70,8 +70,9 @@ size (Robolectric + Roborazzi). The Screenshots workflow pushes the PNGs to `scr
 look at them before and after any visual change.
 
 ## Room schema
-`ksp` writes the schema to `app/schemas/` on a local build: commit it, every schema change
-needs a migration from the first public release on.
+The schema lives in `app/schemas/` (version 2, as shipped since 0.3.0). The build writes it
+again; CI fails if it changed without being committed. Any schema change needs a version bump
+and a `Migration`, tested, because people's journals are in there.
 
 ## Definition of done per sprint
 Installs via Mudita Center, runs on the test Kompakt, no crash over a full day of use,

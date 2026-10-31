@@ -223,4 +223,8 @@
         <item>Nocne niebo</item>
     </string-array>
     <string name="settings_journal">Twój dziennik</string>
+    <string name="licenses">Licencje</string>
+    <string name="no_crash">Brak, wszystko w porządku</string>
+    <string name="crash_export">Eksportuj raport o awarii</string>
+    <string name="crash_clear">Wyczyść</string>
 </resources>

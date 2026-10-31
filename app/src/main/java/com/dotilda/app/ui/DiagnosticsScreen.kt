@@ -22,7 +22,15 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import android.content.ActivityNotFoundException
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.runtime.rememberCoroutineScope
+import com.dotilda.app.CrashLog
 import com.dotilda.app.DotildaApp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import com.dotilda.app.R
 import com.mudita.mmd.components.buttons.ButtonMMD
 import com.mudita.mmd.components.divider.HorizontalDividerMMD
@@ -36,6 +44,14 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
     val metrics = context.resources.displayMetrics
     val bounds = context.getSystemService(WindowManager::class.java).maximumWindowMetrics.bounds
     var count by remember { mutableStateOf<Int?>(null) }
+    var crash by remember { mutableStateOf(CrashLog.read(context)) }
+    val scope = rememberCoroutineScope()
+    val saveCrash = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
+        val text = crash
+        if (uri != null && text != null) {
+            scope.launch(Dispatchers.IO) { context.contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) } }
+        }
+    }
     LaunchedEffect(Unit) {
         app.bankReady.await()
         count = app.db.questionDao().count()
@@ -50,6 +66,8 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
         "Viewport" to "${config.screenWidthDp} × ${config.screenHeightDp} dp",
         "Questions" to (count?.toString() ?: "…"),
         "Last key" to (lastKey ?: stringResource(R.string.press_a_button)),
+        // The first line after the header is the error itself.
+        "Last crash" to (crash?.lines()?.getOrNull(1)?.removePrefix("When: ")?.take(16) ?: stringResource(R.string.no_crash)),
     )
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
@@ -61,6 +79,21 @@ fun DiagnosticsScreen(app: DotildaApp, lastKey: String?, onBack: () -> Unit) {
                 TextMMD(value, style = MaterialTheme.typography.bodyMedium)
             }
             HorizontalDividerMMD(thickness = 1.dp)
+        }
+        if (crash != null) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                TextLink(stringResource(R.string.crash_export), {
+                    try {
+                        saveCrash.launch("dotilda-crash.txt")
+                    } catch (e: ActivityNotFoundException) {
+                        // No file picker: the report stays here; nothing else to do.
+                    }
+                })
+                TextLink(stringResource(R.string.crash_clear), {
+                    CrashLog.clear(context)
+                    crash = null
+                })
+            }
         }
         Spacer(Modifier.weight(1f))
         ButtonMMD(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
