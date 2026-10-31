@@ -18,7 +18,8 @@
     "sky": "Twoje niebo",
     "get": "Pobierz Dotildę",
     "sections": "Sekcje",
-    "language": "Język"
+    "language": "Język",
+    "faq": "Pytania"
   },
   "hero": {
     "label": "Codzienny dziennik na e‑papier · publiczna beta",
@@ -96,10 +97,9 @@
         "text": "Trzy małe zwycięstwa w tym tygodniu."
       },
       {
-        "shape": "circled",
+        "shape": "square",
         "name": "Zdjęcie dnia",
-        "text": "Rastrowane w czterech odcieniach szarości.",
-        "soon": true
+        "text": "Małe, w czterech odcieniach szarości."
       },
       {
         "shape": "double",
@@ -107,10 +107,9 @@
         "text": "To samo pytanie co 30 dni."
       },
       {
-        "shape": "diamond",
+        "shape": "sealed",
         "name": "List w przyszłość",
-        "text": "Zapieczętowany do wybranej daty.",
-        "soon": true
+        "text": "Zapieczętowany do wybranej daty."
       }
     ],
     "soon": "wkrótce"
@@ -122,15 +121,15 @@
     "quotes": [
       {
         "text": "Jesteś. Twoje niebo zachowało Twoje miejsce.",
-        "who": "Dotilda, po kilku dniach przerwy"
+        "who": "Dotilda, po tygodniu przerwy"
       },
       {
-        "text": "Zanosi się na burzę. Zalecana herbata.",
-        "who": "W dzień burzy w środku"
+        "text": "Siedem dni, siedem kropek. Nazwę ją Powoli.",
+        "who": "Na koniec ścieżki"
       },
       {
-        "text": "To była minuta. Pięknie oddychane.",
-        "who": "Po minucie oddechu ze spirą"
+        "text": "Pochmurny początek, słoneczny koniec. Całkiem nieźle.",
+        "who": "Podsumowując miesiąc"
       }
     ],
     "months": [
@@ -147,11 +146,12 @@
       "Lis",
       "Gru"
     ],
-    "aria": "Przykładowy rok w kropkach, od stycznia do dziś, z kilkoma spokojnymi dniami.",
+    "aria": "Przykładowy rok w kropkach, od stycznia do dziś, z kilkoma spokojnymi dniami i jedną konstelacją w marcu.",
     "legend": {
       "answer": "odpowiedź",
       "quiet": "spokojny dzień",
-      "today": "dziś"
+      "today": "dziś",
+      "journey": "— ukończona ścieżka: „7 dni, by zwolnić”"
     }
   },
   "promises": [
@@ -165,7 +165,7 @@
     },
     {
       "title": "Spojrzenie wstecz",
-      "text": "Czytaj każdy dzień w Notebooku, oglądaj cały rok w Galaxy i odnajduj własne słowa dzięki pytaniom Mirror."
+      "text": "Czytaj każdy dzień w Notebooku, oglądaj cały rok w Galaxy, wracaj do każdego miesiąca na dwóch stronach i pieczętuj listy w przyszłość."
     },
     {
       "title": "Spokojna z założenia",
@@ -173,7 +173,7 @@
     },
     {
       "title": "Najpierw oddech",
-      "text": "spira, minuta oddechu, a do tego minutnik i stoper, których brakuje w Kompakcie."
+      "text": "Spira, minuta oddechu, a do tego minutnik i stoper, których brakuje w Kompakcie."
     },
     {
       "title": "Darmowa, na zawsze",
@@ -183,30 +183,33 @@
   "get": {
     "label": "Pobierz Dotildę",
     "title": "Dziś wieczorem ma dla Ciebie pytanie.",
-    "steps": [
-      {
-        "title": "Pobierz plik APK",
-        "text": "Z GitHuba, zawsze najnowsza wersja. Aplikacja da znać, gdy pojawi się nowa."
-      },
-      {
-        "title": "Zainstaluj",
-        "text": "Przez Mudita Center na Kompakcie albo przez Obtainium na dowolnym czytniku z Androidem 11+."
-      },
-      {
-        "title": "Wybierz porę",
-        "text": "Dotilda zapuka raz dziennie, nigdy dwa razy."
-      }
-    ],
     "download": "Pobierz Dotildę",
     "downloadVersion": "Pobierz Dotildę {v}",
     "source": "Kod źródłowy",
     "changes": "Co nowego",
     "line": "Wersja {v} · {date} · {size} MB · Android 11+",
     "device": {
-      "aria": "Mudita Kompakt z prawdziwymi ekranami Dotildy (po angielsku): Today, pogoda w środku, kropka dnia i Galaxy."
+      "aria": "Mudita Kompakt z prawdziwymi ekranami Dotildy (po angielsku): Today, ukończona ścieżka, Galaxy i podsumowanie miesiąca."
     },
     "betaTag": "Beta",
-    "beta": "Dotilda jest w publicznej becie. Już działa na co dzień, nowe wersje przychodzą same, a Twój dziennik zostaje z wersji na wersję."
+    "beta": "Dotilda jest w publicznej becie. Już działa na co dzień, nowe wersje przychodzą same, a Twój dziennik zostaje z wersji na wersję.",
+    "ways": [
+      {
+        "title": "Na Mudita Kompakt",
+        "text": "Pobierz dotilda.apk na komputer, podłącz Kompakt kablem USB i prześlij na niego plik APK przez Mudita Center. Potwierdź instalację na telefonie."
+      },
+      {
+        "title": "Na innym czytniku z Androidem 11+",
+        "text": "Pobierz plik APK na czytnik albo skopiuj go przez USB. Otwórz go i zezwól na instalację z tego źródła, gdy Android o to poprosi."
+      },
+      {
+        "title": "Przez Obtainium",
+        "text": "Obtainium śledzi wydania i instaluje za Ciebie każdą nową wersję."
+      }
+    ],
+    "obtainium": "Dodaj do Obtainium",
+    "after": "Potem wybierz porę: Dotilda zapuka raz dziennie, nigdy dwa razy. Nowe wersje pojawiają się w Settings.",
+    "adb": "Z komputera przez adb:"
   },
   "footer": {
     "appBy": "Aplikacja od",
@@ -251,7 +254,7 @@
   ],
   "coming": {
     "label": "Wkrótce",
-    "text": "Ścieżki, które rysują konstelacje, podsumowania miesiąca, zdjęcie dnia rastrowane w czterech odcieniach szarości, zapieczętowane listy w przyszłość i Twój rok jako książka EPUB."
+    "text": "Podsumowania pór roku i cały Twój rok jako książka EPUB, z niebem roku na okładce."
   },
   "inside": {
     "label": "W aplikacji · publiczna beta",
@@ -263,25 +266,78 @@
         "caption": "Today: kropki miesiąca i pytanie dnia."
       },
       {
-        "src": "weather",
-        "caption": "Pogoda w środku, od słońca do burzy."
+        "src": "journeys",
+        "caption": "Ścieżki: kilka dni wokół jednego tematu."
       },
       {
-        "src": "done",
-        "caption": "Zapisane: kropka dnia się wypełnia."
-      },
-      {
-        "src": "notebook",
-        "caption": "Notebook, jedna strona na dzień."
+        "src": "constellation",
+        "caption": "Ukończona ścieżka staje się konstelacją z nazwą."
       },
       {
         "src": "galaxy",
         "caption": "Galaxy: cały rok na jednym ekranie."
       },
       {
+        "src": "review",
+        "caption": "Podsumowanie miesiąca, ze słowem od Dotildy."
+      },
+      {
+        "src": "letter",
+        "caption": "List w przyszłość, zapieczętowany na miesiące."
+      },
+      {
+        "src": "photo",
+        "caption": "Zdjęcie dnia, małe, w czterech odcieniach szarości."
+      },
+      {
         "src": "spira",
-        "caption": "spira: minuta oddechu przed pisaniem."
+        "caption": "Spira: minuta oddechu przed pisaniem."
       }
     ]
+  },
+  "faq": {
+    "label": "Pytania",
+    "title": "Zanim zainstalujesz.",
+    "items": [
+      {
+        "q": "Na jakich urządzeniach działa?",
+        "a": "Na każdym urządzeniu z Androidem 11 lub nowszym. Dotilda powstała z myślą o ekranie e‑papierowym Mudita Kompakt i działa też na innych czytnikach z Androidem."
+      },
+      {
+        "q": "Gdzie trafia mój dziennik?",
+        "a": "Nigdzie. Zostaje na Twoim urządzeniu, bez konta. Wyeksportuj go, kiedy chcesz, do pliku zip (czytelny JSON i Twoje zdjęcia, do odczytania bez aplikacji)."
+      },
+      {
+        "q": "Czy potrzebny jest internet?",
+        "a": "Nie. Jedyne połączenie to sprawdzanie aktualizacji na GitHubie, które nie wysyła nic o Tobie i można je wyłączyć w Settings."
+      },
+      {
+        "q": "Jak aktualizować?",
+        "a": "Dotilda sama daje znać, gdy nowa wersja jest gotowa, i instaluje ją z Settings. Przez Obtainium aktualizacje też docierają."
+      },
+      {
+        "q": "A jeśli zmienię telefon?",
+        "a": "Wyeksportuj dziennik w Settings, skopiuj plik zip na nowe urządzenie, zainstaluj tam Dotildę i zaimportuj go. Kropki, zdjęcia i konstelacje przechodzą razem z nim."
+      },
+      {
+        "q": "Czy to naprawdę za darmo?",
+        "a": "Tak. Bez zakupów, bez subskrypcji, bez reklam, bez konta. Kod jest otwarty, na licencji Apache 2.0."
+      },
+      {
+        "q": "W jakich językach?",
+        "a": "Na razie aplikacja jest po angielsku. Kolejne języki są w drodze."
+      },
+      {
+        "q": "Co tu znaczy beta?",
+        "a": "Dotilda już działa na co dzień, a nowe wersje pojawiają się często. Niektóre rzeczy mogą się jeszcze zmienić albo zepsuć: daj znać, to bardzo pomaga."
+      }
+    ]
+  },
+  "feedback": {
+    "label": "Beta testerzy",
+    "title": "Powiedz Dotildzie, co o niej myślisz.",
+    "text": "Błąd, pomysł, pytanie, które Cię rozśmieszyło: każde słowo pomaga kolejnej wersji.",
+    "github": "Zgłoś to na GitHubie",
+    "reddit": "Porozmawiaj na Reddicie"
   }
 }

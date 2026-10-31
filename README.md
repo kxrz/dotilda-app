@@ -53,10 +53,19 @@ npm run og         # redraw the share images (see Share images)
 | `scripts/og.mjs` | The share image generator (`npm run og`). |
 | `vercel.json` | Build settings, security headers (strict CSP), caching. |
 
-The page follows AIDA, in this order: **hero** (Dotilda asks, you answer), **pause** (one huge
-sentence to slow down), **ritual** (three steps, "Try one", the eight dot shapes), **inside the app** (six real screens), **your sky**
-(the year of dots, Dotilda's voice, six promises, what comes next), **get Dotilda** (three steps, the download, the
-Kompakt), footer (readme.club, LesWWW).
+The page follows AIDA, in this order:
+
+| | Section | What it does |
+| --- | --- | --- |
+| Attention | hero | Dotilda asks; the visitor answers and watches a dot land in the year. |
+| Interest | `#ritual` | The ritual in three steps. |
+| Interest | `#inside` | Eight real screens of the released app. |
+| Interest | `#shapes` | The eight ways to answer, and "Try one" for a few more questions. |
+| Desire | `.pause` | One huge sentence, to slow down. |
+| Desire | `#sky` | The year of dots, Dotilda's voice, six promises, what comes next. |
+| Action | `#get` | Beta status, three ways to install (Kompakt, other e-readers, Obtainium), download, the Kompakt. |
+| Action | `#faq` | The questions people ask before installing (also in JSON-LD as `FAQPage`). |
+| Action | `#feedback` | Where beta testers talk back: GitHub issues, and Reddit once its link is set. |
 
 ## Content and languages
 
@@ -82,6 +91,9 @@ The build adds `/<code>`, the language links in the header, the `hreflang` tags 
 entry. Keys you leave out show in English until translated.
 
 - Keep placeholders such as `{n}`, `{v}`, `{date}` and `{size}` as they are.
+- Feedback links live in `Landing.astro` (`feedback`): GitHub issues, and Reddit, hidden while
+  its URL is empty. The Obtainium button opens `obtainium://add/<repo>` through Obtainium's
+  redirect page.
 - **The app is in English for now.** Each translated file sets `appLanguage`, a short notice shown
   with an `EN` tag in the hero and next to the download steps; English leaves it empty.
   The Kompakt mockup shows the app's real screen, so `get.device` stays in English (translate
@@ -102,11 +114,12 @@ greys, as on the e-ink screen. To refresh them after a release:
 
 ```bash
 git fetch origin screenshots/main
-for f in 03-today:today 05-answer-weather:weather 06-done:done 11-notebook:notebook 12-galaxy:galaxy 13-spira-breathe:spira; do
+for f in 03-today:today 17-journeys:journeys 25-done-constellation:constellation 12-galaxy:galaxy \
+         18-review-weather:review 20-answer-letter:letter 21-answer-photo:photo 13-spira-breathe:spira; do
   git show origin/screenshots/main:${f%%:*}.png > /tmp/${f##*:}.png
 done
 python3 -c "from PIL import Image; import sys
-for n in sys.argv[1:]: Image.open(f'/tmp/{n}.png').convert('L').quantize(colors=16).save(f'public/app/{n}.png', optimize=True)" today weather done notebook galaxy spira
+for n in sys.argv[1:]: Image.open(f'/tmp/{n}.png').convert('L').quantize(colors=16).save(f'public/app/{n}.png', optimize=True)" today journeys constellation galaxy review letter photo spira
 ```
 
 Use only screens from `screenshots/main` (the released app), never from a feature branch.
@@ -142,7 +155,8 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
 | Inside the app | Each real screen arrives with its own e-ink blink. |
-| Get Dotilda | Steps slide in from their numbers; the Kompakt turns through real screens (Today, inner weather, Done, Galaxy) every 4.5 s, each with a full e-ink refresh, only while it is in view. |
+| FAQ | Questions settle one after the other. |
+| Get Dotilda | Install ways slide in from their numbers; the Kompakt turns through real screens (Today, a finished journey, Galaxy, month review) every 4.5 s, each with a full e-ink refresh, only while it is in view. |
 
 - Dotilda changes pose in one step, as in the app, never with a tween.
 - Reduced motion: people who ask for it get the complete page, still, and the hero still works.

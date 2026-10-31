@@ -182,6 +182,7 @@ const year = today.getFullYear();
 $('#skyYear').textContent = String(year);
 let seed = 7;
 const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const journey = [9, 10, 11, 12, 13, 14, 15]; // March: "7 days to slow down", a finished journey
 type Day = { m: number; d: number; kind: string };
 const days: Day[] = [];
 for (let m = 0; m < 12; m++) {
@@ -192,9 +193,11 @@ for (let m = 0; m < 12; m++) {
     if (date > today) continue;
     days.push({
       m, d,
+      // Only what the released app draws: answers, inner weather, Mirror, photos (squares),
+      // letters (diamonds), quiet days, and a journey's constellation.
       kind: +date === +today ? 'today'
-        // Only what the app draws today: answers, inner weather, Mirror, quiet days.
-        : r < .13 ? 'quiet' : r < .25 ? 'weather' + w : r < .28 ? 'mirror' : 'full',
+        : m === 2 && journey.includes(d) ? 'full'
+        : r < .13 ? 'quiet' : r < .25 ? 'weather' + w : r < .28 ? 'mirror' : r < .31 ? 'photo' : r < .315 ? 'letter' : 'full',
     });
   }
 }
@@ -215,6 +218,18 @@ function drawSky() {
   const at = (m: number, d: number) => [(d - 1) * cell + cell / 2, m * cell + cell / 2];
   const shown = Math.round(sky.shown);
 
+  // The journey's constellation: a fine thread through its days, behind the dots,
+  // reaching each day as it is inked.
+  const linked = journey.filter(d => { const i = days.findIndex(x => x.m === 2 && x.d === d); return i >= 0 && i < shown; });
+  if (linked.length > 1) {
+    const [x0, y] = at(2, linked[0]), [x1] = at(2, linked[linked.length - 1]);
+    g.strokeStyle = ink;
+    g.lineWidth = Math.max(1, R * .3);
+    g.beginPath();
+    g.moveTo(x0, y);
+    g.lineTo(x1, y);
+    g.stroke();
+  }
 
   days.slice(0, shown).forEach(({ m, d, kind }) => {
     const [x, y] = at(m, d);
@@ -226,6 +241,13 @@ function drawSky() {
     else if (kind === 'today') { g.fillStyle = todayColor; dot(R, true); }
     else if (kind === 'full') dot(R, true);
     else if (kind === 'mirror') { dot(R * .55, false); dot(R * 1.05, false); }
+    else if (kind === 'photo') g.fillRect(x - R * .8, y - R * .8, R * 1.6, R * 1.6);
+    else if (kind === 'letter') {
+      g.beginPath();
+      g.moveTo(x, y - R * 1.1); g.lineTo(x + R * .9, y); g.lineTo(x, y + R * 1.1); g.lineTo(x - R * .9, y);
+      g.closePath();
+      g.fill();
+    }
     else {
       // Inner weather as a moon phase: 0 sunny (full) .. 4 stormy (ring).
       const p = +kind.slice(7), r = R * .85;
@@ -346,6 +368,10 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
 
   // Promises settle quietly, the only plain fade on the page.
   gsap.from('[data-anim="promise"]', { autoAlpha: 0, y: 14, ...calm, stagger: .08, scrollTrigger: onEnter('.promises') });
+
+  // FAQ: the questions settle one after the other; feedback buttons follow.
+  gsap.from('[data-anim="faq"]', { autoAlpha: 0, y: 12, ...calm, stagger: .07, scrollTrigger: onEnter('.faq') });
+  gsap.from('[data-anim="feedback"]', { autoAlpha: 0, y: 12, ...calm, scrollTrigger: onEnter('#feedback .actions') });
 
   // Get Dotilda: the steps slide in from their numbers, then the buttons.
   gsap.timeline({ scrollTrigger: onEnter('.how') })

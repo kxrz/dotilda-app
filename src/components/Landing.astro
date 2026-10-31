@@ -8,6 +8,10 @@ interface Props { locale: string }
 const { locale } = Astro.props;
 const s = t(locale);
 const repo = 'https://github.com/kxrz/dotilda-app';
+// One tap adds Dotilda to Obtainium (the redirect page opens the obtainium:// link on Android).
+const obtainium = `https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/${repo}`;
+// Where beta testers talk back. Leave reddit empty to hide its link.
+const feedback = { github: `${repo}/issues/new`, reddit: '' };
 
 // What the browser script needs, as data (the CSP runs no inline script).
 const pageData = {
@@ -21,9 +25,9 @@ const pageData = {
 const glyphs: Record<string, string> = {
   full: '<circle cx="11" cy="11" r="6" fill="currentColor"/>',
   half: '<circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 5a6 6 0 0 1 0 12z" fill="currentColor"/>',
-  circled: '<circle cx="11" cy="11" r="4" fill="currentColor"/><circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+  square: '<rect x="6" y="6" width="10" height="10" fill="currentColor"/>',
   double: '<circle cx="11" cy="11" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="11" cy="11" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"/>',
-  diamond: '<path d="M11 3l7 8-7 8-7-8z" fill="currentColor"/>',
+  sealed: '<path d="M11 3.5l6.5 7.5-6.5 7.5-6.5-7.5z" fill="none" stroke="currentColor" stroke-width="1.5"/>',
 };
 ---
 <a class="skip" href="#ritual">{s.nav.skip}</a>
@@ -37,6 +41,7 @@ const glyphs: Record<string, string> = {
   <nav class="top" aria-label={s.nav.sections}>
     <a class="hide-s" href="#ritual">{s.nav.ritual}</a>
     <a class="hide-s" href="#sky">{s.nav.sky}</a>
+    <a class="hide-s" href="#faq">{s.nav.faq}</a>
     <a class="nav-get" href="#get">{s.nav.get}</a>
     {locales.length > 1 && (
       <span class="langs" aria-label={s.nav.language}>
@@ -78,12 +83,7 @@ const glyphs: Record<string, string> = {
   </div>
 </div>
 
-<!-- A pause: one huge sentence, inked word by word as you scroll -->
-<section class="pause">
-  <p class="pause-text" data-pause><Words text={s.pause.text} /><DotildaMark pose="peering" class="pause-mark" /></p>
-</section>
-
-<!-- Interest -->
+<!-- Interest: the ritual in three steps -->
 <section id="ritual">
   <div class="stack">
     <p class="label">{s.ritual.label}</p>
@@ -99,36 +99,9 @@ const glyphs: Record<string, string> = {
       </div>
     ))}
   </div>
-
-  <div class="try">
-    <div class="try-head">
-      <DotildaMark pose="peering" class="try-mark" />
-      <p class="label">{s.try.label}</p>
-    </div>
-    <p class="q" id="tryQ" aria-live="polite">{s.try.first}</p>
-    <div class="actions">
-      <button class="btn" type="button" id="tryBtn">{s.try.another.replace('{n}', '3')}</button>
-    </div>
-    <p class="meta" id="tryMeta">{s.try.meta}</p>
-  </div>
-
-  <div class="shapes">
-    <div class="stack">
-      <p class="label">{s.shapes.label}</p>
-      <h2 data-split><Words text={s.shapes.title} /></h2>
-    </div>
-    <ul class="formats">
-      {s.shapes.formats.map(f => (
-        <li class="fmt" data-anim="fmt">
-          <svg viewBox="0 0 22 22" aria-hidden="true" set:html={glyphs[f.shape] ?? glyphs.full} />
-          <b>{f.name}{'soon' in f && f.soon && <em class="soon">{s.shapes.soon}</em>}</b><span>{f.text}</span>
-        </li>
-      ))}
-    </ul>
-  </div>
 </section>
 
-<!-- Interest, for real: screens of the current version, as they are on the Kompakt -->
+<!-- Interest: real screens of the released app, as they are on the Kompakt -->
 <section id="inside">
   <div class="stack">
     <p class="label">{s.inside.label}</p>
@@ -147,7 +120,40 @@ const glyphs: Record<string, string> = {
   </ul>
 </section>
 
-<!-- Desire -->
+<!-- Interest: the eight ways to answer, and a few more questions to try -->
+<section id="shapes">
+  <div class="stack">
+    <p class="label">{s.shapes.label}</p>
+    <h2 data-split><Words text={s.shapes.title} /></h2>
+  </div>
+  <ul class="formats">
+    {s.shapes.formats.map(f => (
+      <li class="fmt" data-anim="fmt">
+        <svg viewBox="0 0 22 22" aria-hidden="true" set:html={glyphs[f.shape] ?? glyphs.full} />
+        <b>{f.name}{'soon' in f && f.soon && <em class="soon">{s.shapes.soon}</em>}</b><span>{f.text}</span>
+      </li>
+    ))}
+  </ul>
+
+  <div class="try">
+    <div class="try-head">
+      <DotildaMark pose="peering" class="try-mark" />
+      <p class="label">{s.try.label}</p>
+    </div>
+    <p class="q" id="tryQ" aria-live="polite">{s.try.first}</p>
+    <div class="actions">
+      <button class="btn" type="button" id="tryBtn">{s.try.another.replace('{n}', '3')}</button>
+    </div>
+    <p class="meta" id="tryMeta">{s.try.meta}</p>
+  </div>
+</section>
+
+<!-- Desire: a pause, one huge sentence inked word by word as you scroll -->
+<section class="pause">
+  <p class="pause-text" data-pause><Words text={s.pause.text} /><DotildaMark pose="peering" class="pause-mark" /></p>
+</section>
+
+<!-- Desire: the year of dots, Dotilda's voice, the promises -->
 <section id="sky">
   <div class="split">
     <div class="stack">
@@ -169,6 +175,7 @@ const glyphs: Record<string, string> = {
       <span><i class="k-ink"></i>{s.sky.legend.answer}</span>
       <span><i class="k-ghost"></i>{s.sky.legend.quiet}</span>
       <span><i class="k-today"></i>{s.sky.legend.today}</span>
+      <span>{s.sky.legend.journey}</span>
     </figcaption>
   </figure>
 
@@ -178,7 +185,7 @@ const glyphs: Record<string, string> = {
   <p class="coming" data-anim="promise"><span class="label">{s.coming.label}</span> {s.coming.text}</p>
 </section>
 
-<!-- Action -->
+<!-- Action: install the beta -->
 <section id="get">
   <div class="get-grid">
   <div class="get">
@@ -189,14 +196,21 @@ const glyphs: Record<string, string> = {
     <p class="lang-note" data-anim="how"><span class="lang-pill">{s.get.betaTag}</span>{s.get.beta}</p>
     {s.appLanguage && <p class="lang-note" data-anim="how"><span class="lang-pill" lang="en">EN</span>{s.appLanguage}</p>}
     <ol class="how">
-      {s.get.steps.map(step => <li data-anim="how"><div><b>{step.title}</b><br><span>{step.text}</span></div></li>)}
+      {s.get.ways.map((way, i) => (
+        <li data-anim="how"><div>
+          <b>{way.title}</b><br><span>{way.text}</span>
+          {i === 2 && <><br><a class="quiet-link" href={obtainium}>{s.get.obtainium}</a></>}
+        </div></li>
+      ))}
     </ol>
+    <p class="after" data-anim="how">{s.get.after}</p>
     <div class="actions" data-anim="actions">
       <a class="btn solid" id="dl" href={`${repo}/releases/latest/download/dotilda.apk`}>{s.get.download}</a>
       <a class="btn" href={repo}>{s.get.source}</a>
       <a class="quiet-link" id="changes" href={`${repo}/releases/latest`}>{s.get.changes}</a>
     </div>
     <p class="dev" id="release">{s.get.fallback}</p>
+    <p class="dev">{s.get.adb} <code>adb install dotilda.apk</code></p>
   </div>
   <div class="kompakt" role="img" aria-label={s.get.device.aria} data-anim="device">
     <span class="k-btn k-left" aria-hidden="true"></span>
@@ -208,7 +222,7 @@ const glyphs: Record<string, string> = {
         <svg viewBox="0 0 20 10"><rect x=".6" y=".6" width="16" height="8.8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2.4" y="2.4" width="10" height="5.2" rx=".6"/><rect x="17.6" y="3.4" width="1.6" height="3.2" rx=".6"/></svg>
       </div>
       <div class="shots">
-        {['today', 'weather', 'done', 'galaxy'].map((src, i) => <img src={`/app/${src}.png`} width="479" height="750" alt="" class:list={[{ on: i === 0 }]} decoding="async">)}
+        {['today', 'constellation', 'galaxy', 'review'].map((src, i) => <img src={`/app/${src}.png`} width="479" height="750" alt="" class:list={[{ on: i === 0 }]} decoding="async">)}
       </div>
       <span class="flash" aria-hidden="true"></span>
     </div>
@@ -218,6 +232,32 @@ const glyphs: Record<string, string> = {
       <svg viewBox="0 0 24 24"><path d="M9 5v5M9 14v5M15 5v5M15 14v5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
     </div>
   </div>
+  </div>
+</section>
+
+<!-- Action: the questions people ask before installing -->
+<section id="faq">
+  <div class="stack">
+    <p class="label">{s.faq.label}</p>
+    <h2 data-split><Words text={s.faq.title} /></h2>
+  </div>
+  <div class="faq">
+    {s.faq.items.map(item => (
+      <details data-anim="faq"><summary>{item.q}</summary><p>{item.a}</p></details>
+    ))}
+  </div>
+</section>
+
+<!-- Action: beta testers talk back -->
+<section id="feedback">
+  <div class="stack">
+    <p class="label">{s.feedback.label}</p>
+    <h2 data-split><Words text={s.feedback.title} /></h2>
+    <p class="lede">{s.feedback.text}</p>
+  </div>
+  <div class="actions" data-anim="feedback">
+    <a class="btn" href={feedback.github}>{s.feedback.github}</a>
+    {feedback.reddit && <a class="btn" href={feedback.reddit}>{s.feedback.reddit}</a>}
   </div>
 </section>
 </main>

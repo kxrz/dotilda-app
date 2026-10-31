@@ -17,7 +17,8 @@
     "sky": "Your sky",
     "get": "Get Dotilda",
     "sections": "Sections",
-    "language": "Language"
+    "language": "Language",
+    "faq": "Questions"
   },
   "hero": {
     "label": "Daily journaling for e‑ink · public beta",
@@ -95,10 +96,9 @@
         "text": "Three small wins this week."
       },
       {
-        "shape": "circled",
+        "shape": "square",
         "name": "Photo of the day",
-        "text": "Dithered in four greys.",
-        "soon": true
+        "text": "Kept small, in four greys."
       },
       {
         "shape": "double",
@@ -106,10 +106,9 @@
         "text": "The same question, 30 days apart."
       },
       {
-        "shape": "diamond",
+        "shape": "sealed",
         "name": "Letter to future me",
-        "text": "Sealed until the date you choose.",
-        "soon": true
+        "text": "Sealed until the date you choose."
       }
     ],
     "soon": "soon"
@@ -121,15 +120,15 @@
     "quotes": [
       {
         "text": "There you are. Your sky kept your place.",
-        "who": "Dotilda, after a few days away"
+        "who": "Dotilda, after a week away"
       },
       {
-        "text": "Thunder about. Tea is advised.",
-        "who": "On a stormy day inside"
+        "text": "Seven days, seven dots. I’ll call this one Slow.",
+        "who": "At the end of a journey"
       },
       {
-        "text": "That’s a minute. Well breathed.",
-        "who": "After a breathing minute with spira"
+        "text": "A cloudy start, a sunny finish. Rather well done.",
+        "who": "Looking back on the month"
       }
     ],
     "months": [
@@ -146,11 +145,12 @@
       "Nov",
       "Dec"
     ],
-    "aria": "A sample year of dots, from January to today, with a few quiet days.",
+    "aria": "A sample year of dots, from January to today, with a few quiet days and one constellation in March.",
     "legend": {
       "answer": "an answer",
       "quiet": "a quiet day",
-      "today": "today"
+      "today": "today",
+      "journey": "— a finished journey: “7 days to slow down”"
     }
   },
   "promises": [
@@ -164,7 +164,7 @@
     },
     {
       "title": "Look back",
-      "text": "Reread every day in the Notebook, see the year in the Galaxy, and meet your own words again with Mirror questions."
+      "text": "Reread every day in the Notebook, see the year in the Galaxy, read each month again on two pages, and seal letters to your future self."
     },
     {
       "title": "Quiet by design",
@@ -172,7 +172,7 @@
     },
     {
       "title": "Breathe first",
-      "text": "spira, a one‑minute breathing break, plus a timer and stopwatch the Kompakt lacks."
+      "text": "Spira, a one‑minute breathing break, plus a timer and stopwatch the Kompakt lacks."
     },
     {
       "title": "Free, for good",
@@ -182,20 +182,6 @@
   "get": {
     "label": "Get Dotilda",
     "title": "Tonight, she has a question for you.",
-    "steps": [
-      {
-        "title": "Download the APK",
-        "text": "From GitHub, always the latest version. The app tells you when a new one is out."
-      },
-      {
-        "title": "Install it",
-        "text": "With Mudita Center on the Kompakt, or Obtainium on any Android 11+ e‑reader."
-      },
-      {
-        "title": "Pick your hour",
-        "text": "Dotilda will knock once a day, never twice."
-      }
-    ],
     "download": "Download Dotilda",
     "downloadVersion": "Download Dotilda {v}",
     "source": "Read the source",
@@ -203,10 +189,27 @@
     "line": "Version {v} · {date} · {size} MB · Android 11+",
     "fallback": "Android 11+ · com.dotilda.app",
     "device": {
-      "aria": "A Mudita Kompakt showing real screens of Dotilda: Today, the inner weather, the day’s dot and the Galaxy."
+      "aria": "A Mudita Kompakt showing real screens of Dotilda: Today, a finished journey, the Galaxy and the month in review."
     },
     "betaTag": "Beta",
-    "beta": "Dotilda is in public beta. It works every day already, new versions arrive on their own, and your journal is kept from one version to the next."
+    "beta": "Dotilda is in public beta. It works every day already, new versions arrive on their own, and your journal is kept from one version to the next.",
+    "ways": [
+      {
+        "title": "On the Mudita Kompakt",
+        "text": "Download dotilda.apk on your computer, connect the Kompakt with its USB cable and send the APK to it with Mudita Center. Confirm the install on the phone."
+      },
+      {
+        "title": "On another Android 11+ e‑reader",
+        "text": "Download the APK on the reader, or copy it over USB. Open it, and allow installs from this source when Android asks."
+      },
+      {
+        "title": "With Obtainium",
+        "text": "Obtainium follows the releases and installs each new version for you."
+      }
+    ],
+    "obtainium": "Add to Obtainium",
+    "after": "Then pick your hour: Dotilda will knock once a day, never twice. New versions are offered in Settings.",
+    "adb": "With a computer and adb:"
   },
   "footer": {
     "appBy": "An app by",
@@ -252,7 +255,7 @@
   "appLanguage": "",
   "coming": {
     "label": "Coming next",
-    "text": "Journeys that draw constellations, monthly reviews, a photo of the day dithered in four greys, sealed letters to your future self, and your year as an EPUB book."
+    "text": "Season reviews, and your whole year as an EPUB book, with the year’s sky on the cover."
   },
   "inside": {
     "label": "Inside the app · public beta",
@@ -264,25 +267,78 @@
         "caption": "Today: the month’s dots and the question of the day."
       },
       {
-        "src": "weather",
-        "caption": "The inner weather, from sunny to stormy."
+        "src": "journeys",
+        "caption": "Journeys: a few days on one theme."
       },
       {
-        "src": "done",
-        "caption": "Noted: the day’s dot fills in."
-      },
-      {
-        "src": "notebook",
-        "caption": "The Notebook, one page per day."
+        "src": "constellation",
+        "caption": "A finished journey becomes a named constellation."
       },
       {
         "src": "galaxy",
         "caption": "The Galaxy: the whole year on one screen."
       },
       {
+        "src": "review",
+        "caption": "The month in review, with Dotilda’s word."
+      },
+      {
+        "src": "letter",
+        "caption": "A letter to your future self, sealed for months."
+      },
+      {
+        "src": "photo",
+        "caption": "Photo of the day, kept small, in four greys."
+      },
+      {
         "src": "spira",
-        "caption": "spira: a breathing minute before writing."
+        "caption": "Spira: a breathing minute before writing."
       }
     ]
+  },
+  "faq": {
+    "label": "Questions",
+    "title": "Before you install.",
+    "items": [
+      {
+        "q": "Which devices does it work on?",
+        "a": "Any device with Android 11 or later. Dotilda is designed for the Mudita Kompakt’s e‑ink screen and works on other Android e‑readers too."
+      },
+      {
+        "q": "Where does my journal go?",
+        "a": "Nowhere. It stays on your device, with no account. Export it whenever you like to a zip file (plain JSON and your photos, readable without the app)."
+      },
+      {
+        "q": "Does it need the internet?",
+        "a": "No. The only connection is the update check against GitHub, which sends nothing about you and can be turned off in Settings."
+      },
+      {
+        "q": "How do I update?",
+        "a": "Dotilda tells you herself when a new version is ready, and installs it from Settings. With Obtainium, updates arrive there too."
+      },
+      {
+        "q": "What if I change phones?",
+        "a": "Export your journal from Settings, copy the zip to the new device, install Dotilda there and import it. Your dots, photos and constellations come along."
+      },
+      {
+        "q": "Is it really free?",
+        "a": "Yes. No purchase, no subscription, no ads, no account. The code is open source under Apache 2.0."
+      },
+      {
+        "q": "Which languages?",
+        "a": "English for now. Other languages will follow."
+      },
+      {
+        "q": "What does beta mean here?",
+        "a": "Dotilda already works every day, and new versions come often. Some things may still change or break: tell us, it helps a lot."
+      }
+    ]
+  },
+  "feedback": {
+    "label": "Beta testers",
+    "title": "Tell Dotilda what you think.",
+    "text": "A bug, an idea, a question that made you smile: every word helps the next version.",
+    "github": "Open an issue on GitHub",
+    "reddit": "Talk about it on Reddit"
   }
 }

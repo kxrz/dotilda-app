@@ -18,7 +18,8 @@
     "sky": "Votre ciel",
     "get": "Obtenir Dotilda",
     "sections": "Sections",
-    "language": "Langue"
+    "language": "Langue",
+    "faq": "Questions"
   },
   "hero": {
     "label": "Journal quotidien pour l’e‑ink · bêta publique",
@@ -96,10 +97,9 @@
         "text": "Trois petites victoires cette semaine."
       },
       {
-        "shape": "circled",
+        "shape": "square",
         "name": "Photo du jour",
-        "text": "Tramée en quatre gris.",
-        "soon": true
+        "text": "Gardée petite, en quatre gris."
       },
       {
         "shape": "double",
@@ -107,10 +107,9 @@
         "text": "La même question, à 30 jours d’écart."
       },
       {
-        "shape": "diamond",
+        "shape": "sealed",
         "name": "Lettre au futur",
-        "text": "Scellée jusqu’à la date choisie.",
-        "soon": true
+        "text": "Scellée jusqu’à la date choisie."
       }
     ],
     "soon": "bientôt"
@@ -122,15 +121,15 @@
     "quotes": [
       {
         "text": "Vous voilà. Votre ciel vous a gardé votre place.",
-        "who": "Dotilda, après quelques jours d’absence"
+        "who": "Dotilda, après une semaine d’absence"
       },
       {
-        "text": "Orage en vue. Une tasse de thé s’impose.",
-        "who": "Un jour d’orage intérieur"
+        "text": "Sept jours, sept points. J’appellerai celle-ci Lenteur.",
+        "who": "À la fin d’un parcours"
       },
       {
-        "text": "Voilà une minute. Bien respiré.",
-        "who": "Après une minute de respiration avec spira"
+        "text": "Un début nuageux, une fin ensoleillée. Plutôt bien mené.",
+        "who": "En relisant le mois"
       }
     ],
     "months": [
@@ -147,11 +146,12 @@
       "Nov",
       "Déc"
     ],
-    "aria": "Une année d’exemple en points, de janvier à aujourd’hui, avec quelques jours calmes.",
+    "aria": "Une année d’exemple en points, de janvier à aujourd’hui, avec quelques jours calmes et une constellation en mars.",
     "legend": {
       "answer": "une réponse",
       "quiet": "un jour calme",
-      "today": "aujourd’hui"
+      "today": "aujourd’hui",
+      "journey": "— un parcours terminé : « 7 jours pour ralentir »"
     }
   },
   "promises": [
@@ -165,7 +165,7 @@
     },
     {
       "title": "Se relire",
-      "text": "Relisez chaque jour dans le Notebook, voyez l’année dans la Galaxy, et retrouvez vos propres mots avec les questions Mirror."
+      "text": "Relisez chaque jour dans le Notebook, voyez l’année dans la Galaxy, relisez chaque mois sur deux pages, et scellez des lettres à votre futur vous."
     },
     {
       "title": "Calme par nature",
@@ -173,7 +173,7 @@
     },
     {
       "title": "Respirer d’abord",
-      "text": "spira, une minute de respiration, plus le minuteur et le chronomètre qui manquent au Kompakt."
+      "text": "Spira, une minute de respiration, plus le minuteur et le chronomètre qui manquent au Kompakt."
     },
     {
       "title": "Gratuite, pour de bon",
@@ -183,30 +183,33 @@
   "get": {
     "label": "Obtenir Dotilda",
     "title": "Ce soir, elle a une question pour vous.",
-    "steps": [
-      {
-        "title": "Télécharger l’APK",
-        "text": "Depuis GitHub, toujours la dernière version. L’app vous prévient quand une nouvelle sort."
-      },
-      {
-        "title": "L’installer",
-        "text": "Avec Mudita Center sur le Kompakt, ou Obtainium sur toute liseuse Android 11+."
-      },
-      {
-        "title": "Choisir votre heure",
-        "text": "Dotilda frappera une fois par jour, jamais deux."
-      }
-    ],
     "download": "Télécharger Dotilda",
     "downloadVersion": "Télécharger Dotilda {v}",
     "source": "Voir le code source",
     "changes": "Nouveautés",
     "line": "Version {v} · {date} · {size} Mo · Android 11+",
     "device": {
-      "aria": "Un Mudita Kompakt qui montre de vrais écrans de Dotilda (en anglais) : Today, la météo intérieure, le point du jour et la Galaxy."
+      "aria": "Un Mudita Kompakt qui montre de vrais écrans de Dotilda (en anglais) : Today, un parcours terminé, la Galaxy et le bilan du mois."
     },
     "betaTag": "Bêta",
-    "beta": "Dotilda est en bêta publique. Elle fonctionne déjà au quotidien, les nouvelles versions arrivent d’elles-mêmes, et votre journal est conservé d’une version à l’autre."
+    "beta": "Dotilda est en bêta publique. Elle fonctionne déjà au quotidien, les nouvelles versions arrivent d’elles-mêmes, et votre journal est conservé d’une version à l’autre.",
+    "ways": [
+      {
+        "title": "Sur le Mudita Kompakt",
+        "text": "Téléchargez dotilda.apk sur votre ordinateur, branchez le Kompakt avec son câble USB et envoyez-lui l’APK avec Mudita Center. Confirmez l’installation sur le téléphone."
+      },
+      {
+        "title": "Sur une autre liseuse Android 11+",
+        "text": "Téléchargez l’APK sur la liseuse, ou copiez-le en USB. Ouvrez-le, et autorisez les installations depuis cette source quand Android le demande."
+      },
+      {
+        "title": "Avec Obtainium",
+        "text": "Obtainium suit les versions publiées et installe chaque nouvelle version pour vous."
+      }
+    ],
+    "obtainium": "Ajouter à Obtainium",
+    "after": "Choisissez ensuite votre heure : Dotilda frappera une fois par jour, jamais deux. Les nouvelles versions vous sont proposées dans Settings.",
+    "adb": "Avec un ordinateur et adb :"
   },
   "footer": {
     "appBy": "Une app de",
@@ -251,7 +254,7 @@
   ],
   "coming": {
     "label": "Bientôt",
-    "text": "Des parcours qui dessinent des constellations, des bilans du mois, une photo du jour tramée en quatre gris, des lettres scellées à votre futur vous, et votre année en livre EPUB."
+    "text": "Les bilans de saison, et toute votre année en livre EPUB, avec le ciel de l’année en couverture."
   },
   "inside": {
     "label": "Dans l’app · bêta publique",
@@ -263,25 +266,78 @@
         "caption": "Today : les points du mois et la question du jour."
       },
       {
-        "src": "weather",
-        "caption": "La météo intérieure, du soleil à l’orage."
+        "src": "journeys",
+        "caption": "Les parcours : quelques jours sur un thème."
       },
       {
-        "src": "done",
-        "caption": "C’est noté : le point du jour se remplit."
-      },
-      {
-        "src": "notebook",
-        "caption": "Le Notebook, une page par jour."
+        "src": "constellation",
+        "caption": "Un parcours terminé devient une constellation qui porte son nom."
       },
       {
         "src": "galaxy",
         "caption": "La Galaxy : toute l’année sur un écran."
       },
       {
+        "src": "review",
+        "caption": "Le bilan du mois, avec le mot de Dotilda."
+      },
+      {
+        "src": "letter",
+        "caption": "Une lettre à votre futur vous, scellée pour des mois."
+      },
+      {
+        "src": "photo",
+        "caption": "La photo du jour, gardée petite, en quatre gris."
+      },
+      {
         "src": "spira",
-        "caption": "spira : une minute de respiration avant d’écrire."
+        "caption": "Spira : une minute de respiration avant d’écrire."
       }
     ]
+  },
+  "faq": {
+    "label": "Questions",
+    "title": "Avant d’installer.",
+    "items": [
+      {
+        "q": "Sur quels appareils fonctionne-t-elle ?",
+        "a": "Tout appareil sous Android 11 ou plus récent. Dotilda est pensée pour l’écran e‑ink du Mudita Kompakt et fonctionne aussi sur d’autres liseuses Android."
+      },
+      {
+        "q": "Où va mon journal ?",
+        "a": "Nulle part. Il reste sur votre appareil, sans compte. Exportez-le quand vous voulez dans un fichier zip (du JSON lisible et vos photos, lisibles sans l’app)."
+      },
+      {
+        "q": "Faut-il internet ?",
+        "a": "Non. La seule connexion est la vérification des mises à jour sur GitHub, qui n’envoie rien sur vous et se désactive dans Settings."
+      },
+      {
+        "q": "Comment mettre à jour ?",
+        "a": "Dotilda vous prévient elle-même quand une nouvelle version est prête, et l’installe depuis Settings. Avec Obtainium, les mises à jour arrivent aussi par là."
+      },
+      {
+        "q": "Et si je change de téléphone ?",
+        "a": "Exportez votre journal depuis Settings, copiez le zip sur le nouvel appareil, installez-y Dotilda et importez-le. Vos points, vos photos et vos constellations suivent."
+      },
+      {
+        "q": "Elle est vraiment gratuite ?",
+        "a": "Oui. Pas d’achat, pas d’abonnement, pas de publicité, pas de compte. Le code est open source sous licence Apache 2.0."
+      },
+      {
+        "q": "Dans quelles langues ?",
+        "a": "L’app est en anglais pour l’instant. D’autres langues suivront."
+      },
+      {
+        "q": "Que veut dire « bêta » ici ?",
+        "a": "Dotilda fonctionne déjà au quotidien, et les nouvelles versions arrivent souvent. Certaines choses peuvent encore changer ou casser : dites-le-nous, ça aide beaucoup."
+      }
+    ]
+  },
+  "feedback": {
+    "label": "Bêta-testeurs",
+    "title": "Dites à Dotilda ce que vous en pensez.",
+    "text": "Un bug, une idée, une question qui vous a fait sourire : chaque mot aide la version suivante.",
+    "github": "Ouvrir une issue sur GitHub",
+    "reddit": "En parler sur Reddit"
   }
 }

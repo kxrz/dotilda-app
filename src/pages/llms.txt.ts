@@ -36,8 +36,14 @@ ${s.coming.label}: ${s.coming.text}
 
 - Download the latest APK: ${repo}/releases/latest/download/dotilda.apk
 - Release notes: ${repo}/releases/latest
-- Install with Mudita Center on the Mudita Kompakt, or Obtainium on any Android 11+ e-reader.
+${s.get.ways.map(w => `- ${w.title}: ${w.text}`).join('\n')}
+- With adb: adb install dotilda.apk
+- ${s.get.after}
 - Price: free, no purchase, no subscription, no ads. License: Apache 2.0.
+
+## Questions
+
+${s.faq.items.map(i => `- ${i.q} ${i.a}`).join('\n')}
 
 ## Links
 

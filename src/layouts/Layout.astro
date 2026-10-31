@@ -58,6 +58,16 @@ const jsonLd = {
       inLanguage: 'en', // the app itself; the site is translated
       sameAs: [repo],
     },
+    {
+      '@type': 'FAQPage',
+      '@id': url + '#faq',
+      inLanguage: locale,
+      mainEntity: s.faq.items.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
   ],
 };
 ---
