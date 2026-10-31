@@ -59,13 +59,13 @@ tryBtn.addEventListener('click', () => {
 
 // Hero: Dotilda's playground. She asks in her bubble, as in the app; answer in a line, a word,
 // a choice or a moon, change the question (3 times, then only the weather), go on to the next
-// day and watch this month's row fill up. Each answer flies as a drop of ink to its day.
+// day and watch this month's row fill up. Each answer fills its day's dot, which swells and settles.
 // With motion on, the scene first plays once by itself, unless you start first. Poke her: she
 // pulls a face in one step (as in the app), hops, and poked on, has a word with you.
 // Nothing is sent or saved.
 type Kind = 'line' | 'word' | 'choice' | 'weather';
 type DemoQ = { type: Kind; q: string; options?: string[] };
-const heroEl = $('.hero'), monthDots = $('#monthDots'), monthName = $('#monthName');
+const monthDots = $('#monthDots'), monthName = $('#monthName');
 const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLTextAreaElement>('#askInput'), askBtn = $<HTMLButtonElement>('#askBtn');
 const askQ = $('#askQ'), askNote = $('#askNote'), askWho = $('#askWho'), askLabel = $('#askLabel'), heroMark = $('.hero-mark');
 const choicesEl = $('#choices'), moonsEl = $('#moons'), another = $<HTMLButtonElement>('#another'), nextDayBtn = $<HTMLButtonElement>('#nextDay');
@@ -116,7 +116,9 @@ function drawMonth(pulse = false) {
     monthDots.append(el);
   }
   monthDots.append(svgEl('path', { d: `M${(view.getDate() - .5) * 10} 13l3 4h-6z`, class: 'caret' }));
-  if (pulse && motion()) gsap.from('#todayDot', { scale: 2.2, transformOrigin: '50% 50%', duration: .6, ease: 'back.out(3)' });
+  if (pulse && motion()) gsap.timeline()
+    .to('#todayDot', { scale: 3.2, transformOrigin: '50% 50%', duration: .45, ease: 'power2.out' })
+    .to('#todayDot', { scale: 1, duration: .7, ease: 'back.out(2.2)' }, '+=.15');
 }
 drawMonth();
 
@@ -212,37 +214,15 @@ function landed(value: number) {
   ScrollTrigger.refresh();
 }
 
-// Your words (or the button you chose) become a drop of ink that flies to today's dot.
-function answer(value: number, from: Element, text?: string) {
+// Your answer fills today's dot, in place: it swells, then settles, so you see it is yours.
+function answer(value: number) {
   if (phase === 'flying' || phase === 'answered') return;
   const wasDemo = phase === 'demo';
   phase = wasDemo ? 'demo' : 'flying';
   ask.classList.add('done');
-  heroMark.dataset.pose = 'neutral'; // she pushes her glasses up to watch it land
-  const finish = () => { if (!wasDemo) phase = 'yours'; if (wasDemo) phase = 'demo'; landed(value); };
-  if (!motion()) { finish(); return; }
-  const hr = heroEl.getBoundingClientRect(), fr = from.getBoundingClientRect();
-  const drop = document.createElement('span');
-  drop.className = 'ink-drop';
-  heroEl.appendChild(drop);
-  const tl = gsap.timeline({ onComplete: () => { drop.remove(); finish(); } });
-  let x0 = fr.left - hr.left + fr.width / 2, y0 = fr.top - hr.top + fr.height / 2;
-  if (text) {
-    const word = document.createElement('span');
-    word.className = 'ink-word';
-    word.textContent = text;
-    heroEl.appendChild(word);
-    x0 = fr.left - hr.left + 2;
-    gsap.set(word, { x: x0, y: y0 - word.offsetHeight / 2, transformOrigin: '50% 50%' });
-    x0 += Math.min(word.offsetWidth, fr.width) / 2;
-    tl.to(word, { scaleX: .04, scaleY: .3, autoAlpha: 0, duration: .6, ease: 'power3.in', onComplete: () => word.remove() });
-  }
-  const tr = $('#todayDot').getBoundingClientRect();
-  gsap.set(drop, { x: x0, y: y0, scale: 0 });
-  tl.to(drop, { scale: 1, duration: .35, ease: 'back.out(3)' }, text ? '-=.3' : 0)
-    .to(drop, { x: tr.left - hr.left + tr.width / 2, duration: 1, ease: 'power1.inOut' }, '+=.05')
-    .to(drop, { y: tr.top - hr.top + tr.height / 2, duration: 1, ease: 'back.in(1.4)' }, '<')
-    .to(drop, { scale: Math.max(tr.width, 6) / 16, duration: .3, ease: 'power2.in' }, '-=.3');
+  heroMark.dataset.pose = 'neutral'; // she pushes her glasses up to watch her dot
+  const finish = () => { phase = wasDemo ? 'demo' : 'yours'; landed(value); };
+  if (motion()) gsap.delayedCall(.2, finish); else finish();
 }
 
 ask.addEventListener('submit', e => {
@@ -251,20 +231,20 @@ ask.addEventListener('submit', e => {
   if (phase !== 'demo') takeOver();
   if (!typed) { askInput.focus(); return; }
   askInput.blur();
-  answer(-1, askInput, typed);
+  answer(-1);
   askInput.value = ''; fitAnswer();
 });
 choicesEl.addEventListener('click', e => {
   const b = (e.target as Element).closest('button');
   if (!b) return;
   takeOver();
-  answer(-1, b);
+  answer(-1);
 });
 moonsEl.addEventListener('click', e => {
   const b = (e.target as Element).closest<HTMLButtonElement>('button');
   if (!b) return;
   takeOver();
-  answer(Number(b.dataset.w), b.querySelector('svg')!);
+  answer(Number(b.dataset.w));
 });
 
 // Another question: three times, then only the weather, as in the app. She glances aside.
@@ -308,7 +288,7 @@ function playDemo() {
   phase = 'demo';
   const sample = data.hero.sample, typing = { n: 0 };
   heroMark.dataset.pose = 'curious';
-  demo = gsap.timeline({ onComplete: () => { askBtn.classList.remove('pressed'); demo = null; answer(-1, askInput, sample); askInput.value = ''; fitAnswer(); } })
+  demo = gsap.timeline({ onComplete: () => { askBtn.classList.remove('pressed'); demo = null; answer(-1); askInput.value = ''; fitAnswer(); } })
     .to(typing, { n: sample.length, duration: sample.length * .04, ease: 'none', onUpdate: () => { askInput.value = sample.slice(0, Math.round(typing.n)); fitAnswer(); } })
     .call(() => askBtn.classList.add('pressed'), [], '+=.35')
     .to({}, { duration: .3 });
