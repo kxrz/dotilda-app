@@ -1,0 +1,119 @@
+DesignSheetTest > sheet STARTED
+DesignSheetTest > sheet PASSED
+ScreensTest > a_onboarding STARTED
+    [screens 481999] wait for 'Begin'
+    [screens 482140] shot 01-welcome
+    [screens 482663] wait for 'When shall I come by?'
+    [screens 482664] shot 02-setup
+ScreensTest > a_onboarding PASSED
+ScreensTest > b_ritual STARTED
+    [screens 483042] seed iw-001
+    [screens 483671] wait for 'Answer'
+    [screens 483795] shot 03-today
+    [screens 484135] wait for 'Stormy'
+    [screens 484167] shot 05-answer-weather
+    [screens 484500] wait for 'Noted'
+    [screens 484535] shot 06-done
+    [screens 484870] wait for 'See you tomorrow.'
+    [screens 484902] shot 07-today-answered
+ScreensTest > b_ritual PASSED
+ScreensTest > c1_answerLine STARTED
+    [screens 485252] seed ol-001
+    [screens 485757] wait for 'Answer'
+    [screens 485805] wait for 'Back'
+    [screens 486305] shot 04-answer-line
+ScreensTest > c1_answerLine PASSED
+ScreensTest > c2_answerChoice STARTED
+    [screens 486686] seed tt-001
+    [screens 487166] wait for 'Answer'
+    [screens 487218] wait for 'Back'
+    [screens 487540] shot 08-answer-choice
+ScreensTest > c2_answerChoice PASSED
+ScreensTest > c3_answerThings STARTED
+    [screens 487889] seed th-001
+    [screens 488355] wait for 'Answer'
+    [screens 488408] wait for 'Back'
+    [screens 488768] shot 09-answer-things
+ScreensTest > c3_answerThings PASSED
+ScreensTest > c4_answerMirror STARTED
+    [screens 489122] seed mi-001
+    [screens 489585] wait for 'Answer'
+    [screens 489636] wait for 'Back'
+    [screens 490029] shot 10-answer-mirror
+ScreensTest > c4_answerMirror PASSED
+ScreensTest > d_rereading STARTED
+    [screens 490385] seed ol-001
+    [screens 490871] wait for 'Answer'
+    [screens 490921] wait for ' / '
+    [screens 490957] shot 11-notebook
+    [screens 491295] wait for 'Answer'
+    [screens 491351] wait for 'Constellations'
+    [screens 491669] shot 12-galaxy
+ScreensTest > d_rereading PASSED
+ScreensTest > e_spiraAndSettings STARTED
+    [screens 492031] seed ol-001
+    [screens 492508] wait for 'Answer'
+    [screens 492570] wait for 'One minute'
+    [screens 492571] shot 13-spira-breathe
+    [screens 492901] shot 14-spira-timer
+    [screens 493239] shot 15-spira-stopwatch
+    [screens 493562] wait for 'Answer'
+    [screens 493601] wait for 'Daily reminder'
+    [screens 493617] shot 16-settings
+    [screens 493951] wait for 'Apache'
+    [screens 493951] shot 30-licenses
+ScreensTest > e_spiraAndSettings PASSED
+ScreensTest > f_journeysAndReview STARTED
+    [screens 494301] seed ol-001
+    [screens 494764] wait for 'Answer'
+    [screens 494821] wait for '7 days to slow down'
+    [screens 494821] shot 17-journeys
+    [screens 495150] wait for 'Answer'
+    [screens 495203] wait for 'Constellations'
+    [screens 495207] wait for '1 / 2'
+    [screens 495548] shot 18-review-weather
+    [screens 495880] wait for '2 / 2'
+    [screens 496180] shot 19-review-photos
+    [screens 496516] wait for 'Constellations'
+    [screens 496525] wait for '1 / 3'
+    [screens 496846] shot 28-review-season
+    [screens 497174] wait for '2 / 3'
+    [screens 497479] shot 29-review-season-choices
+ScreensTest > f_journeysAndReview PASSED
+ScreensTest > g1_answerLetter STARTED
+    [screens 497827] seed le-001
+    [screens 498280] wait for 'Answer'
+    [screens 498324] wait for 'Back'
+    [screens 498710] shot 20-answer-letter
+ScreensTest > g1_answerLetter PASSED
+ScreensTest > g2_answerPhoto STARTED
+    [screens 499052] seed ph-001
+    [screens 499480] wait for 'Answer'
+    [screens 499516] wait for 'Back'
+    [screens 499833] shot 21-answer-photo
+ScreensTest > g2_answerPhoto PASSED
+ScreensTest > g3_letterReady STARTED
+    [screens 500182] seed ol-001
+    [screens 500633] wait for 'letter from'
+    [screens 500654] shot 22-today-letter
+    [screens 500985] wait for ' / '
+    [screens 501309] shot 23-notebook-letter
+ScreensTest > g3_letterReady PASSED
+ScreensTest > h_journeyEnds STARTED
+    [screens 501661] seed null
+    [screens 502104] wait for 'day 7 of 7'
+    [screens 502151] shot 24-today-journey
+    [screens 502477] wait for 'Back'
+    [screens 502525] wait for 'I'll call this one'
+    [screens 502549] shot 25-done-constellation
+ScreensTest > h_journeyEnds PASSED
+ScreensTest > i_skyStyle STARTED
+    [screens 502900] seed ol-001
+    [screens 503349] wait for 'Answer'
+    [screens 503380] wait for 'Daily reminder'
+    [screens 503404] wait for 'Your sky'
+    [screens 503724] shot 26-settings-journal
+    [screens 504053] wait for 'Answer'
+    [screens 504094] wait for 'Constellations'
+    [screens 504395] shot 27-galaxy-night-sky
+ScreensTest > i_skyStyle PASSED
