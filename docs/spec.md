@@ -39,6 +39,10 @@ her glasses up and smiles, in one step, never looping.
 its Latin name, **Spira** ("breathe"), with a capital S: it is the exercise Dotilda suggests
 before writing.
 
+**A hidden game:** poke Dotilda and she changes face, one step per tap (a wink, surprise, a
+glance aside, a nap, a smile); poked often enough above a question, she answers back
+("That tickles."). Her asides on Today can be closed with their ×; version news fades by itself.
+
 **Speech bubbles:** when Dotilda asks or announces something, her words sit in a light speech
 bubble: a fine ink outline, round corners, white inside and a small tail pointing at her. Her
 asides on Today never take more than one line.

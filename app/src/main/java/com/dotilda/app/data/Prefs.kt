@@ -30,6 +30,13 @@ data class Settings(
 )
 
 /** What Dotilda already offered today, so the question survives an app restart. */
+/** See [Prefs.asides]. */
+data class Asides(
+    val dismissed: Set<String> = emptySet(),
+    val updateSeen: Pair<String, String>? = null,
+    val updatedOn: Pair<String, String>? = null,
+)
+
 data class DayState(
     val date: String,
     val questionId: String?,
@@ -55,6 +62,9 @@ class Prefs(private val context: Context) {
         val constellations = stringPreferencesKey("constellations")
         val openedLetters = stringSetPreferencesKey("opened_letters")
         val dotSize = stringPreferencesKey("dot_size")
+        val dismissedAsides = stringSetPreferencesKey("dismissed_asides")
+        val updateSeen = stringPreferencesKey("update_seen")
+        val updatedOn = stringPreferencesKey("updated_on")
         val skyLayout = stringPreferencesKey("sky_layout")
     }
 
@@ -130,6 +140,33 @@ class Prefs(private val context: Context) {
 
     suspend fun markLetterOpened(key: String) {
         context.dataStore.edit { it[Keys.openedLetters] = it[Keys.openedLetters].orEmpty() + key }
+    }
+
+    /**
+     * Dotilda's one-line asides on Today: those closed with their ×, when a new version was first
+     * announced and when the app was last updated (both "version|date"), so none lingers.
+     */
+    val asides: Flow<Asides> = context.dataStore.data.map { p ->
+        Asides(
+            dismissed = p[Keys.dismissedAsides].orEmpty(),
+            updateSeen = p[Keys.updateSeen]?.split('|')?.takeIf { it.size == 2 }?.let { it[0] to it[1] },
+            updatedOn = p[Keys.updatedOn]?.split('|')?.takeIf { it.size == 2 }?.let { it[0] to it[1] },
+        )
+    }
+
+    suspend fun dismissAside(key: String) {
+        context.dataStore.edit { it[Keys.dismissedAsides] = it[Keys.dismissedAsides].orEmpty() + key }
+    }
+
+    /** Remembers the first day a new version was announced (kept if already set for it). */
+    suspend fun markUpdateSeen(version: String, date: String) {
+        context.dataStore.edit {
+            if (it[Keys.updateSeen]?.substringBefore('|') != version) it[Keys.updateSeen] = "$version|$date"
+        }
+    }
+
+    suspend fun setUpdatedOn(version: String, date: String) {
+        context.dataStore.edit { it[Keys.updatedOn] = "$version|$date" }
     }
 
     /** The look of the dots and of the Galaxy. */

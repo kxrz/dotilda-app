@@ -92,7 +92,7 @@ fun DotildaQuestion(text: String, style: TextStyle, pose: Pose = Pose.Peering, m
 @Composable
 fun DotildaBeside(pose: Pose, markSize: Dp, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        DotildaMark(size = markSize, pose = pose)
+        PlayfulDotilda(size = markSize, pose = pose)
         Spacer(Modifier.width(6.dp))
         SpeechBubble(tail = Tail.Left, tailAt = null, padding = PaddingValues(horizontal = 12.dp, vertical = 6.dp), content = content)
     }

@@ -7,6 +7,16 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.6.2] - 2026-10-31
+
+### Added
+- Poke Dotilda: she winks, looks surprised, glances aside, dozes off, smiles. Keep going and
+  she will have a word with you.
+
+### Changed
+- Dotilda's notes on Today can be closed with their ×, and version news fades on its own: a new
+  version is announced for three days (it stays in Settings), "Fresh ink" for the day itself.
+
 ## [0.6.1] - 2026-10-31
 
 ### Added

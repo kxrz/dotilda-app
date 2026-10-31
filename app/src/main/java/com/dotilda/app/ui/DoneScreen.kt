@@ -53,7 +53,7 @@ fun DoneScreen(journal: Journal, onBack: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.weight(1f))
-        DotildaMark(size = 56.dp, pose = pose)
+        PlayfulDotilda(size = 56.dp, pose = pose)
         Spacer(Modifier.height(6.dp))
         val words = if (finished != null) {
             val count = stringArrayResource(R.array.number_words).getOrNull(finished.dates.size) ?: finished.dates.size.toString()
