@@ -120,7 +120,7 @@ open class ScreensTest {
         ShadowLooper.idleMainLooper(1, TimeUnit.SECONDS)
         shot("06-done")
         click("Back to today")
-        waitFor("See you tomorrow.")
+        waitFor("See you tomorrow", substring = true)
         shot("07-today-answered")
     }
 
