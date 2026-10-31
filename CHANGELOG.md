@@ -7,7 +7,7 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [Unreleased]
+## [0.7.3] - 2026-10-31
 
 ### Fixed
 - On a device without a file picker (the Xteink S4), "Save the report" closed Dotilda. Saving
