@@ -1,0 +1,226 @@
+<resources>
+    <!-- Polish. Rules: the user is "Ty" (capitalised forms: Ty, Ciebie, Twój...), and nothing
+         assumes their gender (no -łeś/-łaś, no wdzięczny/wdzięczna). Dotilda speaks of herself
+         in the feminine. -->
+    <string name="app_name">Dotilda</string>
+    <string name="dotilda">Dotilda</string>
+    <!-- Language tag of these strings: dates and the question bank follow it. -->
+    <string name="app_locale">pl</string>
+
+    <!-- Welcome -->
+    <string name="welcome_tagline">Jedno pytanie dziennie, jedna kropka na Twoim niebie.</string>
+    <string name="welcome_1">Linijka, słowo albo jedno dotknięcie.</string>
+    <string name="welcome_2">Opuszczony dzień? Nic się nie psuje.</string>
+    <string name="welcome_3">Wszystko zostaje w tym telefonie.</string>
+    <string name="begin">Zaczynamy</string>
+
+    <!-- Today -->
+    <string name="dotilda_asks">Dotilda pyta</string>
+    <string name="answer">Odpowiedz</string>
+    <string name="another_question">Inne pytanie (zostały: %1$d)</string>
+    <string name="no_more_questions">To było moje ostatnie na dziś.</string>
+    <string name="just_the_weather">Powiedz mi tylko, jaka pogoda w środku</string>
+    <string name="or_tomorrow">Albo wróć jutro, będę mieć nowe.</string>
+    <string name="welcome_back">Jesteś. Twoje niebo zachowało Twoje miejsce.</string>
+    <string name="noted">Zapisane. Jeszcze jedna kropka na Twoim niebie.</string>
+    <string name="see_you_tomorrow">Do jutra.</string>
+
+    <!-- Notebook and Galaxy -->
+    <string name="notebook">Notatnik</string>
+    <string name="notebook_empty">Jeszcze nic tu nie ma. Pierwsza strona czeka na dzisiejsze pytanie.</string>
+    <string name="galaxy">Galaktyka</string>
+    <string name="galaxy_hint">Dotknij kropki, by przeczytać ten dzień.</string>
+
+    <!-- Journeys -->
+    <string name="journeys">Ścieżki</string>
+    <string name="journey_start">Zacznij</string>
+    <string name="journey_stop">Przerwij</string>
+    <string name="journey_day">Dzień %1$d z %2$d. Jedno pytanie dziennie, bez nadrabiania.</string>
+    <string name="journey_done">Ukończona. Jej konstelacja to %1$s.</string>
+    <string name="journey_about">Dni: %1$d. %2$s</string>
+    <string name="journey_step">%1$s · dzień %2$d z %3$d</string>
+    <!-- Journeys last 5 or 7 days: "dni" and "kropek" fit both. -->
+    <string name="constellation_named">%1$s dni, %2$s kropek. Nazwę ją %3$s.</string>
+    <string-array name="number_words">
+        <item>Zero</item>
+        <item>Jeden</item>
+        <item>Dwa</item>
+        <item>Trzy</item>
+        <item>Cztery</item>
+        <item>Pięć</item>
+        <item>Sześć</item>
+        <item>Siedem</item>
+        <item>Osiem</item>
+        <item>Dziewięć</item>
+        <item>Dziesięć</item>
+    </string-array>
+    <string name="galaxy_constellations">Konstelacje: %1$s</string>
+
+    <!-- Review -->
+    <string name="review_ready">Twój %1$s czeka, by go przeczytać jeszcze raz.</string>
+    <string name="review_weather">Pogoda w środku</string>
+    <string name="review_words">W jednym słowie</string>
+    <string name="review_line">Twoja linijka</string>
+    <string name="review_photos">Zdjęcia</string>
+    <string name="review_quiet">Cichy miesiąc na papierze. Nic w tym złego.</string>
+    <string-array name="review_comments">
+        <item>Miesiąc w słowach. Miło się czyta.</item>
+        <item>Przez większość dni czyste niebo. Wspaniale.</item>
+        <item>Burzliwy miesiąc. A zapiski i tak powstawały; to się liczy.</item>
+        <item>Pochmurny początek, słoneczny koniec. Całkiem nieźle.</item>
+        <item>Jasny początek, szarszy koniec. Zalecana herbata.</item>
+        <item>Słońce i przelotne deszcze, jak w każdym uczciwym miesiącu.</item>
+    </string-array>
+
+    <!-- Photo and letter -->
+    <string name="photo_hint">Dotilda zachowa je małe, w czterech odcieniach szarości.</string>
+    <string name="photo_take">Zrób zdjęcie</string>
+    <string name="photo_retake">Zrób inne</string>
+    <string name="photo_caption">Słowo o nim (nieobowiązkowo)</string>
+    <string name="photo_developing">Wywołuję…</string>
+    <string name="photo_no_camera">Nie mogę znaleźć aplikacji aparatu na tym urządzeniu.</string>
+    <string name="photo_failed">To zdjęcie się nie wywołało. Spróbujemy innego?</string>
+    <string name="photo_summary">Zdjęcie</string>
+    <string name="letter_hint">Kochane Ja,</string>
+    <string name="letter_open_in">Otwórz za</string>
+    <plurals name="letter_months">
+        <item quantity="one">%1$d miesiąc</item>
+        <item quantity="few">%1$d miesiące</item>
+        <item quantity="many">%1$d miesięcy</item>
+        <item quantity="other">%1$d miesiąca</item>
+    </plurals>
+    <string name="letter_seal">Zapieczętuj</string>
+    <string name="letter_summary">List, zapieczętowany</string>
+    <string name="letter_sealed_until">Zapieczętowany do: %1$s. Przechowam go.</string>
+    <!-- %1$s is a month and year in the genitive ("lipca 2026"). -->
+    <string name="letter_ready">Twój list z %1$s jest gotowy.</string>
+
+    <!-- Answer -->
+    <string name="mirror_previous">%1$d dni temu zapisano tu:</string>
+    <string name="one_line_hint">Wystarczy jedna linijka</string>
+    <string name="one_word_hint">Jedno słowo</string>
+    <string name="save">Zapisz</string>
+    <string name="back">Wróć</string>
+    <string name="back_to_today">Wróć do dziś</string>
+    <string-array name="weather_labels">
+        <item>Słonecznie</item>
+        <item>Pogodnie</item>
+        <item>Pochmurno</item>
+        <item>Deszczowo</item>
+        <item>Burzowo</item>
+    </string-array>
+    <string-array name="weather_phrases">
+        <item>Czyste niebo. Wręcz wspaniale.</item>
+        <item>Przeważnie ładnie, chmurka czy dwie.</item>
+        <item>Szaro, ale się trzyma.</item>
+        <item>Trochę wilgotno w środku.</item>
+        <item>Grzmi w oddali. Zalecana herbata.</item>
+    </string-array>
+
+    <!-- Onboarding -->
+    <string name="setup_question">Kiedy mam zaglądać?</string>
+    <string name="setup_hint">Jedno łagodne przypomnienie dziennie, o wybranej porze. Nigdy więcej.</string>
+    <string name="setup_remind_me">Przypominaj mi o tej porze</string>
+    <string name="setup_no_reminder">Bez przypomnień, dziękuję</string>
+
+    <!-- Spira -->
+    <string name="spira">Spira</string>
+    <string name="spira_breathe">Oddech</string>
+    <string name="spira_timer">Minutnik</string>
+    <string name="spira_stopwatch">Stoper</string>
+    <string name="breathe_first">Najpierw oddech</string>
+    <string name="breathe_ready">Jedna minuta. Wdech na cztery, wydech na sześć.</string>
+    <string name="breathe_in">Wdech · %1$d / %2$d</string>
+    <string name="breathe_out">Wydech · %1$d / %2$d</string>
+    <string name="breathe_done">To była minuta. Pięknie się oddychało.</string>
+    <string name="breathe_start">Zacznij</string>
+    <string name="breathe_again">Jeszcze raz</string>
+    <string name="breathe_write">A teraz piszemy</string>
+    <string name="timer_minutes">%1$d min</string>
+    <string name="timer_left">Zostało %1$d min</string>
+    <string name="timer_rings_at">Zadzwoni o %1$s, nawet przy wyłączonym ekranie.</string>
+    <string name="timer_start">Start</string>
+    <string name="timer_cancel">Anuluj minutnik</string>
+    <string name="spira_timer_channel">Minutnik Spiry</string>
+    <string name="spira_timer_done">Czas minął.</string>
+    <string name="stopwatch_fast">Pokazuj sekundy</string>
+    <string name="stopwatch_lap">Okrążenie %1$d · %2$s</string>
+    <string name="stopwatch_lap_button">Okrążenie</string>
+    <string name="stopwatch_reset">Wyzeruj</string>
+    <string name="stopwatch_start">Start</string>
+    <string name="stopwatch_stop">Stop</string>
+
+    <!-- Settings -->
+    <string name="settings">Ustawienia</string>
+    <string name="daily_reminder">Codzienne przypomnienie</string>
+    <string name="about">O Dotildzie</string>
+    <string name="diagnostics">Diagnostyka</string>
+    <string name="press_a_button">Naciśnij dowolny przycisk</string>
+
+    <!-- Backup -->
+    <string name="backup_export">Eksportuj dziennik</string>
+    <string name="backup_import">Importuj</string>
+    <string name="backup_exported">Zapisane. Schowaj to w bezpiecznym miejscu.</string>
+    <string name="backup_failed">Nie udało się (%1$s).</string>
+    <string name="backup_no_picker">To urządzenie nie ma wyboru plików, z którego mogłabym skorzystać.</string>
+    <plurals name="backup_imported">
+        <item quantity="one">%1$d strona dodana do Twojego dziennika.</item>
+        <item quantity="few">%1$d strony dodane do Twojego dziennika.</item>
+        <item quantity="many">%1$d stron dodanych do Twojego dziennika.</item>
+        <item quantity="other">%1$d strony dodanej do Twojego dziennika.</item>
+    </plurals>
+
+    <!-- Updates -->
+    <string name="check_updates">Szukaj nowych wersji</string>
+    <string name="checking_updates">Szukam nowej wersji…</string>
+    <string name="up_to_date">Dotilda %1$s. Nic nowego pod gwiazdami.</string>
+    <string name="check_now">Dotilda %1$s · Sprawdź teraz</string>
+    <string name="update_available">Dostępna jest Dotilda %1$s</string>
+    <string name="update_ready">Psst. Mam dla Ciebie nową wersję.</string>
+    <string name="just_updated">Świeży atrament. Jestem teraz w wersji %1$s.</string>
+    <string name="update_intro">Oto, czym się zajmowałam.</string>
+    <string name="update_title">Dotilda %1$s</string>
+    <string name="update_no_notes">Kilka usprawnień. Nic niepokojącego.</string>
+    <string name="update_now">Zainstaluj</string>
+    <string name="downloading">Pobieram. Chwileczkę.</string>
+    <string name="allow_installs">Android najpierw prosi o zgodę. Zezwól, a potem dotknij Zainstaluj jeszcze raz.</string>
+    <string name="update_failed">Nie udało się (%1$s). Spróbujemy później?</string>
+    <string name="update_debug">Wersje testowe nie aktualizują się same: zainstaluj wydaną wersję.</string>
+
+    <!-- Reminder -->
+    <string name="reminder_channel">Codzienne pytanie</string>
+    <string name="reminder_text">Mam dla Ciebie pytanie.</string>
+    <!-- Sezon, książka, niebo -->
+    <string name="review_season_ready">Ostatnie trzy miesiące czekają, by je przeczytać jeszcze raz.</string>
+    <string name="review_choices">To czy tamto</string>
+    <string-array name="review_comments_season">
+        <item>Sezon w słowach. Miło się czyta.</item>
+        <item>Słoneczny sezon. Doprawdy znakomity.</item>
+        <item>Burzliwy sezon. A zapiski i tak powstawały; to się liczy.</item>
+        <item>Zaczęło się pochmurnie, skończyło w słońcu. Całkiem nieźle.</item>
+        <item>Jasny początek, szarszy koniec. Zalecam herbatę i koc.</item>
+        <item>Słońce i przelotne deszcze, jak w każdym uczciwym sezonie.</item>
+    </string-array>
+    <string name="book_cover_subtitle">Rok z Dotildą</string>
+    <string name="book_title">Mój rok z Dotildą</string>
+    <string name="book_contents">Spis treści</string>
+    <string name="book_cover_alt">Rok w kropkach</string>
+    <string name="book_constellations">Konstelacje</string>
+    <string name="book_constellations_intro">Podróże ukończone w tym roku, każda jak mała konstelacja na niebie:</string>
+    <string name="book_letter_sealed">List do przyszłości, zapieczętowany do %1$s.</string>
+    <string name="book_export">Eksportuj rok jako książkę</string>
+    <string name="book_exported">Twoja książka jest gotowa. Otwórz ją na swoim czytniku.</string>
+    <string name="sky_title">Twoje niebo</string>
+    <string name="sky_dots">Kropki</string>
+    <string-array name="sky_dot_sizes">
+        <item>Drobne</item>
+        <item>Klasyczne</item>
+        <item>Wyraźne</item>
+    </string-array>
+    <string name="sky_layout">Galaktyka</string>
+    <string-array name="sky_layouts">
+        <item>Równe rzędy</item>
+        <item>Nocne niebo</item>
+    </string-array>
+    <string name="settings_journal">Twój dziennik</string>
+</resources>

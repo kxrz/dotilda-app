@@ -3,6 +3,7 @@ package com.dotilda.app.data
 import java.io.OutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Locale
 import java.util.UUID
 import java.util.zip.CRC32
@@ -28,6 +29,8 @@ class YearBook(
     val cover: ByteArray,
     val madeOn: LocalDate,
     val strings: BookStrings = BookStrings(),
+    /** The app's language: dates, and the book's language for e-readers. */
+    val locale: Locale = Locale.ENGLISH,
 )
 
 /** The book's few words of its own, so they can follow the app's language. */
@@ -39,8 +42,6 @@ class BookStrings(
     val constellationsIntro: String = "Journeys finished this year, each one a little constellation in the sky:",
 )
 
-private val dayFormat = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ENGLISH)
-private val monthFormat = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH)
 
 /**
  * Writes [book] as an EPUB 3: a cover, a table of contents, one chapter per month with one
@@ -52,13 +53,15 @@ fun writeEpub(book: YearBook, out: OutputStream) {
     val photos = mutableListOf<Pair<String, ByteArray>>()
     val chapters = months.map { (month, pages) ->
         val id = "m%02d".format(month)
-        val name = pages.first().date.format(monthFormat)
-        Triple(id, name, chapter(name, pages) { photo ->
+        val name = pages.first().date.month.getDisplayName(TextStyle.FULL_STANDALONE, book.locale)
+            .replaceFirstChar { it.titlecase(book.locale) }
+        Triple(id, name, chapter(name, pages, book.locale) { photo ->
             val path = "images/photo-${photos.size + 1}.png"
             photos += path to photo
             path
         })
     }
+    val lang = book.locale.toLanguageTag()
     val extra = if (book.constellations.isEmpty()) null else constellationsPage(book)
 
     ZipOutputStream(out).use { zip ->
@@ -84,7 +87,7 @@ fun writeEpub(book: YearBook, out: OutputStream) {
         put("META-INF/container.xml", CONTAINER)
         put("EPUB/package.opf", packageOpf(book, chapters.map { it.first to "${it.first}.xhtml" }, photos.map { it.first }, extra != null))
         put("EPUB/nav.xhtml", nav(book, chapters.map { "${it.first}.xhtml" to it.second }, extra != null))
-        put("EPUB/cover.xhtml", page(book.strings.title, "<div class=\"cover\"><img src=\"images/cover.png\" alt=\"${esc(book.strings.coverAlt)}\"/></div>"))
+        put("EPUB/cover.xhtml", page(book.strings.title, "<div class=\"cover\"><img src=\"images/cover.png\" alt=\"${esc(book.strings.coverAlt)}\"/></div>", lang))
         put("EPUB/style.css", CSS)
         put("EPUB/images/cover.png", book.cover)
         chapters.forEach { (id, _, xhtml) -> put("EPUB/$id.xhtml", xhtml) }
@@ -93,10 +96,11 @@ fun writeEpub(book: YearBook, out: OutputStream) {
     }
 }
 
-private fun chapter(name: String, pages: List<BookPage>, addPhoto: (ByteArray) -> String): String {
+private fun chapter(name: String, pages: List<BookPage>, locale: Locale, addPhoto: (ByteArray) -> String): String {
+    val dayFormat = DateTimeFormatter.ofPattern("EEEE d MMMM", locale)
     val body = StringBuilder("<section epub:type=\"chapter\">\n<h1>${esc(name)}</h1>\n")
     for (day in pages) {
-        body.append("<section class=\"day\">\n<h2>${esc(day.date.format(dayFormat))}</h2>\n")
+        body.append("<section class=\"day\">\n<h2>${esc(day.date.format(dayFormat).replaceFirstChar { it.titlecase(locale) })}</h2>\n")
         body.append("<p class=\"question\">${esc(day.question)}</p>\n")
         day.photo?.let { body.append("<div class=\"photo\"><img src=\"${addPhoto(it)}\" alt=\"${esc(day.question)}\"/></div>\n") }
         if (day.asList) {
@@ -107,7 +111,7 @@ private fun chapter(name: String, pages: List<BookPage>, addPhoto: (ByteArray) -
         body.append("</section>\n")
     }
     body.append("</section>")
-    return page(name, body.toString())
+    return page(name, body.toString(), locale.toLanguageTag())
 }
 
 private fun constellationsPage(book: YearBook): String = page(
@@ -115,11 +119,12 @@ private fun constellationsPage(book: YearBook): String = page(
     "<section epub:type=\"chapter\">\n<h1>${esc(book.strings.constellations)}</h1>\n" +
         "<p>${esc(book.strings.constellationsIntro)}</p>\n<ul>\n" +
         book.constellations.joinToString("") { "<li>${esc(it)}</li>\n" } + "</ul>\n</section>",
+    book.locale.toLanguageTag(),
 )
 
-private fun page(title: String, body: String) = """<?xml version="1.0" encoding="UTF-8"?>
+private fun page(title: String, body: String, lang: String) = """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="$lang" xml:lang="$lang">
 <head>
 <meta charset="UTF-8"/>
 <title>${esc(title)}</title>
@@ -137,6 +142,7 @@ private fun nav(book: YearBook, chapters: List<Pair<String, String>>, constellat
     return page(
         book.strings.contents,
         "<nav epub:type=\"toc\" id=\"toc\">\n<h1>${esc(book.strings.contents)}</h1>\n<ol>\n$items</ol>\n</nav>",
+        book.locale.toLanguageTag(),
     )
 }
 
@@ -153,11 +159,11 @@ private fun packageOpf(book: YearBook, chapters: List<Pair<String, String>>, pho
     val spine = (listOf("cover", "nav") + chapters.map { it.first } + if (constellations) listOf("constellations") else emptyList())
         .joinToString("") { "<itemref idref=\"$it\"/>\n" }
     return """<?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="en">
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="${book.locale.toLanguageTag()}">
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 <dc:identifier id="uid">urn:uuid:$uid</dc:identifier>
 <dc:title>${esc(book.strings.title)} · ${book.year}</dc:title>
-<dc:language>en</dc:language>
+<dc:language>${book.locale.toLanguageTag()}</dc:language>
 <dc:date>${book.madeOn}</dc:date>
 <meta property="dcterms:modified">${book.madeOn}T00:00:00Z</meta>
 <meta name="cover" content="cover-image"/>

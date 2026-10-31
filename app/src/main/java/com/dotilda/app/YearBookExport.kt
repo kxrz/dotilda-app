@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import com.dotilda.app.data.Answer
 import com.dotilda.app.data.BookPage
+import com.dotilda.app.data.BookStrings
 import com.dotilda.app.data.Constellation
 import com.dotilda.app.data.Journal
 import com.dotilda.app.data.YearBook
@@ -33,10 +34,11 @@ import java.util.Locale
 
 /** The year as an EPUB book: answers put into words, photos, and the year's galaxy as the cover. */
 object YearBookExport {
-    private val longDate = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
 
     suspend fun export(context: Context, journal: Journal, year: Int, out: OutputStream) = withContext(Dispatchers.IO) {
         val today = LocalDate.now()
+        val locale = Locale.forLanguageTag(context.getString(R.string.app_locale))
+        val longDate = DateTimeFormatter.ofPattern("d MMMM yyyy", locale)
         val entries = journal.entriesOfYear(year).first()
         val constellations = journal.constellations.first().filter { c -> c.dates.any { it.startsWith("$year-") } }
         val weather = context.resources.getStringArray(R.array.weather_labels)
@@ -69,6 +71,14 @@ object YearBookExport {
             constellations = constellations.map { it.name }.distinct(),
             cover = cover(context, year, entries, constellations, today),
             madeOn = today,
+            strings = BookStrings(
+                title = context.getString(R.string.book_title),
+                contents = context.getString(R.string.book_contents),
+                coverAlt = context.getString(R.string.book_cover_alt),
+                constellations = context.getString(R.string.book_constellations),
+                constellationsIntro = context.getString(R.string.book_constellations_intro),
+            ),
+            locale = locale,
         )
         writeEpub(book, out)
     }

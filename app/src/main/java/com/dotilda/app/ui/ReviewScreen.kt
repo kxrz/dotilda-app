@@ -47,8 +47,6 @@ import com.dotilda.app.data.wordCloud
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.TextStyle
-import java.util.Locale
 
 /**
  * The month looking back, on two pages: Dotilda's word on its weather, the weather frieze and
@@ -90,7 +88,7 @@ fun ReviewScreen(
     Column(Modifier.fillMaxSize().padding(24.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextMMD(
-                periodTitle(first, last),
+                periodTitle(first, last, appLocale()),
                 modifier = Modifier.weight(1f),
                 style = if (season) MaterialTheme.typography.titleLarge else MaterialTheme.typography.headlineLarge,
             )
@@ -102,9 +100,9 @@ fun ReviewScreen(
     }
 }
 
-/** "September 2026", or "July – September 2026" for a season. */
-fun periodTitle(first: YearMonth, last: YearMonth): String {
-    fun name(m: YearMonth) = m.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+/** "September 2026", or "July – September 2026" for a season, in the app's language. */
+fun periodTitle(first: YearMonth, last: YearMonth, locale: Locale): String {
+    fun name(m: YearMonth) = m.month.title(locale)
     return if (first == last) "${name(first)} ${first.year}" else "${name(first)} – ${name(last)} ${last.year}"
 }
 
@@ -124,7 +122,7 @@ private fun Weather(first: YearMonth, months: Int, entries: List<Entry>) {
         val month = first.plusMonths(k.toLong())
         if (months > 1) {
             Spacer(Modifier.height(10.dp))
-            TextMMD(month.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH), style = MaterialTheme.typography.labelSmall)
+            TextMMD(month.month.title(appLocale()), style = MaterialTheme.typography.labelSmall)
         }
         Canvas(Modifier.fillMaxWidth().height(16.dp)) {
             val cell = size.width / 31

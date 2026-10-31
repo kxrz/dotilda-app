@@ -41,7 +41,6 @@ import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
 import java.time.format.TextStyle as DateTextStyle
-import java.util.Locale
 
 private val LABEL_WIDTH = 18.dp
 
@@ -73,12 +72,13 @@ fun GalaxyScreen(
         val stars = remember(constellations) { constellations.flatMap { it.dates }.toSet() }
         YearGrid(year, entries, stars, today, onOpenDay, onOpenMonth, Modifier.weight(1f).fillMaxWidth())
         // The year's seasons, each opening its review (only those already begun).
+        val locale = appLocale()
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             for (q in 0 until 4) {
                 val first = YearMonth.of(year, q * 3 + 1)
                 if (first.atDay(1).isAfter(today)) continue
                 TextLink(
-                    "${first.month.getDisplayName(DateTextStyle.SHORT, Locale.ENGLISH)}–${first.plusMonths(2).month.getDisplayName(DateTextStyle.SHORT, Locale.ENGLISH)}",
+                    "${first.month.getDisplayName(DateTextStyle.SHORT_STANDALONE, locale)}–${first.plusMonths(2).month.getDisplayName(DateTextStyle.SHORT_STANDALONE, locale)}",
                     { onOpenSeason(first) },
                     style = MaterialTheme.typography.bodySmall,
                 )
@@ -114,12 +114,13 @@ private fun YearGrid(
 ) {
     val shapes = remember(entries) { entries.groupBy { it.date }.mapValues { it.value.first().dotShape(today) } }
     val style = LocalSkyStyle.current
+    val locale = appLocale()
 
     Row(modifier) {
         Column(Modifier.width(LABEL_WIDTH).fillMaxHeight()) {
             for (m in 1..12) {
                 val month = YearMonth.of(year, m)
-                val name = month.month.getDisplayName(DateTextStyle.FULL, Locale.ENGLISH)
+                val name = month.month.title(locale)
                 Box(
                     Modifier
                         .weight(1f)
@@ -128,7 +129,7 @@ private fun YearGrid(
                         .semantics { contentDescription = name },
                     contentAlignment = Alignment.CenterStart,
                 ) {
-                    TextMMD(month.month.getDisplayName(DateTextStyle.NARROW, Locale.ENGLISH), fontSize = 11.sp)
+                    TextMMD(month.month.getDisplayName(DateTextStyle.NARROW_STANDALONE, locale).uppercase(locale), fontSize = 11.sp)
                 }
             }
         }

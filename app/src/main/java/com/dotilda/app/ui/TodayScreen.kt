@@ -38,12 +38,8 @@ import com.mudita.mmd.components.buttons.OutlinedButtonMMD
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.TextStyle
-import java.util.Locale
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-
-private val shortDate = java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH)
 
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)
@@ -70,7 +66,7 @@ fun TodayScreen(
 
     Column(Modifier.fillMaxSize().padding(24.dp)) {
         TextMMD(
-            month.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH),
+            month.month.title(appLocale()),
             style = MaterialTheme.typography.labelMedium,
         )
         Spacer(Modifier.height(6.dp))
@@ -95,7 +91,7 @@ fun TodayScreen(
         val letterOpen = letter
         when {
             letterOpen != null -> DotildaSays(
-                stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).format(shortDate)),
+                stringResource(R.string.letter_ready, LocalDate.parse(letterOpen.date).monthYear(appLocale())),
                 Pose.Pleased,
             ) { onLetter(letterOpen.date) }
             today.dayOfMonth <= 3 && hasLastMonth && seasonStart -> DotildaSays(
@@ -103,7 +99,7 @@ fun TodayScreen(
                 Pose.Peering,
             ) { onReview(lastSeason, 3) }
             today.dayOfMonth <= 3 && hasLastMonth -> DotildaSays(
-                stringResource(R.string.review_ready, lastMonth.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)),
+                stringResource(R.string.review_ready, lastMonth.month.standalone(appLocale())),
                 Pose.Peering,
             ) { onReview(lastMonth, 1) }
             newVersion != null -> DotildaSays(stringResource(R.string.update_ready), Pose.Curious, onUpdate)

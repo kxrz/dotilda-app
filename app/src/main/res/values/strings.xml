@@ -2,6 +2,8 @@
     <string name="app_name">Dotilda</string>
     <!-- The character, also in test builds (whose app name is "Dotilda dev"). -->
     <string name="dotilda">Dotilda</string>
+    <!-- Language tag of these strings: dates and the question bank follow it. Each translation sets its own. -->
+    <string name="app_locale">en</string>
 
     <!-- Welcome -->
     <string name="welcome_tagline">A question a day, a dot in your sky.</string>
@@ -81,6 +83,11 @@
 
     <!-- Year book -->
     <string name="book_cover_subtitle">A year with Dotilda</string>
+    <string name="book_title">My year with Dotilda</string>
+    <string name="book_contents">Contents</string>
+    <string name="book_cover_alt">The year in dots</string>
+    <string name="book_constellations">Constellations</string>
+    <string name="book_constellations_intro">Journeys finished this year, each one a little constellation in the sky:</string>
     <string name="book_letter_sealed">A letter to the future, sealed until %1$s.</string>
     <string name="book_export">Export the year as a book</string>
     <string name="book_exported">Your book is ready. Open it on your e-reader.</string>
