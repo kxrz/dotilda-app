@@ -7,7 +7,7 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [Unreleased]
+## [0.6.1] - 2026-10-31
 
 ### Added
 - Licences, in Settings: the open source software and fonts Dotilda is built with.
