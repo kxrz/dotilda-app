@@ -24,6 +24,9 @@ import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
 import com.dotilda.app.ui.JourneysScreen
 import com.dotilda.app.ui.LicensesScreen
+import com.dotilda.app.ui.LocalUserName
+import com.dotilda.app.ui.NameScreen
+import androidx.compose.runtime.CompositionLocalProvider
 import com.dotilda.app.ui.ReviewScreen
 import com.dotilda.app.ui.NotebookScreen
 import com.dotilda.app.ui.PageKeys
@@ -45,7 +48,8 @@ class MainActivity : ComponentActivity() {
         val app = application as DotildaApp
         setContent {
             val sky by app.prefs.sky.collectAsState(initial = SkyStyle())
-            DotildaTheme(sky) {
+            val name by app.prefs.name.collectAsState(initial = "")
+            DotildaTheme(sky) { CompositionLocalProvider(LocalUserName provides name.ifBlank { null }) {
                 val settings by app.prefs.settings.collectAsState(initial = null)
                 val welcomed = settings?.welcomed
                 if (welcomed != null) {
@@ -69,12 +73,14 @@ class MainActivity : ComponentActivity() {
                     }
                     // spira opened from Answer ("breathe first") returns to the question.
                     var spiraFromAnswer by rememberSaveable { mutableStateOf(false) }
+                    var nameFromSettings by rememberSaveable { mutableStateOf(false) }
                     val scope = rememberCoroutineScope()
                     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
                     // Flat navigation: every screen goes back to Today (Diagnostics and About to Settings).
                     val parent = when (screen) {
                         Screen.Welcome, Screen.Today, Screen.Setup -> null
+                        Screen.Name -> if (nameFromSettings) Screen.Settings else null
                         Screen.Spira -> if (spiraFromAnswer) Screen.Answer else Screen.Today
                         Screen.About, Screen.Diagnostics, Screen.Update, Screen.Licenses -> Screen.Settings
                         Screen.Notebook -> notebookFrom
@@ -88,8 +94,10 @@ class MainActivity : ComponentActivity() {
                         Screen.Welcome -> WelcomeScreen(stringResource(R.string.begin)) {
                             if (Build.VERSION.SDK_INT >= 33) askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
                             scope.launch { app.prefs.setWelcomed() }
-                            screen = Screen.Setup
+                            screen = Screen.Name
                         }
+                        // Onboarding asks for a name, then the reminder time; Settings can change the name.
+                        Screen.Name -> NameScreen(app.prefs) { screen = if (nameFromSettings) Screen.Settings else Screen.Setup }
                         // Onboarding ends on the first question, straight away.
                         Screen.Setup -> ReminderSetupScreen(app.prefs) { screen = Screen.Answer }
                         Screen.Spira -> SpiraScreen(
@@ -154,13 +162,17 @@ class MainActivity : ComponentActivity() {
                             onAbout = { screen = Screen.About },
                             onDiagnostics = { screen = Screen.Diagnostics },
                             onLicenses = { screen = Screen.Licenses },
+                            onName = {
+                                nameFromSettings = true
+                                screen = Screen.Name
+                            },
                             onBack = back,
                         )
                         Screen.Diagnostics -> DiagnosticsScreen(app, lastKey.value, onBack = back)
                         Screen.Licenses -> LicensesScreen(onBack = back)
                     }
                 }
-            }
+            } }
         }
     }
 
@@ -183,4 +195,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Welcome, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Journeys, Review, Settings, Update, Diagnostics, Licenses }
+private enum class Screen { Welcome, Name, Setup, Spira, About, Today, Answer, Done, Notebook, Galaxy, Journeys, Review, Settings, Update, Diagnostics, Licenses }

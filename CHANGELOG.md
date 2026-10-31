@@ -7,6 +7,13 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.6.4] - 2026-10-31
+
+### Added
+- Dotilda asks what to call you, when you first open the app, and you can change it in Settings.
+  She uses it now and then ("Noted, Ada. One more dot in your sky."), and on the cover of your
+  year's book. It stays on your phone. In Polish she keeps addressing you without the name.
+
 ## [0.6.3] - 2026-10-31
 
 ### Changed

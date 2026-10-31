@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -44,7 +45,12 @@ fun DotildaAsks(modifier: Modifier = Modifier, pose: Pose = Pose.Peering) {
         PlayfulDotilda(size = 32.dp, pose = pose) { pokes = it }
         Spacer(Modifier.width(12.dp))
         TextMMD(
-            if (pokes < 3) stringResource(R.string.dotilda_asks) else quips[(pokes - 3) % quips.size],
+            when {
+                pokes < 3 -> stringResource(R.string.dotilda_asks)
+                // The first answer back is to the user by name, when she knows it.
+                pokes == 3 -> named(R.string.quip_named, R.string.quip_first)
+                else -> quips[(pokes - 3) % quips.size]
+            },
             style = MaterialTheme.typography.titleMedium,
         )
     }
@@ -170,4 +176,14 @@ fun rememberToday(): LocalDate {
         onDispose { owner.lifecycle.removeObserver(observer) }
     }
     return today
+}
+
+/** What Dotilda calls the user, or null if they'd rather not say. */
+val LocalUserName = staticCompositionLocalOf<String?> { null }
+
+/** Dotilda's line with the user's name in it when she knows it ([named] takes it as %1$s), else [plain]. */
+@Composable
+fun named(named: Int, plain: Int, vararg args: Any): String {
+    val name = LocalUserName.current
+    return if (name != null) stringResource(named, name, *args) else stringResource(plain, *args)
 }

@@ -34,9 +34,13 @@ import java.util.Locale
 
 /** The year as an EPUB book: answers put into words, photos, and the year's galaxy as the cover. */
 object YearBookExport {
+    private fun app(context: Context) = context.applicationContext as DotildaApp
+
 
     suspend fun export(context: Context, journal: Journal, year: Int, out: OutputStream) = withContext(Dispatchers.IO) {
         val today = LocalDate.now()
+        val name = app(context).prefs.name.first().ifEmpty { null }
+        fun line(named: Int, plain: Int) = if (name != null) context.getString(named, name) else context.getString(plain)
         val locale = Locale.forLanguageTag(context.getString(R.string.app_locale))
         val longDate = DateTimeFormatter.ofPattern("d MMMM yyyy", locale)
         val entries = journal.entriesOfYear(year).first()
@@ -69,10 +73,10 @@ object YearBookExport {
             year = year,
             pages = pages,
             constellations = constellations.map { it.name }.distinct(),
-            cover = cover(context, year, entries, constellations, today),
+            cover = cover(context, year, entries, constellations, today, line(R.string.book_cover_subtitle_named, R.string.book_cover_subtitle)),
             madeOn = today,
             strings = BookStrings(
-                title = context.getString(R.string.book_title),
+                title = line(R.string.book_title_named, R.string.book_title),
                 contents = context.getString(R.string.book_contents),
                 coverAlt = context.getString(R.string.book_cover_alt),
                 constellations = context.getString(R.string.book_constellations),
@@ -90,6 +94,7 @@ object YearBookExport {
         entries: List<com.dotilda.app.data.Entry>,
         constellations: List<Constellation>,
         today: LocalDate,
+        subtitle: String,
     ): ByteArray {
         val width = 1200
         val height = 1800
@@ -125,7 +130,7 @@ object YearBookExport {
         canvas.drawText(year.toString(), width / 2f, 300f, title)
         title.textSize = 56f
         title.typeface = Typeface.create(Typeface.SERIF, Typeface.ITALIC)
-        canvas.drawText(context.getString(R.string.book_cover_subtitle), width / 2f, 400f, title)
+        canvas.drawText(subtitle, width / 2f, 400f, title)
         return ByteArrayOutputStream().also { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }.toByteArray()
     }
 }
