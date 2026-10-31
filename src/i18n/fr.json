@@ -36,7 +36,20 @@
     "sample": "L’odeur du pain chaud en rentrant.",
     "noted": "C’est noté. Un point de plus dans votre ciel.",
     "privacy": "Essayez. Rien de ce que vous tapez ici n’est envoyé ni enregistré.",
-    "after": "Voilà tout le rituel. Demain, une nouvelle question."
+    "after": "Voilà tout le rituel. Demain, une nouvelle question.",
+    "kicker": "Gratuit · open source · bêta publique",
+    "headline": "Un journal pour téléphones e‑ink. Une question par jour.",
+    "lede": "Chaque jour, Dotilda vous pose une petite question. Répondez en une ligne : elle devient un point dans votre année.",
+    "yourTurn": "À vous",
+    "poke": "Taquiner Dotilda",
+    "quips": [
+      "Oui, je vous écoute ?",
+      "Ça chatouille.",
+      "Hem. Et la question ?",
+      "Je suis bien réelle, vous savez.",
+      "Attention aux lunettes.",
+      "On s’y remet ?"
+    ]
   },
   "pause": {
     "text": "Ralentissez. Une petite question, une ligne, et le reste de la journée vous appartient de nouveau."

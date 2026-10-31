@@ -17,7 +17,7 @@ const feedback = { github: `${repo}/issues/new`, reddit: 'https://www.reddit.com
 // What the browser script needs, as data (the CSP runs no inline script).
 const pageData = {
   dateLocale: s.dateLocale,
-  hero: { sample: s.hero.sample, noted: s.hero.noted, after: s.hero.after },
+  hero: { sample: s.hero.sample, noted: s.hero.noted, after: s.hero.after, privacy: s.hero.privacy, asks: s.hero.asks, quips: s.hero.quips },
   questions: s.questions,
   try: s.try,
   get: { downloadVersion: s.get.downloadVersion, line: s.get.line },
@@ -54,21 +54,34 @@ const pageData = {
 <main>
 <!-- Attention: Dotilda asks, right here. Answer, and watch your dot land in the year. -->
 <div class="hero" id="top">
-  <canvas class="hero-sky" id="heroSky" aria-hidden="true"></canvas>
   <div class="hero-in">
-    <p class="label" data-reveal="hero">{s.hero.label}</p>
-    <h1 data-hero-title>{s.hero.title.split(' ').map(w => <><span class="w">{w}</span>{' '}</>)}</h1>
+    <p class="label" data-reveal="hero">{s.hero.kicker}</p>
+    <h1 data-hero-title>{s.hero.headline.split(/(?<=\.) /).map(line => <span class="line">{line.split(' ').map(w => <><span class="w">{w}</span>{' '}</>)}</span>)}</h1>
+    <p class="hero-lede" data-reveal="hero">{s.hero.lede}</p>
 
-    <form class="ask" id="ask" autocomplete="off">
-      <div class="ask-who" data-reveal="hero"><DotildaMark pose="peering" class="ask-mark" /> <span class="label">{s.hero.asks}</span></div>
-      <p class="ask-q" id="askQ" aria-live="polite"><span class="sr-only">{s.hero.question}</span><span aria-hidden="true" class="ask-chars">{s.hero.question.split(' ').map(w => <><span class="cw">{[...w].map(c => <span class="c">{c}</span>)}</span>{' '}</>)}</span></p>
-      <div class="ask-field" data-reveal="hero">
-        <label class="sr-only" for="askInput">{s.hero.question}</label>
-        <input id="askInput" name="answer" type="text" maxlength="140" placeholder={s.hero.placeholder}>
-        <button class="btn solid" type="submit" id="askBtn">{s.hero.submit}</button>
-      </div>
-      <p class="ask-note" id="askNote" data-reveal="hero">{s.hero.privacy}</p>
-    </form>
+    <!-- The stage: Dotilda, big, asks in her bubble as in the app. Poke her and she pulls a face. -->
+    <div class="stage">
+      <button class="poke" id="poke" type="button" aria-label={s.hero.poke} data-reveal="hero"><DotildaMark pose="peering" class="hero-mark" /></button>
+      <form class="ask" id="ask" autocomplete="off">
+        <p class="label ask-who" id="askWho" aria-live="polite" data-reveal="hero">{s.hero.asks}</p>
+        <div class="bubble" data-reveal="hero">
+          <p class="ask-q" id="askQ" aria-live="polite"><span class="sr-only">{s.hero.question}</span><span aria-hidden="true" class="ask-chars">{s.hero.question.split(' ').map(w => <><span class="cw">{[...w].map(c => <span class="c">{c}</span>)}</span>{' '}</>)}</span></p>
+        </div>
+        <div class="ask-field" data-reveal="hero">
+          <label class="sr-only" for="askInput">{s.hero.question}</label>
+          <input id="askInput" name="answer" type="text" maxlength="140" placeholder={s.hero.placeholder}>
+          <button class="btn solid" type="submit" id="askBtn">{s.hero.submit}</button>
+        </div>
+        <p class="ask-note" id="askNote" data-reveal="hero">{s.hero.privacy}</p>
+        <button class="btn turn" id="yourTurn" type="button" hidden>{s.hero.yourTurn}</button>
+      </form>
+    </div>
+
+    <!-- This month, as on the app's Today screen: answered days in ink, quiet days small, today waiting under its caret. -->
+    <div class="month" data-reveal="hero" aria-hidden="true">
+      <span class="label" id="monthName"></span>
+      <svg id="monthDots" preserveAspectRatio="xMinYMid meet"></svg>
+    </div>
 
     <div class="hero-foot" data-reveal="hero">
       <div class="actions">

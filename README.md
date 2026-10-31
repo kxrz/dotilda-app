@@ -43,7 +43,7 @@ npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 | `src/pages/stats.astro` | `/stats`, usage from GitHub Releases' counters, linked from the footer (see Stats). |
 | `src/components/DotildaMark.astro` | Dotilda as drawn in the app (`ui/DotildaMark.kt`), with her four poses. |
 | `src/components/Words.astro` | Splits a heading into words for the motion; screen readers get the sentence whole. |
-| `src/scripts/landing.ts` | The hero sky and ink drop, the month line, "Try one", the year of dots, the latest release, the motion, analytics. |
+| `src/scripts/landing.ts` | The hero stage (Dotilda's scene, poking her, this month's dots, the ink drop), the month line, "Try one", the year of dots, the latest release, the motion, analytics. |
 | `src/scripts/brand.ts` | `/brand`: tap-to-copy colour codes, analytics. |
 | `src/scripts/stats.ts` | `/stats`: reads the GitHub releases, draws totals, bars and table. No analytics. |
 | `src/scripts/theme-toggle.ts` | The light / dark switch of `/brand` and `/stats`. |
@@ -69,7 +69,7 @@ The page follows AIDA, in this order:
 
 | | Section | What it does |
 | --- | --- | --- |
-| Attention | hero | Dotilda asks; the visitor answers and watches a dot land in the year. |
+| Attention | hero | A plain title (a journal for e-ink phones, one question a day); Dotilda, big, asks in her bubble; the scene plays once, then it is the visitor's turn, and their dot lands in this month. |
 | Interest | `#ritual` | The ritual in three steps. |
 | Interest | `#inside` | Eight real screens of the released app, in a carousel to swipe, drag or page through. |
 | Interest | `#shapes` | The eight ways to answer, and "Try one" for a few more questions. |
@@ -106,8 +106,8 @@ entry. Keys you leave out show in English until translated.
 - Feedback links live in `Landing.astro` (`feedback`): GitHub issues and a Reddit profile to
   message (a link is hidden while its URL is empty). The Obtainium button opens `obtainium://add/<repo>` through Obtainium's
   redirect page.
-- **The app is in English for now.** Each translated file sets `appLanguage`, a short notice shown
-  with an `EN` tag in the hero and next to the download steps; English leaves it empty.
+- **The app speaks English and Polish.** Each translated file sets `appLanguage`, a short notice shown
+  with a tag (`appLanguagePill`: `EN · PL`, or `PL` on the Polish page) in the hero and next to the download steps; English leaves it empty.
   The Kompakt mockup shows the app's real screen, so `get.device` stays in English (translate
   only `get.device.aria`). When the app speaks a language, empty its `appLanguage` and translate
   its `get.device`.
@@ -185,7 +185,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 
 | Where | What moves |
 | --- | --- |
-| Hero | The year comes up as a faint sky of dots; Dotilda types her question; your answer (or her example) becomes a drop of ink that lands on today's dot. Nothing is sent or saved. |
+| Hero | The title settles, Dotilda pops up, her bubble opens and the question types itself. Unless the visitor starts typing, the scene plays once: a sample answer writes itself, becomes a drop of ink and lands on today's dot in this month's row; she smiles and says "Noted". "Your turn" sets it up again with a new question. Poke her: she pulls a face in one step (wink, surprised, glance, nap, smile, as in the app) and, poked on, has a word with you (`hero.quips`). Nothing is sent or saved. |
 | Pause | One huge sentence, pinned while you scroll, inks in word by word; Dotilda smiles at the end. |
 | Labels | Typed one character at a time, in their monospace. |
 | Headings | Rise word by word out of a mask (`Words.astro`). |

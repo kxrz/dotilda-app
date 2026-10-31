@@ -35,7 +35,20 @@
     "sample": "The smell of warm bread on the way home.",
     "noted": "Noted. One more dot in your sky.",
     "privacy": "Try it. Nothing you type here is sent or saved.",
-    "after": "That is the whole ritual. Tomorrow, a new question."
+    "after": "That is the whole ritual. Tomorrow, a new question.",
+    "kicker": "Free · open source · public beta",
+    "headline": "A journal for e‑ink phones. One question a day.",
+    "lede": "Each day, Dotilda asks you one small question. Answer in a line, and it becomes a dot in your year.",
+    "yourTurn": "Your turn",
+    "poke": "Poke Dotilda",
+    "quips": [
+      "Yes, dear?",
+      "That tickles.",
+      "Ahem. The question?",
+      "I’m quite real, you know.",
+      "Mind the glasses.",
+      "Shall we get on?"
+    ]
   },
   "pause": {
     "text": "Slow down. One small question, one line, and the rest of the day is yours again."

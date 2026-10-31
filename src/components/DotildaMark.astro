@@ -2,7 +2,7 @@
 // Dotilda as drawn in the app (ui/DotildaMark.kt): an ink dot with a bun and round glasses.
 // Like in the app she changes pose in one step (data-pose), never with a transition.
 interface Props {
-  pose?: 'neutral' | 'peering' | 'curious' | 'pleased';
+  pose?: 'neutral' | 'peering' | 'curious' | 'pleased' | 'wink' | 'surprised' | 'sleepy';
   class?: string;
   label?: string;
 }
@@ -17,4 +17,8 @@ const { pose = 'neutral', class: className = '', label } = Astro.props;
     <path d="M47.5 60h5" />
   </g>
   <path class="smile" d="M58.46 74.45A9 6.3 0 0 1 41.54 74.45" />
+  <!-- Only when poked (as in the app): closed eyes behind the lenses, a little "o". -->
+  <path class="lid lid-l" d="M43.14 59.87A6 4 0 0 1 31.86 59.87" />
+  <path class="lid lid-r" d="M68.14 59.87A6 4 0 0 1 56.86 59.87" />
+  <circle class="mouth" cx="50" cy="77" r="3.5" />
 </svg>

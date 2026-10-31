@@ -36,7 +36,20 @@
     "sample": "El olor a pan caliente de camino a casa.",
     "noted": "Anotado. Un punto más en tu cielo.",
     "privacy": "Pruébalo. Nada de lo que escribas aquí se envía ni se guarda.",
-    "after": "Ese es todo el ritual. Mañana, una pregunta nueva."
+    "after": "Ese es todo el ritual. Mañana, una pregunta nueva.",
+    "kicker": "Gratis · código abierto · beta pública",
+    "headline": "Un diario para teléfonos e‑ink. Una pregunta al día.",
+    "lede": "Cada día, Dotilda te hace una pequeña pregunta. Responde en una línea y se convierte en un punto de tu año.",
+    "yourTurn": "Te toca",
+    "poke": "Tocar a Dotilda",
+    "quips": [
+      "¿Sí? Te escucho.",
+      "Me haces cosquillas.",
+      "Ejem. ¿Y la pregunta?",
+      "Soy bastante real, ¿sabes?",
+      "Cuidado con las gafas.",
+      "¿Seguimos?"
+    ]
   },
   "pause": {
     "text": "Ve más despacio. Una pequeña pregunta, una línea, y el resto del día vuelve a ser tuyo."

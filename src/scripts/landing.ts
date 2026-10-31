@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 type PageData = {
   dateLocale: string;
-  hero: { sample: string; noted: string; after: string };
+  hero: { sample: string; noted: string; after: string; privacy: string; asks: string; quips: string[] };
   questions: string[];
   try: { another: string; done: string };
   get: { downloadVersion: string; line: string };
@@ -52,78 +52,88 @@ tryBtn.addEventListener('click', () => {
   } else show();
 });
 
-// Hero: the year as a faint sky of dots behind Dotilda's question. Past days are pale ink,
-// today is an empty terracotta ring, waiting. Answer, and your words become a drop of ink
-// that lands in today's place. Nothing is sent or saved.
-const heroEl = $('.hero'), heroCanvas = $<HTMLCanvasElement>('#heroSky');
-const heroCells: { m: number; d: number; past: boolean; today: boolean }[] = [];
-for (let m = 0; m < 12; m++) {
-  for (let d = 1; d <= new Date(today.getFullYear(), m + 1, 0).getDate(); d++) {
-    const date = new Date(today.getFullYear(), m, d);
-    heroCells.push({ m, d, past: date < today, today: +date === +today });
+// Hero: Dotilda asks in her bubble; this month's dots wait below, today empty under its caret.
+// Answer, and your words become a drop of ink that lands in today's place. Nothing is sent or
+// saved. With motion on, the scene first plays once by itself (unless you start typing), then
+// "Your turn" sets it up again with a new question. Dotilda changes face in one step, as in the app.
+const heroEl = $('.hero'), monthDots = $('#monthDots');
+const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLInputElement>('#askInput'), askBtn = $<HTMLButtonElement>('#askBtn');
+const askQ = $('#askQ'), askNote = $('#askNote'), askWho = $('#askWho'), heroMark = $('.hero-mark');
+const poke = $<HTMLButtonElement>('#poke'), yourTurn = $<HTMLButtonElement>('#yourTurn');
+const motion = () => root.classList.contains('motion');
+
+// This month, days 1 to today. Answered and quiet days are drawn from a fixed seed, so the row
+// looks lived-in and stays the same on every visit.
+const dayNow = today.getDate();
+$('#monthName').textContent = today.toLocaleDateString(data.dateLocale, { month: 'long' });
+{
+  let seed = 11;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const ns = 'http://www.w3.org/2000/svg', step = 10;
+  monthDots.setAttribute('viewBox', `0 0 ${31 * step} 20`);
+  for (let d = 1; d <= dayNow; d++) {
+    const c = document.createElementNS(ns, 'circle');
+    const quiet = d < dayNow && rnd() < .2;
+    c.setAttribute('cx', String((d - .5) * step));
+    c.setAttribute('cy', '6');
+    c.setAttribute('r', d === dayNow ? '3.4' : quiet ? '1.2' : '3');
+    c.setAttribute('class', d === dayNow ? 'd-today' : quiet ? 'd-quiet' : 'd-ink');
+    if (d === dayNow) c.id = 'todayDot';
+    monthDots.append(c);
   }
+  const caret = document.createElementNS(ns, 'path');
+  caret.setAttribute('d', `M${(dayNow - .5) * step} 13l3 4h-6z`);
+  caret.setAttribute('class', 'caret');
+  monthDots.append(caret);
 }
-const heroSky = { shown: heroCells.length, inked: false, ring: 0 };
+const todayDot = $('#todayDot');
 
-function heroGrid() {
-  const w = heroCanvas.clientWidth, h = heroCanvas.clientHeight;
-  const cell = Math.min(w / 31, (h * .9) / 12);
-  const left = w - cell * 31, top = (h - cell * 12) / 2;
-  return { w, h, cell, R: Math.min(cell * .13, 4.5), at: (m: number, d: number) => [left + (d - .5) * cell, top + (m + .5) * cell] };
-}
-
-function drawHeroSky() {
-  const { w, h, R, at } = heroGrid(), dpr = window.devicePixelRatio || 1;
-  heroCanvas.width = w * dpr;
-  heroCanvas.height = h * dpr;
-  const g = heroCanvas.getContext('2d')!;
-  g.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const ink = css('--ink'), ghost = css('--ghost'), todayColor = css('--today');
-  heroCells.slice(0, Math.round(heroSky.shown)).forEach(({ m, d, past, today: isToday }) => {
-    const [x, y] = at(m, d);
-    g.beginPath();
-    if (isToday) {
-      g.arc(x, y, R * 1.5, 0, Math.PI * 2);
-      if (heroSky.inked) { g.fillStyle = todayColor; g.fill(); }
-      else { g.strokeStyle = todayColor; g.lineWidth = 1.5; g.stroke(); }
-    } else {
-      g.globalAlpha = past ? .11 : .45;
-      g.fillStyle = past ? ink : ghost;
-      g.arc(x, y, past ? R : R * .45, 0, Math.PI * 2);
-      g.fill();
-      g.globalAlpha = 1;
-    }
+// The question, set letter by letter (screen readers get it whole).
+function setQuestion(text: string) {
+  askQ.innerHTML = '';
+  const sr = document.createElement('span');
+  sr.className = 'sr-only';
+  sr.textContent = text;
+  const chars = document.createElement('span');
+  chars.className = 'ask-chars';
+  chars.setAttribute('aria-hidden', 'true');
+  text.split(' ').forEach((w, i) => {
+    const cw = document.createElement('span');
+    cw.className = 'cw';
+    [...w].forEach(ch => { const c = document.createElement('span'); c.className = 'c'; c.textContent = ch; cw.append(c); });
+    chars.append(cw, i < text.split(' ').length - 1 ? ' ' : '');
   });
-  if (heroSky.ring > 0 && heroSky.ring < 1) {
-    const t = heroCells.find(c => c.today)!, [x, y] = at(t.m, t.d);
-    g.globalAlpha = 1 - heroSky.ring;
-    g.strokeStyle = todayColor;
-    g.lineWidth = 1.5;
-    g.beginPath();
-    g.arc(x, y, R * (1.5 + heroSky.ring * 5), 0, Math.PI * 2);
-    g.stroke();
-    g.globalAlpha = 1;
-  }
+  askQ.append(sr, chars);
+  if (motion()) gsap.from(chars.querySelectorAll('.c'), { autoAlpha: 0, duration: .01, stagger: .04, ease: 'none' });
 }
 
-const ask = $<HTMLFormElement>('#ask'), askInput = $<HTMLInputElement>('#askInput');
-const askQ = $('#askQ'), askNote = $('#askNote'), askMark = $('.ask-mark');
-let answered = false;
+// Poke her: each tap shows another face, in one step; poke on, and she has a word with you.
+const pokePoses = ['wink', 'surprised', 'curious', 'sleepy', 'pleased'];
+let pokes = 0;
+poke.addEventListener('click', () => {
+  pokes++;
+  heroMark.dataset.pose = pokePoses[(pokes - 1) % pokePoses.length];
+  if (pokes >= 3) askWho.textContent = data.hero.quips[(pokes - 3) % data.hero.quips.length];
+});
+
+type Phase = 'waiting' | 'demo' | 'flying' | 'shown' | 'yours' | 'done';
+let phase: Phase = 'waiting', demo: gsap.core.Timeline | null = null, demoTimer = 0;
 
 function noted() {
-  heroSky.inked = true;
-  drawHeroSky();
-  askMark.dataset.pose = 'pleased';
+  todayDot.classList.add('inked');
+  heroMark.dataset.pose = 'pleased';
   ask.classList.add('done');
-  $('#heroGet').classList.add('solid');
-  askNote.textContent = data.hero.after;
-  if (root.classList.contains('motion')) {
+  const mine = phase !== 'demo';
+  phase = mine ? 'done' : 'shown';
+  if (mine) { $('#heroGet').classList.add('solid'); askNote.textContent = data.hero.after; }
+  else { askNote.textContent = ''; yourTurn.hidden = false; }
+  if (motion()) {
     gsap.timeline()
-      .to(askQ, { autoAlpha: 0, y: -10, duration: .3, ease: 'power1.in' })
+      .to(askQ, { autoAlpha: 0, y: -8, duration: .25, ease: 'power1.in' })
       .call(() => { askQ.textContent = data.hero.noted; ScrollTrigger.refresh(); })
-      .fromTo(askQ, { y: 14 }, { autoAlpha: 1, y: 0, duration: .9, ease: 'power3.out' })
-      .from(askNote, { autoAlpha: 0, duration: .6 }, '-=.4');
-    gsap.to(heroSky, { ring: 1, duration: 1.4, ease: 'power2.out', onUpdate: drawHeroSky, onComplete: () => { heroSky.ring = 0; drawHeroSky(); } });
+      .fromTo(askQ, { y: 10 }, { autoAlpha: 1, y: 0, duration: .7, ease: 'power3.out' })
+      .from([askNote, yourTurn], { autoAlpha: 0, y: 6, duration: .5 }, '-=.3');
+    gsap.fromTo(todayDot, { attr: { r: 6 } }, { attr: { r: 3.4 }, duration: .6, ease: 'back.out(3)' });
   } else {
     askQ.textContent = data.hero.noted;
     ScrollTrigger.refresh();
@@ -144,27 +154,60 @@ function flyToToday(text: string) {
   const drop = document.createElement('span');
   drop.className = 'ink-drop';
   heroEl.appendChild(drop);
-  const t = heroCells.find(c => c.today)!;
-  const { R, at } = heroGrid(), cr = heroCanvas.getBoundingClientRect();
-  const [tx, ty] = at(t.m, t.d);
-
+  const tr = todayDot.getBoundingClientRect();
   gsap.set(drop, { x: x0 + Math.min(word.offsetWidth, ir.width) / 2, y: y0 + word.offsetHeight / 2, scale: 0 });
+  heroMark.dataset.pose = 'neutral'; // she pushes her glasses up to watch it land
   gsap.timeline({ onComplete: () => { drop.remove(); word.remove(); noted(); } })
-    .to(word, { scaleX: .04, scaleY: .3, autoAlpha: 0, duration: .75, ease: 'power3.in' })
-    .to(drop, { scale: 1, duration: .4, ease: 'back.out(3)' }, '-=.3')
-    .to(drop, { x: cr.left - hr.left + tx, duration: 1.2, ease: 'power1.inOut' }, '+=.1')
-    .to(drop, { y: cr.top - hr.top + ty, duration: 1.2, ease: 'back.in(1.6)' }, '<')
-    .to(drop, { scale: (R * 3) / 16, duration: .35, ease: 'power2.in' }, '-=.35');
+    .to(word, { scaleX: .04, scaleY: .3, autoAlpha: 0, duration: .65, ease: 'power3.in' })
+    .to(drop, { scale: 1, duration: .35, ease: 'back.out(3)' }, '-=.3')
+    .to(drop, { x: tr.left - hr.left + tr.width / 2, duration: 1.1, ease: 'power1.inOut' }, '+=.1')
+    .to(drop, { y: tr.top - hr.top + tr.height / 2, duration: 1.1, ease: 'back.in(1.4)' }, '<')
+    .to(drop, { scale: Math.max(tr.width, 6) / 16, duration: .3, ease: 'power2.in' }, '-=.3');
 }
+
+// The scene plays once by itself: a sample answer writes itself, the button is pressed, the drop flies.
+function playDemo() {
+  if (phase !== 'waiting' || document.activeElement === askInput || askInput.value) return;
+  phase = 'demo';
+  const sample = data.hero.sample, typing = { n: 0 };
+  heroMark.dataset.pose = 'curious';
+  demo = gsap.timeline({ onComplete: () => { askBtn.classList.remove('pressed'); flyToToday(sample); } })
+    .to(typing, { n: sample.length, duration: sample.length * .04, ease: 'none', onUpdate: () => { askInput.value = sample.slice(0, Math.round(typing.n)); } })
+    .call(() => askBtn.classList.add('pressed'), [], '+=.35')
+    .to({}, { duration: .3 });
+}
+// Typing during the scene takes over: it stops, and the field is yours.
+const takeOver = () => {
+  clearTimeout(demoTimer);
+  if (phase === 'demo' && demo) { demo.kill(); demo = null; askInput.value = ''; askBtn.classList.remove('pressed'); heroMark.dataset.pose = 'peering'; phase = 'yours'; }
+  else if (phase === 'waiting') phase = 'yours';
+};
+askInput.addEventListener('pointerdown', takeOver);
+askInput.addEventListener('focus', takeOver);
+
+// "Your turn": today is empty again (one step, like an e-ink redraw), a new question, the field.
+yourTurn.addEventListener('click', () => {
+  phase = 'yours';
+  todayDot.classList.remove('inked');
+  yourTurn.hidden = true;
+  ask.classList.remove('done');
+  heroMark.dataset.pose = 'peering';
+  askWho.textContent = data.hero.asks;
+  askNote.textContent = data.hero.privacy;
+  setQuestion(data.questions[1] ?? data.questions[0]);
+  askInput.focus();
+  ScrollTrigger.refresh();
+});
 
 ask.addEventListener('submit', e => {
   e.preventDefault();
-  if (answered) return;
-  answered = true;
+  if (phase === 'flying' || phase === 'done' || phase === 'shown' || phase === 'demo') return;
+  takeOver();
   askInput.blur();
   const typed = askInput.value.trim();
-  if (!root.classList.contains('motion')) {
-    if (!typed) askInput.value = data.hero.sample;
+  phase = 'flying';
+  if (!motion()) {
+    phase = 'yours';
     noted();
     return;
   }
@@ -326,9 +369,9 @@ function drawSky() {
 }
 
 let resizeTimer: number;
-addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { drawSky(); drawHeroSky(); }, 150); });
+addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(drawSky, 150); });
 const systemDark = matchMedia('(prefers-color-scheme: dark)');
-systemDark.addEventListener('change', () => { drawSky(); drawHeroSky(); });
+systemDark.addEventListener('change', drawSky);
 
 // Light / dark switch in the header: the choice wins over the system and is remembered
 // (public/theme.js applies it before the first paint on the next visit).
@@ -344,7 +387,6 @@ themeToggle.addEventListener('click', () => {
   try { localStorage.setItem('dotilda-theme', theme); } catch { /* private mode: the choice lasts this visit */ }
   labelToggle();
   drawSky();
-  drawHeroSky();
 });
 systemDark.addEventListener('change', labelToggle);
 labelToggle();
@@ -356,17 +398,20 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   const calm = { ease: 'power2.out', duration: 1.1 };
   const onEnter = (trigger: gsap.DOMTarget, start = 'top 85%') => ({ trigger, start, once: true });
 
-  // Hero: the sky of dots comes up row by row, the tagline settles, Dotilda appears and her
-  // question is typed out letter by letter, then the field waits for your line.
-  heroSky.shown = 0;
-  gsap.timeline({ defaults: calm })
-    .to(heroSky, { shown: heroCells.length, duration: 1.8, ease: 'power1.inOut', onUpdate: drawHeroSky })
-    .from('.hero-in > .label', { autoAlpha: 0, y: 10 }, .2)
-    .from('[data-hero-title] .w', { autoAlpha: 0, y: '0.35em', stagger: .05 }, .35)
-    .from('.ask-who', { autoAlpha: 0, x: -12 }, '-=.6')
-    .from('.ask-chars .c', { autoAlpha: 0, duration: .01, stagger: .05, ease: 'none' }, '-=.3')
-    .from('.ask-field', { autoAlpha: 0, y: 16 }, '-=.2')
-    .from('#askNote, .hero-foot', { autoAlpha: 0, y: 10, stagger: .15 }, '-=.7');
+  // Hero: the title settles word by word, Dotilda pops up, her bubble opens and the question is
+  // typed out letter by letter; the field and this month's dots come up. Then, if nobody has
+  // started typing, the scene plays once by itself.
+  gsap.timeline({ defaults: calm, onComplete: () => { demoTimer = window.setTimeout(playDemo, 900); } })
+    .from('.hero-in > .label', { autoAlpha: 0, y: 10 }, .1)
+    .from('[data-hero-title] .w', { autoAlpha: 0, y: '0.35em', stagger: .05 }, .2)
+    .from('.hero-lede', { autoAlpha: 0, y: 10 }, '-=.6')
+    .from('#poke', { autoAlpha: 0, scale: .5, y: 20, duration: .8, ease: 'back.out(2.2)' }, '-=.5')
+    .from('.ask-who', { autoAlpha: 0, x: -10, duration: .6 }, '-=.3')
+    .from('.bubble', { autoAlpha: 0, scale: .9, transformOrigin: '0% 30%', duration: .5, ease: 'back.out(1.8)' }, '-=.4')
+    .from('.ask-chars .c', { autoAlpha: 0, duration: .01, stagger: .045, ease: 'none' }, '-=.1')
+    .from('.ask-field', { autoAlpha: 0, y: 14 }, '-=.2')
+    .from('.month', { autoAlpha: 0, y: 10 }, '-=.8')
+    .from('#askNote, .hero-foot', { autoAlpha: 0, y: 10, stagger: .15 }, '-=.8');
 
   // ScrollTriggers are created in page order, the pinned pause first, so that every trigger
   // below it counts the pin's extra scroll.
@@ -460,10 +505,9 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   // Positions are measured once; measure again when the fonts change the page's height.
   document.fonts.ready.then(() => ScrollTrigger.refresh());
 
-  return () => { root.classList.remove('motion'); sky.shown = days.length; heroSky.shown = heroCells.length; drawSky(); drawHeroSky(); };
+  return () => { root.classList.remove('motion'); clearTimeout(demoTimer); sky.shown = days.length; drawSky(); };
 });
 drawSky();
-drawHeroSky();
 
 // Latest release, live from GitHub. Without it the button still downloads the latest APK.
 fetch('https://api.github.com/repos/kxrz/dotilda-app/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })

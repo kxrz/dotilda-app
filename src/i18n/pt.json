@@ -36,7 +36,20 @@
     "sample": "O cheiro de pão quentinho no caminho de casa.",
     "noted": "Anotado. Mais um ponto no seu céu.",
     "privacy": "Experimente. Nada do que você digita aqui é enviado ou guardado.",
-    "after": "Esse é todo o ritual. Amanhã, uma nova pergunta."
+    "after": "Esse é todo o ritual. Amanhã, uma nova pergunta.",
+    "kicker": "Gratuito · código aberto · beta pública",
+    "headline": "Um diário para celulares e‑ink. Uma pergunta por dia.",
+    "lede": "Todo dia, a Dotilda faz uma pequena pergunta. Responda em uma linha e ela vira um ponto no seu ano.",
+    "yourTurn": "Sua vez",
+    "poke": "Cutucar a Dotilda",
+    "quips": [
+      "Sim? Estou ouvindo.",
+      "Isso faz cócegas.",
+      "Aham. E a pergunta?",
+      "Eu sou bem real, sabia?",
+      "Cuidado com os óculos.",
+      "Vamos continuar?"
+    ]
   },
   "pause": {
     "text": "Desacelere. Uma pequena pergunta, uma linha, e o resto do dia volta a ser seu."

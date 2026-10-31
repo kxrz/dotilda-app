@@ -36,7 +36,20 @@
     "sample": "Zapach ciepłego chleba w drodze do domu.",
     "noted": "Zapisane. Jeszcze jedna kropka na Twoim niebie.",
     "privacy": "Spróbuj. Nic, co tu wpiszesz, nie jest wysyłane ani zapisywane.",
-    "after": "To cały rytuał. Jutro nowe pytanie."
+    "after": "To cały rytuał. Jutro nowe pytanie.",
+    "kicker": "Za darmo · open source · publiczna beta",
+    "headline": "Dziennik na telefony e‑ink. Jedno pytanie dziennie.",
+    "lede": "Każdego dnia Dotilda zadaje Ci jedno małe pytanie. Odpowiedz jednym zdaniem, a stanie się kropką w Twoim roku.",
+    "yourTurn": "Twoja kolej",
+    "poke": "Zaczep Dotildę",
+    "quips": [
+      "Tak, słucham?",
+      "To łaskocze.",
+      "Ehem. A pytanie?",
+      "Jestem całkiem prawdziwa.",
+      "Uwaga na okulary.",
+      "To co, wracamy do pytania?"
+    ]
   },
   "pause": {
     "text": "Zwolnij. Jedno małe pytanie, jedna linijka, a reszta dnia znów należy do Ciebie."
