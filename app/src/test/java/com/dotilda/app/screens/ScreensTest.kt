@@ -42,6 +42,9 @@ import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.Pose
 import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.FixMethodOrder
@@ -77,7 +80,7 @@ class ScreensTest {
     @Test
     fun a_onboarding() {
         awaitBank()
-        runBlocking { app.prefs.settingsNow() }
+        offMain { app.prefs.settingsNow() }
         launch()
         waitFor("Begin")
         shot("01-welcome")
@@ -251,7 +254,22 @@ class ScreensTest {
     private fun seed(question: String?, journeyDone: Int = 0) {
         step("seed $question")
         awaitBank()
-        runBlocking { seedJournal(question, journeyDone) }
+        offMain { seedJournal(question, journeyDone) }
+    }
+
+    /**
+     * Runs [block] on a background thread while this (main) thread keeps its looper turning:
+     * blocking the main thread can deadlock Room, DataStore or the bank sync.
+     */
+    private fun offMain(block: suspend () -> Unit) {
+        val job = CoroutineScope(Dispatchers.IO).async { block() }
+        val deadline = System.currentTimeMillis() + 30_000
+        while (!job.isCompleted) {
+            check(System.currentTimeMillis() < deadline) { "seeding took more than 30 s" }
+            ShadowLooper.idleMainLooper()
+            Thread.sleep(10)
+        }
+        runBlocking { job.await() }
     }
 
     /** The bank loads on the main thread, which is this test's thread: let its looper run. */
