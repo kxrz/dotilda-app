@@ -28,7 +28,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
       # The screenshot tests run in their own workflow.
-      - run: ./gradlew testDebugUnitTest --tests "com.dotilda.app.data.*" --tests "com.dotilda.app.update.*" assembleDebug
+      - run: ./gradlew testDebugUnitTest --tests "com.dotilda.app.data.*" --tests "com.dotilda.app.update.*" assembleDebug lintDebug
       # Room writes its schema to app/schemas on every build: it must already be committed,
       # so that every schema change comes with a migration.
       - name: Room schema committed

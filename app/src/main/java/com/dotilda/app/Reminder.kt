@@ -8,11 +8,19 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.app.Notification
+import android.os.Build
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+
+/**
+ * Exact alarms need no permission before Android 12; from 12 on the user may have refused them.
+ * (canScheduleExactAlarms doesn't exist on Android 11: calling it there crashed at launch.)
+ */
+fun AlarmManager.mayRingExactly(): Boolean =
+    Build.VERSION.SDK_INT < Build.VERSION_CODES.S || canScheduleExactAlarms()
 
 /** The one daily appointment. A single exact alarm, re-armed after it fires and after a reboot. */
 object Reminder {
@@ -39,7 +47,7 @@ object Reminder {
         if (!next.isAfter(now)) next = next.plusDays(1)
         val at = next.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
-        if (alarms.canScheduleExactAlarms()) {
+        if (alarms.mayRingExactly()) {
             alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, intent)
         } else {
             alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, intent)

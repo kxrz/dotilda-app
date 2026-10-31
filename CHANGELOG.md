@@ -7,6 +7,15 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.7.2] - 2026-10-31
+
+### Fixed
+- Dotilda no longer closes at launch on Android 11 (seen on the Xteink S4): the reminder and the
+  Spira timer asked Android 12's question about exact alarms.
+
+### Changed
+- The build now fails if the code calls anything Android 11 lacks without checking first.
+
 ## [0.7.1] - 2026-10-31
 
 ### Added
