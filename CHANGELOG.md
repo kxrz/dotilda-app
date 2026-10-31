@@ -7,7 +7,7 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
-## [Unreleased]
+## [0.7.2] - 2026-10-31
 
 ### Fixed
 - Dotilda no longer closes at launch on Android 11 (seen on the Xteink S4): the reminder and the

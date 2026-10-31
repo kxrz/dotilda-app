@@ -9,7 +9,7 @@ plugins {
 
 // The single source of the version: the release workflow checks the tag against it,
 // and versionCode follows it (1.2.3 -> 10203) so it can never be forgotten.
-val appVersion = "0.7.1"
+val appVersion = "0.7.2"
 
 android {
     namespace = "com.dotilda.app"
