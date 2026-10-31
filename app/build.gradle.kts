@@ -13,6 +13,12 @@ val appVersion = "0.7.1"
 
 android {
     namespace = "com.dotilda.app"
+
+    // Dotilda runs from Android 11 (minSdk 30): any newer API must be guarded, or the build fails.
+    lint {
+        checkOnly += "NewApi"
+        abortOnError = true
+    }
     compileSdk = 35
 
     defaultConfig {

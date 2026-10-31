@@ -38,7 +38,7 @@ object SpiraTimer {
 
     fun start(context: Context, endAt: Long) {
         val alarms = context.getSystemService(AlarmManager::class.java)
-        if (alarms.canScheduleExactAlarms()) {
+        if (alarms.mayRingExactly()) {
             alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, endAt, intent(context))
         } else {
             alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, endAt, intent(context))
