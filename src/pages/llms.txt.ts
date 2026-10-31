@@ -49,6 +49,7 @@ ${s.faq.items.map(i => `- ${i.q} ${i.a}`).join('\n')}
 
 - Website: ${locales.map(l => site!.origin + pathFor(l)).join(', ')}
 - Source code: ${repo}
+- Brand kit (name, voice, mark, colours, type, files): ${site!.origin}/brand
 - readme.club: https://readme.club
 - LesWWW: https://www.leswww.com
 `;

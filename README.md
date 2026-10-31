@@ -18,9 +18,10 @@ npm run build      # static site in dist/
 npm run preview    # serve dist/ on http://localhost:4321
 npm run check:fit  # with preview running: every language on 13 screens (see Checks)
 npm run og         # redraw the share images (see Share images)
+npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 ```
 
-`check:fit` and `og` use Playwright's Chromium: run `npx playwright install chromium` once.
+`check:fit`, `og` and `brand` use Playwright's Chromium: run `npx playwright install chromium` once.
 
 ## Stack
 
@@ -38,20 +39,26 @@ npm run og         # redraw the share images (see Share images)
 | `src/pages/[...lang].astro` | One page per language: English at `/`, the others at `/<code>`. |
 | `src/layouts/Layout.astro` | `<head>`: title, description, canonical, `hreflang`, share tags, JSON-LD. |
 | `src/components/Landing.astro` | The page itself, top to bottom (see below). |
+| `src/pages/brand.astro` | `/brand`, the brand kit (English only), linked discreetly from the footer. |
 | `src/components/DotildaMark.astro` | Dotilda as drawn in the app (`ui/DotildaMark.kt`), with her four poses. |
 | `src/components/Words.astro` | Splits a heading into words for the motion; screen readers get the sentence whole. |
 | `src/scripts/landing.ts` | The hero sky and ink drop, the month line, "Try one", the year of dots, the latest release, the motion, analytics. |
+| `src/scripts/brand.ts` | `/brand`: the theme switch and tap-to-copy colour codes. |
+| `src/glyphs.ts` | The dot shapes (answer, weather, photo, mirror, letter), shared by both pages. |
 | `src/styles/global.css` | Tokens, `@font-face`, layout. |
-| `src/pages/sitemap.xml.ts` | Sitemap, one entry per language. |
+| `src/styles/brand.css` | Layout of `/brand`. |
+| `src/pages/sitemap.xml.ts` | Sitemap, one entry per language, plus `/brand`. |
 | `src/pages/llms.txt.ts` | `/llms.txt`, a plain-text summary for AI answer engines, built from `en.json`. |
 | `src/assets/leswww-logo.svg` | LesWWW wordmark, from the LesWWW brand repo. |
 | `public/fonts/` | WOFF2 files, SIL OFL (see `public/fonts/README.md`). |
 | `public/app/*.png` | Real screens of the released app, shown in the Kompakt and in "Inside the app". |
 | `public/og/<code>.png` | Share image of each language, drawn by `scripts/og.mjs`. |
+| `public/brand/` | Brand kit files: poses (SVG, ink and paper), app icon, lockups (PNG), drawn by `scripts/brand.mjs`. |
 | `public/theme.js` | Runs before first paint: applies the light or dark theme chosen in the header. |
 | `public/motion.js` | Runs before first paint; see Motion. |
 | `scripts/check-fit.mjs` | The fit check (`npm run check:fit`). |
 | `scripts/og.mjs` | The share image generator (`npm run og`). |
+| `scripts/brand.mjs` | The brand kit file generator (`npm run brand`). |
 | `vercel.json` | Build settings, security headers (strict CSP), caching. |
 
 The page follows AIDA, in this order:
@@ -142,6 +149,15 @@ as the only image.
 - The Kompakt is drawn after the real phone: black slab, speaker and camera, side buttons,
   status bar, white back / home / menu keys, with real screens of the app inside. It keeps its
   own colours in both themes.
+
+### Brand kit
+
+`/brand` gathers the name and voice, Dotilda's four poses, the lockup and app icon, the colours
+(tap to copy), the type, the dot shapes, the real screens and share images, and usage rules.
+It exists in English only: no `hreflang`, no FAQ data. Its files are drawn by `npm run brand`
+from the app's geometry (`ui/DotildaMark.kt`, `ic_launcher_foreground.xml`); the glasses and the
+smile are cut out with a mask, so every SVG works on any background. When the app's drawing
+of Dotilda changes, update `DotildaMark.astro` and `scripts/brand.mjs`, then run `npm run brand`.
 
 ## Motion
 

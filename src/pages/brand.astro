@@ -1,0 +1,251 @@
+---
+// /brand: everything needed to write about Dotilda or show her. English only, linked from the footer.
+// The files in public/brand are drawn by scripts/brand.mjs (npm run brand) from the app's geometry.
+import Layout from '../layouts/Layout.astro';
+import DotildaMark from '../components/DotildaMark.astro';
+import { t, locales } from '../i18n';
+import { glyphs } from '../glyphs';
+import lesWWW from '../assets/leswww-logo.svg?raw';
+import '../styles/brand.css';
+
+const s = t('en');
+const repo = 'https://github.com/kxrz/dotilda-app';
+
+const poses = [
+  { id: 'neutral', name: 'Neutral', when: 'Her everyday face: menus, the app icon, a signature.' },
+  { id: 'peering', name: 'Peering', when: 'Glasses slid down her nose: she is asking you something.' },
+  { id: 'curious', name: 'Curious', when: 'A glance aside over her glasses: a little mischief, for “another question”.' },
+  { id: 'pleased', name: 'Pleased', when: 'A small smile: something was written.' },
+] as const;
+
+const palettes = [
+  { name: 'Paper, light', note: 'The site on a light screen.', colors: [
+    ['Paper', '#FBFAF6', 'background'], ['Ink', '#141412', 'text, the mark'], ['Ink 2', '#55534D', 'secondary text'],
+    ['Rule', '#E3E0D7', 'lines'], ['Ghost', '#C9C5BA', 'a quiet day'], ['Today', '#D1613E', 'today’s dot, once per page'] ] },
+  { name: 'Paper, dark', note: 'The same tones, for a dark screen.', colors: [
+    ['Paper', '#151513', 'background'], ['Ink', '#ECEAE2', 'text, the mark'], ['Ink 2', '#A3A097', 'secondary text'],
+    ['Rule', '#2C2B27', 'lines'], ['Ghost', '#4A4842', 'a quiet day'], ['Today', '#E2795A', 'today’s dot, once per page'] ] },
+  { name: 'The app', note: 'On e-ink: pure black on white. Photos are dithered to four greys.', colors: [
+    ['Black', '#000000', 'everything drawn'], ['White', '#FFFFFF', 'the page'],
+    ['Grey 1', '#555555', 'photos'], ['Grey 2', '#AAAAAA', 'photos'] ] },
+] as const;
+
+const faces = [
+  { family: 'Instrument Serif', cls: 'f-display', role: 'Display: headlines, the question, Dotilda’s voice in italics.', sample: 'What was the best bite of the day?', url: 'https://fonts.google.com/specimen/Instrument+Serif' },
+  { family: 'Geist', cls: 'f-body', role: 'Text: paragraphs, buttons, the answer field.', sample: 'A line, a word or a tap. Miss a day? Nothing breaks.', url: 'https://vercel.com/font' },
+  { family: 'Space Mono', cls: 'f-mono', role: 'Labels: small caps-like markers, dates, versions.', sample: 'DOTILDA ASKS · V0.5.0 · MARCH 9', url: 'https://fonts.google.com/specimen/Space+Mono' },
+];
+
+const dots = [
+  ['full', 'An answer', 'a line, a word, a choice, three things'],
+  ['half', 'Inner weather', 'from sun to storm, as a moon phase'],
+  ['square', 'A photo', 'kept small, in four greys'],
+  ['double', 'A mirror', 'the same question, 30 days apart'],
+  ['sealed', 'A sealed letter', 'opens on the date you chose'],
+];
+
+const voice = [
+  'There you are. Your sky kept your place.',
+  'Noted. One more dot in your sky.',
+  'Thunder about. Tea is advised.',
+  'That was my last one for today.',
+];
+---
+<Layout locale="en" path="/brand" title="Dotilda · Brand kit" description="Dotilda’s name, voice, character, colours, type and files: everything needed to write about the e-ink journal or show it.">
+<a class="skip" href="#name">Skip to the brand kit</a>
+<div class="wrap">
+
+<header class="top">
+  <a class="brand" href="/" aria-label="Dotilda, home">
+    <DotildaMark class="brand-mark" />
+    Dotilda <small>{s.nav.by}</small>
+  </a>
+  <nav class="top" aria-label="Brand kit">
+    <a class="hide-s" href="#mark">Mark</a>
+    <a class="hide-s" href="#colour">Colour</a>
+    <a class="hide-s" href="#type">Type</a>
+    <a href="/">Home</a>
+    <button class="theme-toggle" type="button" id="themeToggle" aria-label={s.nav.toDark} data-to-dark={s.nav.toDark} data-to-light={s.nav.toLight}>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main class="bk">
+<div class="bk-intro stack">
+  <p class="label">Brand kit</p>
+  <h1>Dotilda, in ink.</h1>
+  <p class="lede">The name, the character, colours, type and files. Use them to write about Dotilda, review it or link to it. Everything here is black on white first, like the screen she lives on.</p>
+</div>
+
+<section id="name" class="stack">
+  <p class="label">Name and voice</p>
+  <h2>One name for the app and the one who asks.</h2>
+  <dl class="facts">
+    <div><dt>Name</dt><dd><b>Dotilda</b>, one word, capital D. Never “DoTilda” or “DOTILDA” in running text.</dd></div>
+    <div><dt>Tagline</dt><dd class="voice">A question a day, a dot in your sky.</dd></div>
+    <div><dt>In one line</dt><dd>A gentle daily journal for e-ink phones: one question a day, and each answer becomes a dot in your year.</dd></div>
+    <div><dt>Credit</dt><dd>Dotilda by readme.club. Made and maintained by LesWWW. Free and open source (Apache 2.0).</dd></div>
+    <div><dt>Character</dt><dd>A kind Victorian governess with a bun and round glasses. A little mischievous, never guilt-tripping. She signs every question.</dd></div>
+  </dl>
+  <div class="cols">
+    <div class="stack">
+      <h3>How she speaks</h3>
+      <ul class="plain">
+        <li>Short and warm. One sentence is often enough.</li>
+        <li>Missed days are never a failure: no streaks, no red, no “you broke your chain”.</li>
+        <li>Dry British humour, lightly. Tea fixes most weather.</li>
+        <li>She addresses you, never herself as an app.</li>
+      </ul>
+    </div>
+    <ul class="quotes plain">
+      {voice.map(v => <li class="voice">“{v}”</li>)}
+    </ul>
+  </div>
+</section>
+
+<section id="mark" class="stack">
+  <p class="label">The mark</p>
+  <h2>An ink dot with a bun and round glasses.</h2>
+  <p class="lede">She changes pose in one step, never with a transition, and never loops: on e-ink each change is one redraw. The glasses and smile are cut out, so the files work on any background.</p>
+  <ul class="poses plain">
+    {poses.map(p => (
+      <li class="pose">
+        <div class="pose-art"><DotildaMark pose={p.id} label={`Dotilda, ${p.name.toLowerCase()}`} /></div>
+        <h3>{p.name}</h3>
+        <p>{p.when}</p>
+        <p class="dl"><a href={`/brand/dotilda-${p.id}-ink.svg`} download>SVG, ink</a> <a href={`/brand/dotilda-${p.id}-paper.svg`} download>SVG, paper</a></p>
+      </li>
+    ))}
+  </ul>
+  <p class="note">Drawn on a 100-unit square: bun r 13 at (50, 14), head r 36 at (50, 60), lenses r 10, lines 4. Readable down to 16 px. Ink files are for light backgrounds, paper files for dark ones.</p>
+</section>
+
+<section id="lockup" class="stack">
+  <p class="label">Lockup and icon</p>
+  <h2>With her name, or on its own.</h2>
+  <div class="lockups">
+    <figure>
+      <img src="/brand/dotilda-lockup-light.png" width="1298" height="500" alt="Dotilda's mark beside the name Dotilda, ink on paper" loading="lazy" decoding="async">
+      <figcaption><a href="/brand/dotilda-lockup-light.png" download>PNG, light</a></figcaption>
+    </figure>
+    <figure>
+      <img src="/brand/dotilda-lockup-dark.png" width="1298" height="500" alt="Dotilda's mark beside the name Dotilda, light on dark" loading="lazy" decoding="async">
+      <figcaption><a href="/brand/dotilda-lockup-dark.png" download>PNG, dark</a></figcaption>
+    </figure>
+    <figure class="icon">
+      <img src="/brand/dotilda-icon.svg" width="432" height="432" alt="The app icon: Dotilda as a thin line drawing, like the Kompakt's own icons" loading="lazy" decoding="async">
+      <figcaption><a href="/brand/dotilda-icon.svg" download>App icon, SVG</a></figcaption>
+    </figure>
+  </div>
+  <p class="note">The name is set in Instrument Serif. Leave at least the bun’s height of empty space around the lockup. The app icon is a line drawing, so it sits with the Mudita Kompakt’s own icons.</p>
+</section>
+
+<section id="colour" class="stack">
+  <p class="label">Colour</p>
+  <h2>Ink and paper, and one warm dot.</h2>
+  <p class="lede">No gradients. Terracotta marks today, once per page, nothing else. Tap a colour to copy its code.</p>
+  {palettes.map(p => (
+    <div class="palette stack">
+      <h3>{p.name}</h3>
+      <p class="note">{p.note}</p>
+      <ul class="swatches plain">
+        {p.colors.map(([name, hex, use]) => (
+          <li><button class="swatch" type="button" data-hex={hex}>
+            <svg class="chip" viewBox="0 0 10 10" preserveAspectRatio="none" aria-hidden="true"><rect width="10" height="10" fill={hex} /></svg>
+            <span class="sw-name">{name}</span>
+            <code>{hex}</code>
+            <span class="sw-use">{use}</span>
+          </button></li>
+        ))}
+      </ul>
+    </div>
+  ))}
+  <p class="sr-only" id="copied" aria-live="polite"></p>
+</section>
+
+<section id="type" class="stack">
+  <p class="label">Type</p>
+  <h2>A serif to ask, a sans to answer.</h2>
+  <ul class="faces plain">
+    {faces.map(f => (
+      <li class="face">
+        <p class={`specimen ${f.cls}`}>{f.sample}</p>
+        <p><b>{f.family}</b> · {f.role} <a href={f.url}>Get it</a></p>
+      </li>
+    ))}
+  </ul>
+  <p class="note">All three are free, under the SIL Open Font License, and served by this site. In the app, text uses the Kompakt’s system type from Mudita Mindful Design, in large sizes.</p>
+</section>
+
+<section id="dots" class="stack">
+  <p class="label">The dots</p>
+  <h2>Every answer gives its dot a shape.</h2>
+  <p class="lede">The year is a sky: twelve rows, one dot per day. Dots stay free: never draw a line through a full week or month, that would be a streak in disguise.</p>
+  <ul class="dots plain">
+    {dots.map(([shape, name, text]) => (
+      <li><svg viewBox="0 0 22 22" aria-hidden="true" set:html={glyphs[shape]} /><span><b>{name}</b> {text}</span></li>
+    ))}
+    <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="2.5" class="ghost" /></svg><span><b>A quiet day</b> a tiny grey dot, a breath in the grid</span></li>
+    <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="6" class="today" /></svg><span><b>Today</b> the one warm dot</span></li>
+  </ul>
+</section>
+
+<section id="images" class="stack">
+  <p class="label">Images</p>
+  <h2>Real screens, nothing invented.</h2>
+  <p class="lede">Screenshots from the app as it is today, at the Kompakt’s size (480 × 800 px). Please show these rather than mock-ups.</p>
+  <ul class="bk-shots plain">
+    {s.inside.screens.map(sc => (
+      <li><a href={`/app/${sc.src}.png`} download><img src={`/app/${sc.src}.png`} width="479" height="750" alt={sc.caption} loading="lazy" decoding="async"><span>{sc.caption}</span></a></li>
+    ))}
+  </ul>
+  <p class="note">Share images, 1200 × 630: {locales.map((l, i) => <>{i > 0 && ', '}<a href={`/og/${l}.png`} download>{l.toUpperCase()}</a></>)}.</p>
+</section>
+
+<section id="usage" class="stack">
+  <p class="label">Usage</p>
+  <h2>Keep her calm.</h2>
+  <div class="cols">
+    <div class="stack">
+      <h3>Do</h3>
+      <ul class="plain">
+        <li>Keep her black on white, or light on dark.</li>
+        <li>Give her room. Calm is part of the brand.</li>
+        <li>Show the real screens and say what the app does today.</li>
+        <li>Say it is free, open source and keeps everything on the phone.</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <h3>Don’t</h3>
+      <ul class="plain">
+        <li>Colour her, outline her, add gradients or shadows.</li>
+        <li>Stretch, tilt or redraw her, or invent new poses.</li>
+        <li>Animate her in a loop. One change of pose, then stillness.</li>
+        <li>Talk streaks, scores or productivity. She never counts.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="files" class="stack">
+  <p class="label">Using these files</p>
+  <h2>Free to talk about Dotilda.</h2>
+  <p class="lede">Use these files to write about Dotilda, review it, teach with it or link to it. Please don’t use them in a way that suggests readme.club or LesWWW made or endorse something they didn’t. The app’s code is under Apache 2.0; the fonts under the SIL Open Font License.</p>
+  <p class="actions"><a class="btn" href={`${repo}/issues/new`}>Ask a question on GitHub</a> <a class="btn" href="/">Back to Dotilda</a></p>
+</section>
+</main>
+
+<footer>
+  <div class="credits">
+    <a class="credit" href="https://readme.club"><span class="label">{s.footer.appBy}</span><span class="rmc">readme.club</span></a>
+    <a class="credit www" href="https://www.leswww.com"><span class="label">{s.footer.madeBy}</span><Fragment set:html={lesWWW} /></a>
+  </div>
+  <p class="fine">{s.footer.fine}</p>
+</footer>
+</div>
+<script>
+  import '../scripts/brand.ts';
+</script>
+</Layout>

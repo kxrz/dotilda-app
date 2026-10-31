@@ -216,7 +216,8 @@
   "footer": {
     "appBy": "Una app de",
     "madeBy": "Creada y mantenida por",
-    "fine": "Esta página no usa cookies. Cuenta las visitas de forma anónima, y nada más. Como la app, no te vigila."
+    "fine": "Esta página no usa cookies. Cuenta las visitas de forma anónima, y nada más. Como la app, no te vigila.",
+    "brand": "Kit de marca"
   },
   "questions": [
     "¿Cuál fue el mejor bocado del día?",

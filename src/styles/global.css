@@ -260,7 +260,7 @@ footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
 .mark .glasses,.mark .smile{fill:none;stroke:var(--paper);stroke-width:4;stroke-linecap:round;transform-origin:50px 60px}
 .mark .smile{display:none}
 .mark[data-pose="peering"] .glasses{transform:translateY(8px)}
-.mark[data-pose="curious"] .glasses{transform:rotate(-16deg)}
+.mark[data-pose="curious"] .glasses{transform:translate(6px,-3px)}
 .mark[data-pose="pleased"] .smile{display:inline}
 
 /* Set by public/motion.js before first paint, so nothing GSAP reveals flashes in first. */
@@ -290,3 +290,4 @@ footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
 
 /* Beta testers talk back */
 #feedback .actions{margin-top:1.75rem}
+footer .brand-link{display:inline-block;margin-top:.6rem;white-space:nowrap}

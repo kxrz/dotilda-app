@@ -216,7 +216,8 @@
   "footer": {
     "appBy": "Une app de",
     "madeBy": "Conçue et maintenue par",
-    "fine": "Cette page ne dépose aucun cookie. Elle compte les visites de façon anonyme, et c’est tout. Comme l’app, elle ne vous surveille pas."
+    "fine": "Cette page ne dépose aucun cookie. Elle compte les visites de façon anonyme, et c’est tout. Comme l’app, elle ne vous surveille pas.",
+    "brand": "Kit de marque"
   },
   "questions": [
     "Quelle a été la meilleure bouchée de la journée ?",

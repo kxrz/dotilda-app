@@ -2,11 +2,15 @@
 import '../styles/global.css';
 import { locales, pathFor, t } from '../i18n';
 
-interface Props { locale: string }
-const { locale } = Astro.props;
+// The landing page in each language, or another page (path given) that exists in English only.
+interface Props { locale: string; path?: string; title?: string; description?: string }
+const { locale, path } = Astro.props;
 const s = t(locale);
 const site = Astro.site!.origin;
-const url = site + pathFor(locale);
+const url = site + (path ?? pathFor(locale));
+const title = Astro.props.title ?? s.meta.title;
+const description = Astro.props.description ?? s.meta.description;
+const ogDescription = Astro.props.description ?? s.meta.ogDescription;
 const image = `${site}/og/${locale}.png`; // drawn per language by scripts/og.mjs
 const repo = 'https://github.com/kxrz/dotilda-app';
 
@@ -58,7 +62,7 @@ const jsonLd = {
       inLanguage: 'en', // the app itself; the site is translated
       sameAs: [repo],
     },
-    {
+    !path && {
       '@type': 'FAQPage',
       '@id': url + '#faq',
       inLanguage: locale,
@@ -68,7 +72,7 @@ const jsonLd = {
         acceptedAnswer: { '@type': 'Answer', text: item.a },
       })),
     },
-  ],
+  ].filter(Boolean),
 };
 ---
 <!doctype html>
@@ -76,11 +80,11 @@ const jsonLd = {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>{s.meta.title}</title>
-<meta name="description" content={s.meta.description}>
+<title>{title}</title>
+<meta name="description" content={description}>
 <link rel="canonical" href={url}>
-{locales.map(l => <link rel="alternate" hreflang={l} href={site + pathFor(l)} />)}
-<link rel="alternate" hreflang="x-default" href={site + '/'}>
+{!path && locales.map(l => <link rel="alternate" hreflang={l} href={site + pathFor(l)} />)}
+{!path && <link rel="alternate" hreflang="x-default" href={site + '/'} />}
 <meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151513" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -88,18 +92,18 @@ const jsonLd = {
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dotilda">
 <meta property="og:locale" content={s.meta.ogLocale}>
-{locales.filter(l => l !== locale).map(l => <meta property="og:locale:alternate" content={t(l).meta.ogLocale} />)}
+{!path && locales.filter(l => l !== locale).map(l => <meta property="og:locale:alternate" content={t(l).meta.ogLocale} />)}
 <meta property="og:url" content={url}>
-<meta property="og:title" content={s.meta.title}>
-<meta property="og:description" content={s.meta.ogDescription}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={ogDescription}>
 <meta property="og:image" content={image}>
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content={s.meta.ogImageAlt}>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content={s.meta.title}>
-<meta name="twitter:description" content={s.meta.ogDescription}>
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={ogDescription}>
 <meta name="twitter:image" content={image}>
 <meta name="twitter:image:alt" content={s.meta.ogImageAlt}>
 <link rel="sitemap" href="/sitemap.xml">

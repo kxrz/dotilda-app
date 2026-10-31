@@ -216,7 +216,8 @@
   "footer": {
     "appBy": "Um app da",
     "madeBy": "Criado e mantido por",
-    "fine": "Esta página não usa cookies. Conta as visitas de forma anônima, e só. Como o app, ela não vigia você."
+    "fine": "Esta página não usa cookies. Conta as visitas de forma anônima, e só. Como o app, ela não vigia você.",
+    "brand": "Kit da marca"
   },
   "questions": [
     "Qual foi a melhor garfada do dia?",

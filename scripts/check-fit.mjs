@@ -47,12 +47,14 @@ for (const [name, width, height] of screens) {
       }
       if (!inScroller && r.right > vw + 1) out.push(`${label} goes off the right edge`);
     }
-    const screen = document.querySelector('.screen').getBoundingClientRect();
-    for (const c of document.querySelectorAll('.screen > :not(.flash)')) {
+    // The landing page's own checks (other pages, like /brand, have none of these).
+    const screen = document.querySelector('.screen')?.getBoundingClientRect();
+    if (screen) for (const c of document.querySelectorAll('.screen > :not(.flash)')) {
       if (c.getBoundingClientRect().bottom > screen.bottom + 1) out.push(`Kompakt screen overflows (.${c.className})`);
     }
-    if (document.querySelector('.pause-text').getBoundingClientRect().height > vh) out.push('pause sentence taller than the screen');
-    if (document.querySelector('.ask-field').getBoundingClientRect().bottom + scrollY > vh) out.push('answer field below the first screen');
+    const pause = document.querySelector('.pause-text'), field = document.querySelector('.ask-field');
+    if (pause && pause.getBoundingClientRect().height > vh) out.push('pause sentence taller than the screen');
+    if (field && field.getBoundingClientRect().bottom + scrollY > vh) out.push('answer field below the first screen');
     return [...new Set(out)];
   });
   console.log(`${issues.length ? '✗' : '✓'} ${name} ${width}×${height}${issues.length ? '\n    ' + issues.join('\n    ') : ''}`);

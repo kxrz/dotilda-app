@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check:fit": "node scripts/check-fit.mjs",
-    "og": "node scripts/og.mjs"
+    "og": "node scripts/og.mjs",
+    "brand": "node scripts/brand.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
