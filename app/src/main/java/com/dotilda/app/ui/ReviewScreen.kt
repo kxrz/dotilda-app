@@ -107,7 +107,6 @@ fun periodTitle(first: YearMonth, last: YearMonth): String {
     fun name(m: YearMonth) = m.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
     return if (first == last) "${name(first)} ${first.year}" else "${name(first)} – ${name(last)} ${last.year}"
 }
-}
 
 @Composable
 private fun Weather(first: YearMonth, months: Int, entries: List<Entry>) {
