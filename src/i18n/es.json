@@ -19,7 +19,9 @@
     "get": "Consigue Dotilda",
     "sections": "Secciones",
     "language": "Idioma",
-    "faq": "Preguntas"
+    "faq": "Preguntas",
+    "toDark": "Cambiar al modo oscuro",
+    "toLight": "Cambiar al modo claro"
   },
   "hero": {
     "label": "Diario para tinta electrónica · beta pública",

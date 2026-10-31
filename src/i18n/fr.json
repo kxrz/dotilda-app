@@ -19,7 +19,9 @@
     "get": "Obtenir Dotilda",
     "sections": "Sections",
     "language": "Langue",
-    "faq": "Questions"
+    "faq": "Questions",
+    "toDark": "Passer en mode sombre",
+    "toLight": "Passer en mode clair"
   },
   "hero": {
     "label": "Journal quotidien pour l’e‑ink · bêta publique",

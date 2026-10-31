@@ -18,7 +18,9 @@
     "get": "Get Dotilda",
     "sections": "Sections",
     "language": "Language",
-    "faq": "Questions"
+    "faq": "Questions",
+    "toDark": "Switch to dark mode",
+    "toLight": "Switch to light mode"
   },
   "hero": {
     "label": "Daily journaling for e‑ink · public beta",

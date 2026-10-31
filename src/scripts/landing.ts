@@ -268,7 +268,27 @@ function drawSky() {
 
 let resizeTimer: number;
 addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = window.setTimeout(() => { drawSky(); drawHeroSky(); }, 150); });
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { drawSky(); drawHeroSky(); });
+const systemDark = matchMedia('(prefers-color-scheme: dark)');
+systemDark.addEventListener('change', () => { drawSky(); drawHeroSky(); });
+
+// Light / dark switch in the header: the choice wins over the system and is remembered
+// (public/theme.js applies it before the first paint on the next visit).
+const themeToggle = $<HTMLButtonElement>('#themeToggle');
+const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : systemDark.matches;
+const labelToggle = () => {
+  themeToggle.setAttribute('aria-label', isDark() ? themeToggle.dataset.toLight! : themeToggle.dataset.toDark!);
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach(m => { m.content = css('--paper'); });
+};
+themeToggle.addEventListener('click', () => {
+  const theme = isDark() ? 'light' : 'dark';
+  root.dataset.theme = theme;
+  try { localStorage.setItem('dotilda-theme', theme); } catch { /* private mode: the choice lasts this visit */ }
+  labelToggle();
+  drawSky();
+  drawHeroSky();
+});
+systemDark.addEventListener('change', labelToggle);
+labelToggle();
 
 // Motion.
 const mm = gsap.matchMedia();

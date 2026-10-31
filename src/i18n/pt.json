@@ -19,7 +19,9 @@
     "get": "Baixar a Dotilda",
     "sections": "Seções",
     "language": "Idioma",
-    "faq": "Perguntas"
+    "faq": "Perguntas",
+    "toDark": "Mudar para o modo escuro",
+    "toLight": "Mudar para o modo claro"
   },
   "hero": {
     "label": "Diário para tinta eletrônica · beta pública",

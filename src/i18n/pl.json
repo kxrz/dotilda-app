@@ -19,7 +19,9 @@
     "get": "Pobierz Dotildę",
     "sections": "Sekcje",
     "language": "Język",
-    "faq": "Pytania"
+    "faq": "Pytania",
+    "toDark": "Przełącz na tryb ciemny",
+    "toLight": "Przełącz na tryb jasny"
   },
   "hero": {
     "label": "Codzienny dziennik na e‑papier · publiczna beta",

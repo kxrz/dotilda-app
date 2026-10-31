@@ -33,9 +33,13 @@
   --measure:36rem;
   color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root{
+/* Dark: from the system, unless the header button chose light; or chosen with the button. */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#151513;--ink:#ECEAE2;--ink-2:#A3A097;--rule:#2C2B27;--ghost:#4A4842;--today:#E2795A;
   --device:#0B0B0A;--screen:#E9E7E0;--www-lime:#e2ff5c;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#151513;--ink:#ECEAE2;--ink-2:#A3A097;--rule:#2C2B27;--ghost:#4A4842;--today:#E2795A;
+  --device:#0B0B0A;--screen:#E9E7E0;--www-lime:#e2ff5c;color-scheme:dark}
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -208,6 +212,16 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 /* footer */
 footer{border-top:1px solid var(--rule);padding-block:3rem 4rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end}
 footer .credits{display:flex;flex-wrap:wrap;gap:2.5rem;align-items:flex-start}
+/* Light / dark switch: a moon in light, a sun in dark. Shown only once the script can run it. */
+.theme-toggle{visibility:hidden;display:inline-grid;place-items:center;width:2rem;height:2rem;margin-left:.25rem;padding:0;border:0;background:none;color:var(--ink-2);cursor:pointer}
+.js .theme-toggle{visibility:visible}
+.theme-toggle:hover{color:var(--ink)}
+.theme-toggle svg{width:1.15rem;height:1.15rem}
+.theme-toggle .sun{display:none}
+:root[data-theme="dark"] .theme-toggle .sun{display:block}
+:root[data-theme="dark"] .theme-toggle .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme-toggle .sun{display:block}:root:not([data-theme="light"]) .theme-toggle .moon{display:none}}
+nav.top{align-items:center}
 nav.top .langs{display:flex;gap:.6rem;font-family:var(--mono);font-size:.8rem;padding-left:1rem;border-left:1px solid var(--rule)}
 nav.top .langs b{font-weight:400;color:var(--ink)}
 footer .credit{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;text-decoration:none}

@@ -48,6 +48,7 @@ npm run og         # redraw the share images (see Share images)
 | `public/fonts/` | WOFF2 files, SIL OFL (see `public/fonts/README.md`). |
 | `public/app/*.png` | Real screens of the released app, shown in the Kompakt and in "Inside the app". |
 | `public/og/<code>.png` | Share image of each language, drawn by `scripts/og.mjs`. |
+| `public/theme.js` | Runs before first paint: applies the light or dark theme chosen in the header. |
 | `public/motion.js` | Runs before first paint; see Motion. |
 | `scripts/check-fit.mjs` | The fit check (`npm run check:fit`). |
 | `scripts/og.mjs` | The share image generator (`npm run og`). |
@@ -129,7 +130,9 @@ Use only screens from `screenshots/main` (the released app), never from a featur
 The page is a sheet of e-ink paper: ink on a warm off-white, one reading column, the year of dots
 as the only image.
 
-- Colours are tokens at the top of `global.css`, with a dark theme (night ink).
+- Colours are tokens at the top of `global.css`, with a dark theme (night ink). The page follows
+  the system until the header's moon / sun button picks light or dark; the choice is kept in
+  `localStorage` (`dotilda-theme`) and applied before the first paint by `public/theme.js`.
   `#D1613E`, readme.club's terracotta, appears once: today's dot. LesWWW's lime appears only
   under the LesWWW logo, following the LesWWW brand rule (lime = action).
 - Type: Instrument Serif for headings and Dotilda's voice, Geist for text, Space Mono for labels,
