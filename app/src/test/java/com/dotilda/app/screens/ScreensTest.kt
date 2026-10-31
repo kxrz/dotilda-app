@@ -267,6 +267,21 @@ open class ScreensTest {
         shot("27-galaxy-night-sky")
     }
 
+    /** Someone who had Dotilda before she asked for names: asked once, then straight to Today. */
+    @Test
+    fun j_nameAskedAfterUpdate() {
+        awaitBank()
+        offMain {
+            app.prefs.resetAll()
+            app.prefs.setWelcomed()
+        }
+        launch()
+        waitFor("What shall I call you?")
+        shot("32-name-after-update")
+        click("I'd rather not say")
+        waitFor("Answer")
+    }
+
     private var scenario: ActivityScenario<MainActivity>? = null
 
     private fun launch() {
@@ -340,6 +355,7 @@ open class ScreensTest {
      */
     private suspend fun seedJournal(question: String?, journeyDone: Int) {
         app.prefs.setWelcomed()
+        if (!app.prefs.settingsNow().nameAsked) app.prefs.setName("Ada")
         val bank = app.db.questionDao().all()
         val byType = bank.filter { it.journeyId == null }.groupBy { it.type }
         val random = Random(7)

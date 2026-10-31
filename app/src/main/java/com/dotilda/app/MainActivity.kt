@@ -53,7 +53,17 @@ class MainActivity : ComponentActivity() {
                 val settings by app.prefs.settings.collectAsState(initial = null)
                 val welcomed = settings?.welcomed
                 if (welcomed != null) {
-                    var screen by rememberSaveable { mutableStateOf(if (welcomed) Screen.Today else Screen.Welcome) }
+                    // Those who had Dotilda before she asked for names are asked once, at their next launch.
+                    val askName = welcomed && settings?.nameAsked == false
+                    var screen by rememberSaveable {
+                        mutableStateOf(
+                            when {
+                                !welcomed -> Screen.Welcome
+                                askName -> Screen.Name
+                                else -> Screen.Today
+                            },
+                        )
+                    }
                     // The Notebook opens at a given day (from the Galaxy, a review or a letter) and returns there.
                     var notebookDate by rememberSaveable { mutableStateOf<String?>(null) }
                     var notebookFrom by rememberSaveable { mutableStateOf(Screen.Today) }
@@ -74,6 +84,8 @@ class MainActivity : ComponentActivity() {
                     // spira opened from Answer ("breathe first") returns to the question.
                     var spiraFromAnswer by rememberSaveable { mutableStateOf(false) }
                     var nameFromSettings by rememberSaveable { mutableStateOf(false) }
+                    // Where the name question leads: the reminder during onboarding, Today after an update.
+                    var nameThen by rememberSaveable { mutableStateOf(if (askName) Screen.Today else Screen.Setup) }
                     val scope = rememberCoroutineScope()
                     val askNotifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
@@ -97,7 +109,7 @@ class MainActivity : ComponentActivity() {
                             screen = Screen.Name
                         }
                         // Onboarding asks for a name, then the reminder time; Settings can change the name.
-                        Screen.Name -> NameScreen(app.prefs) { screen = if (nameFromSettings) Screen.Settings else Screen.Setup }
+                        Screen.Name -> NameScreen(app.prefs) { screen = if (nameFromSettings) Screen.Settings else nameThen }
                         // Onboarding ends on the first question, straight away.
                         Screen.Setup -> ReminderSetupScreen(app.prefs) { screen = Screen.Answer }
                         Screen.Spira -> SpiraScreen(

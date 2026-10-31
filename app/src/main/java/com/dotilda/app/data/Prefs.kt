@@ -27,6 +27,8 @@ data class Settings(
     val reminderMinutes: Int,
     /** Look for a new version on GitHub when the app starts: Dotilda's only network access. */
     val checkUpdates: Boolean,
+    /** Whether Dotilda has asked what to call the user (asked once, even to those who said nothing). */
+    val nameAsked: Boolean,
 )
 
 /** What Dotilda already offered today, so the question survives an app restart. */
@@ -64,6 +66,7 @@ class Prefs(private val context: Context) {
         val dotSize = stringPreferencesKey("dot_size")
         val dismissedAsides = stringSetPreferencesKey("dismissed_asides")
         val name = stringPreferencesKey("name")
+        val nameAsked = booleanPreferencesKey("name_asked")
         val updateSeen = stringPreferencesKey("update_seen")
         val updatedOn = stringPreferencesKey("updated_on")
         val skyLayout = stringPreferencesKey("sky_layout")
@@ -82,7 +85,10 @@ class Prefs(private val context: Context) {
     val name: Flow<String> = context.dataStore.data.map { it[Keys.name].orEmpty() }
 
     suspend fun setName(name: String) {
-        context.dataStore.edit { it[Keys.name] = name.trim().take(NAME_MAX) }
+        context.dataStore.edit {
+            it[Keys.name] = name.trim().take(NAME_MAX)
+            it[Keys.nameAsked] = true
+        }
     }
 
     suspend fun setWelcomed() {
@@ -224,6 +230,7 @@ class Prefs(private val context: Context) {
         reminderOn = this[Keys.reminderOn] ?: true,
         reminderMinutes = this[Keys.reminderMinutes] ?: DEFAULT_REMINDER_MINUTES,
         checkUpdates = this[Keys.checkUpdates] ?: true,
+        nameAsked = this[Keys.nameAsked] ?: false,
     )
 
     companion object {
