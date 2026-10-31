@@ -2,6 +2,8 @@ package com.dotilda.app.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,6 +50,7 @@ private const val UPDATE_ASIDE_DAYS = 3L
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TodayScreen(
     journal: Journal,
@@ -140,7 +143,8 @@ fun TodayScreen(
                 )
             }
         }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        // Wraps onto two lines on a narrow screen or with large text, rather than run together.
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             val small = MaterialTheme.typography.bodySmall
             TextLink(stringResource(R.string.notebook), onNotebook, style = small)
             TextLink(stringResource(R.string.galaxy), onGalaxy, style = small)

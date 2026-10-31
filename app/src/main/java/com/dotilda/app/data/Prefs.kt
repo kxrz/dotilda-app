@@ -72,6 +72,11 @@ class Prefs(private val context: Context) {
 
     suspend fun settingsNow(): Settings = settings.first()
 
+    /** Forgets every preference, as on a fresh install (used by the screenshot tests). */
+    suspend fun resetAll() {
+        context.dataStore.edit { it.clear() }
+    }
+
     suspend fun setWelcomed() {
         context.dataStore.edit { it[Keys.welcomed] = true }
     }
@@ -177,11 +182,13 @@ class Prefs(private val context: Context) {
         )
     }
 
-    suspend fun setSky(style: SkyStyle) {
-        context.dataStore.edit {
-            it[Keys.dotSize] = style.dots.name
-            it[Keys.skyLayout] = style.layout.name
-        }
+    // One key at a time: two quick taps must not overwrite each other's choice.
+    suspend fun setDotSize(size: DotSize) {
+        context.dataStore.edit { it[Keys.dotSize] = size.name }
+    }
+
+    suspend fun setSkyLayout(layout: SkyLayout) {
+        context.dataStore.edit { it[Keys.skyLayout] = layout.name }
     }
 
     suspend fun day(): DayState = context.dataStore.data.first().let {

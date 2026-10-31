@@ -1,6 +1,10 @@
 package com.dotilda.app.ui
 
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,19 +25,21 @@ import androidx.compose.ui.unit.dp
 import com.dotilda.app.R
 import com.mudita.mmd.components.text.TextMMD
 
-/** Characters per page at the Kompakt's size, in small type: no scrolling, pages instead. */
+/** Characters on a page until the screen has been measured: no scrolling, pages instead. */
 private const val PAGE_CHARS = 700
 
 /** The open source notices and licences (Apache 2.0, SIL OFL 1.1 for Lato), page by page. */
 @Composable
 fun LicensesScreen(onBack: () -> Unit) {
     val context = LocalContext.current
-    val pages = remember {
-        val text = listOf("NOTICE.txt", "OFL-1.1.txt", "APACHE-2.0.txt").joinToString("\n\n") { name ->
+    val text = remember {
+        listOf("NOTICE.txt", "OFL-1.1.txt", "APACHE-2.0.txt").joinToString("\n\n") { name ->
             context.assets.open("licenses/$name").bufferedReader().use { it.readText() }.trim()
         }
-        paginate(text, PAGE_CHARS)
     }
+    // Pages sized to the room the screen leaves for the text (and to the text size), measured below.
+    var pageChars by remember { mutableIntStateOf(PAGE_CHARS) }
+    val pages = remember(pageChars) { paginate(text, pageChars) }
     var page by rememberSaveable { mutableIntStateOf(0) }
     val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, pages.lastIndex) }
     PageKeysEffect(turn)
@@ -44,7 +50,13 @@ fun LicensesScreen(onBack: () -> Unit) {
             TextMMD("${page + 1} / ${pages.size}", style = MaterialTheme.typography.labelMedium)
         }
         Spacer(Modifier.height(16.dp))
-        TextMMD(pages[page], modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodySmall)
+        val fontScale = LocalDensity.current.fontScale
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            // About 7.5 dp a character and 20 dp a line in small type, with a margin for short lines.
+            val chars = ((maxWidth.value / (7.5f * fontScale)) * (maxHeight.value / (20f * fontScale)) * 0.8f).toInt()
+            LaunchedEffect(chars) { if (chars in 120 until pageChars || chars > pageChars + 50) pageChars = chars }
+            TextMMD(pages[page.coerceIn(0, pages.lastIndex)], style = MaterialTheme.typography.bodySmall)
+        }
         PagerRow(canPrevious = page > 0, canNext = page < pages.lastIndex, onPage = turn, onBack = onBack)
     }
 }

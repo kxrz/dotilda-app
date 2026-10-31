@@ -1,6 +1,10 @@
 package com.dotilda.app.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -54,6 +58,7 @@ import kotlinx.coroutines.launch
 
 const val DAY_MINUTES = 24 * 60
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
     prefs: Prefs,
@@ -159,13 +164,6 @@ fun SettingsScreen(
                     latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
                     else -> TextLink(stringResource(R.string.check_now, version), onCheck)
                 }
-                Spacer(Modifier.height(8.dp))
-                HorizontalDividerMMD(thickness = 1.dp)
-                Row(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    TextLink(stringResource(R.string.about), onAbout)
-                    TextLink(stringResource(R.string.licenses), onLicenses)
-                    TextLink(stringResource(R.string.diagnostics), onDiagnostics)
-                }
             } else {
                 TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -180,10 +178,10 @@ fun SettingsScreen(
                 TextMMD(stringResource(R.string.sky_title), style = MaterialTheme.typography.labelMedium)
                 Spacer(Modifier.height(8.dp))
                 Choice(stringResource(R.string.sky_dots), stringArrayResource(R.array.sky_dot_sizes).toList(), sky.dots.ordinal) {
-                    scope.launch { prefs.setSky(sky.copy(dots = DotSize.entries[it])) }
+                    scope.launch { prefs.setDotSize(DotSize.entries[it]) }
                 }
                 Choice(stringResource(R.string.sky_layout), stringArrayResource(R.array.sky_layouts).toList(), sky.layout.ordinal) {
-                    scope.launch { prefs.setSky(sky.copy(layout = SkyLayout.entries[it])) }
+                    scope.launch { prefs.setSkyLayout(SkyLayout.entries[it]) }
                 }
                 Spacer(Modifier.height(12.dp))
                 // A preview of the month's line in the chosen style.
@@ -191,6 +189,14 @@ fun SettingsScreen(
                 val month = remember { YearMonth.from(today) }
                 val entries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
                 CompositionLocalProvider(LocalSkyStyle provides sky) { MonthLine(month, entries, today) }
+                Spacer(Modifier.height(12.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                // Wraps onto two lines on a narrow screen or with large text, rather than overlap.
+                FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(18.dp)) {
+                    TextLink(stringResource(R.string.about), onAbout)
+                    TextLink(stringResource(R.string.licenses), onLicenses)
+                    TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+                }
             }
         }
         PagerRow(canPrevious = page > 0, canNext = page < 1, onPage = turn, onBack = onBack)
@@ -220,14 +226,23 @@ fun ReminderTime(minutes: Int, onChange: (Int) -> Unit) {
     Column {
         TextMMD("%02d:%02d".format(minutes / 60, minutes % 60), style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.height(8.dp))
-        Row(Modifier.fillMaxWidth()) {
-            listOf("−1 h" to -60, "+1 h" to 60, "−15 min" to -15, "+15 min" to 15).forEachIndexed { i, (label, delta) ->
-                if (i > 0) Spacer(Modifier.width(6.dp))
-                OutlinedButtonMMD(
-                    onClick = { onChange(Math.floorMod(minutes + delta, DAY_MINUTES)) },
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
-                ) { TextMMD(label, style = MaterialTheme.typography.labelMedium, maxLines = 1) }
+        // Four buttons in a row, or two rows of two when a button would be too narrow for its label.
+        BoxWithConstraints(Modifier.fillMaxWidth()) {
+            val steps = listOf("−1 h" to -60, "+1 h" to 60, "−15 min" to -15, "+15 min" to 15)
+            val rows = if (maxWidth / 4 < 76.dp * LocalDensity.current.fontScale) steps.chunked(2) else listOf(steps)
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                rows.forEach { row ->
+                    Row(Modifier.fillMaxWidth()) {
+                        row.forEachIndexed { i, (label, delta) ->
+                            if (i > 0) Spacer(Modifier.width(6.dp))
+                            OutlinedButtonMMD(
+                                onClick = { onChange(Math.floorMod(minutes + delta, DAY_MINUTES)) },
+                                modifier = Modifier.weight(1f),
+                                contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
+                            ) { TextMMD(label, style = MaterialTheme.typography.labelMedium, maxLines = 1) }
+                        }
+                    }
+                }
             }
         }
     }

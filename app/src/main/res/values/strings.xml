@@ -185,7 +185,7 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="daily_reminder">Daily reminder</string>
-    <string name="about">About Dotilda</string>
+    <string name="about">About</string>
     <string name="diagnostics">Diagnostics</string>
     <string name="press_a_button">Press any hardware button</string>
 

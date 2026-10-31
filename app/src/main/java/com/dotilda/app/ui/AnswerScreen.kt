@@ -5,6 +5,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -168,27 +172,33 @@ private fun TextInput(
 @Composable
 private fun WeatherInput(onBack: () -> Unit, modifier: Modifier, onSave: (Int) -> Unit) {
     val phrases = stringArrayResource(R.array.weather_phrases)
+    val fontScale = LocalDensity.current.fontScale
     Column(modifier) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (level in 0..4) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(1.5.dp, Color.Black, RoundedCornerShape(10.dp))
-                        .clickable { onSave(level) }
-                        .padding(horizontal = 12.dp, vertical = 6.dp),
-                ) {
-                    WeatherIcon(level, size = 40.dp)
-                    Spacer(Modifier.width(14.dp))
-                    Column {
-                        TextMMD(weatherLabel(level), style = MaterialTheme.typography.titleSmall)
-                        TextMMD(phrases[level], style = MaterialTheme.typography.bodySmall, maxLines = 1)
+        // The five cards share the room above Back; with little of it (a small phone, large
+        // text), they drop Dotilda's phrase and shrink their picto rather than run off the page.
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            val compact = maxHeight / 5 < 62.dp * fontScale
+            Column(verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 8.dp)) {
+                for (level in 0..4) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .border(1.5.dp, Color.Black, RoundedCornerShape(10.dp))
+                            .clickable { onSave(level) }
+                            .padding(horizontal = 12.dp, vertical = if (compact) 3.dp else 6.dp),
+                    ) {
+                        WeatherIcon(level, size = if (compact) 28.dp else 40.dp)
+                        Spacer(Modifier.width(14.dp))
+                        Column {
+                            TextMMD(weatherLabel(level), style = MaterialTheme.typography.titleSmall)
+                            if (!compact) TextMMD(phrases[level], style = MaterialTheme.typography.bodySmall, maxLines = 1)
+                        }
                     }
                 }
             }
         }
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.height(8.dp))
         ActionRow(back = stringResource(R.string.back), onBack = onBack)
     }
 }
@@ -307,6 +317,7 @@ private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: St
 }
 
 /** A longer letter, sealed until a date chosen among four. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun LetterInput(question: Question, today: LocalDate, onBack: () -> Unit, modifier: Modifier, onSave: (String, LocalDate) -> Unit) {
     var text by rememberSaveable { mutableStateOf("") }
@@ -330,7 +341,7 @@ private fun LetterInput(question: Question, today: LocalDate, onBack: () -> Unit
         )
         Spacer(Modifier.height(8.dp))
         TextMMD(stringResource(R.string.letter_open_in), style = MaterialTheme.typography.labelMedium)
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             listOf(1, 3, 6, 12).forEach { m ->
                 TextMMD(
                     LocalContext.current.resources.getQuantityString(R.plurals.letter_months, m, m),
