@@ -269,4 +269,8 @@
     <string name="intro_review">Twoja pogoda, Twoje słowa, jedno Twoje zdanie i zdjęcia, zebrane z miesiąca albo pory roku. Przewracaj strony strzałkami ‹ ›.</string>
     <string name="intro_settings_title">Ustawienia</string>
     <string name="intro_settings">Twoje imię i przypomnienie. Na następnej stronie: eksport dziennika, książka z Twojego roku i wygląd nieba; na ostatniej aktualizacje i reszta.</string>
+    <string name="crash_title">Dotilda się potknęła</string>
+    <string name="crash_text">Aplikacja nagle się zamknęła. Oto co się stało: zapisz to albo zrób zdjęcie i wyślij nam na GitHubie (kxrz/dotilda-app), żebyśmy mogli to naprawić.</string>
+    <string name="crash_save">Zapisz raport</string>
+    <string name="crash_continue">Otwórz Dotildę</string>
 </resources>

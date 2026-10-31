@@ -47,10 +47,32 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val lastKey = mutableStateOf<String?>(null)
+    private var crashReport: String? = null
+    private val saveCrash = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
+        val text = crashReport
+        if (uri != null && text != null) {
+            runCatching { contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) } }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app = application as DotildaApp
+        // After a crash (or if Dotilda cannot start at all), the report comes first, readable.
+        val failed = app.startupError
+        val report = if (failed != null) CrashLog.read(this) else CrashLog.unseen(this)
+        if (report != null) {
+            crashReport = report
+            showCrashReport(
+                report,
+                onSave = { saveCrash.launch("dotilda-crash.txt") },
+                onContinue = if (failed != null) null else ({
+                    CrashLog.markSeen(this)
+                    recreate()
+                }),
+            )
+            return
+        }
         setContent {
             val sky by app.prefs.sky.collectAsState(initial = SkyStyle())
             val name by app.prefs.name.collectAsState(initial = "")
