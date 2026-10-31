@@ -46,7 +46,10 @@ questions are synced into the bank with their `journeyId` and never drawn outsid
 Journey state, constellations and opened letters live in DataStore: no schema change so far,
 so users' databases need no migration.
 Target: more than 200 questions so the user never feels they are going round in circles.
-UI copy is English, in `res/values/strings.xml` so other languages can be added later.
+UI copy is English in `res/values/strings.xml`, Polish in `res/values-pl/strings.xml`.
+A translation also sets `app_locale` (dates and the question bank follow it) and ships
+`assets/questions-<code>.json` and `journeys-<code>.json` with the same ids, types and tags
+(`TranslationsTest`). In Polish the user is "Ty" (capitalised) and nothing assumes their gender.
 Keep it short and warm. "Dotilda" (capital D) is both the app and the guide character who
 signs each question: a kind Victorian governess, a little mischievous, never guilt-tripping.
 

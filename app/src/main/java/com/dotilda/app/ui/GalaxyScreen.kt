@@ -39,7 +39,6 @@ import java.time.LocalDate
 import java.time.Month
 import java.time.YearMonth
 import java.time.format.TextStyle as DateTextStyle
-import java.util.Locale
 
 private val LABEL_WIDTH = 18.dp
 
@@ -94,12 +93,13 @@ private fun YearGrid(
     modifier: Modifier,
 ) {
     val shapes = remember(entries) { entries.groupBy { it.date }.mapValues { it.value.first().dotShape(today) } }
+    val locale = appLocale()
 
     Row(modifier) {
         Column(Modifier.width(LABEL_WIDTH).fillMaxHeight()) {
             for (m in 1..12) {
                 val month = YearMonth.of(year, m)
-                val name = month.month.getDisplayName(DateTextStyle.FULL, Locale.ENGLISH)
+                val name = month.month.title(locale)
                 Box(
                     Modifier
                         .weight(1f)
@@ -108,7 +108,7 @@ private fun YearGrid(
                         .semantics { contentDescription = name },
                     contentAlignment = Alignment.CenterStart,
                 ) {
-                    TextMMD(month.month.getDisplayName(DateTextStyle.NARROW, Locale.ENGLISH), fontSize = 11.sp)
+                    TextMMD(month.month.getDisplayName(DateTextStyle.NARROW_STANDALONE, locale).uppercase(locale), fontSize = 11.sp)
                 }
             }
         }
