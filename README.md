@@ -98,7 +98,6 @@ made-up year of journal and pushes the images to the branch `screenshots/<branch
 | `app/src/main/assets/questions.json` | The question bank. |
 | `app/src/main/res/values/strings.xml` | Every word of the interface. |
 | `app/src/test` | Unit tests and the screenshot tour. |
-| `docs/spec.md` | The product spec (in French). |
 
 The website, [www.dotilda.com](https://www.dotilda.com), lives on the [`website`](https://github.com/kxrz/dotilda-app/tree/website)
 branch, with its own README.
