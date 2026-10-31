@@ -78,7 +78,8 @@ header.top{display:flex;justify-content:space-between;align-items:center;gap:1re
 nav.top{display:flex;gap:1.5rem;font-size:.95rem}
 nav.top a{text-decoration:none;color:var(--ink-2)}
 nav.top a:hover{color:var(--ink);text-decoration:underline}
-@media (max-width:640px){nav.top .hide-s{display:none}.brand small{display:none}}
+@media (max-width:720px){nav.top .hide-s{display:none}}
+@media (max-width:640px){.brand small{display:none}}
 /* With the language links, the header link to Get Dotilda gives way on narrow phones (the hero has it). */
 @media (max-width:420px){nav.top:has(.langs) .nav-get{display:none}}
 
