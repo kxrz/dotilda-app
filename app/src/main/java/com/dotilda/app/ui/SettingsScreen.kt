@@ -17,6 +17,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import android.content.ActivityNotFoundException
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
+import com.dotilda.app.DownloadsFolder
+import android.os.Build
+import android.content.pm.PackageManager
+import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -79,7 +85,6 @@ fun SettingsScreen(
     val settings by prefs.settings.collectAsState(initial = null)
     val s = settings ?: return
     var backupStatus by remember { mutableStateOf<String?>(null) }
-    val noPicker = stringResource(R.string.backup_no_picker)
     val exported = stringResource(R.string.backup_exported)
     val failed = stringResource(R.string.backup_failed)
 
@@ -113,11 +118,31 @@ fun SettingsScreen(
     val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, PAGES - 1) }
     PageKeysEffect(turn)
 
-    fun pick(launch: () -> Unit) {
+    // Without a file picker (the Xteink S4 has none), files go to Download/Dotilda instead.
+    val savedIn = stringResource(R.string.saved_in)
+    fun pick(launch: () -> Unit, fallback: suspend () -> String) {
         try {
             launch()
         } catch (e: ActivityNotFoundException) {
-            backupStatus = noPicker
+            scope.launch { backupStatus = runCatching { fallback() }.fold({ it }, { failed.format(it.message) }) }
+        }
+    }
+    val putItThere = stringResource(R.string.import_put_it_there, DownloadsFolder.SHOWN)
+    suspend fun importFromDownloads(): String {
+        val file = withContext(Dispatchers.IO) { DownloadsFolder.latestBackup() } ?: return putItThere
+        val count = withContext(Dispatchers.IO) { file.inputStream().use { backup.import(it) } }
+        return context.resources.getQuantityString(R.plurals.backup_imported, count, count) + " (${file.name})"
+    }
+    // Reading an export copied in from elsewhere needs this permission up to Android 12.
+    val askToRead = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
+        scope.launch { backupStatus = runCatching { importFromDownloads() }.fold({ it }, { failed.format(it.message) }) }
+    }
+    fun importWithoutPicker() {
+        val granted = context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2 && !granted) {
+            askToRead.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        } else {
+            scope.launch { backupStatus = runCatching { importFromDownloads() }.fold({ it }, { failed.format(it.message) }) }
         }
     }
 
@@ -154,10 +179,26 @@ fun SettingsScreen(
             } else if (page == 1) {
                 TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    TextLink(stringResource(R.string.backup_export), { pick { exportTo.launch("dotilda-${LocalDate.now()}.zip") } })
-                    TextLink(stringResource(R.string.backup_import), { pick { importFrom.launch(arrayOf("application/zip", "application/octet-stream")) } })
+                    TextLink(stringResource(R.string.backup_export), {
+                        val name = "dotilda-${LocalDate.now()}.zip"
+                        pick({ exportTo.launch(name) }) {
+                            savedIn.format(DownloadsFolder.save(context, name, "application/zip") { backup.export(it, LocalDate.now().toString()) })
+                        }
+                    })
+                    TextLink(stringResource(R.string.backup_import), {
+                        try {
+                            importFrom.launch(arrayOf("application/zip", "application/octet-stream"))
+                        } catch (e: ActivityNotFoundException) {
+                            importWithoutPicker()
+                        }
+                    })
                 }
-                TextLink(stringResource(R.string.book_export), { pick { bookTo.launch("dotilda-${LocalDate.now().year}.epub") } })
+                TextLink(stringResource(R.string.book_export), {
+                    val name = "dotilda-${LocalDate.now().year}.epub"
+                    pick({ bookTo.launch(name) }) {
+                        savedIn.format(DownloadsFolder.save(context, name, "application/epub+zip") { YearBookExport.export(context, journal, LocalDate.now().year, it) })
+                    }
+                })
                 backupStatus?.let { TextMMD(it, style = MaterialTheme.typography.bodySmall) }
                 Spacer(Modifier.height(12.dp))
                 HorizontalDividerMMD(thickness = 1.dp)

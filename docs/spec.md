@@ -69,7 +69,8 @@ spends less than two minutes a day in the app: a ritual, not a feed.
    Mirror questions, where the user rereads themselves.
 5. **Offline and private.** No account, nothing sent. Everything stays on the device and can be
    exported at any time. The one network exception is the update check, which sends nothing about
-   the user and can be turned off in Settings.
+   the user and can be turned off in Settings. Exports go through the system file picker; a
+   device without one (Xteink S4) gets them in Download/Dotilda, where Import also looks.
 6. **Made for e-ink.** A dot that fills instead of an animation; strong contrast, large type,
    no scrolling.
 
