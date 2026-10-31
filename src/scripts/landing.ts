@@ -424,11 +424,8 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .from('.step .rule', { scaleX: 0, transformOrigin: 'left center', duration: 1.2, ease: 'power3.inOut', stagger: .2 })
     .from('.step > :not(.rule)', { clipPath: 'inset(0 0 100% 0)', duration: .7, ease: 'power2.inOut', stagger: .08 }, '-=.9');
 
-  // Try one: the box arrives with a full e-ink refresh, a blink of ink then the page.
-  gsap.timeline({ scrollTrigger: onEnter('.try') })
-    .from('.try', { autoAlpha: 0, duration: .01 })
-    .set('.try', { filter: 'invert(1)' }, '+=.05')
-    .set('.try', { filter: 'none' }, '+=.1');
+  // Try one: the box settles in gently.
+  gsap.from('.try', { autoAlpha: 0, y: 16, ...calm, scrollTrigger: onEnter('.try') });
 
   // Formats: each dot is stamped, then its name appears beside it.
   gsap.timeline({ scrollTrigger: onEnter('.formats') })

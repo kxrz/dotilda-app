@@ -154,7 +154,7 @@ Slow and varied, each gesture borrowed from e-ink or from the app:
 | Labels | Typed one character at a time, in their monospace. |
 | Headings | Rise word by word out of a mask (`Words.astro`). |
 | Ritual | Each rule is drawn, then its step is refreshed top to bottom. |
-| Try one | The box arrives with an e-ink blink; Dotilda changes pose as you ask. |
+| Try one | The box settles in; Dotilda changes pose as you ask. |
 | Formats | Each dot is stamped, then named. |
 | Your sky | The year inks in day by day with the scroll; Dotilda's lines are written out. |
 | Inside the app | The strip of screens slides in; the screen in the middle stands straight with its caption. |
