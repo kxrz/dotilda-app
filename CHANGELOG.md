@@ -7,6 +7,16 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [Unreleased]
+
+### Added
+- Licences, in Settings: the open source software and fonts Dotilda is built with.
+- If Dotilda ever crashes, Settings › Diagnostics says when and lets you export the report, to
+  send it yourself. Nothing is sent automatically.
+
+### Fixed
+- A phone left on Today overnight now shows the new day's question when you come back.
+
 ## [0.6.0] - 2026-10-31
 
 ### Added

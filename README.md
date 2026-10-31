@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/hero.png" width="760" alt="Dotilda on three Kompakt screens: the question of the day, the year as a galaxy of dots, and the day's dot filling in">
+  <img src="docs/screenshots/hero.png" width="760" alt="Dotilda on three Kompakt screens: the question of the day in her speech bubble, the year as a galaxy of dots with a constellation, and a finished journey named as a constellation">
 </p>
 
 Dotilda, an ink dot with a bun and round glasses, asks you one small question a day. You answer
@@ -50,8 +50,9 @@ An app by readme.club, made and maintained by LesWWW.
 <p align="center">
   <img src="docs/screenshots/welcome.png" width="180" alt="Welcome: Dotilda introduces herself">
   <img src="docs/screenshots/answer-weather.png" width="180" alt="The inner weather, from sunny to stormy">
-  <img src="docs/screenshots/answer-mirror.png" width="180" alt="A Mirror question, with what was written a month ago">
-  <img src="docs/screenshots/notebook.png" width="180" alt="The notebook, one page per day">
+  <img src="docs/screenshots/journeys.png" width="180" alt="Journeys, one question a day">
+  <img src="docs/screenshots/review.png" width="180" alt="The season in review">
+  <img src="docs/screenshots/notebook.png" width="180" alt="The notebook, with a photo of the day in four greys">
   <img src="docs/screenshots/spira-breathe.png" width="180" alt="Spira, a breathing minute">
 </p>
 
