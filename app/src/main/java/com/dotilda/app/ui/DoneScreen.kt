@@ -59,7 +59,7 @@ fun DoneScreen(journal: Journal, onBack: () -> Unit) {
             val count = stringArrayResource(R.array.number_words).getOrNull(finished.dates.size) ?: finished.dates.size.toString()
             stringResource(R.string.constellation_named, count, count.lowercase(), finished.name)
         } else {
-            stringResource(R.string.noted)
+            named(R.string.noted_named, R.string.noted)
         }
         SpeechBubble(tail = Tail.Up, tailAt = null) {
             TextMMD(words, textAlign = TextAlign.Center, style = MaterialTheme.typography.titleLarge)

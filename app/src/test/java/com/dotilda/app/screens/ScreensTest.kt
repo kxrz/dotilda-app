@@ -90,6 +90,11 @@ open class ScreensTest {
         waitFor("Begin")
         shot("01-welcome")
         click("Begin")
+        waitFor("What shall I call you?")
+        compose.onNode(hasSetTextAction()).performTextInput("Ada")
+        settle()
+        shot("02-name")
+        click("That's me")
         waitFor("When shall I come by?")
         shot("02-setup")
     }

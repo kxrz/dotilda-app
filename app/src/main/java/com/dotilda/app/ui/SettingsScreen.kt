@@ -71,6 +71,7 @@ fun SettingsScreen(
     onAbout: () -> Unit,
     onDiagnostics: () -> Unit,
     onLicenses: () -> Unit,
+    onName: () -> Unit,
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -136,6 +137,12 @@ fun SettingsScreen(
         Spacer(Modifier.height(16.dp))
         Column(Modifier.weight(1f)) {
             if (page == 0) {
+                val name = LocalUserName.current
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextMMD(stringResource(R.string.settings_name), modifier = Modifier.weight(1f))
+                    TextLink(name ?: stringResource(R.string.settings_name_none), onName)
+                }
+                Spacer(Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     TextMMD(stringResource(R.string.daily_reminder), modifier = Modifier.weight(1f))
                     SwitchMMD(checked = s.reminderOn, onCheckedChange = { update(it, s.reminderMinutes) })

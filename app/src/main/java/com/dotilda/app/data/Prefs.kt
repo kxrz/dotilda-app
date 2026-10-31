@@ -63,6 +63,7 @@ class Prefs(private val context: Context) {
         val openedLetters = stringSetPreferencesKey("opened_letters")
         val dotSize = stringPreferencesKey("dot_size")
         val dismissedAsides = stringSetPreferencesKey("dismissed_asides")
+        val name = stringPreferencesKey("name")
         val updateSeen = stringPreferencesKey("update_seen")
         val updatedOn = stringPreferencesKey("updated_on")
         val skyLayout = stringPreferencesKey("sky_layout")
@@ -75,6 +76,13 @@ class Prefs(private val context: Context) {
     /** Forgets every preference, as on a fresh install (used by the screenshot tests). */
     suspend fun resetAll() {
         context.dataStore.edit { it.clear() }
+    }
+
+    /** What Dotilda calls the user: a first name or a nickname, or "" if they'd rather not say. */
+    val name: Flow<String> = context.dataStore.data.map { it[Keys.name].orEmpty() }
+
+    suspend fun setName(name: String) {
+        context.dataStore.edit { it[Keys.name] = name.trim().take(NAME_MAX) }
     }
 
     suspend fun setWelcomed() {
@@ -220,5 +228,6 @@ class Prefs(private val context: Context) {
 
     companion object {
         const val DEFAULT_REMINDER_MINUTES = 20 * 60
+        const val NAME_MAX = 24
     }
 }

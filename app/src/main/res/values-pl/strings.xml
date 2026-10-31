@@ -236,4 +236,21 @@
         <item>Uwaga na okulary.</item>
         <item>To co, wracamy do pytania?</item>
     </string-array>
+    <!-- Imię. W polszczyźnie zwrot po imieniu wymaga wołacza, którego nie da się odmienić
+         automatycznie: Dotilda zwraca się więc bez imienia, imię pojawia się tylko w książce. -->
+    <string name="name_question">Jak mam się do Ciebie zwracać?</string>
+    <string name="name_hint">Imię albo pseudonim. Zostaje na tym telefonie, między nami.</string>
+    <string name="name_placeholder">Twoje imię</string>
+    <string name="name_save">To ja</string>
+    <string name="name_skip">Wolę nie mówić</string>
+    <string name="settings_name">Twoje imię</string>
+    <string name="settings_name_none">Powiedz mi</string>
+    <string name="noted_named">Zapisane. Jeszcze jedna kropka na Twoim niebie.</string>
+    <string name="see_you_tomorrow_named">Do jutra.</string>
+    <string name="welcome_back_named">Jesteś. Twoje niebo czekało.</string>
+    <string name="update_ready_named">Psst. Mam dla Ciebie nową wersję.</string>
+    <string name="quip_first">Tak, słucham?</string>
+    <string name="quip_named">Tak, słucham?</string>
+    <string name="book_title_named">Rok z Dotildą · %1$s</string>
+    <string name="book_cover_subtitle_named">Rok z Dotildą · %1$s</string>
 </resources>

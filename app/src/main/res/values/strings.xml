@@ -234,4 +234,20 @@
         <item>Mind the glasses.</item>
         <item>Shall we get on?</item>
     </string-array>
+    <!-- The user's name -->
+    <string name="name_question">What shall I call you?</string>
+    <string name="name_hint">A first name or a nickname. It stays on this phone, between us.</string>
+    <string name="name_placeholder">Your name</string>
+    <string name="name_save">That\'s me</string>
+    <string name="name_skip">I\'d rather not say</string>
+    <string name="settings_name">Your name</string>
+    <string name="settings_name_none">Tell me</string>
+    <string name="noted_named">Noted, %1$s. One more dot in your sky.</string>
+    <string name="see_you_tomorrow_named">See you tomorrow, %1$s.</string>
+    <string name="welcome_back_named">There you are, %1$s. Your sky kept your place.</string>
+    <string name="update_ready_named">Psst, %1$s. I have a new version for you.</string>
+    <string name="quip_first">Yes, dear?</string>
+    <string name="quip_named">Yes, %1$s?</string>
+    <string name="book_title_named">%1$s\'s year with Dotilda</string>
+    <string name="book_cover_subtitle_named">%1$s\'s year with Dotilda</string>
 </resources>

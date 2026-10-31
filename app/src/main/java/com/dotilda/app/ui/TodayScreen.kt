@@ -131,7 +131,7 @@ fun TodayScreen(
                     onDismiss = dismiss("review-$lastMonth"),
                 )
                 newVersion != null && updateFresh && open("update-$newVersion") -> DotildaSays(
-                    stringResource(R.string.update_ready),
+                    named(R.string.update_ready_named, R.string.update_ready),
                     Pose.Curious,
                     onClick = onUpdate,
                     onDismiss = dismiss("update-$newVersion"),
@@ -165,7 +165,7 @@ private fun Answered(journal: Journal, entry: Entry, modifier: Modifier) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 DayDot(entry.dotShape(), size = 20.dp)
                 Spacer(Modifier.width(10.dp))
-                TextMMD(stringResource(R.string.noted), style = MaterialTheme.typography.titleMedium)
+                TextMMD(named(R.string.noted_named, R.string.noted), style = MaterialTheme.typography.titleMedium)
             }
         }
         Spacer(Modifier.height(32.dp))
@@ -173,7 +173,7 @@ private fun Answered(journal: Journal, entry: Entry, modifier: Modifier) {
         Spacer(Modifier.height(8.dp))
         TextMMD(entry.answer().summary(), style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.weight(1f))
-        TextMMD(stringResource(R.string.see_you_tomorrow), fontStyle = FontStyle.Italic)
+        TextMMD(named(R.string.see_you_tomorrow_named, R.string.see_you_tomorrow), fontStyle = FontStyle.Italic)
     }
 }
 
@@ -191,7 +191,7 @@ private fun Open(journal: Journal, today: LocalDate, onAnswer: () -> Unit, modif
 
     Column(modifier) {
         if (away) {
-            TextMMD(stringResource(R.string.welcome_back), fontStyle = FontStyle.Italic)
+            TextMMD(named(R.string.welcome_back_named, R.string.welcome_back), fontStyle = FontStyle.Italic)
             Spacer(Modifier.height(16.dp))
         }
         // A new question, a new look: she alternates poses instead of animating.

@@ -39,6 +39,12 @@ her glasses up and smiles, in one step, never looping.
 its Latin name, **Spira** ("breathe"), with a capital S: it is the exercise Dotilda suggests
 before writing.
 
+**Your name:** Dotilda asks what to call you during onboarding (a first name or a nickname, or
+nothing), and Settings can change it. She uses it sparingly: on "Noted", "See you tomorrow",
+"There you are", the update note, her first answer back when poked, and the book's cover. In
+Polish, addressing someone by name needs the vocative, which can't be formed automatically, so
+the Polish lines stay without it (only the book carries the name).
+
 **A hidden game:** poke Dotilda and she changes face, one step per tap (a wink, surprise, a
 glance aside, a nap, a smile); poked often enough above a question, she answers back
 ("That tickles."). Her asides on Today can be closed with their ×; version news fades by itself.
