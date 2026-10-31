@@ -158,7 +158,7 @@ as the only image.
 
 `/brand` gathers the name and voice, Dotilda's four poses, the lockup and app icon, the colours
 (tap to copy), the type, the dot shapes, the real screens and share images, two wallpapers
-(Moon and Year; desktop 3840×2160 and phone 1290×2796, light and dark), and usage rules.
+with Dotilda.com, its dot the only warm one (Moon and Year; desktop 3840×2160 and phone 1290×2796, light and dark), and usage rules.
 It exists in English only: no `hreflang`, no FAQ data. Its files are drawn by `npm run brand`
 from the app's geometry (`ui/DotildaMark.kt`, `ic_launcher_foreground.xml`); the glasses and the
 smile are cut out with a mask, so every SVG works on any background. When the app's drawing

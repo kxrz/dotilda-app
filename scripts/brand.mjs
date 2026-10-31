@@ -4,9 +4,8 @@
 // light and dark) with their thumbnails in public/brand/thumbs/.
 // Geometry follows the app (ui/DotildaMark.kt) on a 100-unit grid. Run: npm run brand
 import { chromium } from 'playwright';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 
 const root = resolve(import.meta.dirname, '..');
 const out = join(root, 'public/brand');
@@ -50,7 +49,8 @@ writeFileSync(join(out, 'dotilda-icon.svg'), `<svg xmlns="http://www.w3.org/2000
 files.push('dotilda-icon.svg');
 
 // Lockup: the mark and the name in Instrument Serif, drawn by the browser into PNG.
-const font = pathToFileURL(join(root, 'public/fonts/instrument-serif-latin-400-normal.woff2')).href;
+// Embedded: a page made with setContent cannot load a file:// font.
+const font = `data:font/woff2;base64,${readFileSync(join(root, 'public/fonts/instrument-serif-latin-400-normal.woff2')).toString('base64')}`;
 const lockup = (fill, bg) => `<!doctype html><meta charset="utf-8"><style>
 @font-face{font-family:"Instrument Serif";src:url(${font})}
 html,body{margin:0;background:${bg}}
@@ -68,8 +68,9 @@ for (const [name, fill, bg] of [['light', INK, PAPER], ['dark', LIGHT_INK, DARK]
 }
 
 // Wallpapers. Every size is a share of the short side (u), so a thumbnail is the same drawing.
-// Moon: an almost empty page; Dotilda, small, glances up at one warm dot.
-// Year: a whole year as a sky of fine dots (12 months, real month lengths), the last day warm.
+// Moon: an almost empty page; Dotilda, small, glances up at her address, Dotilda.com.
+// Year: a whole year as a sky of fine dots (12 months, real month lengths), Dotilda and her address below.
+// The only warm dot is the full stop of Dotilda.com.
 // On phones the drawing keeps clear of the clock (top) and the dock (bottom).
 const tones = {
   light: { bg: PAPER, ink: INK, ghost: '#C9C5BA', warm: '#D1613E' },
@@ -81,10 +82,10 @@ const circle = (x, y, r, fill) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(
 
 function moon(W, H, t) {
   const u = Math.min(W, H), wide = W > H;
-  const [mx, my, ms, dx, dy, dr] = wide
-    ? [0.3 * W, 0.68 * H, 0.11 * u, 0.7 * W, 0.3 * H, 0.012 * u]
-    : [0.36 * W, 0.68 * H, 0.2 * u, 0.66 * W, 0.34 * H, 0.022 * u];
-  return dotilda('curious', t.ink, mx, my, ms) + circle(dx, dy, dr, t.warm);
+  const [mx, my, ms] = wide ? [0.3 * W, 0.68 * H, 0.11 * u] : [0.34 * W, 0.7 * H, 0.2 * u];
+  // Her address, up where she is looking: its dot is the warm one.
+  const name = wide ? { x: 0.72 * W, y: 0.3 * H, size: 0.065 * u, anchor: 'end' } : { x: 0.86 * W, y: 0.36 * H, size: 0.085 * u, anchor: 'end' };
+  return { svg: dotilda('curious', t.ink, mx, my, ms), name };
 }
 
 function year(W, H, t) {
@@ -95,25 +96,36 @@ function year(W, H, t) {
   // Wide: a row per month. Tall: a column per month.
   const c = wide ? 0.016 * W : 0.034 * W;
   const cols = wide ? 31 : 12, rows = wide ? 12 : 31;
-  const x0 = (W - cols * c) / 2, y0 = (wide ? 0.42 * H : 0.48 * H) - (rows * c) / 2;
+  const x0 = (W - cols * c) / 2, y0 = (wide ? 0.4 * H : 0.45 * H) - (rows * c) / 2;
   let dots = '';
   days.forEach((n, m) => {
     for (let d = 0; d < n; d++) {
       const [col, row] = wide ? [d, m] : [m, d];
       const x = x0 + (col + 0.5) * c, y = y0 + (row + 0.5) * c;
-      if (m === 11 && d === n - 1) dots += circle(x, y, 0.2 * c, t.warm);
-      else if (rnd() < 0.62) dots += circle(x, y, 0.15 * c, t.ink);
+      if (rnd() < 0.62) dots += circle(x, y, 0.15 * c, t.ink);
       else dots += circle(x, y, 0.06 * c, t.ghost);
     }
   });
   const ms = wide ? 0.07 * u : 0.11 * u;
-  const my = y0 + rows * c + (wide ? 0.13 * H : 0.06 * H);
-  return dots + dotilda('pleased', t.ink, W / 2, my, ms);
+  const my = y0 + rows * c + (wide ? 0.11 * H : 0.055 * H);
+  // Her address under her; the only warm dot is its own.
+  const size = wide ? 0.034 * u : 0.06 * u;
+  return { svg: dots + dotilda('pleased', t.ink, W / 2, my, ms), name: { x: W / 2, y: my + ms * 0.5 + size * 1.1, size, anchor: 'middle' } };
 }
 
-const wallpaper = (draw, W, H, t) =>
-  `<!doctype html><meta charset="utf-8"><style>html,body{margin:0;background:${t.bg}}svg{display:block}</style>` +
-  `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${t.bg}"/>${draw(W, H, t)}</svg>`;
+// "Dotilda.com" in Instrument Serif, set in HTML over the drawing; the full stop is a warm dot.
+// (x, y) is the middle of the line; anchor says which end of it sits on x.
+const wallpaper = (draw, W, H, t) => {
+  const { svg, name: n } = draw(W, H, t);
+  const shift = { start: '0', middle: '-50%', end: '-100%' }[n.anchor];
+  return `<!doctype html><meta charset="utf-8"><style>
+@font-face{font-family:"Instrument Serif";src:url(${font})}
+html,body{margin:0;background:${t.bg}}svg{display:block}
+.n{position:absolute;left:${n.x}px;top:${n.y}px;transform:translate(${shift},-50%);font:400 ${n.size}px/1 "Instrument Serif";color:${t.ink};white-space:nowrap;letter-spacing:-.005em}
+.d{display:inline-block;width:.18em;height:.18em;border-radius:50%;background:${t.warm};margin:0 .05em 0 .06em}
+</style><svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="${W}" height="${H}" fill="${t.bg}"/>${svg}</svg>` +
+    `<div class="n">Dotilda<span class="d"></span>com</div>`;
+};
 
 mkdirSync(join(out, 'thumbs'), { recursive: true });
 for (const [design, draw] of [['moon', moon], ['year', year]]) {
@@ -124,7 +136,8 @@ for (const [design, draw] of [['moon', moon], ['year', year]]) {
         const w = Math.round(W * scale), h = Math.round(H * scale);
         await page.setViewportSize({ width: w, height: h });
         await page.setContent(wallpaper(draw, w, h, tones[tone]));
-        await page.waitForFunction(() => [...document.images].every(i => i.complete));
+        await page.evaluate(() => document.fonts.ready);
+        await page.waitForTimeout(100);
         await page.screenshot({ path: join(dir, name) });
       }
       files.push(name, `thumbs/${name}`);
