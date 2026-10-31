@@ -50,6 +50,7 @@ ${s.faq.items.map(i => `- ${i.q} ${i.a}`).join('\n')}
 - Website: ${locales.map(l => site!.origin + pathFor(l)).join(', ')}
 - Source code: ${repo}
 - Brand kit (name, voice, mark, colours, type, files): ${site!.origin}/brand
+- Usage stats (raw public GitHub Releases download counters; the app tracks nothing): ${site!.origin}/stats
 - readme.club: https://readme.club
 - LesWWW: https://www.leswww.com
 `;

@@ -25,3 +25,4 @@
 .st-table .num{text-align:right;font-variant-numeric:tabular-nums;padding-right:0;padding-left:.75rem}
 .st-read{padding-block:2rem 1rem}
 .st-foot{grid-template-columns:1fr}
+.st-raw{font-size:1.05rem;max-width:var(--measure);border-left:2px solid var(--ink);padding-left:1rem}

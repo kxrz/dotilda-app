@@ -16,8 +16,7 @@ const screens = [
 
 const origin = new URL(url).origin;
 const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
-// Unlisted pages (not in the sitemap) are checked too.
-const pages = [...[...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(m[1]).pathname), '/stats'].map(p => origin + p);
+const pages = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => origin + new URL(m[1]).pathname);
 
 // /stats gets a long, busy release list (40 versions, six-figure counters) to test its widths.
 const releases = JSON.stringify(Array.from({ length: 40 }, (_, i) => ({

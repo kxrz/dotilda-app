@@ -1,6 +1,6 @@
 ---
 // /stats: how much Dotilda is used, from GitHub Releases' public download counters only.
-// The app counts nothing. Unlisted: not in the navigation, the sitemap or llms.txt, and noindex.
+// The app counts nothing. Public on purpose: linked from every footer, in the sitemap and llms.txt.
 // The browser reads the GitHub API itself (src/scripts/stats.ts); no analytics on this page.
 import Layout from '../layouts/Layout.astro';
 import DotildaMark from '../components/DotildaMark.astro';
@@ -10,7 +10,7 @@ import '../styles/stats.css';
 
 const s = t('en');
 ---
-<Layout locale="en" path="/stats" title="Dotilda · Stats" description="Dotilda's downloads and update checks, from GitHub Releases' public counters." noindex>
+<Layout locale="en" path="/stats" title="Dotilda · Stats" description="Dotilda's downloads and update checks, from GitHub Releases' public counters.">
 <div class="wrap">
 
 <header class="top">
@@ -31,7 +31,8 @@ const s = t('en');
 <div class="bk-intro stack">
   <p class="label">Stats</p>
   <h1>Counted by GitHub, not by the app.</h1>
-  <p class="lede">Dotilda sends nothing about you. These numbers are GitHub Releases' public download counters, read just now by your browser.</p>
+  <p class="lede">These numbers are GitHub Releases' public download counters, read just now by your browser.</p>
+  <p class="st-raw">They are raw and public: anyone can read the same counters on GitHub, and we show them as they are, without adjusting them. Nothing is tracked in the app: no analytics, no account, nothing about you is sent. Nothing hidden.</p>
 </div>
 
 <p class="st-status" id="status" aria-live="polite">Reading GitHub…</p>
@@ -64,7 +65,7 @@ const s = t('en');
 </main>
 
 <footer class="st-foot">
-  <p class="fine">This page sets no cookies and counts no visits. Source: <a href="https://github.com/kxrz/dotilda-app/releases">GitHub Releases</a>.</p>
+  <p class="fine">This page sets no cookies and counts no visits. Source: <a href="https://github.com/kxrz/dotilda-app/releases">GitHub Releases</a>.<br><a class="brand-link" href="/brand">{s.footer.brand}</a></p>
 </footer>
 </div>
 <script>

@@ -40,7 +40,7 @@ npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 | `src/layouts/Layout.astro` | `<head>`: title, description, canonical, `hreflang`, share tags, JSON-LD. |
 | `src/components/Landing.astro` | The page itself, top to bottom (see below). |
 | `src/pages/brand.astro` | `/brand`, the brand kit (English only), linked discreetly from the footer. |
-| `src/pages/stats.astro` | `/stats`, usage from GitHub Releases' counters. Unlisted (see Stats). |
+| `src/pages/stats.astro` | `/stats`, usage from GitHub Releases' counters, linked from the footer (see Stats). |
 | `src/components/DotildaMark.astro` | Dotilda as drawn in the app (`ui/DotildaMark.kt`), with her four poses. |
 | `src/components/Words.astro` | Splits a heading into words for the motion; screen readers get the sentence whole. |
 | `src/scripts/landing.ts` | The hero sky and ink drop, the month line, "Try one", the year of dots, the latest release, the motion, analytics. |
@@ -171,8 +171,9 @@ says so when GitHub refuses). APK downloads = `dotilda.apk` (people and the in-a
 `dotilda-x.y.z.apk` (manual downloads); update checks = `manifest.json`, read at each launch while
 that release is the latest, so it measures activity, not people. Pre-releases are left out; the
 numbers are GitHub's, raw (about one per file and version is the developer's test).
-The page is unlisted: not in the navigation, the sitemap or `llms.txt`, with `noindex`, and it
-loads no analytics. `check:fit` checks it too, with a long fake release list.
+Nothing is hidden: the page is linked from every footer, listed in the sitemap and `llms.txt`,
+and says plainly that the numbers are raw and public and that the app tracks nothing. It loads
+no analytics. `check:fit` checks it too, with a long fake release list.
 GitHub keeps totals only; a daily snapshot (Vercel Cron + Blob) would be needed for a curve.
 
 ## Motion
