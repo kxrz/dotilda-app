@@ -1,202 +1,256 @@
-# Dotilda - spec app journaling e-ink
+# Dotilda: product spec
 
-Oct 28, 2026 - @Florent Bertiaux
+A gentle, playful journaling app for the Mudita Kompakt and Android 11+ e-readers, a little sister
+of readme.club, meant to be for writing what a calm meditation app is for breathing.
+Free and open source (Apache 2.0). Website: [www.dotilda.com](https://www.dotilda.com).
 
-Une app de journaling douce et ludique pour le Mudita Kompakt et les liseuses Android 11+, petite soeur de readme.club, pensée comme un Petit Bambou de l'écriture. Gratuite à 100 % et open source (Apache 2.0).
+This document is the reference for what the app is and how it behaves. `CLAUDE.md` at the root
+of the repository sums up the rules that matter for the code.
 
-## Nom et personnage
+## Name and character
 
-Nom retenu : **Dotilda**, contraction de Dot et Matilda. C'est à la fois le nom de l'app et celui du personnage qui guide l'utilisateur : le point qui pose la question du jour et veille sur la galaxie. Sa devise : *nulla dies sine linea*, "pas un jour sans une ligne", d'après Pline l'Ancien racontant que le peintre Apelle traçait au moins un trait chaque jour.
+**Dotilda** is both the app and the character who guides the user: the ink dot who asks the
+question of the day and watches over the sky of dots. The name blends *dot* and *Matilda*.
+Her motto, *nulla dies sine linea* ("no day without a line", after Pliny's story of the painter
+Apelles drawing at least one line a day), is background only: it never appears in the app.
 
-**La voix de Dotilda**
+**Personality:** a kind Victorian governess, a little mischievous, never preachy. Short sentences,
+no exclamation marks in a row, never any guilt.
 
-| Moment | Ce que fait Dotilda | Exemple de ton |
+**Her voice**
+
+| Moment | What Dotilda does | Tone |
 | --- | --- | --- |
-| Question du jour | Pose la question et la signe | "Dotilda asks: what made you smile today?" |
-| Après une entrée | Remplit le point, un mot bref | "Noted. One more dot in your sky." |
-| Retour après une pause | Accueille sans reproche | "There you are. Your sky kept your place." |
-| Fin de parcours | Trace la constellation et la nomme | "Seven days, seven dots. I'll call this one Slow." |
-| Bilan du mois | Commente avec tendresse | "A cloudy start, a sunny finish. Rather well done." |
+| Question of the day | Asks and signs the question | "Dotilda asks: what made you smile today?" |
+| After an answer | Fills the dot, one short word | "Noted. One more dot in your sky." |
+| Back after a break | Welcomes without reproach | "There you are. Your sky kept your place." |
+| End of a journey | Draws the constellation and names it | "Seven days, seven dots. I'll call this one Slow." |
+| Month review | Comments with affection | "A cloudy start, a sunny finish. Rather well done." |
 
-Personnalité : une gouvernante victorienne bienveillante, un brin malicieuse, jamais moralisatrice. Phrases courtes, pas d'exclamations en série, aucune culpabilité. Visuellement, Dotilda est un simple point à l'encre avec deux détails (un chignon, des lunettes rondes), lisible à 16 pixels pour l'icône. L'icône de l'app reprend ce dessin en trait, comme les icônes du Kompakt.
+**Her look:** an ink dot with two details, a bun and round glasses, readable at 16 px. The app
+icon draws her in outline, like the Kompakt's own icons.
 
-**Les poses de Dotilda.** Sur e-ink, pas d'animation fluide : Dotilda change de pose d'un coup, comme une page qu'on tourne (un seul rafraîchissement). Quatre poses : neutre, lunettes au bout du nez (elle pose la question), lunettes de travers (une autre question, un brin malicieuse), petit sourire (c'est noté). Sur l'écran Done, elle remonte ses lunettes et sourit, en une seule étape, jamais en boucle.
+**Her poses.** E-ink has no smooth animation, so Dotilda changes pose in one step, like turning a
+page (a single refresh). Four poses: neutral; glasses slid down her nose (she is asking); glasses
+askew (another question, a little mischief); a small smile (noted). On the Done screen she pushes
+her glasses up and smiles, in one step, never looping.
 
-Conventions : Dotilda s'écrit avec une majuscule, comme un prénom. L'interface est en anglais. La devise latine reste une référence interne : elle n'apparaît pas dans l'app. Le module minuteur garde son nom latin, **spira**, "respire" : c'est l'exercice que Dotilda propose avant d'écrire.
+**Conventions:** "Dotilda" always takes a capital D, like a first name. The breathing module keeps
+its Latin name, **spira** ("breathe"), lowercase: it is the exercise Dotilda suggests before
+writing.
 
-Domaine réservé : dotilda.com. Reste à vérifier : les handles réseaux et l'absence d'app homonyme sur le Play Store et F-Droid.
+## Concept and principles
 
-## Concept et principes
+One question a day, a short answer, and a sky of dots that fills up, one dot per day. The user
+spends less than two minutes a day in the app: a ritual, not a feed.
 
-Une question par jour, une réponse courte, et une galaxie de points qui se remplit au fil des jours, un point par jour. L'utilisateur passe moins de 2 minutes par jour dans l'app : c'est un rituel, pas un fil.
+1. **One interaction a day.** An appointment at the hour the user chooses, no endless feed.
+   "Another question" changes it, at most three times a day. After that, Dotilda simply offers to
+   note the inner weather, or to come back tomorrow.
+2. **Nothing dies.** Skipping days breaks nothing: the day's place stays a small, quiet dot.
+   No punishing streaks, no red counters.
+3. **Varied formats.** Eight kinds of questions take turns so that writing stays a game, even on
+   days without energy.
+4. **Reward looking back.** The real highlights are the reviews (month, season, year) and the
+   Mirror questions, where the user rereads themselves.
+5. **Offline and private.** No account, nothing sent. Everything stays on the device and can be
+   exported at any time. The one network exception is the update check, which sends nothing about
+   the user and can be turned off in Settings.
+6. **Made for e-ink.** A dot that fills instead of an animation; strong contrast, large type,
+   no scrolling.
 
-1. **Une seule interaction par jour.** Un rendez-vous à l'heure choisie, pas de flux infini. Un bouton "Another question" permet de changer, trois fois max par jour. Ensuite, Dotilda propose simplement de noter son état d'esprit (la météo intérieure), ou de revenir demain.
-2. **Rien ne meurt.** Sauter des jours ne casse rien : la place du jour reste un petit point discret, sans reproche. Pas de streak punitive, pas de compteur rouge.
-3. **Des formats variés.** Huit types de questions alternent pour que l'écriture reste un jeu, y compris les jours sans énergie.
-4. **Récompenser le recul.** Les vrais moments forts sont les bilans (mois, saison, année) et les questions miroir, où l'on se relit.
-5. **Hors ligne et privé.** Aucun compte, aucune donnée envoyée. Tout reste sur l'appareil, exportable à tout moment. Seule exception réseau : la vérification des mises à jour, qui ne transmet rien sur l'utilisateur et se désactive dans Settings.
-6. **Pensé pour l'e-ink.** Un point qui se remplit plutôt qu'une animation ; contraste fort, gros caractères, zéro scroll.
+Spirit: the gentleness and journeys of a meditation app, the tone and design of readme.club, the
+feel of paper notebooks.
 
-Références d'esprit : Petit Bambou pour la douceur et les parcours, readme.club pour le ton et le design, les carnets papier pour la matière.
+## Question formats
 
-## Types de questions
+Eight formats, each with its own input and its own place in the reviews. The picker alternates
+formats so that two days in a row are never the same.
 
-Huit formats, chacun avec sa saisie et sa restitution dans les bilans. Le moteur alterne les formats pour éviter deux jours identiques d'affilée.
-
-| Type | Exemple | Saisie | Restitution |
+| Format | Example | Input | In the reviews |
 | --- | --- | --- | --- |
-| One line | What made you smile today? | Texte, 140 caractères max | Citation dans le bilan mensuel |
-| Inner weather | How's the weather inside? | 5 pictos soleil à orage | Frise météo du mois |
-| One word | Today in one word? | Un mot | Nuage de mots mensuel |
-| This or that | Tea or coffee kind of day? | 2 boutons | Statistiques ludiques en fin de saison |
-| Three things | 3 small wins this week | 3 lignes courtes | Liste dans le bilan |
-| Photo of the day | Show me your desk | Appareil photo, image tramée | Planche contact mensuelle |
-| Mirror | What are you looking forward to? | Texte ; même question tous les 30 jours | "30 days ago, you wrote..." affiché avant la saisie |
-| Letter to future me | Write to yourself in 6 months | Texte long, scellé | Rouvre à la date choisie, comme un cadeau |
+| One line | What made you smile today? | Text, 140 characters max | Quoted in the month review |
+| Inner weather | How's the weather inside? | 5 pictograms, sunny to stormy | Weather strip of the month |
+| One word | Today in one word? | One word | Word cloud of the month |
+| This or that | Tea or coffee kind of day? | 2 buttons | Playful stats at the end of the season |
+| Three things | 3 small wins this week | 3 short lines | Listed in the review |
+| Photo of the day | Show me your desk | Camera, dithered image | Contact sheet of the month |
+| Mirror | What are you looking forward to? | Text; the same question every 30 days | "30 days ago, you wrote..." shown before the input |
+| Letter to future me | Write to yourself in 6 months | Long text, sealed | Reopens on the chosen date, like a present |
 
-Règles du moteur :
+Picker rules:
 
-- **Jours lourds** : si la météo intérieure de la veille est "orage", proposer un format léger (This or that, One word).
-- **Rythme** : au moins une Mirror par mois et une Letter par saison.
-- **Banque de départ** : plus de 200 questions en anglais, taguées par format, thème et parcours, livrées en JSON dans l'app. Le but : que l'utilisateur ne sente jamais qu'il tourne en rond.
-- **Changer de question** : 3 fois max par jour, sans jamais retomber sur une question déjà proposée ce jour-là. Au-delà, seule la météo intérieure reste proposée.
+- **Heavy days:** if yesterday's inner weather was stormy, offer a light format (This or that,
+  One word).
+- **Rhythm:** at least one Mirror a month and one Letter a season.
+- **Question bank:** more than 200 questions, tagged by format, theme and journey, shipped as JSON
+  in the app (`app/src/main/assets/questions.json`), so the user never feels they are going round
+  in circles.
+- **Changing the question:** at most 3 times a day, never landing on a question already offered
+  that day. After that, only the inner weather is offered.
 
-## Gamification
+## The three loops
 
-Trois boucles imbriquées : les points récompensent la régularité, les parcours tracent des constellations, les bilans récompensent le recul. Aucune ne punit l'absence.
+Dots reward showing up, journeys draw constellations, reviews reward looking back.
+None of them punishes absence.
 
-**La galaxie (boucle quotidienne)**
+**The sky (daily loop)**
 
-- Un point par jour, bien rangé : 12 lignes (les mois) de 31 colonnes (les jours). L'année entière tient sur un écran, dans l'esprit de Year in Pixels, mais en points.
-- Le point prend la forme de la réponse. La météo intérieure devient une phase de lune (point plein pour le soleil, simple anneau pour l'orage). Photo = point cerclé, Mirror = double cercle, Letter = losange scellé qui s'ouvre à sa date.
-- Jour sans entrée : un tout petit point gris, une respiration dans la grille, jamais un trou ni une alerte.
-- Pas de trait pour une semaine (ou un mois) complète : les points restent libres. La régularité se voit à la densité du ciel, pas à une ligne qui récompenserait la série. Les seuls traits possibles sont ceux des constellations de parcours (sprint 4).
-- Les années s'empilent dans la **Galaxy** : une page par année à feuilleter ; toucher un point rouvre l'entrée du jour.
+- One dot per day, neatly arranged: 12 rows (the months) of 31 columns (the days). The whole year
+  fits on one screen, like a year in pixels, but in dots.
+- The dot takes the shape of the answer. The inner weather becomes a moon phase (full for sunny, a
+  ring for stormy). Photo: a circled dot. Mirror: a double ring. Letter: a sealed diamond that
+  opens on its date.
+- A day without an entry is a tiny grey dot: a breath in the grid, never a hole or an alert.
+- Dots stay free: no line for a complete week or month. Regularity shows in how dense the sky is,
+  not in a line that would reward a streak. The only lines are the constellations of journeys.
+- Dots are spaced so that a run of days never merges into a bar; today is marked by a small caret.
+- Years pile up in the **Galaxy**, one page per year; touching a dot reopens that day's entry.
 
-**Les parcours (boucle hebdomadaire)**
+**Journeys (weekly loop)**
 
-- Des séries thématiques de 5 à 10 questions, une par jour : "7 days to slow down", "Gratitude", "Season review", "Unplugged".
-- Chaque parcours terminé **relie ses jours par des traits fins : une constellation, nommée d'après le parcours, s'ajoute à la galaxie**.
-- Un seul parcours actif à la fois ; hors parcours, la question du jour vient de la banque générale.
+- Themed series of 5 to 10 questions, one a day: "7 days to slow down", "Gratitude",
+  "Season review", "Unplugged".
+- A finished journey links its days with fine lines: a constellation, named after the journey,
+  is added to the sky.
+- One journey at a time; outside a journey, the question of the day comes from the general bank.
 
-**Les bilans (boucles longues)**
+**Reviews (long loops)**
 
-- **Mois** : une page générée avec la frise météo, le nuage de mots, une citation de soi et la planche photo.
-- **Saison** : le trimestre en points, les stats This or that, la lettre scellée de la saison précédente qui se rouvre.
-- **Année** : le journal complet exporté en **livre EPUB**, avec en couverture la galaxie de l'année, à lire sur sa liseuse.
+- **Month:** a generated page with the weather strip, the word cloud, a quote of oneself and the
+  photo contact sheet.
+- **Season:** the quarter in dots, This or that stats, and last season's sealed letter reopening.
+- **Year:** the whole journal exported as an **EPUB book**, with the year's sky on the cover, to
+  read on an e-reader.
 
-Garde-fous : pas de notifications de relance, pas de classement, pas de partage social intégré. Le seul rappel est le rendez-vous quotidien choisi par l'utilisateur.
+Guardrails: no nagging notifications, no rankings, no built-in social sharing. The only reminder
+is the daily appointment the user chose.
 
-## Écrans
+## Screens
 
-Neuf écrans, une navigation à plat : l'accueil mène à tout, chaque écran revient à l'accueil en un geste ou un bouton.
+Flat navigation: Today leads everywhere, and every screen goes back to Today in one gesture or
+one button.
 
-| Écran | Contenu | Actions |
+| Screen | Content | Actions |
 | --- | --- | --- |
-| Today (accueil) | La ligne du mois en points, la question du jour, le parcours en cours | Répondre, autre question (3 max), ouvrir le carnet |
-| Answer | Question + saisie selon le type ; pour Mirror, la réponse d'il y a 30 jours | Valider, passer à spira avant d'écrire |
-| Done | Le point du jour qui se remplit, constellation si parcours fini | Retour accueil |
-| Notebook | Entrées par mois, une page par jour, pagination | Lire, filtrer par type ou parcours |
-| Journeys | Parcours disponibles, en cours, terminés | Démarrer un parcours |
-| Galaxy | Toutes les années en points, constellations des parcours | Feuilleter les années, toucher un point pour relire le jour |
-| Review | Bilan du mois ou de la saison | Lire, exporter en image |
-| spira | Minute de respiration et minuteur | Lancer, régler |
-| Settings | Heure du rendez-vous, sauvegarde, export EPUB, à propos | Exporter, importer |
+| Today | The month's line of dots, the question of the day, the current journey | Answer, another question (3 max), open the notebook |
+| Answer | The question and its input; for a Mirror, the answer from 30 days ago | Save, breathe with spira first |
+| Done | The day's dot filling in; the constellation if a journey ends | Back to Today |
+| Notebook | Entries by month, one page per day, paginated | Read, filter by format or journey |
+| Journeys | Available, current and finished journeys | Start a journey |
+| Galaxy | Every year in dots, with the journeys' constellations | Page through the years, touch a dot to reread the day |
+| Review | Month or season review | Read, export as an image |
+| spira | Breathing minute, timer, stopwatch | Start, set |
+| Settings | Reminder time, backup, EPUB export, updates, about | Export, import |
 
-Onboarding : un écran d'accueil où Dotilda se présente en trois promesses courtes (accessible ensuite via Settings > About Dotilda), le choix de l'heure du rappel, puis la première question tout de suite.
+Onboarding: a welcome screen where Dotilda introduces herself in three short promises (reachable
+later from Settings > About Dotilda), the choice of the reminder time, then the first question
+right away.
 
-## Module spira
+## spira
 
-spira comble un manque réel du Kompakt (pas de minuteur ni de chrono en stock) et sert de sas avant d'écrire. Il vit dans Dotilda en v1 ; une sortie en app autonome se décidera selon l'usage.
+spira fills a real gap on the Kompakt, which has no timer or stopwatch out of the box, and serves
+as a pause before writing. It lives inside Dotilda; a standalone app may follow if it is used.
 
-- **Minute de respiration** : un cercle qui change de taille par paliers (inspire 4 s, expire 6 s), sans animation fluide : 3 états fixes, compatibles e-ink. Vibration légère à chaque changement.
-- **Minuteur** : durée réglable par gros boutons +1 / +5 min, alarme à la fin, fonctionne écran éteint.
-- **Chronomètre** : démarrer, arrêter, tours ; affichage rafraîchi chaque seconde en mode rapide, chaque minute sinon pour économiser la batterie.
-- **Lien avec le journal** : depuis Answer, un bouton "breathe first" lance une minute puis revient à la question.
+- **Breathing minute:** a circle that changes size in steps (breathe in 4 s, out 6 s), with no
+  smooth animation: 3 fixed states, e-ink friendly. A light vibration at each change.
+- **Timer:** duration set with large +1 / +5 min buttons, an alarm at the end, works with the
+  screen off.
+- **Stopwatch:** start, stop, laps; the display refreshes every second in fast mode, every minute
+  otherwise to save battery.
+- **Link to the journal:** from Answer, "breathe first" runs one minute and comes back to the
+  question.
 
-## Contraintes e-ink et Kompakt
+## E-ink and Kompakt constraints
 
-Cible principale : Mudita Kompakt (MuditaOS K, base AOSP 12, sans services Google). Cible secondaire : liseuses Android 11+, comme l'app readme.club.
+Main target: Mudita Kompakt (MuditaOS K, based on AOSP 12, no Google services).
+Secondary: Android 11+ e-readers.
 
-- **Thème MMD** : utiliser la bibliothèque Mudita Mindful Design (Compose, Apache 2.0) pour un rendu natif Kompakt ; ripples désactivés, palette monochrome.
-- **Zéro animation** : transitions instantanées, aucun scroll ; pagination partout, comme sur une liseuse.
-- **Illustrations** : les points sont dessinés en Canvas Compose, noir pur, sans dégradés ; la galaxie est redessinée une fois par entrée, jamais animée.
-- **Photos** : tramage Floyd-Steinberg en 4 niveaux de gris côté appareil, stockées déjà tramées.
-- **Rafraîchissement** : rafraîchissement complet après chaque entrée validée et à chaque changement de mois dans le carnet, pour effacer le ghosting.
-- **Saisie** : questions courtes, champs larges, compatibles avec le clavier Kompakt (38 langues depuis la 1.6) et FUTO.
-- **Écran du Kompakt** (relevé sur MuditaOS K 1.6.1, API 31) : 480 × 800 px, 213 dpi (densité ×1,33), soit **360 × 564 dp** utiles pour l'app.
-- **Boutons physiques** : volume haut = page précédente (`KEYCODE_VOLUME_UP`, 24), volume bas = page suivante (`KEYCODE_VOLUME_DOWN`, 25), uniquement sur les écrans paginés ; ailleurs, le volume garde son rôle. La touche retour sous l'écran envoie `KEYCODE_BACK` (4), le retour système standard.
-- **Batterie** : aucun service en arrière-plan ; un seul rappel quotidien planifié avec AlarmManager.
-- **Notifications** : la 1.6 gère la vibration des alertes d'apps tierces ; vérifier sur le launcher stock comment s'affiche le rappel.
+- **MMD theme:** use Mudita Mindful Design (Compose, Apache 2.0) for a native Kompakt look;
+  ripples off, monochrome palette.
+- **No animation:** instant transitions, no scrolling; pagination everywhere, like an e-reader.
+- **Drawing:** dots are drawn with Compose Canvas, pure black, no gradients; the sky is redrawn
+  once per entry, never animated.
+- **Photos:** Floyd-Steinberg dithering to 4 greys on the device, stored already dithered.
+- **Refresh:** a full refresh after each saved entry and at each month change in the notebook, to
+  clear ghosting.
+- **Input:** short questions, wide fields, compatible with the Kompakt keyboard and FUTO.
+- **Kompakt screen** (MuditaOS K 1.6.1, API 31): 480 × 800 px, 213 dpi (density ×1.33), which
+  gives the app **360 × 564 dp**.
+- **Hardware keys:** volume up = previous page (`KEYCODE_VOLUME_UP`, 24), volume down = next page
+  (`KEYCODE_VOLUME_DOWN`, 25), only on paginated screens; elsewhere volume keeps its role. The back
+  key under the screen sends `KEYCODE_BACK` (4), the standard system back.
+- **Battery:** no background service; one daily reminder scheduled with AlarmManager, plus the
+  spira timer when the user starts it.
 
-## Architecture et modèle de données
+## Architecture and data
 
-Même socle que l'app readme.club pour réutiliser le savoir-faire : Kotlin, Jetpack Compose avec MMD (`com.mudita:MMD`), Room comme source unique, minSdk 30. Aucun réseau. Identifiant : `com.dotilda.app`.
+Kotlin, Jetpack Compose with MMD (`com.mudita:MMD`), Room as the single source of truth, minSdk 30.
+Application id: `com.dotilda.app`.
 
-**Stack**
+- **UI:** Compose + MMD, flat Compose navigation.
+- **Data:** Room (SQLite). The question bank and journeys are JSON assets, synced at every launch
+  (an app update can fix or add questions). Preferences in DataStore.
+- **Photos:** CameraX, dithered, then stored in the app's private folder.
+- **Reminder:** exact AlarmManager alarm, re-armed after reboot.
+- **Export:** a local EPUB 3 (XHTML and images in a zip), and a backup zip (JSON and photos),
+  through the Android file picker.
 
-- UI : Compose + MMD ; navigation Compose à plat.
-- Données : Room (SQLite) ; banque de questions et parcours en JSON dans les assets, resynchronisés à chaque lancement (une mise à jour de l'app peut corriger ou ajouter des questions). Préférences dans DataStore.
-- Photos : CameraX, tramage puis stockage dans le dossier privé de l'app.
-- Rappel : AlarmManager exact, réarmé au redémarrage.
-- Export : génération EPUB 3 locale (XHTML + images dans un zip), sauvegarde JSON + photos dans un zip, via le sélecteur de fichiers Android.
-
-**Tables**
-
-| Table | Champs principaux | Rôle |
+| Table | Main fields | Role |
 | --- | --- | --- |
-| Question | id, type, text, options, tags, journeyId?, mirrorGroup? | Banque de questions |
-| Entry | id, date, questionId, type, payload (JSON), photoPath? | Les réponses ; la première du jour donne sa forme au point |
-| Journey | id, title, length, constellationName | Parcours |
-| JourneyProgress | journeyId, step, startedAt, completedAt? | Avancement |
-| Constellation | id, journeyId, dates, completedAt | Constellations tracées par les parcours |
+| Question | id, type, text, options, tags, journeyId?, mirrorGroup? | Question bank |
+| Entry | id, date, questionId, type, payload (JSON), photoPath? | Answers; the day's first one gives its dot a shape |
+| Journey | id, title, length, constellationName | Journeys |
+| JourneyProgress | journeyId, step, startedAt, completedAt? | Progress |
+| Constellation | id, journeyId, dates, completedAt | Constellations drawn by journeys |
 
-Le payload JSON varie selon le type (texte, mot, index météo, choix, trois lignes, lettre avec sa date de déscellement) pour garder une seule table Entry simple à exporter. La forme du point se calcule depuis l'entrée du jour : pas de table de cache. Les préférences (heure du rendez-vous, compteur de changements de question du jour) vivent dans DataStore.
+The JSON payload depends on the format (text, word, weather index, choice, three lines, letter
+with its unsealing date), which keeps a single Entry table that is simple to export. The dot's
+shape is computed from the day's entry: no cache table. Preferences (reminder time, number of
+question changes today) live in DataStore.
 
-## Modèle et distribution
+## Updates and distribution
 
-Dotilda est **gratuite à 100 %** : pas d'achat, pas d'abonnement, pas de licence, pas de publicité. Tous les parcours, bilans et exports sont inclus. Le code est **ouvert** sous licence Apache 2.0, comme MMD (le dépôt reste privé pour le moment).
+Dotilda is **completely free**: no purchase, no subscription, no ads. Every journey, review and
+export is included. The code is open under Apache 2.0, like MMD.
 
-**Mises à jour dans l'app** (même mécanique que l'app readme.club) : au lancement, l'app lit `manifest.json` sur la dernière release GitHub (version, URL de l'APK, SHA-256, notes du CHANGELOG). Si une version plus récente existe, Today l'annonce discrètement ; l'écran de mise à jour montre les notes, télécharge l'APK, vérifie son empreinte et ouvre l'installeur d'Android, qui demande confirmation. Les builds de test (`com.dotilda.app.debug`) ne se mettent pas à jour. Les releases doivent être téléchargeables sans compte GitHub.
+**In-app updates** (the same mechanism as the readme.club app): at launch, the app reads
+`manifest.json` from the latest GitHub release (version, APK URL, SHA-256, notes from the
+CHANGELOG). If a newer version exists, Today mentions it quietly; the update screen shows the
+notes, downloads the APK, checks its checksum and opens Android's installer, which asks for
+confirmation. Test builds (`com.dotilda.app.debug`) do not update. Releases must be downloadable
+without a GitHub account.
 
-**Distribution**
+**Where to get it:** the APK on GitHub Releases, installed with Mudita Center or Obtainium, and
+[www.dotilda.com](https://www.dotilda.com).
 
-1. APK sur GitHub Releases, installable via Mudita Center ou Obtainium.
-2. Fiche dans le Community App Ranking du forum Mudita.
-3. Candidature à la plateforme Inkapps dès l'ouverture de MuditaOS K 2.0.
-4. Page dédiée et article sur readme.club ; F-Droid à étudier une fois le dépôt public.
+## Milestones
 
-## Plan en sprints
+Short steps, each one usable on a real Kompakt. Every push builds a debug APK on GitHub Actions.
 
-Six sprints courts, chacun livrable sur le Kompakt de test. La v1 publique sort après le sprint 3 ; 4 et 5 enrichissent. Chaque push compile un APK de debug via GitHub Actions (onglet Actions, artefact `dotilda-debug-apk`).
+1. ✅ **Foundation:** Kotlin + Compose + MMD project, Room, question import, a Diagnostics screen
+   to read the Kompakt's key codes and resolution.
+   Done when the app installs with Mudita Center and shows a question from the bank.
+2. ✅ **Ritual:** Today, Answer and Done; One line, One word, Inner weather and This or that;
+   the daily reminder.
+   Done when a week of real use passes without a bug and the reminder arrives every day on time.
+3. ✅ **Notebook and sky:** paginated Notebook, the year's sky and the month's line, dot shapes;
+   Three things and Mirror.
+   Done when every entry fills the right dot with the right shape, and empty days stay quiet.
+4. ✅ **spira and backup** (0.4.0): the full spira module, zip export and import, onboarding,
+   public release.
+   Done when a whole journal is restored on a second device.
+5. **Depth:** journeys and constellations, the month review, Photo of the day with dithering,
+   Letter to future me.
+   Done when a 7-day journey ends by drawing its constellation.
+6. **Looking back:** season reviews, the yearly EPUB export, dot and sky styles.
+   Done when the generated EPUB opens cleanly in KOReader.
 
-En parallèle des sprints 1 et 2 : rédaction de la banque complète (plus de 200 questions).
+A milestone is done when the app installs through Mudita Center, runs on a Kompakt for a full day
+of use without a crash, and meets the criteria above.
 
-1. ✅ **Sprint 0, socle** : projet Kotlin + Compose + MMD, Room, import JSON des questions, écran Diagnostics pour relever les keycodes et la résolution du Kompakt.
-   - Fait quand : l'app s'installe via Mudita Center et affiche une question tirée de la banque.
-2. ✅ **Sprint 1, rituel** : écrans Today, Answer, Done ; les formats One line, One word, Inner weather, This or that ; rappel quotidien.
-   - Fait quand : une semaine d'usage réel sans bug, rappel reçu chaque jour à l'heure.
-3. ✅ **Sprint 2, carnet et galaxie** : Notebook paginé, galaxie de l'année et ligne du mois, encodage des formes de points ; formats Three things et Mirror.
-   - Fait quand : chaque entrée remplit le bon point avec la bonne forme, et les jours vides restent discrets.
-4. ✅ **Sprint 3, spira et sauvegarde** (v0.4.0) : module spira complet, export et import zip, onboarding ; publication GitHub + Community App Ranking.
-   - Fait quand : restauration complète d'un journal sur un second appareil.
-5. **Sprint 4, profondeur** : parcours et constellations, bilan mensuel, Photo of the day avec tramage, Letter to future me.
-   - Fait quand : un parcours de 7 jours se termine en traçant sa constellation.
-6. **Sprint 5, recul** : bilans de saison, export EPUB annuel, styles de points et de galaxie.
-   - Fait quand : l'EPUB généré s'ouvre proprement dans KOReader.
+## Languages
 
-## CLAUDE.md
-
-Voir `CLAUDE.md` à la racine du dépôt.
-
-## Questions ouvertes
-
-- [ ] Réserver les handles Dotilda et vérifier les homonymes sur les stores (dotilda.com réservé).
-- [x] Langue : anglais seul en v1, textes dans `strings.xml` pour ouvrir d'autres langues ensuite.
-- [x] Open source, Apache 2.0 (dépôt privé pour le moment).
-- [x] Disposition de la galaxie : 12 lignes de 31 (les mois), points espacés pour ne jamais former de barre, aujourd'hui marqué par un petit ▲.
-- [x] Relever sur le Kompakt de test : résolution et keycodes des boutons (voir Contraintes e-ink).
-- [ ] Vérifier l'affichage du rappel sur le launcher stock (sprint 1).
-- [ ] Le Kompakt expose-t-il une API pour forcer un rafraîchissement complet, ou faut-il passer par un écran noir flash ?
-- [x] Banque de plus de 200 questions : premier jet rédigé par Claude, puis réécrit par Florent.
-- [x] Monétisation : aucune, l'app est gratuite à 100 %.
+The interface is in English for now, with every string in `res/values/strings.xml` so that other
+languages can follow. A language needs `res/values-<code>/strings.xml` and a translated question
+bank.
