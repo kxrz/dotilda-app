@@ -47,6 +47,7 @@ import com.dotilda.app.data.wordCloud
 import com.mudita.mmd.components.text.TextMMD
 import java.time.LocalDate
 import java.time.YearMonth
+import java.util.Locale
 
 /**
  * The month looking back, on two pages: Dotilda's word on its weather, the weather frieze and
