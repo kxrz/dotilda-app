@@ -144,7 +144,7 @@ fun TodayScreen(
             }
         }
         // Wraps onto two lines on a narrow screen or with large text, rather than run together.
-        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             val small = MaterialTheme.typography.bodySmall
             TextLink(stringResource(R.string.notebook), onNotebook, style = small)
             TextLink(stringResource(R.string.galaxy), onGalaxy, style = small)

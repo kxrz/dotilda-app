@@ -192,7 +192,7 @@ fun SettingsScreen(
                 Spacer(Modifier.height(12.dp))
                 HorizontalDividerMMD(thickness = 1.dp)
                 // Wraps onto two lines on a narrow screen or with large text, rather than overlap.
-                FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(18.dp)) {
                     TextLink(stringResource(R.string.about), onAbout)
                     TextLink(stringResource(R.string.licenses), onLicenses)
                     TextLink(stringResource(R.string.diagnostics), onDiagnostics)
