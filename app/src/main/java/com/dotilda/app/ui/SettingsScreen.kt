@@ -110,7 +110,7 @@ fun SettingsScreen(
     }
     val sky by prefs.sky.collectAsState(initial = SkyStyle())
     var page by rememberSaveable { mutableIntStateOf(0) }
-    val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, 1) }
+    val turn: (Int) -> Unit = { page = (page + it).coerceIn(0, PAGES - 1) }
     PageKeysEffect(turn)
 
     fun pick(launch: () -> Unit) {
@@ -132,7 +132,7 @@ fun SettingsScreen(
     Column(Modifier.fillMaxSize().padding(24.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextMMD(stringResource(R.string.settings), modifier = Modifier.weight(1f), style = MaterialTheme.typography.headlineLarge)
-            TextMMD("${page + 1} / 2", style = MaterialTheme.typography.labelMedium)
+            TextMMD("${page + 1} / $PAGES", style = MaterialTheme.typography.labelMedium)
         }
         Spacer(Modifier.height(16.dp))
         Column(Modifier.weight(1f)) {
@@ -151,27 +151,7 @@ fun SettingsScreen(
                     Spacer(Modifier.height(8.dp))
                     ReminderTime(s.reminderMinutes) { update(true, it) }
                 }
-                Spacer(Modifier.height(20.dp))
-                HorizontalDividerMMD(thickness = 1.dp)
-                Spacer(Modifier.height(12.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
-                    SwitchMMD(
-                        checked = s.checkUpdates,
-                        onCheckedChange = { on ->
-                            scope.launch { prefs.setCheckUpdates(on) }
-                            if (on) onCheck()
-                        },
-                    )
-                }
-                val version = BuildConfig.VERSION_NAME
-                when {
-                    checking -> TextMMD(stringResource(R.string.checking_updates), style = MaterialTheme.typography.bodySmall)
-                    latest?.isNewer == true -> TextLink(stringResource(R.string.update_available, latest.version), onOpenUpdate)
-                    latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
-                    else -> TextLink(stringResource(R.string.check_now, version), onCheck)
-                }
-            } else {
+            } else if (page == 1) {
                 TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     TextLink(stringResource(R.string.backup_export), { pick { exportTo.launch("dotilda-${LocalDate.now()}.zip") } })
@@ -196,19 +176,42 @@ fun SettingsScreen(
                 val month = remember { YearMonth.from(today) }
                 val entries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
                 CompositionLocalProvider(LocalSkyStyle provides sky) { MonthLine(month, entries, today) }
-                Spacer(Modifier.height(12.dp))
+            } else {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
+                    SwitchMMD(
+                        checked = s.checkUpdates,
+                        onCheckedChange = { on ->
+                            scope.launch { prefs.setCheckUpdates(on) }
+                            if (on) onCheck()
+                        },
+                    )
+                }
+                val version = BuildConfig.VERSION_NAME
+                when {
+                    checking -> TextMMD(stringResource(R.string.checking_updates), style = MaterialTheme.typography.bodySmall)
+                    latest?.isNewer == true -> TextLink(stringResource(R.string.update_available, latest.version), onOpenUpdate)
+                    latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
+                    else -> TextLink(stringResource(R.string.check_now, version), onCheck)
+                }
+                Spacer(Modifier.height(20.dp))
                 HorizontalDividerMMD(thickness = 1.dp)
                 // Wraps onto two lines on a narrow screen or with large text, rather than overlap.
                 FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.spacedBy(18.dp)) {
                     TextLink(stringResource(R.string.about), onAbout)
                     TextLink(stringResource(R.string.licenses), onLicenses)
                     TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+                    // Each introduction then shows again (this page's own first, as a sign it worked).
+                    TextLink(stringResource(R.string.intros_again), { scope.launch { prefs.resetIntros() } })
                 }
             }
         }
-        PagerRow(canPrevious = page > 0, canNext = page < 1, onPage = turn, onBack = onBack)
+        PagerRow(canPrevious = page > 0, canNext = page < PAGES - 1, onPage = turn, onBack = onBack)
     }
 }
+
+/** Name and reminder; journal and sky; updates and the rest. */
+private const val PAGES = 3
 
 /** A label and a few options in a row; the chosen one bold and underlined. */
 @Composable

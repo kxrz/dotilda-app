@@ -143,7 +143,12 @@ is the daily appointment the user chose.
 ## Screens
 
 Flat navigation: Today leads everywhere, and every screen goes back to Today in one gesture or
-one button.
+one button. Today reaches the other places through five ink icons (Notebook, Galaxy, Journeys,
+Spira, Settings), each labelled for screen readers.
+
+The first time a part opens (Today, Notebook, Galaxy, Journeys, Spira, Looking back, Settings),
+Dotilda introduces it in a card over the screen, closed with "Got it" or Back. It is never shown
+again, unless "Introductions" on the last page of Settings shows them all again.
 
 | Screen | Content | Actions |
 | --- | --- | --- |
@@ -155,7 +160,7 @@ one button.
 | Galaxy | Every year in dots, with the journeys' constellations | Page through the years, touch a dot to reread the day |
 | Review | Month or season review | Read, export as an image |
 | Spira | Breathing minute, timer, stopwatch | Start, set |
-| Settings | Reminder time, backup, EPUB export, updates, about | Export, import |
+| Settings | Three pages: name and reminder; journal export and sky style; updates, about, licences, diagnostics, introductions | Export, import |
 
 Onboarding: a welcome screen where Dotilda introduces herself in three short promises (reachable
 later from Settings > About Dotilda), the choice of the reminder time, then the first question

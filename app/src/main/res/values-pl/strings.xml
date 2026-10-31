@@ -253,4 +253,20 @@
     <string name="quip_named">Tak, słucham?</string>
     <string name="book_title_named">Rok z Dotildą · %1$s</string>
     <string name="book_cover_subtitle_named">Rok z Dotildą · %1$s</string>
+    <string name="intro_ok">Rozumiem</string>
+    <string name="intros_again">Wprowadzenia</string>
+    <string name="intro_today_title">Dziś</string>
+    <string name="intro_today">Tu czeka jedno pytanie dziennie. Na dole moje pięcioro drzwi: otwarta książka to Twój notatnik, kropki to galaktyka, gwiazda to ścieżki, kręgi to Spira, suwaki to ustawienia.</string>
+    <string name="intro_notebook_title">Notatnik</string>
+    <string name="intro_notebook">Tu trafia każda Twoja odpowiedź, jedna strona na dzień. Przewracaj strony strzałkami ‹ › albo przyciskami głośności.</string>
+    <string name="intro_galaxy_title">Galaktyka</string>
+    <string name="intro_galaxy">Jedna kropka na dzień, jeden rząd na miesiąc. Kształt mówi, jak padła odpowiedź: księżyc to pogoda, kwadrat to zdjęcie, romb to list. Dotknij kropki, by przeczytać ten dzień, a inicjału miesiąca, by zobaczyć podsumowanie.</string>
+    <string name="intro_journeys_title">Ścieżki</string>
+    <string name="intro_journeys">Kilka dni wokół jednego tematu, jedno pytanie dziennie zamiast mojego. Na koniec te dni rozbłysną jako gwiazdozbiór. Opuszczony dzień niczego nie psuje.</string>
+    <string name="intro_spira_title">Spira</string>
+    <string name="intro_spira">Spira znaczy „oddychaj”. Minuta oddechu przed pisaniem, minutnik, który zadzwoni nawet przy wygaszonym ekranie, i stoper.</string>
+    <string name="intro_review_title">Spojrzenie wstecz</string>
+    <string name="intro_review">Twoja pogoda, Twoje słowa, jedno Twoje zdanie i zdjęcia, zebrane z miesiąca albo pory roku. Przewracaj strony strzałkami ‹ ›.</string>
+    <string name="intro_settings_title">Ustawienia</string>
+    <string name="intro_settings">Twoje imię i przypomnienie. Na następnej stronie: eksport dziennika, książka z Twojego roku i wygląd nieba; na ostatniej aktualizacje i reszta.</string>
 </resources>

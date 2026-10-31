@@ -7,6 +7,19 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.7.0] - 2026-10-31
+
+### Added
+- Dotilda introduces each part of the app the first time you open it (Today, Notebook, Galaxy,
+  Journeys, Spira, Looking back, Settings), in a card closed with "Got it". Settings can show
+  them all again.
+
+### Changed
+- Today's links to the other places are now five ink icons: an open book for the Notebook, dots
+  for the Galaxy, a star for Journeys, rings for Spira and sliders for Settings.
+- Settings has three pages, so nothing is cut off on a small phone: your name and reminder,
+  then your journal and sky, then updates, About, Licences, Diagnostics and Introductions.
+
 ## [0.6.5] - 2026-10-31
 
 ### Changed

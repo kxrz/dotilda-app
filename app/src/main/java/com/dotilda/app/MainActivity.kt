@@ -22,6 +22,11 @@ import com.dotilda.app.ui.DoneScreen
 import com.dotilda.app.data.SkyStyle
 import com.dotilda.app.ui.DotildaTheme
 import com.dotilda.app.ui.GalaxyScreen
+import com.dotilda.app.ui.Intro
+import com.dotilda.app.ui.IntroOverlay
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
 import com.dotilda.app.ui.JourneysScreen
 import com.dotilda.app.ui.LicensesScreen
 import com.dotilda.app.ui.LocalUserName
@@ -101,7 +106,10 @@ class MainActivity : ComponentActivity() {
                     }
                     BackHandler(enabled = parent != null) { parent?.let { screen = it } }
                     val back = { screen = parent ?: Screen.Today }
+                    // null until read, so an introduction never flashes on a screen whose intro was seen.
+                    val introsSeen by app.prefs.introsSeen.collectAsState(initial = null)
 
+                    Box(Modifier.fillMaxSize()) {
                     when (screen) {
                         Screen.Welcome -> WelcomeScreen(stringResource(R.string.begin)) {
                             if (Build.VERSION.SDK_INT >= 33) askNotifications.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -183,9 +191,26 @@ class MainActivity : ComponentActivity() {
                         Screen.Diagnostics -> DiagnosticsScreen(app, lastKey.value, onBack = back)
                         Screen.Licenses -> LicensesScreen(onBack = back)
                     }
+                    // Dotilda introduces each part the first time it opens, over the screen itself.
+                    val intro = introFor(screen)
+                    if (intro != null && introsSeen?.contains(intro.key) == false) {
+                        IntroOverlay(intro) { scope.launch { app.prefs.markIntroSeen(intro.key) } }
+                    }
+                    }
                 }
             } }
         }
+    }
+
+    private fun introFor(screen: Screen): Intro? = when (screen) {
+        Screen.Today -> Intro("today", R.string.intro_today_title, R.string.intro_today)
+        Screen.Notebook -> Intro("notebook", R.string.intro_notebook_title, R.string.intro_notebook)
+        Screen.Galaxy -> Intro("galaxy", R.string.intro_galaxy_title, R.string.intro_galaxy)
+        Screen.Journeys -> Intro("journeys", R.string.intro_journeys_title, R.string.intro_journeys)
+        Screen.Spira -> Intro("spira", R.string.intro_spira_title, R.string.intro_spira)
+        Screen.Review -> Intro("review", R.string.intro_review_title, R.string.intro_review)
+        Screen.Settings -> Intro("settings", R.string.intro_settings_title, R.string.intro_settings)
+        else -> null
     }
 
     // Records every hardware key for Diagnostics; on paginated screens the volume buttons turn pages.

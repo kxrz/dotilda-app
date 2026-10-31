@@ -2,8 +2,6 @@ package com.dotilda.app.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -50,7 +48,6 @@ private const val UPDATE_ASIDE_DAYS = 3L
 /** Wraps the entry so "not loaded yet" (null) differs from "no entry today". */
 private class Today(val entry: Entry?)
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TodayScreen(
     journal: Journal,
@@ -143,14 +140,13 @@ fun TodayScreen(
                 )
             }
         }
-        // Wraps onto two lines on a narrow screen or with large text, rather than run together.
-        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-            val small = MaterialTheme.typography.bodySmall
-            TextLink(stringResource(R.string.notebook), onNotebook, style = small)
-            TextLink(stringResource(R.string.galaxy), onGalaxy, style = small)
-            TextLink(stringResource(R.string.journeys), onJourneys, style = small)
-            TextLink(stringResource(R.string.spira), onSpira, style = small)
-            TextLink(stringResource(R.string.settings), onSettings, style = small)
+        // The places, as icons: Dotilda's introduction on Today says which is which.
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            PlaceIcon(Place.Notebook, stringResource(R.string.notebook), onNotebook)
+            PlaceIcon(Place.Galaxy, stringResource(R.string.galaxy), onGalaxy)
+            PlaceIcon(Place.Journeys, stringResource(R.string.journeys), onJourneys)
+            PlaceIcon(Place.Spira, stringResource(R.string.spira), onSpira)
+            PlaceIcon(Place.Settings, stringResource(R.string.settings), onSettings)
         }
     }
 }
