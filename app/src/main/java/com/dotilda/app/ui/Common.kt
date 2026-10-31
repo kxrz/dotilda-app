@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dotilda.app.R
 import com.dotilda.app.data.Answer
@@ -45,7 +46,9 @@ fun DotildaSays(text: String, pose: Pose, onClick: (() -> Unit)? = null) {
         TextMMD(
             text,
             textDecoration = if (onClick != null) TextDecoration.Underline else null,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }
