@@ -76,6 +76,9 @@ Everything is explained, in English, French, Spanish, Portuguese and Polish, on
 Requires Android 11 or later. Designed for the Mudita Kompakt (MuditaOS K, 480 × 800 e-ink),
 and works on other Android e-readers.
 
+Testing a pre-release? [docs/TESTING.md](docs/TESTING.md) says what to look at and how to report
+what you find.
+
 ## Development
 
 Kotlin, Jetpack Compose, [Mudita Mindful Design](https://github.com/mudita/MMD), Room and DataStore.
