@@ -164,14 +164,6 @@ fun SettingsScreen(
                     latest != null -> TextMMD(stringResource(R.string.up_to_date, version), style = MaterialTheme.typography.bodySmall)
                     else -> TextLink(stringResource(R.string.check_now, version), onCheck)
                 }
-                Spacer(Modifier.height(8.dp))
-                HorizontalDividerMMD(thickness = 1.dp)
-                // Wraps onto two lines on a narrow screen or with large text, rather than overlap.
-                FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                    TextLink(stringResource(R.string.about), onAbout)
-                    TextLink(stringResource(R.string.licenses), onLicenses)
-                    TextLink(stringResource(R.string.diagnostics), onDiagnostics)
-                }
             } else {
                 TextMMD(stringResource(R.string.settings_journal), style = MaterialTheme.typography.labelMedium)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -197,6 +189,14 @@ fun SettingsScreen(
                 val month = remember { YearMonth.from(today) }
                 val entries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
                 CompositionLocalProvider(LocalSkyStyle provides sky) { MonthLine(month, entries, today) }
+                Spacer(Modifier.height(12.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                // Wraps onto two lines on a narrow screen or with large text, rather than overlap.
+                FlowRow(Modifier.fillMaxWidth().padding(top = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                    TextLink(stringResource(R.string.about), onAbout)
+                    TextLink(stringResource(R.string.licenses), onLicenses)
+                    TextLink(stringResource(R.string.diagnostics), onDiagnostics)
+                }
             }
         }
         PagerRow(canPrevious = page > 0, canNext = page < 1, onPage = turn, onBack = onBack)
