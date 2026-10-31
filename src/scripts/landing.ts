@@ -196,6 +196,14 @@ poke.addEventListener('click', () => {
   if (motion()) gsap.fromTo(poke, { y: 0, rotation: 0 }, { y: -12, rotation: pokes % 2 ? -6 : 6, duration: .14, ease: 'power2.out', yoyo: true, repeat: 1 });
 });
 
+// In the ink card, Dotilda watches the main button and smiles when you reach for it (one step).
+const ctaMark = $('.cta-mark'), ctaMain = $('.cta-main');
+const ctaSmile = (on: boolean) => () => { ctaMark.dataset.pose = on ? 'pleased' : 'peering'; };
+ctaMain.addEventListener('pointerenter', ctaSmile(true));
+ctaMain.addEventListener('pointerleave', ctaSmile(false));
+ctaMain.addEventListener('focus', ctaSmile(true));
+ctaMain.addEventListener('blur', ctaSmile(false));
+
 type Phase = 'waiting' | 'demo' | 'flying' | 'answered' | 'yours';
 let phase: Phase = 'waiting', demo: gsap.core.Timeline | null = null, demoTimer = 0, demoDone = false;
 
@@ -568,6 +576,16 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   $$('[data-anim="quote"]').forEach((q, i) => gsap.timeline({ scrollTrigger: onEnter('.quotes', 'top 80%'), delay: i * 1.1 })
     .from(q.querySelector('.voice'), { clipPath: 'inset(0 100% 0 0)', duration: 1.4, ease: 'power1.inOut' })
     .from(q.querySelector('figcaption'), { autoAlpha: 0, duration: .6 }, '-=.3'));
+
+  // The ink card after the hero unfolds as it comes up (its corners open to full width, scrubbed
+  // by the scroll); then its three facts arrive one after the other, and the buttons last.
+  gsap.fromTo('[data-anim="cta-card"]', { clipPath: 'inset(6% 7% 6% 7% round 3rem)', scale: .97 },
+    { clipPath: 'inset(0% 0% 0% 0% round 1.5rem)', scale: 1, ease: 'none', scrollTrigger: { trigger: '.cta', start: 'top 95%', end: 'top 35%', scrub: .6 } });
+  gsap.timeline({ scrollTrigger: onEnter('.cta-facts', 'top 85%') })
+    .from('[data-anim="cta-fact"]', { autoAlpha: 0, y: 28, duration: .9, ease: 'power3.out', stagger: .18 })
+    .from('.cta-n', { autoAlpha: 0, x: -10, duration: .5, stagger: .18 }, '<.1')
+    .from('[data-anim="cta-actions"]', { autoAlpha: 0, y: 14, duration: .8, ease: 'power2.out', stagger: .12 }, '-=.4')
+    .from('.cta-main', { scale: .9, duration: .6, ease: 'back.out(2.4)' }, '<');
 
   // Promises settle quietly, the only plain fade on the page.
   gsap.from('[data-anim="promise"]', { autoAlpha: 0, y: 14, ...calm, stagger: .08, scrollTrigger: onEnter('.promises') });

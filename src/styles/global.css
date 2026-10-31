@@ -129,9 +129,29 @@ nav.top a:hover{color:var(--ink);text-decoration:underline}
 .link-btn{padding:0;border:0;background:none;font:inherit;font-size:.95rem;color:var(--ink-2);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px;cursor:pointer}
 .link-btn:hover{color:var(--ink)}
 .ask.done .ask-field,.ask.done .choices,.ask.done .moons,.ask.done #another{display:none}
-/* After the hero: the way to get her. */
-.after-hero{display:grid;gap:.9rem;padding-block:0 clamp(3rem,8vw,5rem)}
-.after-hero .note{font-size:.9rem;color:var(--ink-2)}
+/* After the hero: a big ink card that says what the buttons do. Its colours are the page's,
+   swapped, so it turns light on a dark page. */
+.cta{padding-block:clamp(1.5rem,5vw,3rem) clamp(3rem,8vw,6rem);border-top:0}
+.cta-card{background:var(--ink);color:var(--paper);border-radius:1.5rem;padding:clamp(1.5rem,5vw,4.5rem);display:grid;gap:clamp(1.25rem,3.5vw,2.5rem)}
+.cta-card .label{color:var(--paper);opacity:.7}
+.cta-head{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.cta-card .cta-mark{width:clamp(44px,7vw,72px);height:auto;flex:none}
+.cta-card .mark .ink{fill:var(--paper)}
+.cta-card .mark .glasses,.cta-card .mark .smile,.cta-card .mark .lid,.cta-card .mark .mouth{stroke:var(--ink)}
+.cta-title{font-size:clamp(2.2rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.015em;max-width:16ch}
+.cta-facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,3vw,2.5rem)}
+@media (max-width:860px){.cta-facts{grid-template-columns:1fr}}
+.cta-facts li{display:grid;gap:.4rem;align-content:start;padding-top:1rem;border-top:1px solid color-mix(in srgb,var(--paper) 30%,transparent)}
+.cta-n{font-family:var(--mono);font-size:.8rem;opacity:.6}
+.cta-facts b{font-family:var(--display);font-weight:400;font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.1}
+.cta-facts p{opacity:.8;font-size:1rem}
+.cta-card .actions{gap:1rem 1.5rem}
+.cta-main{background:var(--paper);color:var(--ink);border-color:var(--paper);font-size:1.05rem;padding:1.1rem 1.6rem}
+.cta-link{color:var(--paper);opacity:.85}
+.cta-link:hover{opacity:1}
+.cta-note{font-size:.9rem;opacity:.75;color:var(--paper)}
+.cta-card .lang-pill{border-color:var(--paper)}
+.cta-card a:focus-visible{outline-color:var(--paper)}
 /* This month: one dot per day so far. Colours come from the tokens, so the theme switch needs no redraw. */
 .month{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;align-items:center;max-width:44rem}
 html:not(.js) .month{display:none}
@@ -335,3 +355,5 @@ footer .www:hover svg{border-bottom-width:8px;padding-bottom:2px}
 /* Beta testers talk back */
 #feedback .actions{margin-top:1.75rem}
 footer .brand-link{display:inline-block;margin-top:.6rem;white-space:nowrap}
+.cta-card .lang-note,.cta-card .lang-pill{color:var(--paper)}
+@media (max-width:560px){.cta-main{width:100%;justify-content:center;text-align:center}}

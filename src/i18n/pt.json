@@ -455,5 +455,23 @@
     "github": "Abrir uma issue no GitHub",
     "reddit": "Fale com a gente no Reddit"
   },
-  "appLanguagePill": "EN · PL"
+  "appLanguagePill": "EN · PL",
+  "cta": {
+    "label": "Antes de tocar",
+    "title": "Gratuito, privado e feito para o seu Kompakt.",
+    "facts": [
+      {
+        "title": "Para onde o botão leva",
+        "text": "Para os passos de instalação, logo abaixo: um APK do GitHub, enviado ao seu Kompakt com o Mudita Center, ou aberto direto em outro leitor Android 11+."
+      },
+      {
+        "title": "O que você não vai encontrar",
+        "text": "Nada de conta, cadastro, anúncios ou rastreamento. Seu diário nunca sai do celular."
+      },
+      {
+        "title": "Quanto custa",
+        "text": "Nada. A Dotilda é gratuita e de código aberto (Apache 2.0), e as novas versões chegam sozinhas."
+      }
+    ]
+  }
 }

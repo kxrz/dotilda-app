@@ -96,15 +96,28 @@ const pageData = {
   </div>
 </div>
 
-<!-- After the playground: the way to get her. -->
-<div class="after-hero">
-  <div class="actions">
-    <a class="btn solid" id="heroGet" href="#get">{s.hero.primary}</a>
-    <a class="quiet-link" href="#ritual">{s.hero.secondary}</a>
+<!-- After the playground: a big ink card that says what the buttons do, then the buttons.
+     Dotilda watches the main one, and smiles when you reach for it. -->
+<section class="cta after-hero" id="start">
+  <div class="cta-card" data-anim="cta-card">
+    <div class="cta-head">
+      <p class="label">{s.cta.label}</p>
+      <DotildaMark pose="peering" class="cta-mark" />
+    </div>
+    <h2 class="cta-title" data-split><Words text={s.cta.title} /></h2>
+    <ol class="cta-facts">
+      {s.cta.facts.map((f, i) => (
+        <li data-anim="cta-fact"><span class="cta-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><b>{f.title}</b><p>{f.text}</p></li>
+      ))}
+    </ol>
+    <div class="actions" data-anim="cta-actions">
+      <a class="btn cta-main" id="heroGet" href="#get">{s.hero.primary}</a>
+      <a class="cta-link" href="#ritual">{s.hero.secondary}</a>
+    </div>
+    <p class="cta-note" data-anim="cta-actions">{s.hero.note}</p>
+    {s.appLanguage && <p class="lang-note cta-note" data-anim="cta-actions"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
   </div>
-  <p class="note">{s.hero.note}</p>
-  {s.appLanguage && <p class="lang-note"><span class="lang-pill" translate="no">{s.appLanguagePill}</span>{s.appLanguage}</p>}
-</div>
+</section>
 
 <!-- Interest: the ritual in three steps -->
 <section id="ritual">

@@ -456,5 +456,23 @@
     "github": "Open an issue on GitHub",
     "reddit": "Message us on Reddit"
   },
-  "appLanguagePill": "EN"
+  "appLanguagePill": "EN",
+  "cta": {
+    "label": "Before you tap",
+    "title": "Free, private, and made for your Kompakt.",
+    "facts": [
+      {
+        "title": "Where the button leads",
+        "text": "To the install steps below: one APK from GitHub, sent to your Kompakt with Mudita Center, or opened straight on another Android 11+ e‑reader."
+      },
+      {
+        "title": "What you won’t find",
+        "text": "No account, no sign-up, no ads, no tracking. Your journal never leaves the phone."
+      },
+      {
+        "title": "What it costs",
+        "text": "Nothing. Dotilda is free and open source (Apache 2.0), and new versions arrive on their own."
+      }
+    ]
+  }
 }
