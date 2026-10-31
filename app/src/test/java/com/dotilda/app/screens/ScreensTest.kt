@@ -290,19 +290,19 @@ open class ScreensTest {
         launch()
         waitFor("my five doors", substring = true)
         shot("33-intro-today")
-        click("Got it")
+        gotIt()
         settle()
         shot("34-today-icons")
         click("Galaxy")
         waitFor("One dot per day", substring = true)
         shot("35-intro-galaxy")
-        click("Got it")
+        gotIt()
         click("Back")
         waitFor("Answer")
         click("Settings")
         waitFor("Your name, your reminder", substring = true)
         shot("36-intro-settings")
-        click("Got it")
+        gotIt()
         waitFor("Show my introductions again")
         click("Show my introductions again")
         waitFor("Your name, your reminder", substring = true)
@@ -325,6 +325,12 @@ open class ScreensTest {
     private fun waitFor(text: String, substring: Boolean = false) {
         step("wait for '$text'")
         compose.waitUntil(10_000) { compose.onAllNodesWithText(text, substring).fetchSemanticsNodes().isNotEmpty() }
+    }
+
+    /** Closes an introduction and waits until it is gone (its card swallows taps until then). */
+    private fun gotIt() {
+        click("Got it")
+        compose.waitUntil(10_000) { compose.onAllNodesWithText("Got it").fetchSemanticsNodes().isEmpty() }
     }
 
     /** Clicks a text, or an icon by its label when no text says it (Today's places). */
