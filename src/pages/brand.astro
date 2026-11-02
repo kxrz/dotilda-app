@@ -6,6 +6,8 @@ import DotildaMark from '../components/DotildaMark.astro';
 import { t, locales } from '../i18n';
 import { glyphs } from '../glyphs';
 import lesWWW from '../assets/leswww-logo.svg?raw';
+import postEn from '../content/linkedin-en.txt?raw';
+import postFr from '../content/linkedin-fr.txt?raw';
 import '../styles/brand.css';
 
 const s = t('en');
@@ -256,6 +258,16 @@ const voice = [
     ))}
   </ol>
   <p class="note">16:9 slides are 1920 × 1080. LinkedIn slides are 1080 × 1350 (4:5), its recommended size for feed images; post the PDF as a document and LinkedIn shows it as a carousel.</p>
+  <h3 class="post-h">The post to go with it</h3>
+  <div class="posts">
+    {[['English', 'en', postEn], ['Français', 'fr', postFr]].map(([name, lang, text]) => (
+      <details class="post" open={lang === 'en'}>
+        <summary>{name}</summary>
+        <pre class="post-text" lang={lang} id={`post-${lang}`}>{text.trim()}</pre>
+        <button class="btn copy-post" type="button" data-target={`post-${lang}`} data-done="Copied">Copy the text</button>
+      </details>
+    ))}
+  </div>
 </section>
 
 <section id="usage" class="stack">

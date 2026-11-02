@@ -84,3 +84,10 @@
 .sl img{width:100%;height:auto;border:1px solid var(--rule);border-radius:.4rem}
 .sl p{font-size:.95rem}
 .sl-n{font-family:var(--mono);font-size:.78rem;color:var(--ink-2)}
+
+/* the LinkedIn post, ready to copy */
+.post-h{margin-top:2rem}
+.posts{display:grid;gap:.75rem;max-width:44rem}
+.post{border:1px solid var(--rule);border-radius:.5rem;padding:.9rem 1.1rem}
+.post summary{cursor:pointer;font-weight:500}
+.post-text{white-space:pre-wrap;overflow-wrap:anywhere;font:400 .98rem/1.6 var(--body);margin:1rem 0}

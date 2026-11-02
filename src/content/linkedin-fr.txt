@@ -1,0 +1,25 @@
+J’ai fabriqué une app de journal qui ne veut pas de votre attention.
+
+Elle s’appelle Dotilda. Chaque jour, elle pose une seule petite question. Vous répondez en une ligne, en un mot, ou en donnant juste votre météo intérieure. La réponse devient un point dans votre année. Puis elle se tait jusqu’au lendemain.
+
+Elle est née sur l’écran e‑ink du Mudita Kompakt, un téléphone pensé pour décrocher. Elle tourne aujourd’hui sur n’importe quel téléphone, tablette ou liseuse Android 11+.
+
+Le carrousel défend six principes, un par slide :
+1. Une question par jour. Moins de deux minutes, et le reste de la journée vous appartient.
+2. Une ligne suffit. Pas de page blanche.
+3. Un jour manqué ? Rien ne casse. Pas de série, pas de rouge, pas de culpabilité.
+4. À vous seul. Pas de compte, pas d’analytics, rien ne quitte le téléphone.
+5. Calme sur tout écran. Noir sur blanc, grands caractères, aucun défilement infini.
+6. Gratuite, pour de bon. Open source, licence Apache 2.0.
+
+Le point 3 est celui qui m’a demandé le plus de travail. Presque toutes les apps d’habitudes reposent sur la série (la fameuse streak) : elle vous fait revenir, puis elle vous fait culpabiliser le jour où vous la cassez. Dotilda fait l’inverse. Un jour vide devient un tout petit point gris dans la grille. Quand vous revenez après une semaine, elle vous dit : « Vous voilà. Votre ciel vous a gardé votre place. »
+
+Une app qui ne compte pas vos absences, c’est encore rare. Ça ne devrait pas l’être.
+
+L’usage non plus, on ne le mesure pas dans l’app. Les seuls chiffres sont les compteurs publics de GitHub, affichés tels quels sur dotilda.com/stats.
+
+C’est une bêta publique : elle fonctionne au quotidien, et chaque retour aide la version suivante. Vous pouvez essayer Dotilda directement sur dotilda.com, sans rien installer, avant de télécharger l’APK.
+
+Une app de readme.club, conçue et maintenue par LesWWW.
+
+#OpenSource #Android #Eink #BienEtreNumerique #Journaling

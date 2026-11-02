@@ -13,3 +13,12 @@ document.querySelectorAll<HTMLButtonElement>('.swatch').forEach(b => b.addEventL
   said.textContent = `${hex} copied`;
   setTimeout(() => { code.textContent = hex; }, 1200);
 }));
+
+// The LinkedIn post: copy its text in one tap.
+document.querySelectorAll<HTMLButtonElement>('.copy-post').forEach(b => b.addEventListener('click', async () => {
+  const text = document.getElementById(b.dataset.target!)!.textContent!;
+  try { await navigator.clipboard.writeText(text); } catch { return; }
+  const label = b.textContent;
+  b.textContent = b.dataset.done!;
+  setTimeout(() => { b.textContent = label; }, 1500);
+}));

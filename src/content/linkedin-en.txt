@@ -1,0 +1,25 @@
+I built a journaling app that doesn’t want your attention.
+
+It’s called Dotilda. Each day, she asks one small question. You answer in a line, a word, or just the weather inside. Your answer becomes a dot in your year. Then she stays quiet until tomorrow.
+
+She was born on the e‑ink screen of the Mudita Kompakt, a phone made for switching off. Today she runs on any Android 11+ phone, tablet or e‑reader.
+
+The carousel makes the case for six principles, one per slide:
+1. One question a day. Under two minutes, then the rest of the day is yours.
+2. A line is plenty. No blank page.
+3. Miss a day? Nothing breaks. No streak, no red, no guilt.
+4. Yours alone. No account, no analytics, nothing leaves the phone.
+5. Calm on any screen. Black on white, large type, no endless scrolling.
+6. Free, for good. Open source, Apache 2.0.
+
+Number 3 took the most work. Almost every habit app runs on the streak: it brings you back, then makes you feel guilty the day you break it. Dotilda does the opposite. An empty day becomes a tiny grey dot in the grid. Come back after a week and she says: “There you are. Your sky kept your place.”
+
+An app that doesn’t count your absences is still rare. It shouldn’t be.
+
+We don’t measure usage inside the app either. The only numbers are GitHub’s public download counters, shown as they are on dotilda.com/stats.
+
+It’s a public beta: it works every day, and every piece of feedback helps the next version. You can try Dotilda right on dotilda.com, nothing to install, before downloading the APK.
+
+An app by readme.club, made and maintained by LesWWW.
+
+#OpenSource #Android #Eink #DigitalWellbeing #Journaling
