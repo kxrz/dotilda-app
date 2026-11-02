@@ -19,9 +19,10 @@ npm run preview    # serve dist/ on http://localhost:4321
 npm run check:fit  # with preview running: every language on 15 screens (see Checks)
 npm run og         # redraw the share images (see Share images)
 npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
+npm run slides     # redraw the seven concept slides in public/brand/slides (see Brand kit)
 ```
 
-`check:fit`, `og` and `brand` use Playwright's Chromium: run `npx playwright install chromium` once.
+`check:fit`, `og`, `brand` and `slides` use Playwright's Chromium: run `npx playwright install chromium` once.
 
 ## Stack
 
@@ -63,6 +64,8 @@ npm run brand      # redraw the brand kit files in public/brand (see Brand kit)
 | `scripts/check-fit.mjs` | The fit check (`npm run check:fit`). |
 | `scripts/og.mjs` | The share image generator (`npm run og`). |
 | `scripts/brand.mjs` | The brand kit file generator (`npm run brand`). |
+| `scripts/slides.mjs` | The concept slides: 16:9 and LinkedIn 4:5, PNG and PDF (`npm run slides`). |
+| `scripts/mark.mjs` | Dotilda's drawing (poses, colours), shared by both generators. |
 | `vercel.json` | Build settings, security headers (strict CSP), caching. |
 
 The page follows AIDA, in this order:
@@ -160,7 +163,8 @@ as the only image.
 
 `/brand` gathers the name and voice, Dotilda's four poses, the lockup and app icon, the colours
 (tap to copy), the type, the dot shapes, the real screens and share images, two wallpapers
-with Dotilda.com, its dot the only warm one (Moon and Year; desktop 3840×2160 and phone 1290×2796, light and dark), and usage rules.
+with Dotilda.com, its dot the only warm one (Moon and Year; desktop 3840×2160 and phone 1290×2796, light and dark), seven concept slides (one
+idea each, 16:9 and LinkedIn 4:5, PNG and PDF: `npm run slides`), and usage rules.
 It exists in English only: no `hreflang`, no FAQ data. Its files are drawn by `npm run brand`
 from the app's geometry (`ui/DotildaMark.kt`, `ic_launcher_foreground.xml`); the glasses and the
 smile are cut out with a mask, so every SVG works on any background. When the app's drawing

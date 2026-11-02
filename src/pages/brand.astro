@@ -44,6 +44,10 @@ const dots = [
   ['sealed', 'A sealed letter', 'opens on the date you chose'],
 ];
 
+// The concept in seven slides, one idea each (drawn by scripts/slides.mjs).
+const slides = ['Cover: a journal born on e‑ink, for any Android', 'One question a day', 'A line is plenty', 'Miss a day? Nothing breaks', 'Yours alone', 'Calm on any screen', 'Free, for good']
+  .map((title, i) => ({ title, n: String(i + 1).padStart(2, '0') }));
+
 const wallpapers = ['moon', 'year'].map(id => ({
   id,
   name: id === 'moon' ? 'Moon' : 'Year',
@@ -71,6 +75,7 @@ const voice = [
     <a class="hide-s" href="#colour">Colour</a>
     <a class="hide-s" href="#type">Type</a>
     <a class="hide-s" href="#wallpapers">Wallpapers</a>
+    <a class="hide-s" href="#slides">Slides</a>
     <a href="/">Home</a>
     <button class="theme-toggle" type="button" id="themeToggle" aria-label={s.nav.toDark} data-to-dark={s.nav.toDark} data-to-light={s.nav.toLight}>
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -231,6 +236,26 @@ const voice = [
     </div>
   ))}
   <p class="note">PNG files. The phone versions keep clear of the clock and the dock, and fit other phones once cropped.</p>
+</section>
+
+<section id="slides" class="stack">
+  <p class="label">Slides</p>
+  <h2>The concept, one idea per slide.</h2>
+  <p class="lede">Seven slides to explain Dotilda: what she is, then six principles she keeps. For a talk in 16:9, or a LinkedIn carousel in 4:5.</p>
+  <div class="sl-get">
+    <a class="btn" href="/brand/slides/dotilda-slides-16x9.pdf" download>16:9 deck, PDF</a>
+    <a class="btn" href="/brand/slides/dotilda-slides-linkedin.pdf" download>LinkedIn carousel, PDF</a>
+  </div>
+  <ol class="sl-list plain">
+    {slides.map(sl => (
+      <li class="sl">
+        <img src={`/brand/slides/thumbs/dotilda-slide-${sl.n}-16x9.png`} width="640" height="360" alt={`Slide ${sl.n}: ${sl.title}`} loading="lazy" decoding="async">
+        <p><span class="sl-n">{sl.n}</span> {sl.title}</p>
+        <p class="dl"><a href={`/brand/slides/dotilda-slide-${sl.n}-16x9.png`} download>16:9, PNG</a> <a href={`/brand/slides/dotilda-slide-${sl.n}-linkedin.png`} download>LinkedIn, PNG</a></p>
+      </li>
+    ))}
+  </ol>
+  <p class="note">16:9 slides are 1920 × 1080. LinkedIn slides are 1080 × 1350 (4:5), its recommended size for feed images; post the PDF as a document and LinkedIn shows it as a carousel.</p>
 </section>
 
 <section id="usage" class="stack">
