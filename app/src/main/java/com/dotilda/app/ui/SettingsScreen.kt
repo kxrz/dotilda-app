@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import android.content.ActivityNotFoundException
+import com.dotilda.app.Language
+import com.dotilda.app.DotildaApp
+import android.app.Activity
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Dispatchers
 import com.dotilda.app.DownloadsFolder
@@ -218,6 +221,10 @@ fun SettingsScreen(
                 val entries by remember { journal.entriesOf(month) }.collectAsState(initial = emptyList())
                 CompositionLocalProvider(LocalSkyStyle provides sky) { MonthLine(month, entries, today) }
             } else {
+                LanguageChoice()
+                Spacer(Modifier.height(12.dp))
+                HorizontalDividerMMD(thickness = 1.dp)
+                Spacer(Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     TextMMD(stringResource(R.string.check_updates), modifier = Modifier.weight(1f))
                     SwitchMMD(
@@ -253,6 +260,40 @@ fun SettingsScreen(
 
 /** Name and reminder; journal and sky; updates and the rest. */
 private const val PAGES = 3
+
+/**
+ * Automatic (the phone's language) or one of Dotilda's, each written in itself. The screen is
+ * redrawn in the new language once the questions have followed.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun LanguageChoice() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var chosen by remember { mutableStateOf(Language.chosen(context)) }
+    TextMMD(stringResource(R.string.settings_language), style = MaterialTheme.typography.labelMedium)
+    FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+        (listOf(null to stringResource(R.string.language_auto)) + Language.available).forEach { (tag, name) ->
+            TextMMD(
+                name,
+                modifier = Modifier
+                    .clickable {
+                        if (tag == chosen) return@clickable
+                        chosen = tag
+                        Language.choose(context, tag)
+                        scope.launch {
+                            (context.applicationContext as DotildaApp).reloadLanguage()
+                            (context as? Activity)?.recreate()
+                        }
+                    }
+                    .padding(vertical = 8.dp),
+                fontWeight = if (tag == chosen) FontWeight.Bold else null,
+                textDecoration = if (tag == chosen) TextDecoration.Underline else null,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+    }
+}
 
 /** A label and a few options in a row; the chosen one bold and underlined. */
 @Composable

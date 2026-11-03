@@ -51,6 +51,24 @@ class DotildaApp : Application() {
     var startupError: Throwable? = null
         private set
 
+    /** The language the question bank and journeys were last loaded in. */
+    var bankLanguage: String? = null
+        private set
+
+    /**
+     * After the language changed (in Settings, or the phone's): questions, journeys and
+     * notification channels follow. Past answers keep their question, now in the new words.
+     */
+    suspend fun reloadLanguage() {
+        val speaking = Language.wrap(this)
+        bankReady.await()
+        syncQuestionBank(speaking, db.questionDao())
+        journal.journeys = loadJourneys(speaking)
+        Reminder.createChannel(speaking)
+        SpiraTimer.createChannel(speaking)
+        bankLanguage = speaking.getString(R.string.app_locale)
+    }
+
     fun checkForUpdate() {
         if (checkingUpdate) return
         checkingUpdate = true
@@ -74,13 +92,16 @@ class DotildaApp : Application() {
     private fun start() {
         db = DotildaDatabase.create(this)
         prefs = Prefs(this)
-        bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }
+        // Questions and journeys speak the language chosen in Settings (or the phone's).
+        val speaking = Language.wrap(this)
+        bankLanguage = speaking.getString(R.string.app_locale)
+        bankReady = MainScope().async { syncQuestionBank(speaking, db.questionDao()) }
         canTakePhotos = Photos.canTakePhotos(this)
-        journal = Journal(db, prefs, bankReady, loadJourneys(this), canTakePhotos = { canTakePhotos })
+        journal = Journal(db, prefs, bankReady, loadJourneys(speaking), canTakePhotos = { canTakePhotos })
         backup = Backup(db.entryDao(), prefs, filesDir)
 
-        Reminder.createChannel(this)
-        SpiraTimer.createChannel(this)
+        Reminder.createChannel(speaking)
+        SpiraTimer.createChannel(speaking)
         MainScope().launch {
             val settings = prefs.settingsNow()
             Reminder.schedule(this@DotildaApp, settings.reminderOn, settings.reminderMinutes)

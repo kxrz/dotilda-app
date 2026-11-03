@@ -7,6 +7,21 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.9.0] - 2026-11-03
+
+### Added
+- Dotilda speaks French: every screen, all 396 questions and the four journeys.
+- Settings, last page: choose the language (Automatic, English, Français, Polski), whatever the
+  phone's. Questions, journeys and reminders follow at once.
+- Constellations are named in the language you read Dotilda in, even those finished before.
+
+### Fixed
+- A letter's default sealing time (a season, a year…) was guessed from English words, so in
+  Polish every letter opened after six months. It now holds in every language, and "a month from
+  now" opens after a month.
+- If the phone's language changed while Dotilda was open, the questions stayed in the old one
+  until she was restarted.
+
 ## [0.8.0] - 2026-11-03
 
 ### Added

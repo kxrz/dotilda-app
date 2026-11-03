@@ -348,21 +348,26 @@ private fun PhotoInWords(onBack: () -> Unit, modifier: Modifier, onSave: (String
     }
 }
 
+/**
+ * How long a letter stays sealed by default, by question (the user can change it): read from
+ * the id, not the words, so it holds in every language. The others: six months.
+ */
+private val LETTER_MONTHS = mapOf(
+    "le-002" to 3, // next season
+    "le-003" to 12, // next birthday
+    "le-005" to 12, // one year from today
+    "le-006" to 12, // to the you of ten years ago
+    "le-008" to 1, // a month from now
+    "le-011" to 12, // the first morning of next year
+    "j-sea-5" to 3, // next season
+)
+
 /** A longer letter, sealed until a date chosen among four. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun LetterInput(question: Question, today: LocalDate, onBack: () -> Unit, modifier: Modifier, onSave: (String, LocalDate) -> Unit) {
     var text by rememberSaveable { mutableStateOf("") }
-    val text0 = question.text.lowercase()
-    var months by rememberSaveable {
-        mutableIntStateOf(
-            when {
-                "season" in text0 -> 3
-                "year" in text0 || "birthday" in text0 -> 12
-                else -> 6
-            },
-        )
-    }
+    var months by rememberSaveable { mutableIntStateOf(LETTER_MONTHS[question.id] ?: 6) }
     Column(modifier) {
         TextFieldMMD(
             value = text,

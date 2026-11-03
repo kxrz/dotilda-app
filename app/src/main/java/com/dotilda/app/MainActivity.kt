@@ -3,6 +3,7 @@ package com.dotilda.app
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.content.Context
 import android.content.ActivityNotFoundException
 import android.widget.Toast
 import kotlinx.coroutines.MainScope
@@ -58,6 +59,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // Every screen speaks the language chosen in Settings (or the phone's).
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(Language.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val app = application as DotildaApp
@@ -88,6 +94,8 @@ class MainActivity : ComponentActivity() {
             )
             return
         }
+        // The phone's language changed while Dotilda was running: questions follow it too.
+        if (app.bankLanguage != getString(R.string.app_locale)) MainScope().launch { app.reloadLanguage() }
         setContent {
             val sky by app.prefs.sky.collectAsState(initial = SkyStyle())
             val name by app.prefs.name.collectAsState(initial = "")

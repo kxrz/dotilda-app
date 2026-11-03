@@ -24,7 +24,7 @@ object SpiraTimer {
     fun createChannel(context: Context) {
         val channel = NotificationChannel(
             CHANNEL,
-            context.getString(R.string.spira_timer_channel),
+            Language.wrap(context).getString(R.string.spira_timer_channel),
             NotificationManager.IMPORTANCE_HIGH,
         ).apply {
             setSound(
@@ -53,8 +53,8 @@ object SpiraTimer {
     fun ring(context: Context) {
         val notification = Notification.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(context.getString(R.string.spira))
-            .setContentText(context.getString(R.string.spira_timer_done))
+            .setContentTitle(Language.wrap(context).getString(R.string.spira))
+            .setContentText(Language.wrap(context).getString(R.string.spira_timer_done))
             .setCategory(Notification.CATEGORY_ALARM)
             .setAutoCancel(true)
             .build()

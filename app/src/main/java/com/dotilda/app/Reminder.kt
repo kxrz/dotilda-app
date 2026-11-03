@@ -30,7 +30,7 @@ object Reminder {
     fun createChannel(context: Context) {
         val channel = NotificationChannel(
             CHANNEL,
-            context.getString(R.string.reminder_channel),
+            Language.wrap(context).getString(R.string.reminder_channel),
             NotificationManager.IMPORTANCE_DEFAULT,
         )
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
@@ -63,8 +63,8 @@ object Reminder {
         )
         val notification = Notification.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(context.getString(R.string.app_name))
-            .setContentText(context.getString(R.string.reminder_text))
+            .setContentTitle(Language.wrap(context).getString(R.string.app_name))
+            .setContentText(Language.wrap(context).getString(R.string.reminder_text))
             .setContentIntent(open)
             .setAutoCancel(true)
             .build()

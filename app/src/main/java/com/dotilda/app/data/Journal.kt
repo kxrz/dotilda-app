@@ -37,9 +37,12 @@ class Journal(
     private val db: DotildaDatabase,
     private val prefs: Prefs,
     private val bankReady: Deferred<Unit>,
-    val journeys: List<Journey>,
+    journeys: List<Journey>,
     private val canTakePhotos: () -> Boolean = { true },
 ) {
+    /** In the app's language: reloaded when it changes. */
+    var journeys: List<Journey> = journeys
+
     private val questions get() = db.questionDao()
     private val entries get() = db.entryDao()
 
@@ -120,6 +123,10 @@ class Journal(
 
     /** Every finished journey, oldest first. */
     val constellations: Flow<List<Constellation>> get() = prefs.constellations
+
+    /** A constellation's name in today's language (it was saved in the language of its day). */
+    fun constellationName(constellation: Constellation): String =
+        journeys.firstOrNull { it.id == constellation.journeyId }?.constellation ?: constellation.name
 
     val activeJourney: Flow<ActiveJourney?> get() = prefs.activeJourney
 

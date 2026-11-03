@@ -72,7 +72,7 @@ object YearBookExport {
         val book = YearBook(
             year = year,
             pages = pages,
-            constellations = constellations.map { it.name }.distinct(),
+            constellations = constellations.map(journal::constellationName).distinct(),
             cover = cover(context, year, entries, constellations, today, line(R.string.book_cover_subtitle_named, R.string.book_cover_subtitle)),
             madeOn = today,
             strings = BookStrings(

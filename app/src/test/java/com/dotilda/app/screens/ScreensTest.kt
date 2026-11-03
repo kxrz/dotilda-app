@@ -45,6 +45,7 @@ import com.dotilda.app.ui.WeatherIcon
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.github.takahirom.roborazzi.captureScreenRoboImage
 import com.dotilda.app.CrashLog
+import com.dotilda.app.Language
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -354,6 +355,39 @@ open class ScreensTest {
         }
         waitFor("Answer")
         CrashLog.clear(app)
+    }
+
+    /** French, chosen in Settings over an English phone: screens, questions and dates follow. */
+    @Test
+    fun m_french() {
+        org.junit.Assume.assumeTrue(prefix == "")
+        seed(question = "iw-001")
+        Language.choose(app, "fr")
+        try {
+            offMain { app.reloadLanguage() }
+            launch()
+            waitFor("Répondre")
+            shot("fr/03-today")
+            click("Répondre")
+            waitFor("Orageux")
+            shot("fr/05-answer-weather")
+            click("Retour")
+            waitFor("Répondre")
+            click("Galaxie")
+            waitFor("Constellations", substring = true)
+            shot("fr/12-galaxy")
+            click("Retour")
+            waitFor("Répondre")
+            click("Réglages")
+            waitFor("Rappel quotidien")
+            click("›")
+            waitFor("Votre ciel")
+            click("›")
+            waitFor("Langue")
+            shot("fr/37-settings-more")
+        } finally {
+            Language.choose(app, null)
+        }
     }
 
     private var scenario: ActivityScenario<MainActivity>? = null
