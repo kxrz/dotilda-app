@@ -1,0 +1,197 @@
+ScreensTest > a_onboarding FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > b_ritual STARTED
+--
+ScreensTest > b_ritual FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > c1_answerLine STARTED
+--
+ScreensTest > c1_answerLine FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > c2_answerChoice STARTED
+--
+ScreensTest > c2_answerChoice FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > c3_answerThings STARTED
+--
+ScreensTest > c3_answerThings FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > c4_answerMirror STARTED
+--
+ScreensTest > c4_answerMirror FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > d_rereading STARTED
+--
+ScreensTest > d_rereading FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > e_spiraAndSettings STARTED
+--
+ScreensTest > e_spiraAndSettings FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > f_journeysAndReview STARTED
+--
+ScreensTest > f_journeysAndReview FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > g1_answerLetter STARTED
+--
+ScreensTest > g1_answerLetter FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > g2_answerPhoto STARTED
+--
+ScreensTest > g2_answerPhoto FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > g3_letterReady STARTED
+--
+ScreensTest > g3_letterReady FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > g4_answerPhotoInWords STARTED
+--
+ScreensTest > g4_answerPhotoInWords FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > h_journeyEnds STARTED
+--
+ScreensTest > h_journeyEnds FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > i_skyStyle STARTED
+--
+ScreensTest > i_skyStyle FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > j_nameAskedAfterUpdate STARTED
+--
+ScreensTest > j_nameAskedAfterUpdate FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > k_intros STARTED
+--
+ScreensTest > k_intros FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > l_crashReport STARTED
+--
+ScreensTest > l_crashReport FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+ScreensTest > m_french STARTED
+--
+ScreensTest > m_french FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > a_onboarding STARTED
+--
+SmallPhoneTest > a_onboarding FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > b_ritual STARTED
+--
+SmallPhoneTest > b_ritual FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > c1_answerLine STARTED
+--
+SmallPhoneTest > c1_answerLine FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > c2_answerChoice STARTED
+--
+SmallPhoneTest > c2_answerChoice FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > c3_answerThings STARTED
+--
+SmallPhoneTest > c3_answerThings FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > c4_answerMirror STARTED
+--
+SmallPhoneTest > c4_answerMirror FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > d_rereading STARTED
+--
+SmallPhoneTest > d_rereading FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > e_spiraAndSettings STARTED
+--
+SmallPhoneTest > e_spiraAndSettings FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > f_journeysAndReview STARTED
+--
+SmallPhoneTest > f_journeysAndReview FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > g1_answerLetter STARTED
+--
+SmallPhoneTest > g1_answerLetter FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > g2_answerPhoto STARTED
+--
+SmallPhoneTest > g2_answerPhoto FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > g3_letterReady STARTED
+--
+SmallPhoneTest > g3_letterReady FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > g4_answerPhotoInWords STARTED
+--
+SmallPhoneTest > g4_answerPhotoInWords FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > h_journeyEnds STARTED
+--
+SmallPhoneTest > h_journeyEnds FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > i_skyStyle STARTED
+--
+SmallPhoneTest > i_skyStyle FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > j_nameAskedAfterUpdate STARTED
+--
+SmallPhoneTest > j_nameAskedAfterUpdate FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > k_intros STARTED
+--
+SmallPhoneTest > k_intros FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > l_crashReport STARTED
+--
+SmallPhoneTest > l_crashReport FAILED
+    java.lang.IllegalStateException at ScreensTest.kt:452
+
+SmallPhoneTest > m_french STARTED
+--
+> Task :app:testDebugUnitTest FAILED
+> Task :app:finalizeTestRoborazziDebug
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1793709439163.json
+
+--
+* What went wrong:
+Execution failed for task ':app:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///home/runner/work/dotilda-app/dotilda-app/app/build/reports/tests/testDebugUnitTest/index.html
+
+--
+BUILD FAILED in 21m 2s
+31 actionable tasks: 31 executed
