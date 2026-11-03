@@ -130,6 +130,9 @@ None of them punishes absence.
 - A finished journey becomes a constellation, named after the journey: its days light up as stars
   (four short rays around each dot), with no line between them, and its name shows under the sky.
 - One journey at a time; outside a journey, the question of the day comes from the general bank.
+- A step not answered that day waits for the next. A step put aside with "Another question" goes
+  to the end of the journey; put aside again there, it is dropped. The journey ends when no step
+  is left, and its constellation holds the days actually written.
 
 **Reviews (long loops)**
 

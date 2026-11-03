@@ -14,6 +14,9 @@ The release workflow publishes the section of the tagged version as the GitHub r
   An answered question now waits a whole year before coming back (it was three months).
 
 ### Changed
+- During a journey, a step put aside with "Another question" no longer comes back the next day:
+  it waits until the end of the journey. Put aside again then, it's dropped, and the journey ends
+  with the days you did write. A step you simply didn't get to still waits for you, as before.
 - On an e-reader without a camera, or without a camera app, Dotilda no longer asks for a photo.
   If a photo question comes anyway (a journey's step), you tell her in a few words what you
   would have shown her; the day keeps its little square in your sky.

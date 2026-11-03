@@ -22,9 +22,15 @@ private const val LETTER_DAYS = 90L
 private const val LETTER_AFTER_DAYS = 14L
 
 /** How far along a journey is: [done] questions answered out of [Journey.length]. */
-data class JourneyProgress(val journey: Journey, val startedAt: String, val done: Int) {
-    val next: Question? get() = journey.questions.getOrNull(done)
-}
+data class JourneyProgress(
+    val journey: Journey,
+    val startedAt: String,
+    /** Steps answered so far. */
+    val done: Int,
+    val next: Question?,
+    /** The days a step was answered on: the constellation's stars. */
+    val dates: List<String>,
+)
 
 /** The daily ritual: today's question, the 3 changes, saving the answer. */
 class Journal(
@@ -84,8 +90,15 @@ class Journal(
         val active = prefs.activeJourney.first() ?: return null
         val journey = journeys.firstOrNull { it.id == active.journeyId } ?: return null
         val ids = journey.questions.mapTo(HashSet()) { it.id }
-        val done = entries.since(active.startedAt).filter { it.questionId in ids }.distinctBy { it.questionId }.size
-        return JourneyProgress(journey, active.startedAt, done)
+        val steps = entries.since(active.startedAt).filter { it.questionId in ids }
+        val answered = steps.mapTo(HashSet()) { it.questionId }
+        return JourneyProgress(
+            journey,
+            active.startedAt,
+            done = answered.size,
+            next = nextStep(journey, answered, active.setAside),
+            dates = steps.map { it.date }.distinct(),
+        )
     }
 
     /**
@@ -131,6 +144,11 @@ class Journal(
     suspend fun anotherQuestion(today: LocalDate): Pair<Question, DayState>? {
         val day = prefs.day()
         if (day.changes >= MAX_CHANGES) return null
+        // Today's journey step, put aside: it comes back after the others (or not at all, the second time).
+        journeyProgress()?.takeIf { it.next?.id == day.questionId }?.let { progress ->
+            prefs.activeJourney.first()?.let { prefs.setActiveJourney(it.copy(setAside = it.setAside + day.questionId!!)) }
+            journeyProgress()?.takeIf { it.next == null }?.let { finish(it) }
+        }
         return offer(today, day, changes = day.changes + 1)
     }
 
@@ -152,12 +170,16 @@ class Journal(
             ),
         )
         val progress = journeyProgress() ?: return null
-        if (question.journeyId != progress.journey.id || progress.done < progress.journey.length) return null
-        val ids = progress.journey.questions.mapTo(HashSet()) { it.id }
-        val dates = entries.since(progress.startedAt).filter { it.questionId in ids }.map { it.date }.distinct()
-        val constellation = Constellation(progress.journey.id, progress.journey.constellation, dates)
-        prefs.addConstellations(listOf(constellation))
+        if (question.journeyId != progress.journey.id || progress.next != null) return null
+        return finish(progress)
+    }
+
+    /** No step left: the journey ends, and its written days light up (if there are any). */
+    private suspend fun finish(progress: JourneyProgress): Constellation? {
         prefs.stopJourneyIfActive(progress.journey.id)
+        if (progress.dates.isEmpty()) return null
+        val constellation = Constellation(progress.journey.id, progress.journey.constellation, progress.dates)
+        prefs.addConstellations(listOf(constellation))
         return constellation
     }
 

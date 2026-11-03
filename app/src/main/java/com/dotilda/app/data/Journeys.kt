@@ -20,9 +20,23 @@ data class Journey(
     val length: Int get() = questions.size
 }
 
-/** The journey under way, since [startedAt] (ISO date). */
+/**
+ * The journey under way, since [startedAt] (ISO date). [setAside] lists the steps put aside with
+ * "Another question", in that order: once, a step goes to the end; twice, it is dropped.
+ */
 @Serializable
-data class ActiveJourney(val journeyId: String, val startedAt: String)
+data class ActiveJourney(val journeyId: String, val startedAt: String, val setAside: List<String> = emptyList())
+
+/**
+ * The journey's next step: the first one not yet answered, steps set aside once coming last
+ * (in the order they were set aside) and those set aside twice not at all. Null when none is left.
+ */
+fun nextStep(journey: Journey, answered: Set<String>, setAside: List<String>): Question? {
+    val times = setAside.groupingBy { it }.eachCount()
+    val ahead = journey.questions.filter { it.id !in times }
+    val later = setAside.distinct().filter { times[it] == 1 }.mapNotNull { id -> journey.questions.firstOrNull { it.id == id } }
+    return (ahead + later).firstOrNull { it.id !in answered }
+}
 
 /** A finished journey: its constellation, the days it lit. */
 @Serializable

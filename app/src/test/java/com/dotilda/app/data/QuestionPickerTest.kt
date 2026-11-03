@@ -159,3 +159,45 @@ class ReviewTest {
         assertEquals(listOf("Quiet" to 2, "Busy" to 1), wordCloud(listOf("quiet", "Busy", "QUIET ")))
     }
 }
+
+/** A journey step put aside with "Another question" comes back once, last; a second time, never. */
+class JourneyStepsTest {
+    private val journey = Journey(
+        id = "gratitude",
+        title = "Gratitude",
+        description = "",
+        constellation = "Thankful",
+        questions = (1..4).map { Question("j-$it", QuestionType.ONE_LINE, "q$it", journeyId = "gratitude") },
+    )
+
+    private fun next(answered: Set<String>, setAside: List<String> = emptyList()) =
+        nextStep(journey, answered, setAside)?.id
+
+    @Test
+    fun stepsComeInOrder() {
+        assertEquals("j-1", next(emptySet()))
+        assertEquals("j-3", next(setOf("j-1", "j-2")))
+    }
+
+    @Test
+    fun aStepSetAsideComesBackLast() {
+        assertEquals("j-3", next(setOf("j-1"), setAside = listOf("j-2")))
+        assertEquals("j-2", next(setOf("j-1", "j-3", "j-4"), setAside = listOf("j-2")))
+    }
+
+    @Test
+    fun aStepSetAsideTwiceIsDropped() {
+        assertNull(next(setOf("j-1", "j-3", "j-4"), setAside = listOf("j-2", "j-2")))
+    }
+
+    @Test
+    fun stepsSetAsideComeBackInTheirOrder() {
+        assertEquals("j-3", next(setOf("j-1", "j-2", "j-4"), setAside = listOf("j-3", "j-1")))
+        assertEquals("j-4", next(emptySet(), setAside = listOf("j-1", "j-2", "j-3")))
+    }
+
+    @Test
+    fun answeredStepsNeverComeBack() {
+        assertNull(next(setOf("j-1", "j-2", "j-3", "j-4"), setAside = listOf("j-2")))
+    }
+}
