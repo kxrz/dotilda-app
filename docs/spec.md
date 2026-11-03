@@ -98,7 +98,8 @@ Picker rules:
 - **Heavy days:** if yesterday's inner weather was stormy, offer a light format (This or that,
   One word).
 - **Rhythm:** at least one Mirror a month and one Letter a season.
-- **Question bank:** more than 200 questions, tagged by format, theme and journey, shipped as JSON
+- **Question bank:** at least 365 questions besides the photo ones (a year without repeats, also on
+  an e-reader without a camera), tagged by format, theme and journey, shipped as JSON
   in the app (`app/src/main/assets/questions.json`), so the user never feels they are going round
   in circles.
 - **Changing the question:** at most 3 times a day, never landing on a question already offered

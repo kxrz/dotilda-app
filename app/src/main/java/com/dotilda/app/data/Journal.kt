@@ -8,8 +8,8 @@ import java.time.YearMonth
 
 const val MAX_CHANGES = 3
 
-/** Days during which an answered question is not asked again. */
-private const val RECENT_DAYS = 90L
+/** Days during which an answered question is not asked again: a year, as the bank holds 365+. */
+private const val RECENT_DAYS = 365L
 
 /** A Mirror question comes back after this many days, and one is offered at least this often. */
 const val MIRROR_DAYS = 30L

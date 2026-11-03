@@ -48,6 +48,16 @@ class TranslationsTest {
         translations("questions").forEach { assertMirrors(english, read(it)["questions"]!!.jsonArray, it) }
     }
 
+    /** A year of days without the same question twice, also on a device without a camera. */
+    @Test
+    fun bankCoversAYearWithoutPhotos() {
+        val english = read("questions.json")["questions"]!!.jsonArray
+        val withoutPhotos = english.count { it.jsonObject.str("type") != "photo" }
+        assertTrue("only $withoutPhotos questions without photos", withoutPhotos >= 365)
+        val ids = english.map { it.jsonObject.str("id") }
+        assertEquals("duplicate ids", ids.size, ids.toSet().size)
+    }
+
     @Test
     fun journeysMirrorEnglish() {
         val english = read("journeys.json")["journeys"]!!.jsonArray

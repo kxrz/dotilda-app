@@ -9,6 +9,10 @@ The release workflow publishes the section of the tagged version as the GitHub r
 
 ## [Unreleased]
 
+### Added
+- 167 new questions, in English and Polish: nearly 400 in all, 374 of them without a camera.
+  An answered question now waits a whole year before coming back (it was three months).
+
 ### Changed
 - On an e-reader without a camera, or without a camera app, Dotilda no longer asks for a photo.
   If a photo question comes anyway (a journey's step), you tell her in a few words what you

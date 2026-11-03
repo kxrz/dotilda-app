@@ -45,7 +45,8 @@ Questions live in `app/src/main/assets/questions.json`, journeys in `journeys.js
 questions are synced into the bank with their `journeyId` and never drawn outside the journey).
 Journey state, constellations and opened letters live in DataStore: no schema change so far,
 so users' databases need no migration.
-Target: more than 200 questions so the user never feels they are going round in circles.
+Target: at least 365 questions without counting photo ones (devices without a camera never get
+those), so a whole year goes by without the same question twice.
 UI copy is English in `res/values/strings.xml`, Polish in `res/values-pl/strings.xml`.
 A translation also sets `app_locale` (dates and the question bank follow it) and ships
 `assets/questions-<code>.json` and `journeys-<code>.json` with the same ids, types and tags
