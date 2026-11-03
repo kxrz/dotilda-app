@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dotilda.app.screens.LargeTextTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2026-11-03T07:07:40.073Z" hostname="runnervmnwato" time="33.411">
+  <properties/>
+  <testcase name="a_onboarding" classname="com.dotilda.app.screens.LargeTextTest" time="1.442"/>
+  <testcase name="b_ritual" classname="com.dotilda.app.screens.LargeTextTest" time="2.346"/>
+  <testcase name="c1_answerLine" classname="com.dotilda.app.screens.LargeTextTest" time="1.324"/>
+  <testcase name="c2_answerChoice" classname="com.dotilda.app.screens.LargeTextTest" time="1.252"/>
+  <testcase name="c3_answerThings" classname="com.dotilda.app.screens.LargeTextTest" time="1.307"/>
+  <testcase name="c4_answerMirror" classname="com.dotilda.app.screens.LargeTextTest" time="1.287"/>
+  <testcase name="d_rereading" classname="com.dotilda.app.screens.LargeTextTest" time="1.7"/>
+  <testcase name="e_spiraAndSettings" classname="com.dotilda.app.screens.LargeTextTest" time="2.662"/>
+  <testcase name="f_journeysAndReview" classname="com.dotilda.app.screens.LargeTextTest" time="3.61"/>
+  <testcase name="g1_answerLetter" classname="com.dotilda.app.screens.LargeTextTest" time="1.292"/>
+  <testcase name="g2_answerPhoto" classname="com.dotilda.app.screens.LargeTextTest" time="1.254"/>
+  <testcase name="g3_letterReady" classname="com.dotilda.app.screens.LargeTextTest" time="1.589"/>
+  <testcase name="g4_answerPhotoInWords" classname="com.dotilda.app.screens.LargeTextTest" time="1.281"/>
+  <testcase name="h_journeyEnds" classname="com.dotilda.app.screens.LargeTextTest" time="1.331"/>
+  <testcase name="i_skyStyle" classname="com.dotilda.app.screens.LargeTextTest" time="1.906"/>
+  <testcase name="j_nameAskedAfterUpdate" classname="com.dotilda.app.screens.LargeTextTest" time="0.504"/>
+  <testcase name="k_intros" classname="com.dotilda.app.screens.LargeTextTest" time="2.328"/>
+  <testcase name="l_crashReport" classname="com.dotilda.app.screens.LargeTextTest" time="4.995"/>
+  <system-out><![CDATA[[screens 660168] wait for 'Begin'
+[screens 660175] shot 01-welcome
+[screens 660523] wait for 'What shall I call you?'
+[screens 660831] shot 02-name
+[screens 661160] wait for 'When shall I come by?'
+[screens 661182] shot 02-setup
+[screens 661547] seed iw-001
+[screens 662108] wait for 'Answer'
+[screens 662143] shot 03-today
+[screens 662481] wait for 'That tickles.'
+[screens 662482] shot 31-today-poked
+[screens 662812] wait for 'Stormy'
+[screens 662830] shot 05-answer-weather
+[screens 663159] wait for 'Noted'
+[screens 663178] shot 06-done
+[screens 663510] wait for 'See you tomorrow'
+[screens 663526] shot 07-today-answered
+[screens 663903] seed ol-001
+[screens 664499] wait for 'Answer'
+[screens 664528] wait for 'Back'
+[screens 664853] shot 04-answer-line
+[screens 665210] seed tt-001
+[screens 665758] wait for 'Answer'
+[screens 665793] wait for 'Back'
+[screens 666108] shot 08-answer-choice
+[screens 666469] seed th-001
+[screens 667045] wait for 'Answer'
+[screens 667082] wait for 'Back'
+[screens 667412] shot 09-answer-things
+[screens 667776] seed mi-001
+[screens 668338] wait for 'Answer'
+[screens 668372] wait for 'Back'
+[screens 668698] shot 10-answer-mirror
+[screens 669064] seed ol-001
+[screens 669625] wait for 'Answer'
+[screens 669668] wait for ' / '
+[screens 669686] shot 11-notebook
+[screens 670035] wait for 'Answer'
+[screens 670085] wait for 'Constellations'
+[screens 670389] shot 12-galaxy
+[screens 670759] seed ol-001
+[screens 671307] wait for 'Answer'
+[screens 671340] wait for 'One minute'
+[screens 671340] shot 13-spira-breathe
+[screens 671672] shot 14-spira-timer
+[screens 672007] shot 15-spira-stopwatch
+[screens 672337] wait for 'Answer'
+[screens 672367] wait for 'Daily reminder'
+[screens 672373] shot 16-settings
+[screens 672709] wait for 'Your sky'
+[screens 672718] wait for 'Licences'
+[screens 672718] shot 37-settings-more
+[screens 673059] wait for 'Apache'
+[screens 673059] shot 30-licenses
+[screens 673417] seed ol-001
+[screens 673954] wait for 'Answer'
+[screens 673995] wait for '7 days to slow down'
+[screens 673996] shot 17-journeys
+[screens 674328] wait for 'Answer'
+[screens 674364] wait for 'Constellations'
+[screens 674380] wait for '1 / 2'
+[screens 674699] shot 18-review-weather
+[screens 675042] wait for '2 / 2'
+[screens 675342] shot 19-review-photos
+[screens 675677] wait for 'Constellations'
+[screens 675695] wait for '1 / 3'
+[screens 676012] shot 28-review-season
+[screens 676362] wait for '2 / 3'
+[screens 676666] shot 29-review-season-choices
+[screens 677036] seed le-001
+[screens 677609] wait for 'Answer'
+[screens 677644] wait for 'Back'
+[screens 677965] shot 20-answer-letter
+[screens 678324] seed ph-001
+[screens 678871] wait for 'Answer'
+[screens 678906] wait for 'Back'
+[screens 679220] shot 21-answer-photo
+[screens 679582] seed ol-001
+[screens 680144] wait for 'letter from'
+[screens 680160] shot 22-today-letter
+[screens 680491] wait for ' / '
+[screens 680808] shot 23-notebook-letter
+[screens 681163] seed ph-001
+[screens 681711] wait for 'Answer'
+[screens 681743] wait for 'No camera here'
+[screens 682072] shot 39-answer-photo-words
+[screens 682398] wait for 'Noted'
+[screens 682451] seed null
+[screens 682993] wait for 'day 7 of 7'
+[screens 683036] shot 24-today-journey
+[screens 683365] wait for 'Back'
+[screens 683397] wait for 'I'll call this one'
+[screens 683417] shot 25-done-constellation
+[screens 683776] seed ol-001
+[screens 684317] wait for 'Answer'
+[screens 684337] wait for 'Daily reminder'
+[screens 684344] wait for 'Your sky'
+[screens 684651] shot 26-settings-journal
+[screens 684981] wait for 'Answer'
+[screens 685014] wait for 'Constellations'
+[screens 685318] shot 27-galaxy-night-sky
+[screens 685761] wait for 'What shall I call you?'
+[screens 685777] shot 32-name-after-update
+[screens 686114] wait for 'Answer'
+[screens 686186] seed iw-001
+[screens 686748] wait for 'my five doors'
+[screens 686757] shot 33-intro-today
+[screens 687399] shot 34-today-icons
+[screens 687734] wait for 'One dot per day'
+[screens 687735] shot 35-intro-galaxy
+[screens 688084] wait for 'Answer'
+[screens 688118] wait for 'Your name and your reminder'
+[screens 688118] shot 36-intro-settings
+[screens 688464] wait for 'Your sky'
+[screens 688470] wait for 'Introductions'
+[screens 688471] wait for 'Your name and your reminder'
+[screens 688514] seed iw-001
+[screens 691402] shot 38-crash
+[screens 691429] wait for 'Answer'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
