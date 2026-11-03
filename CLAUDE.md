@@ -47,10 +47,13 @@ Journey state, constellations and opened letters live in DataStore: no schema ch
 so users' databases need no migration.
 Target: at least 365 questions without counting photo ones (devices without a camera never get
 those), so a whole year goes by without the same question twice.
-UI copy is English in `res/values/strings.xml`, Polish in `res/values-pl/strings.xml`.
+UI copy is English in `res/values/strings.xml`, French in `res/values-fr/`, Polish in `res/values-pl/`.
+The language follows the phone, or the one chosen in Settings (`Language.kt`, applied to every
+screen, the question bank, the journeys and the notifications).
 A translation also sets `app_locale` (dates and the question bank follow it) and ships
 `assets/questions-<code>.json` and `journeys-<code>.json` with the same ids, types and tags
-(`TranslationsTest`). In Polish the user is "Ty" (capitalised) and nothing assumes their gender.
+(`TranslationsTest`). In Polish the user is "Ty" (capitalised), in French "vous" (as on the website,
+with a no-break space before ? ! : ;), and in every language nothing assumes their gender.
 Keep it short and warm. "Dotilda" (capital D) is both the app and the guide character who
 signs each question: a kind Victorian governess, a little mischievous, never guilt-tripping.
 

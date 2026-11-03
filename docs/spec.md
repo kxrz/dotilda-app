@@ -280,7 +280,10 @@ of use without a crash, and meets the criteria above.
 
 ## Languages
 
-The interface speaks English and Polish, following the phone's language; on a phone in another
-language it stays in English. A language needs `res/values-<code>/strings.xml` (with its
+The interface speaks English, French and Polish. It follows the phone's language (another
+language gets English), unless one is chosen on the last page of Settings: Automatic, English,
+Français or Polski, applied at once to the screens, the question bank, the journeys and the
+reminders, on every Android version (11 and 12 have no per-app language setting). French says
+"vous", like the website. A language needs `res/values-<code>/strings.xml` (with its
 `app_locale` tag, which dates and questions follow), and translated `questions-<code>.json` and
 `journeys-<code>.json` that keep every id, type and tag.
