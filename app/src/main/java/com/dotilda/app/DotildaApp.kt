@@ -44,6 +44,9 @@ class DotildaApp : Application() {
     var justUpdatedTo by mutableStateOf<String?>(null)
         private set
 
+    /** No camera or no camera app: no photo questions (tests set it to show both cases). */
+    var canTakePhotos = false
+
     /** Set when the app could not even start: MainActivity then shows the crash report only. */
     var startupError: Throwable? = null
         private set
@@ -72,7 +75,8 @@ class DotildaApp : Application() {
         db = DotildaDatabase.create(this)
         prefs = Prefs(this)
         bankReady = MainScope().async { syncQuestionBank(this@DotildaApp, db.questionDao()) }
-        journal = Journal(db, prefs, bankReady, loadJourneys(this))
+        canTakePhotos = Photos.canTakePhotos(this)
+        journal = Journal(db, prefs, bankReady, loadJourneys(this), canTakePhotos = { canTakePhotos })
         backup = Backup(db.entryDao(), prefs, filesDir)
 
         Reminder.createChannel(this)

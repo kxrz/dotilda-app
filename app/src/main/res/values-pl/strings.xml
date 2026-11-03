@@ -78,7 +78,8 @@
     <string name="photo_retake">Zrób inne</string>
     <string name="photo_caption">Słowo o nim (nieobowiązkowo)</string>
     <string name="photo_developing">Wywołuję…</string>
-    <string name="photo_no_camera">Nie mogę znaleźć aplikacji aparatu na tym urządzeniu.</string>
+    <string name="photo_in_words">Tu nie ma aparatu, więc pokaż mi to słowami: co byłoby na Twoim zdjęciu?</string>
+    <string name="photo_in_words_hint">Co byłoby na zdjęciu</string>
     <string name="photo_failed">To zdjęcie się nie wywołało. Spróbujemy innego?</string>
     <string name="photo_summary">Zdjęcie</string>
     <string name="letter_hint">Kochane Ja,</string>

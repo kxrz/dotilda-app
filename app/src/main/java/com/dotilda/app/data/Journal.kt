@@ -32,6 +32,7 @@ class Journal(
     private val prefs: Prefs,
     private val bankReady: Deferred<Unit>,
     val journeys: List<Journey>,
+    private val canTakePhotos: () -> Boolean = { true },
 ) {
     private val questions get() = db.questionDao()
     private val entries get() = db.entryDao()
@@ -180,13 +181,15 @@ class Journal(
         val letterDue = day.shown.isEmpty() && !mirrorDue && first != null &&
             !first.isAfter(today.minusDays(LETTER_AFTER_DAYS)) &&
             recent.none { it.type == QuestionType.LETTER && it.date >= today.minusDays(LETTER_DAYS).toString() }
+        // No photo questions on a device that can't take one (a journey's photo step is answered in words).
+        val allowed = if (canTakePhotos()) types else types - QuestionType.PHOTO
         val question = chooseQuestion(
             questions = questions.all(),
             recentQuestionIds = recentIds,
             shownToday = day.shown,
             yesterday = recent.lastOrNull { it.date == today.minusDays(1).toString() },
             mirrorDue = mirrorDue,
-            allowedTypes = types,
+            allowedTypes = allowed,
             letterDue = letterDue,
         ) ?: return null
         val next = day.copy(questionId = question.id, shown = day.shown + question.id, changes = changes)

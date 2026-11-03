@@ -7,6 +7,13 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [Unreleased]
+
+### Changed
+- On an e-reader without a camera, or without a camera app, Dotilda no longer asks for a photo.
+  If a photo question comes anyway (a journey's step), you tell her in a few words what you
+  would have shown her; the day keeps its little square in your sky.
+
 ## [0.7.3] - 2026-10-31
 
 ### Fixed

@@ -1,6 +1,9 @@
 package com.dotilda.app
 
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -20,6 +23,16 @@ import java.util.UUID
 object Photos {
     /** Width of the kept picture: the Kompakt's screen width in pixels. */
     private const val WIDTH = 480
+
+    /**
+     * Whether this device can take the photo of the day: a camera and a camera app to drive it.
+     * Many e-readers have neither; some have the one without the other.
+     */
+    fun canTakePhotos(context: Context): Boolean {
+        val pm = context.packageManager
+        return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY) &&
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(pm) != null
+    }
 
     /** Where the camera app writes the full picture before it is developed. */
     fun captureUri(context: Context): Uri {

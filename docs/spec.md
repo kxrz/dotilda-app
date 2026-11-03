@@ -213,6 +213,8 @@ Application id: `com.dotilda.app`.
   (an app update can fix or add questions). Preferences in DataStore.
 - **Photos:** taken with the system camera app (no CameraX, no camera permission), shrunk to the
   Kompakt's width, dithered, then stored in the app's private folder.
+  On a device without a camera or a camera app (many e-readers), photo questions are left out
+  of the daily draw; a journey's photo step is answered in words, saved as a photo without one.
 - **Reminder:** exact AlarmManager alarm, re-armed after reboot.
 - **Export:** a local EPUB 3 (XHTML and images in a zip), and a backup zip (JSON and photos),
   through the Android file picker.

@@ -52,6 +52,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.dotilda.app.DotildaApp
 import com.dotilda.app.R
 import com.dotilda.app.data.Answer
 import com.dotilda.app.data.Entry
@@ -255,14 +256,19 @@ private fun ThingsInput(onBack: () -> Unit, modifier: Modifier, onSave: (List<St
 
 /** The system camera takes the picture; Dotilda keeps it small and dithered, with an optional caption. */
 @Composable
-private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: String, caption: String) -> Unit) {
+private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: String?, caption: String) -> Unit) {
     val context = LocalContext.current
+    // No camera (or its app can't be found): the picture is told in a few words instead.
+    var noCamera by rememberSaveable { mutableStateOf(!(context.applicationContext as DotildaApp).canTakePhotos) }
+    if (noCamera) {
+        PhotoInWords(onBack, modifier) { onSave(null, it) }
+        return
+    }
     val scope = rememberCoroutineScope()
     var path by rememberSaveable { mutableStateOf<String?>(null) }
     var caption by rememberSaveable { mutableStateOf("") }
     var status by remember { mutableStateOf<String?>(null) }
     val developing = stringResource(R.string.photo_developing)
-    val noCamera = stringResource(R.string.photo_no_camera)
     val failed = stringResource(R.string.photo_failed)
     val camera = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { taken ->
         if (!taken) return@rememberLauncherForActivityResult
@@ -298,7 +304,7 @@ private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: St
                 try {
                     camera.launch(Photos.captureUri(context))
                 } catch (e: ActivityNotFoundException) {
-                    status = noCamera
+                    noCamera = true
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -312,6 +318,32 @@ private fun PhotoInput(onBack: () -> Unit, modifier: Modifier, onSave: (path: St
             action = stringResource(R.string.save),
             actionEnabled = path != null,
             onAction = { path?.let { onSave(it, caption.trim()) } },
+        )
+    }
+}
+
+/** The photo of the day on a device without a camera: what the user would have shown, in words. */
+@Composable
+private fun PhotoInWords(onBack: () -> Unit, modifier: Modifier, onSave: (String) -> Unit) {
+    var words by rememberSaveable { mutableStateOf("") }
+    Column(modifier) {
+        TextMMD(stringResource(R.string.photo_in_words), style = MaterialTheme.typography.bodyMedium)
+        Spacer(Modifier.height(12.dp))
+        TextFieldMMD(
+            value = words,
+            onValueChange = { words = it.replace('\n', ' ').take(CAPTION_MAX) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            placeholder = { TextMMD(stringResource(R.string.photo_in_words_hint)) },
+            keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
+        )
+        Spacer(Modifier.weight(1f))
+        ActionRow(
+            back = stringResource(R.string.back),
+            onBack = onBack,
+            action = stringResource(R.string.save),
+            actionEnabled = words.isNotBlank(),
+            onAction = { onSave(words.trim()) },
         )
     }
 }
