@@ -1,0 +1,624 @@
+Android11Test > alarmsWorkOnAndroid11 STARTED
+Android11Test > alarmsWorkOnAndroid11 PASSED
+DesignSheetTest > sheet STARTED
+DesignSheetTest > sheet PASSED
+LargePhoneTest > a_onboarding STARTED
+    [screens 306893] wait for 'Begin'
+    [screens 307043] shot 01-welcome
+    [screens 308076] wait for 'What shall I call you?'
+    [screens 308413] shot 02-name
+    [screens 308964] wait for 'When shall I come by?'
+    [screens 309028] shot 02-setup
+LargePhoneTest > a_onboarding PASSED
+LargePhoneTest > b_ritual STARTED
+    [screens 309639] seed iw-001
+    [screens 310448] wait for 'Answer'
+    [screens 310572] shot 03-today
+    [screens 311125] wait for 'That tickles.'
+    [screens 311125] shot 31-today-poked
+    [screens 311649] wait for 'Stormy'
+    [screens 311686] shot 05-answer-weather
+    [screens 312204] wait for 'Noted'
+    [screens 312233] shot 06-done
+    [screens 312755] wait for 'See you tomorrow'
+    [screens 312789] shot 07-today-answered
+LargePhoneTest > b_ritual PASSED
+LargePhoneTest > c1_answerLine STARTED
+    [screens 313359] seed ol-001
+    [screens 314095] wait for 'Answer'
+    [screens 314183] wait for 'Back'
+    [screens 314484] shot 04-answer-line
+LargePhoneTest > c1_answerLine PASSED
+LargePhoneTest > c2_answerChoice STARTED
+    [screens 315028] seed tt-001
+    [screens 315678] wait for 'Answer'
+    [screens 315738] wait for 'Back'
+    [screens 316039] shot 08-answer-choice
+LargePhoneTest > c2_answerChoice PASSED
+LargePhoneTest > c3_answerThings STARTED
+    [screens 316577] seed th-001
+    [screens 317206] wait for 'Answer'
+    [screens 317256] wait for 'Back'
+    [screens 317611] shot 09-answer-things
+LargePhoneTest > c3_answerThings PASSED
+LargePhoneTest > c4_answerMirror STARTED
+    [screens 318141] seed mi-001
+    [screens 318757] wait for 'Answer'
+    [screens 318836] wait for 'Back'
+    [screens 319137] shot 10-answer-mirror
+LargePhoneTest > c4_answerMirror PASSED
+LargePhoneTest > d_rereading STARTED
+    [screens 319672] seed ol-001
+    [screens 320298] wait for 'Answer'
+    [screens 320346] wait for ' / '
+    [screens 320393] shot 11-notebook
+    [screens 320935] wait for 'Answer'
+    [screens 321001] wait for 'Constellations'
+    [screens 321322] shot 12-galaxy
+LargePhoneTest > d_rereading PASSED
+LargePhoneTest > e_spiraAndSettings STARTED
+    [screens 321888] seed ol-001
+    [screens 322476] wait for 'Answer'
+    [screens 322532] wait for 'One minute'
+    [screens 322532] shot 13-spira-breathe
+    [screens 323040] shot 14-spira-timer
+    [screens 323561] shot 15-spira-stopwatch
+    [screens 324106] wait for 'Answer'
+    [screens 324143] wait for 'Daily reminder'
+    [screens 324157] shot 16-settings
+    [screens 324664] wait for 'Your sky'
+    [screens 324687] wait for 'Licences'
+    [screens 324688] shot 37-settings-more
+    [screens 325209] wait for 'Apache'
+    [screens 325209] shot 30-licenses
+LargePhoneTest > e_spiraAndSettings PASSED
+LargePhoneTest > f_journeysAndReview STARTED
+    [screens 325763] seed ol-001
+    [screens 326355] wait for 'Answer'
+    [screens 326414] wait for '7 days to slow down'
+    [screens 326414] shot 17-journeys
+    [screens 326916] wait for 'Answer'
+    [screens 326969] wait for 'Constellations'
+    [screens 326976] wait for '1 / 2'
+    [screens 327312] shot 18-review-weather
+    [screens 327829] wait for '2 / 2'
+    [screens 328130] shot 19-review-photos
+    [screens 328662] wait for 'Constellations'
+    [screens 328670] wait for '1 / 3'
+    [screens 328993] shot 28-review-season
+    [screens 329502] wait for '2 / 3'
+    [screens 329807] shot 29-review-season-choices
+LargePhoneTest > f_journeysAndReview PASSED
+LargePhoneTest > g1_answerLetter STARTED
+    [screens 330333] seed le-001
+    [screens 330936] wait for 'Answer'
+    [screens 330972] wait for 'Back'
+    [screens 331382] shot 20-answer-letter
+LargePhoneTest > g1_answerLetter PASSED
+LargePhoneTest > g2_answerPhoto STARTED
+    [screens 331910] seed ph-001
+    [screens 332497] wait for 'Answer'
+    [screens 332542] wait for 'Back'
+    [screens 332863] shot 21-answer-photo
+LargePhoneTest > g2_answerPhoto PASSED
+LargePhoneTest > g3_letterReady STARTED
+    [screens 333386] seed ol-001
+    [screens 333949] wait for 'letter from'
+    [screens 333978] shot 22-today-letter
+    [screens 334481] wait for ' / '
+    [screens 334805] shot 23-notebook-letter
+LargePhoneTest > g3_letterReady PASSED
+LargePhoneTest > g4_answerPhotoInWords STARTED
+    [screens 335336] seed ph-001
+    [screens 335907] wait for 'Answer'
+    [screens 335927] wait for 'No camera here'
+    [screens 336264] shot 39-answer-photo-words
+    [screens 336759] wait for 'Noted'
+LargePhoneTest > g4_answerPhotoInWords PASSED
+LargePhoneTest > h_journeyEnds STARTED
+    [screens 336807] seed null
+    [screens 337347] wait for 'day 7 of 7'
+    [screens 337393] shot 24-today-journey
+    [screens 337899] wait for 'Back'
+    [screens 337938] wait for 'I'll call this one'
+    [screens 337959] shot 25-done-constellation
+LargePhoneTest > h_journeyEnds PASSED
+LargePhoneTest > i_skyStyle STARTED
+    [screens 338498] seed ol-001
+    [screens 339075] wait for 'Answer'
+    [screens 339111] wait for 'Daily reminder'
+    [screens 339140] wait for 'Your sky'
+    [screens 339457] shot 26-settings-journal
+    [screens 339957] wait for 'Answer'
+    [screens 340004] wait for 'Constellations'
+    [screens 340308] shot 27-galaxy-night-sky
+LargePhoneTest > i_skyStyle PASSED
+LargePhoneTest > j_nameAskedAfterUpdate STARTED
+    [screens 340930] wait for 'What shall I call you?'
+    [screens 340948] shot 32-name-after-update
+    [screens 341453] wait for 'Answer'
+LargePhoneTest > j_nameAskedAfterUpdate PASSED
+LargePhoneTest > k_intros STARTED
+    [screens 341535] seed iw-001
+    [screens 342122] wait for 'my five doors'
+    [screens 342134] shot 33-intro-today
+    [screens 342950] shot 34-today-icons
+    [screens 343457] wait for 'One dot per day'
+    [screens 343458] shot 35-intro-galaxy
+    [screens 343992] wait for 'Answer'
+    [screens 344037] wait for 'Your name and your reminder'
+    [screens 344038] shot 36-intro-settings
+    [screens 344573] wait for 'Your sky'
+    [screens 344579] wait for 'Introductions'
+    [screens 344581] wait for 'Your name and your reminder'
+LargePhoneTest > k_intros PASSED
+LargePhoneTest > l_crashReport STARTED
+    [screens 344622] seed iw-001
+    [screens 347768] shot 38-crash
+    [screens 347998] wait for 'Answer'
+LargePhoneTest > l_crashReport PASSED
+LargeTextTest > a_onboarding STARTED
+    [screens 350168] wait for 'Begin'
+    [screens 350175] shot 01-welcome
+    [screens 350525] wait for 'What shall I call you?'
+    [screens 350832] shot 02-name
+    [screens 351163] wait for 'When shall I come by?'
+    [screens 351183] shot 02-setup
+LargeTextTest > a_onboarding PASSED
+LargeTextTest > b_ritual STARTED
+    [screens 351540] seed iw-001
+    [screens 352102] wait for 'Answer'
+    [screens 352137] shot 03-today
+    [screens 352477] wait for 'That tickles.'
+    [screens 352477] shot 31-today-poked
+    [screens 352809] wait for 'Stormy'
+    [screens 352826] shot 05-answer-weather
+    [screens 353157] wait for 'Noted'
+    [screens 353173] shot 06-done
+    [screens 353508] wait for 'See you tomorrow'
+    [screens 353524] shot 07-today-answered
+LargeTextTest > b_ritual PASSED
+LargeTextTest > c1_answerLine STARTED
+    [screens 353900] seed ol-001
+    [screens 354479] wait for 'Answer'
+    [screens 354514] wait for 'Back'
+    [screens 354841] shot 04-answer-line
+LargeTextTest > c1_answerLine PASSED
+LargeTextTest > c2_answerChoice STARTED
+    [screens 355205] seed tt-001
+    [screens 355767] wait for 'Answer'
+    [screens 355801] wait for 'Back'
+    [screens 356115] shot 08-answer-choice
+LargeTextTest > c2_answerChoice PASSED
+LargeTextTest > c3_answerThings STARTED
+    [screens 356476] seed th-001
+    [screens 357057] wait for 'Answer'
+    [screens 357079] wait for 'Back'
+    [screens 357413] shot 09-answer-things
+LargeTextTest > c3_answerThings PASSED
+LargeTextTest > c4_answerMirror STARTED
+    [screens 357787] seed mi-001
+    [screens 358349] wait for 'Answer'
+    [screens 358366] wait for 'Back'
+    [screens 358691] shot 10-answer-mirror
+LargeTextTest > c4_answerMirror PASSED
+LargeTextTest > d_rereading STARTED
+    [screens 359053] seed ol-001
+    [screens 359612] wait for 'Answer'
+    [screens 359638] wait for ' / '
+    [screens 359661] shot 11-notebook
+    [screens 360002] wait for 'Answer'
+    [screens 360039] wait for 'Constellations'
+    [screens 360345] shot 12-galaxy
+LargeTextTest > d_rereading PASSED
+LargeTextTest > e_spiraAndSettings STARTED
+    [screens 360717] seed ol-001
+    [screens 361268] wait for 'Answer'
+    [screens 361308] wait for 'One minute'
+    [screens 361308] shot 13-spira-breathe
+    [screens 361644] shot 14-spira-timer
+    [screens 361977] shot 15-spira-stopwatch
+    [screens 362307] wait for 'Answer'
+    [screens 362337] wait for 'Daily reminder'
+    [screens 362344] shot 16-settings
+    [screens 362677] wait for 'Your sky'
+    [screens 362683] wait for 'Licences'
+    [screens 362683] shot 37-settings-more
+    [screens 363022] wait for 'Apache'
+    [screens 363022] shot 30-licenses
+LargeTextTest > e_spiraAndSettings PASSED
+LargeTextTest > f_journeysAndReview STARTED
+    [screens 363377] seed ol-001
+    [screens 363942] wait for 'Answer'
+    [screens 363986] wait for '7 days to slow down'
+    [screens 363986] shot 17-journeys
+    [screens 364330] wait for 'Answer'
+    [screens 364367] wait for 'Constellations'
+    [screens 364369] wait for '1 / 2'
+    [screens 364687] shot 18-review-weather
+    [screens 365022] wait for '2 / 2'
+    [screens 365322] shot 19-review-photos
+    [screens 365661] wait for 'Constellations'
+    [screens 365665] wait for '1 / 3'
+    [screens 365981] shot 28-review-season
+    [screens 366332] wait for '2 / 3'
+    [screens 366635] shot 29-review-season-choices
+LargeTextTest > f_journeysAndReview PASSED
+LargeTextTest > g1_answerLetter STARTED
+    [screens 366998] seed le-001
+    [screens 367597] wait for 'Answer'
+    [screens 367638] wait for 'Back'
+    [screens 367958] shot 20-answer-letter
+LargeTextTest > g1_answerLetter PASSED
+LargeTextTest > g2_answerPhoto STARTED
+    [screens 368316] seed ph-001
+    [screens 368866] wait for 'Answer'
+    [screens 368890] wait for 'Back'
+    [screens 369204] shot 21-answer-photo
+LargeTextTest > g2_answerPhoto PASSED
+LargeTextTest > g3_letterReady STARTED
+    [screens 369569] seed ol-001
+    [screens 370125] wait for 'letter from'
+    [screens 370142] shot 22-today-letter
+    [screens 370474] wait for ' / '
+    [screens 370790] shot 23-notebook-letter
+LargeTextTest > g3_letterReady PASSED
+LargeTextTest > g4_answerPhotoInWords STARTED
+    [screens 371145] seed ph-001
+    [screens 371676] wait for 'Answer'
+    [screens 371702] wait for 'No camera here'
+    [screens 372033] shot 39-answer-photo-words
+    [screens 372360] wait for 'Noted'
+LargeTextTest > g4_answerPhotoInWords PASSED
+LargeTextTest > h_journeyEnds STARTED
+    [screens 372419] seed null
+    [screens 372973] wait for 'day 7 of 7'
+    [screens 373016] shot 24-today-journey
+    [screens 373346] wait for 'Back'
+    [screens 373378] wait for 'I'll call this one'
+    [screens 373396] shot 25-done-constellation
+LargeTextTest > h_journeyEnds PASSED
+LargeTextTest > i_skyStyle STARTED
+    [screens 373754] seed ol-001
+    [screens 374285] wait for 'Answer'
+    [screens 374317] wait for 'Daily reminder'
+    [screens 374332] wait for 'Your sky'
+    [screens 374643] shot 26-settings-journal
+    [screens 374973] wait for 'Answer'
+    [screens 375007] wait for 'Constellations'
+    [screens 375310] shot 27-galaxy-night-sky
+LargeTextTest > i_skyStyle PASSED
+LargeTextTest > j_nameAskedAfterUpdate STARTED
+    [screens 375748] wait for 'What shall I call you?'
+    [screens 375760] shot 32-name-after-update
+    [screens 376099] wait for 'Answer'
+LargeTextTest > j_nameAskedAfterUpdate PASSED
+LargeTextTest > k_intros STARTED
+    [screens 376175] seed iw-001
+    [screens 376739] wait for 'my five doors'
+    [screens 376757] shot 33-intro-today
+    [screens 377399] shot 34-today-icons
+    [screens 377734] wait for 'One dot per day'
+    [screens 377735] shot 35-intro-galaxy
+    [screens 378085] wait for 'Answer'
+    [screens 378121] wait for 'Your name and your reminder'
+    [screens 378122] shot 36-intro-settings
+    [screens 378470] wait for 'Your sky'
+    [screens 378475] wait for 'Introductions'
+    [screens 378477] wait for 'Your name and your reminder'
+LargeTextTest > k_intros PASSED
+LargeTextTest > l_crashReport STARTED
+    [screens 378520] seed iw-001
+    [screens 381395] shot 38-crash
+    [screens 381422] wait for 'Answer'
+LargeTextTest > l_crashReport PASSED
+ScreensTest > a_onboarding STARTED
+    [screens 383575] wait for 'Begin'
+    [screens 383581] shot 01-welcome
+    [screens 383930] wait for 'What shall I call you?'
+    [screens 384236] shot 02-name
+    [screens 384566] wait for 'When shall I come by?'
+    [screens 384585] shot 02-setup
+ScreensTest > a_onboarding PASSED
+ScreensTest > b_ritual STARTED
+    [screens 384940] seed iw-001
+    [screens 385486] wait for 'Answer'
+    [screens 385498] shot 03-today
+    [screens 385830] wait for 'That tickles.'
+    [screens 385831] shot 31-today-poked
+    [screens 386159] wait for 'Stormy'
+    [screens 386174] shot 05-answer-weather
+    [screens 386503] wait for 'Noted'
+    [screens 386516] shot 06-done
+    [screens 386846] wait for 'See you tomorrow'
+    [screens 386862] shot 07-today-answered
+ScreensTest > b_ritual PASSED
+ScreensTest > c1_answerLine STARTED
+    [screens 387214] seed ol-001
+    [screens 387779] wait for 'Answer'
+    [screens 387809] wait for 'Back'
+    [screens 388130] shot 04-answer-line
+ScreensTest > c1_answerLine PASSED
+ScreensTest > c2_answerChoice STARTED
+    [screens 388485] seed tt-001
+    [screens 389054] wait for 'Answer'
+    [screens 389085] wait for 'Back'
+    [screens 389398] shot 08-answer-choice
+ScreensTest > c2_answerChoice PASSED
+ScreensTest > c3_answerThings STARTED
+    [screens 389747] seed th-001
+    [screens 390296] wait for 'Answer'
+    [screens 390327] wait for 'Back'
+    [screens 390654] shot 09-answer-things
+ScreensTest > c3_answerThings PASSED
+ScreensTest > c4_answerMirror STARTED
+    [screens 391006] seed mi-001
+    [screens 391584] wait for 'Answer'
+    [screens 391616] wait for 'Back'
+    [screens 391939] shot 10-answer-mirror
+ScreensTest > c4_answerMirror PASSED
+ScreensTest > d_rereading STARTED
+    [screens 392293] seed ol-001
+    [screens 392828] wait for 'Answer'
+    [screens 392858] wait for ' / '
+    [screens 392874] shot 11-notebook
+    [screens 393214] wait for 'Answer'
+    [screens 393245] wait for 'Constellations'
+    [screens 393549] shot 12-galaxy
+ScreensTest > d_rereading PASSED
+ScreensTest > e_spiraAndSettings STARTED
+    [screens 393912] seed ol-001
+    [screens 394461] wait for 'Answer'
+    [screens 394494] wait for 'One minute'
+    [screens 394494] shot 13-spira-breathe
+    [screens 394827] shot 14-spira-timer
+    [screens 395156] shot 15-spira-stopwatch
+    [screens 395483] wait for 'Answer'
+    [screens 395511] wait for 'Daily reminder'
+    [screens 395526] shot 16-settings
+    [screens 395857] wait for 'Your sky'
+    [screens 395862] wait for 'Licences'
+    [screens 395863] shot 37-settings-more
+    [screens 396195] wait for 'Apache'
+    [screens 396195] shot 30-licenses
+ScreensTest > e_spiraAndSettings PASSED
+ScreensTest > f_journeysAndReview STARTED
+    [screens 396547] seed ol-001
+    [screens 397081] wait for 'Answer'
+    [screens 397120] wait for '7 days to slow down'
+    [screens 397120] shot 17-journeys
+    [screens 397449] wait for 'Answer'
+    [screens 397481] wait for 'Constellations'
+    [screens 397483] wait for '1 / 2'
+    [screens 397799] shot 18-review-weather
+    [screens 398131] wait for '2 / 2'
+    [screens 398432] shot 19-review-photos
+    [screens 398766] wait for 'Constellations'
+    [screens 398768] wait for '1 / 3'
+    [screens 399083] shot 28-review-season
+    [screens 399415] wait for '2 / 3'
+    [screens 399718] shot 29-review-season-choices
+ScreensTest > f_journeysAndReview PASSED
+ScreensTest > g1_answerLetter STARTED
+    [screens 400074] seed le-001
+    [screens 400629] wait for 'Answer'
+    [screens 400661] wait for 'Back'
+    [screens 400979] shot 20-answer-letter
+ScreensTest > g1_answerLetter PASSED
+ScreensTest > g2_answerPhoto STARTED
+    [screens 401331] seed ph-001
+    [screens 401879] wait for 'Answer'
+    [screens 401909] wait for 'Back'
+    [screens 402222] shot 21-answer-photo
+ScreensTest > g2_answerPhoto PASSED
+ScreensTest > g3_letterReady STARTED
+    [screens 402572] seed ol-001
+    [screens 403128] wait for 'letter from'
+    [screens 403143] shot 22-today-letter
+    [screens 403474] wait for ' / '
+    [screens 403791] shot 23-notebook-letter
+ScreensTest > g3_letterReady PASSED
+ScreensTest > g4_answerPhotoInWords STARTED
+    [screens 404142] seed ph-001
+    [screens 404700] wait for 'Answer'
+    [screens 404731] wait for 'No camera here'
+    [screens 405059] shot 39-answer-photo-words
+    [screens 405390] wait for 'Noted'
+ScreensTest > g4_answerPhotoInWords PASSED
+ScreensTest > h_journeyEnds STARTED
+    [screens 405433] seed null
+    [screens 405970] wait for 'day 7 of 7'
+    [screens 406000] shot 24-today-journey
+    [screens 406329] wait for 'Back'
+    [screens 406358] wait for 'I'll call this one'
+    [screens 406375] shot 25-done-constellation
+ScreensTest > h_journeyEnds PASSED
+ScreensTest > i_skyStyle STARTED
+    [screens 406724] seed ol-001
+    [screens 407259] wait for 'Answer'
+    [screens 407296] wait for 'Daily reminder'
+    [screens 407302] wait for 'Your sky'
+    [screens 407612] shot 26-settings-journal
+    [screens 407941] wait for 'Answer'
+    [screens 407971] wait for 'Constellations'
+    [screens 408275] shot 27-galaxy-night-sky
+ScreensTest > i_skyStyle PASSED
+ScreensTest > j_nameAskedAfterUpdate STARTED
+    [screens 408696] wait for 'What shall I call you?'
+    [screens 408708] shot 32-name-after-update
+    [screens 409045] wait for 'Answer'
+ScreensTest > j_nameAskedAfterUpdate PASSED
+ScreensTest > k_intros STARTED
+    [screens 409119] seed iw-001
+    [screens 409692] wait for 'my five doors'
+    [screens 409702] shot 33-intro-today
+    [screens 410340] shot 34-today-icons
+    [screens 410672] wait for 'One dot per day'
+    [screens 410673] shot 35-intro-galaxy
+    [screens 411021] wait for 'Answer'
+    [screens 411056] wait for 'Your name and your reminder'
+    [screens 411056] shot 36-intro-settings
+    [screens 411399] wait for 'Your sky'
+    [screens 411404] wait for 'Introductions'
+    [screens 411405] wait for 'Your name and your reminder'
+ScreensTest > k_intros PASSED
+ScreensTest > l_crashReport STARTED
+    [screens 411443] seed iw-001
+    [screens 414323] shot 38-crash
+    [screens 414351] wait for 'Answer'
+ScreensTest > l_crashReport PASSED
+SmallPhoneTest > a_onboarding STARTED
+    [screens 416503] wait for 'Begin'
+    [screens 416507] shot 01-welcome
+    [screens 416844] wait for 'What shall I call you?'
+    [screens 417150] shot 02-name
+    [screens 417465] wait for 'When shall I come by?'
+    [screens 417481] shot 02-setup
+SmallPhoneTest > a_onboarding PASSED
+SmallPhoneTest > b_ritual STARTED
+    [screens 417817] seed iw-001
+    [screens 418365] wait for 'Answer'
+    [screens 418393] shot 03-today
+    [screens 418713] wait for 'That tickles.'
+    [screens 418713] shot 31-today-poked
+    [screens 419028] wait for 'Stormy'
+    [screens 419043] shot 05-answer-weather
+    [screens 419357] wait for 'Noted'
+    [screens 419371] shot 06-done
+    [screens 419691] wait for 'See you tomorrow'
+    [screens 419705] shot 07-today-answered
+SmallPhoneTest > b_ritual PASSED
+SmallPhoneTest > c1_answerLine STARTED
+    [screens 420049] seed ol-001
+    [screens 420597] wait for 'Answer'
+    [screens 420625] wait for 'Back'
+    [screens 420945] shot 04-answer-line
+SmallPhoneTest > c1_answerLine PASSED
+SmallPhoneTest > c2_answerChoice STARTED
+    [screens 421290] seed tt-001
+    [screens 421874] wait for 'Answer'
+    [screens 421905] wait for 'Back'
+    [screens 422218] shot 08-answer-choice
+SmallPhoneTest > c2_answerChoice PASSED
+SmallPhoneTest > c3_answerThings STARTED
+    [screens 422561] seed th-001
+    [screens 423090] wait for 'Answer'
+    [screens 423119] wait for 'Back'
+    [screens 423446] shot 09-answer-things
+SmallPhoneTest > c3_answerThings PASSED
+SmallPhoneTest > c4_answerMirror STARTED
+    [screens 423792] seed mi-001
+    [screens 424429] wait for 'Answer'
+    [screens 424460] wait for 'Back'
+    [screens 424784] shot 10-answer-mirror
+SmallPhoneTest > c4_answerMirror PASSED
+SmallPhoneTest > d_rereading STARTED
+    [screens 425133] seed ol-001
+    [screens 425673] wait for 'Answer'
+    [screens 425703] wait for ' / '
+    [screens 425718] shot 11-notebook
+    [screens 426037] wait for 'Answer'
+    [screens 426069] wait for 'Constellations'
+    [screens 426373] shot 12-galaxy
+SmallPhoneTest > d_rereading PASSED
+SmallPhoneTest > e_spiraAndSettings STARTED
+    [screens 426723] seed ol-001
+    [screens 427327] wait for 'Answer'
+    [screens 427363] wait for 'One minute'
+    [screens 427363] shot 13-spira-breathe
+    [screens 427680] shot 14-spira-timer
+    [screens 427996] shot 15-spira-stopwatch
+    [screens 428311] wait for 'Answer'
+    [screens 428342] wait for 'Daily reminder'
+    [screens 428342] shot 16-settings
+    [screens 428661] wait for 'Your sky'
+    [screens 428667] wait for 'Licences'
+    [screens 428667] shot 37-settings-more
+    [screens 428992] wait for 'Apache'
+    [screens 428992] shot 30-licenses
+SmallPhoneTest > e_spiraAndSettings PASSED
+SmallPhoneTest > f_journeysAndReview STARTED
+    [screens 429334] seed ol-001
+    [screens 429873] wait for 'Answer'
+    [screens 429889] wait for '7 days to slow down'
+    [screens 429889] shot 17-journeys
+    [screens 430211] wait for 'Answer'
+    [screens 430242] wait for 'Constellations'
+    [screens 430245] wait for '1 / 2'
+    [screens 430560] shot 18-review-weather
+    [screens 430879] wait for '2 / 2'
+    [screens 431180] shot 19-review-photos
+    [screens 431499] wait for 'Constellations'
+    [screens 431502] wait for '1 / 3'
+    [screens 431817] shot 28-review-season
+    [screens 432140] wait for '2 / 3'
+    [screens 432443] shot 29-review-season-choices
+SmallPhoneTest > f_journeysAndReview PASSED
+SmallPhoneTest > g1_answerLetter STARTED
+    [screens 432790] seed le-001
+    [screens 433375] wait for 'Answer'
+    [screens 433406] wait for 'Back'
+    [screens 433726] shot 20-answer-letter
+SmallPhoneTest > g1_answerLetter PASSED
+SmallPhoneTest > g2_answerPhoto STARTED
+    [screens 434065] seed ph-001
+    [screens 434602] wait for 'Answer'
+    [screens 434631] wait for 'Back'
+    [screens 434944] shot 21-answer-photo
+SmallPhoneTest > g2_answerPhoto PASSED
+SmallPhoneTest > g3_letterReady STARTED
+    [screens 435289] seed ol-001
+    [screens 435883] wait for 'letter from'
+    [screens 435898] shot 22-today-letter
+    [screens 436215] wait for ' / '
+    [screens 436531] shot 23-notebook-letter
+SmallPhoneTest > g3_letterReady PASSED
+SmallPhoneTest > g4_answerPhotoInWords STARTED
+    [screens 436867] seed ph-001
+    [screens 437404] wait for 'Answer'
+    [screens 437435] wait for 'No camera here'
+    [screens 437764] shot 39-answer-photo-words
+    [screens 438078] wait for 'Noted'
+SmallPhoneTest > g4_answerPhotoInWords PASSED
+SmallPhoneTest > h_journeyEnds STARTED
+    [screens 438115] seed null
+    [screens 438710] wait for 'day 7 of 7'
+    [screens 438749] shot 24-today-journey
+    [screens 439066] wait for 'Back'
+    [screens 439091] wait for 'I'll call this one'
+    [screens 439107] shot 25-done-constellation
+SmallPhoneTest > h_journeyEnds PASSED
+SmallPhoneTest > i_skyStyle STARTED
+    [screens 439443] seed ol-001
+    [screens 439975] wait for 'Answer'
+    [screens 440005] wait for 'Daily reminder'
+    [screens 440024] wait for 'Your sky'
+    [screens 440332] shot 26-settings-journal
+    [screens 440647] wait for 'Answer'
+    [screens 440682] wait for 'Constellations'
+    [screens 440985] shot 27-galaxy-night-sky
+SmallPhoneTest > i_skyStyle PASSED
+SmallPhoneTest > j_nameAskedAfterUpdate STARTED
+    [screens 441407] wait for 'What shall I call you?'
+    [screens 441419] shot 32-name-after-update
+    [screens 441741] wait for 'Answer'
+SmallPhoneTest > j_nameAskedAfterUpdate PASSED
+SmallPhoneTest > k_intros STARTED
+    [screens 441806] seed iw-001
+    [screens 442404] wait for 'my five doors'
+    [screens 442416] shot 33-intro-today
+    [screens 443043] shot 34-today-icons
+    [screens 443362] wait for 'One dot per day'
+    [screens 443363] shot 35-intro-galaxy
+    [screens 443698] wait for 'Answer'
+    [screens 443728] wait for 'Your name and your reminder'
+    [screens 443729] shot 36-intro-settings
+    [screens 444058] wait for 'Your sky'
+    [screens 444063] wait for 'Introductions'
+    [screens 444064] wait for 'Your name and your reminder'
+SmallPhoneTest > k_intros PASSED
+SmallPhoneTest > l_crashReport STARTED
+    [screens 444105] seed iw-001
+    [screens 446988] shot 38-crash
+    [screens 447002] wait for 'Answer'
+SmallPhoneTest > l_crashReport PASSED
