@@ -124,6 +124,10 @@ class Journal(
     /** Every finished journey, oldest first. */
     val constellations: Flow<List<Constellation>> get() = prefs.constellations
 
+    /** A constellation's name in today's language (it was saved in the language of its day). */
+    fun constellationName(constellation: Constellation): String =
+        journeys.firstOrNull { it.id == constellation.journeyId }?.constellation ?: constellation.name
+
     val activeJourney: Flow<ActiveJourney?> get() = prefs.activeJourney
 
     val asides: Flow<Asides> get() = prefs.asides

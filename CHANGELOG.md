@@ -13,6 +13,7 @@ The release workflow publishes the section of the tagged version as the GitHub r
 - Dotilda speaks French: every screen, all 396 questions and the four journeys.
 - Settings, last page: choose the language (Automatic, English, Français, Polski), whatever the
   phone's. Questions, journeys and reminders follow at once.
+- Constellations are named in the language you read Dotilda in, even those finished before.
 
 ### Fixed
 - A letter's default sealing time (a season, a year…) was guessed from English words, so in

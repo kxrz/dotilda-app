@@ -86,7 +86,7 @@ fun GalaxyScreen(
         }
         TextMMD(
             if (constellations.isEmpty()) stringResource(R.string.galaxy_hint)
-            else stringResource(R.string.galaxy_constellations, constellations.map { it.name }.distinct().joinToString(", ")),
+            else stringResource(R.string.galaxy_constellations, constellations.map(journal::constellationName).distinct().joinToString(", ")),
             style = MaterialTheme.typography.labelSmall,
         )
         Spacer(Modifier.height(12.dp))
