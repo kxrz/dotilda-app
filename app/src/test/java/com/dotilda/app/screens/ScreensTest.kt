@@ -138,6 +138,22 @@ open class ScreensTest {
 
     @Test fun g2_answerPhoto() = answerShot("ph-001", "21-answer-photo")
 
+    /** An e-reader without a camera: the photo question is answered in words, saved as a photo. */
+    @Test
+    fun g4_answerPhotoInWords() {
+        seed(question = "ph-001")
+        app.canTakePhotos = false
+        launch()
+        waitFor("Answer")
+        click("Answer")
+        waitFor("No camera here", substring = true)
+        compose.onNode(hasSetTextAction()).performTextInput("The frost on the window")
+        settle()
+        shot("39-answer-photo-words")
+        click("Save")
+        waitFor("Noted", substring = true)
+    }
+
     /** One launch per test: several activities in a row make Robolectric's Compose flaky. */
     private fun answerShot(question: String, name: String) {
         seed(question = question)
@@ -420,6 +436,8 @@ open class ScreensTest {
      * and, with [journeyDone] > 0, the Gratitude journey under way. Today opens on [question].
      */
     private suspend fun seedJournal(question: String?, journeyDone: Int) {
+        // Robolectric has no camera; the tour shows the Kompakt, which has one.
+        app.canTakePhotos = true
         app.prefs.setWelcomed()
         if (!app.prefs.settingsNow().nameAsked) app.prefs.setName("Ada")
         // The tour looks at the screens themselves; k_intros looks at the introductions.

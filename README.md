@@ -34,7 +34,7 @@ An app by readme.club, made and maintained by LesWWW.
 
 | | |
 | --- | --- |
-| **A question a day** | More than 200 questions, so you never feel you are going round in circles. Ask for another up to three times; after that, Dotilda simply asks how the weather is inside. |
+| **A question a day** | Nearly 400 questions, enough for a whole year without the same one twice. Ask for another up to three times; after that, Dotilda simply asks how the weather is inside. |
 | **Many ways to answer** | One line, one word, this or that, three small things, the inner weather from sunny to stormy, and Mirror questions that come back every 30 days and show what you wrote last time. |
 | **A sky of dots** | Each dot takes the shape of its answer: the inner weather is a moon phase, a Mirror a dot inside a ring. The Galaxy shows the whole year on one screen; touch a dot to reread that day. |
 | **A notebook** | Reread your days page by page, turning pages with the volume buttons, like on an e-reader. |

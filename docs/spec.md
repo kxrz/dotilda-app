@@ -98,7 +98,8 @@ Picker rules:
 - **Heavy days:** if yesterday's inner weather was stormy, offer a light format (This or that,
   One word).
 - **Rhythm:** at least one Mirror a month and one Letter a season.
-- **Question bank:** more than 200 questions, tagged by format, theme and journey, shipped as JSON
+- **Question bank:** at least 365 questions besides the photo ones (a year without repeats, also on
+  an e-reader without a camera), tagged by format, theme and journey, shipped as JSON
   in the app (`app/src/main/assets/questions.json`), so the user never feels they are going round
   in circles.
 - **Changing the question:** at most 3 times a day, never landing on a question already offered
@@ -129,6 +130,9 @@ None of them punishes absence.
 - A finished journey becomes a constellation, named after the journey: its days light up as stars
   (four short rays around each dot), with no line between them, and its name shows under the sky.
 - One journey at a time; outside a journey, the question of the day comes from the general bank.
+- A step not answered that day waits for the next. A step put aside with "Another question" goes
+  to the end of the journey; put aside again there, it is dropped. The journey ends when no step
+  is left, and its constellation holds the days actually written.
 
 **Reviews (long loops)**
 
@@ -213,6 +217,8 @@ Application id: `com.dotilda.app`.
   (an app update can fix or add questions). Preferences in DataStore.
 - **Photos:** taken with the system camera app (no CameraX, no camera permission), shrunk to the
   Kompakt's width, dithered, then stored in the app's private folder.
+  On a device without a camera or a camera app (many e-readers), photo questions are left out
+  of the daily draw; a journey's photo step is answered in words, saved as a photo without one.
 - **Reminder:** exact AlarmManager alarm, re-armed after reboot.
 - **Export:** a local EPUB 3 (XHTML and images in a zip), and a backup zip (JSON and photos),
   through the Android file picker.

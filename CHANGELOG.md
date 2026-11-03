@@ -7,6 +7,20 @@ versions follow `appVersion` in `app/build.gradle.kts`.
 The release workflow publishes the section of the tagged version as the GitHub release notes
 (and in the update manifest the app reads), and refuses to release a version without one.
 
+## [0.8.0] - 2026-11-03
+
+### Added
+- 167 new questions, in English and Polish: nearly 400 in all, 374 of them without a camera.
+  An answered question now waits a whole year before coming back (it was three months).
+
+### Changed
+- During a journey, a step put aside with "Another question" no longer comes back the next day:
+  it waits until the end of the journey. Put aside again then, it's dropped, and the journey ends
+  with the days you did write. A step you simply didn't get to still waits for you, as before.
+- On an e-reader without a camera, or without a camera app, Dotilda no longer asks for a photo.
+  If a photo question comes anyway (a journey's step), you tell her in a few words what you
+  would have shown her; the day keeps its little square in your sky.
+
 ## [0.7.3] - 2026-10-31
 
 ### Fixed
