@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dotilda.app.screens.LargePhoneTest" tests="19" skipped="1" failures="0" errors="0" timestamp="2026-11-07T16:19:39.899Z" hostname="runnervmwuk1x" time="43.399">
+  <properties/>
+  <testcase name="a_onboarding" classname="com.dotilda.app.screens.LargePhoneTest" time="2.843"/>
+  <testcase name="b_ritual" classname="com.dotilda.app.screens.LargePhoneTest" time="3.676"/>
+  <testcase name="c1_answerLine" classname="com.dotilda.app.screens.LargePhoneTest" time="1.65"/>
+  <testcase name="c2_answerChoice" classname="com.dotilda.app.screens.LargePhoneTest" time="1.595"/>
+  <testcase name="c3_answerThings" classname="com.dotilda.app.screens.LargePhoneTest" time="1.581"/>
+  <testcase name="c4_answerMirror" classname="com.dotilda.app.screens.LargePhoneTest" time="1.533"/>
+  <testcase name="d_rereading" classname="com.dotilda.app.screens.LargePhoneTest" time="2.182"/>
+  <testcase name="e_spiraAndSettings" classname="com.dotilda.app.screens.LargePhoneTest" time="3.866"/>
+  <testcase name="f_journeysAndReview" classname="com.dotilda.app.screens.LargePhoneTest" time="4.592"/>
+  <testcase name="g1_answerLetter" classname="com.dotilda.app.screens.LargePhoneTest" time="1.58"/>
+  <testcase name="g2_answerPhoto" classname="com.dotilda.app.screens.LargePhoneTest" time="1.475"/>
+  <testcase name="g3_letterReady" classname="com.dotilda.app.screens.LargePhoneTest" time="1.967"/>
+  <testcase name="g4_answerPhotoInWords" classname="com.dotilda.app.screens.LargePhoneTest" time="1.5"/>
+  <testcase name="h_journeyEnds" classname="com.dotilda.app.screens.LargePhoneTest" time="1.678"/>
+  <testcase name="i_skyStyle" classname="com.dotilda.app.screens.LargePhoneTest" time="2.405"/>
+  <testcase name="j_nameAskedAfterUpdate" classname="com.dotilda.app.screens.LargePhoneTest" time="0.68"/>
+  <testcase name="k_intros" classname="com.dotilda.app.screens.LargePhoneTest" time="3.104"/>
+  <testcase name="l_crashReport" classname="com.dotilda.app.screens.LargePhoneTest" time="5.455"/>
+  <testcase name="m_french" classname="com.dotilda.app.screens.LargePhoneTest" time="0.036">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;" type="org.junit.AssumptionViolatedException">org.junit.AssumptionViolatedException: got: &lt;false&gt;, expected: is &lt;true&gt;
+	at org.junit.Assume.assumeThat(Assume.java:106)
+	at org.junit.Assume.assumeTrue(Assume.java:50)
+	at com.dotilda.app.screens.ScreensTest.m_french(ScreensTest.kt:363)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+	at androidx.compose.ui.test.IdlingStrategy.withStrategy(IdlingStrategy.android.kt:52)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.robolectric.RobolectricTestRunner$HelperTestRunner$1.evaluate(RobolectricTestRunner.java:489)
+	at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:291)
+	at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</skipped>
+  </testcase>
+  <system-out><![CDATA[[screens 380132] wait for 'Begin'
+[screens 380273] shot 01-welcome
+[screens 381233] wait for 'What shall I call you?'
+[screens 381569] shot 02-name
+[screens 382119] wait for 'When shall I come by?'
+[screens 382183] shot 02-setup
+[screens 382780] seed iw-001
+[screens 383602] wait for 'Answer'
+[screens 383723] shot 03-today
+[screens 384242] wait for 'That tickles.'
+[screens 384242] shot 31-today-poked
+[screens 384770] wait for 'Stormy'
+[screens 384800] shot 05-answer-weather
+[screens 385327] wait for 'Noted'
+[screens 385353] shot 06-done
+[screens 385872] wait for 'See you tomorrow'
+[screens 385917] shot 07-today-answered
+[screens 386457] seed ol-001
+[screens 387158] wait for 'Answer'
+[screens 387210] wait for 'Back'
+[screens 387561] shot 04-answer-line
+[screens 388104] seed tt-001
+[screens 388794] wait for 'Answer'
+[screens 388842] wait for 'Back'
+[screens 389166] shot 08-answer-choice
+[screens 389696] seed th-001
+[screens 390352] wait for 'Answer'
+[screens 390390] wait for 'Back'
+[screens 390748] shot 09-answer-things
+[screens 391276] seed mi-001
+[screens 391883] wait for 'Answer'
+[screens 391934] wait for 'Back'
+[screens 392279] shot 10-answer-mirror
+[screens 392814] seed ol-001
+[screens 393416] wait for 'Answer'
+[screens 393456] wait for ' / '
+[screens 393497] shot 11-notebook
+[screens 394046] wait for 'Answer'
+[screens 394108] wait for 'Constellations'
+[screens 394422] shot 12-galaxy
+[screens 394990] seed ol-001
+[screens 395584] wait for 'Answer'
+[screens 395628] wait for 'One minute'
+[screens 395629] shot 13-spira-breathe
+[screens 396134] shot 14-spira-timer
+[screens 396653] shot 15-spira-stopwatch
+[screens 397194] wait for 'Answer'
+[screens 397245] wait for 'Daily reminder'
+[screens 397245] shot 16-settings
+[screens 397749] wait for 'Your sky'
+[screens 397777] wait for 'Licences'
+[screens 397777] shot 37-settings-more
+[screens 398311] wait for 'Apache'
+[screens 398311] shot 30-licenses
+[screens 398855] seed ol-001
+[screens 399452] wait for 'Answer'
+[screens 399516] wait for '7 days to slow down'
+[screens 399517] shot 17-journeys
+[screens 400016] wait for 'Answer'
+[screens 400063] wait for 'Constellations'
+[screens 400072] wait for '1 / 2'
+[screens 400409] shot 18-review-weather
+[screens 400927] wait for '2 / 2'
+[screens 401228] shot 19-review-photos
+[screens 401757] wait for 'Constellations'
+[screens 401767] wait for '1 / 3'
+[screens 402091] shot 28-review-season
+[screens 402607] wait for '2 / 3'
+[screens 402912] shot 29-review-season-choices
+[screens 403447] seed le-001
+[screens 404033] wait for 'Answer'
+[screens 404079] wait for 'Back'
+[screens 404493] shot 20-answer-letter
+[screens 405034] seed ph-001
+[screens 405620] wait for 'Answer'
+[screens 405660] wait for 'Back'
+[screens 405979] shot 21-answer-photo
+[screens 406502] seed ol-001
+[screens 407076] wait for 'letter from'
+[screens 407102] shot 22-today-letter
+[screens 407607] wait for ' / '
+[screens 407934] shot 23-notebook-letter
+[screens 408477] seed ph-001
+[screens 409053] wait for 'Answer'
+[screens 409081] wait for 'No camera here'
+[screens 409419] shot 39-answer-photo-words
+[screens 409915] wait for 'Noted'
+[screens 409975] seed null
+[screens 410497] wait for 'day 7 of 7'
+[screens 410543] shot 24-today-journey
+[screens 411048] wait for 'Back'
+[screens 411090] wait for 'I'll call this one'
+[screens 411112] shot 25-done-constellation
+[screens 411657] seed ol-001
+[screens 412265] wait for 'Answer'
+[screens 412316] wait for 'Daily reminder'
+[screens 412328] wait for 'Your sky'
+[screens 412652] shot 26-settings-journal
+[screens 413150] wait for 'Answer'
+[screens 413195] wait for 'Constellations'
+[screens 413498] shot 27-galaxy-night-sky
+[screens 414122] wait for 'What shall I call you?'
+[screens 414144] shot 32-name-after-update
+[screens 414650] wait for 'Answer'
+[screens 414730] seed iw-001
+[screens 415319] wait for 'my five doors'
+[screens 415334] shot 33-intro-today
+[screens 416151] shot 34-today-icons
+[screens 416664] wait for 'One dot per day'
+[screens 416671] shot 35-intro-galaxy
+[screens 417207] wait for 'Answer'
+[screens 417243] wait for 'Your name and your reminder'
+[screens 417252] shot 36-intro-settings
+[screens 417775] wait for 'Your sky'
+[screens 417783] wait for 'Introductions'
+[screens 417786] wait for 'Your name and your reminder'
+[screens 417833] seed iw-001
+[screens 420954] shot 38-crash
+[screens 421190] wait for 'Answer'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
