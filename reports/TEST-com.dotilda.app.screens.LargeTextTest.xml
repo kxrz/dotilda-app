@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dotilda.app.screens.LargeTextTest" tests="19" skipped="1" failures="1" errors="0" timestamp="2026-11-07T16:04:40.693Z" hostname="runnervmwuk1x" time="40.695">
+  <properties/>
+  <testcase name="a_onboarding" classname="com.dotilda.app.screens.LargeTextTest" time="1.442"/>
+  <testcase name="b_ritual" classname="com.dotilda.app.screens.LargeTextTest" time="2.252"/>
+  <testcase name="c1_answerLine" classname="com.dotilda.app.screens.LargeTextTest" time="1.152"/>
+  <testcase name="c2_answerChoice" classname="com.dotilda.app.screens.LargeTextTest" time="1.168"/>
+  <testcase name="c3_answerThings" classname="com.dotilda.app.screens.LargeTextTest" time="1.156"/>
+  <testcase name="c4_answerMirror" classname="com.dotilda.app.screens.LargeTextTest" time="1.166"/>
+  <testcase name="d_rereading" classname="com.dotilda.app.screens.LargeTextTest" time="1.53"/>
+  <testcase name="e_spiraAndSettings" classname="com.dotilda.app.screens.LargeTextTest" time="11.854">
+    <failure message="androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms" type="androidx.compose.ui.test.ComposeTimeoutException">androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+	at com.dotilda.app.screens.ScreensTest.waitFor(ScreensTest.kt:409)
+	at com.dotilda.app.screens.ScreensTest.waitFor$default(ScreensTest.kt:407)
+	at com.dotilda.app.screens.ScreensTest.e_spiraAndSettings(ScreensTest.kt:205)
+	at java.base@17.0.21/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.21/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.21/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.21/java.lang.reflect.Method.invoke(Method.java:569)
+	at app//org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at app//org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at app//org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at app//org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at app//org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at app//org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+	at androidx.compose.ui.test.IdlingStrategy.withStrategy(IdlingStrategy.android.kt:52)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+	at app//org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at app//org.robolectric.RobolectricTestRunner$HelperTestRunner$1.evaluate(RobolectricTestRunner.java:489)
+	at app//org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:291)
+	at app//org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+	at java.base@17.0.21/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base@17.0.21/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base@17.0.21/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base@17.0.21/java.lang.Thread.run(Thread.java:840)
+</failure>
+  </testcase>
+  <testcase name="f_journeysAndReview" classname="com.dotilda.app.screens.LargeTextTest" time="3.503"/>
+  <testcase name="g1_answerLetter" classname="com.dotilda.app.screens.LargeTextTest" time="1.156"/>
+  <testcase name="g2_answerPhoto" classname="com.dotilda.app.screens.LargeTextTest" time="1.147"/>
+  <testcase name="g3_letterReady" classname="com.dotilda.app.screens.LargeTextTest" time="1.448"/>
+  <testcase name="g4_answerPhotoInWords" classname="com.dotilda.app.screens.LargeTextTest" time="1.205"/>
+  <testcase name="h_journeyEnds" classname="com.dotilda.app.screens.LargeTextTest" time="1.164"/>
+  <testcase name="i_skyStyle" classname="com.dotilda.app.screens.LargeTextTest" time="1.814"/>
+  <testcase name="j_nameAskedAfterUpdate" classname="com.dotilda.app.screens.LargeTextTest" time="0.441"/>
+  <testcase name="k_intros" classname="com.dotilda.app.screens.LargeTextTest" time="2.19"/>
+  <testcase name="l_crashReport" classname="com.dotilda.app.screens.LargeTextTest" time="4.877"/>
+  <testcase name="m_french" classname="com.dotilda.app.screens.LargeTextTest" time="0.027">
+    <skipped message="got: &lt;false&gt;, expected: is &lt;true&gt;" type="org.junit.AssumptionViolatedException">org.junit.AssumptionViolatedException: got: &lt;false&gt;, expected: is &lt;true&gt;
+	at org.junit.Assume.assumeThat(Assume.java:106)
+	at org.junit.Assume.assumeTrue(Assume.java:50)
+	at com.dotilda.app.screens.ScreensTest.m_french(ScreensTest.kt:363)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+	at androidx.compose.ui.test.IdlingStrategy.withStrategy(IdlingStrategy.android.kt:52)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.robolectric.RobolectricTestRunner$HelperTestRunner$1.evaluate(RobolectricTestRunner.java:489)
+	at org.robolectric.internal.SandboxTestRunner$2.lambda$evaluate$2(SandboxTestRunner.java:291)
+	at org.robolectric.internal.bytecode.Sandbox.lambda$runOnMainThread$0(Sandbox.java:104)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+</skipped>
+  </testcase>
+  <system-out><![CDATA[[screens 480811] wait for 'Begin'
+[screens 480818] shot 01-welcome
+[screens 481161] wait for 'What shall I call you?'
+[screens 481468] shot 02-name
+[screens 481790] wait for 'When shall I come by?'
+[screens 481809] shot 02-setup
+[screens 482173] seed iw-001
+[screens 482672] wait for 'Answer'
+[screens 482706] shot 03-today
+[screens 483037] wait for 'That tickles.'
+[screens 483037] shot 31-today-poked
+[screens 483362] wait for 'Stormy'
+[screens 483378] shot 05-answer-weather
+[screens 483701] wait for 'Noted'
+[screens 483716] shot 06-done
+[screens 484045] wait for 'See you tomorrow'
+[screens 484060] shot 07-today-answered
+[screens 484410] seed ol-001
+[screens 484856] wait for 'Answer'
+[screens 484883] wait for 'Back'
+[screens 485206] shot 04-answer-line
+[screens 485568] seed tt-001
+[screens 486035] wait for 'Answer'
+[screens 486068] wait for 'Back'
+[screens 486383] shot 08-answer-choice
+[screens 486735] seed th-001
+[screens 487191] wait for 'Answer'
+[screens 487208] wait for 'Back'
+[screens 487537] shot 09-answer-things
+[screens 487889] seed mi-001
+[screens 488350] wait for 'Answer'
+[screens 488374] wait for 'Back'
+[screens 488698] shot 10-answer-mirror
+[screens 489057] seed ol-001
+[screens 489515] wait for 'Answer'
+[screens 489546] wait for ' / '
+[screens 489561] shot 11-notebook
+[screens 489893] wait for 'Answer'
+[screens 489929] wait for 'Constellations'
+[screens 490232] shot 12-galaxy
+[screens 490582] seed ol-001
+[screens 491029] wait for 'Answer'
+[screens 491064] wait for 'One minute'
+[screens 491064] shot 13-spira-breathe
+[screens 491390] shot 14-spira-timer
+[screens 491723] shot 15-spira-stopwatch
+[screens 492044] wait for 'Answer'
+[screens 492072] wait for 'Daily reminder'
+[screens 492077] shot 16-settings
+[screens 492404] wait for 'Your sky'
+[screens 492406] wait for 'Licences'
+[screens 502446] seed ol-001
+[screens 502964] wait for 'Answer'
+[screens 503001] wait for '7 days to slow down'
+[screens 503001] shot 17-journeys
+[screens 503324] wait for 'Answer'
+[screens 503355] wait for 'Constellations'
+[screens 503358] wait for '1 / 2'
+[screens 503674] shot 18-review-weather
+[screens 504003] wait for '2 / 2'
+[screens 504303] shot 19-review-photos
+[screens 504631] wait for 'Constellations'
+[screens 504647] wait for '1 / 3'
+[screens 504961] shot 28-review-season
+[screens 505292] wait for '2 / 3'
+[screens 505595] shot 29-review-season-choices
+[screens 505941] seed le-001
+[screens 506399] wait for 'Answer'
+[screens 506431] wait for 'Back'
+[screens 506750] shot 20-answer-letter
+[screens 507101] seed ph-001
+[screens 507553] wait for 'Answer'
+[screens 507585] wait for 'Back'
+[screens 507898] shot 21-answer-photo
+[screens 508243] seed ol-001
+[screens 508688] wait for 'letter from'
+[screens 508706] shot 22-today-letter
+[screens 509028] wait for ' / '
+[screens 509346] shot 23-notebook-letter
+[screens 509700] seed ph-001
+[screens 510177] wait for 'Answer'
+[screens 510207] wait for 'No camera here'
+[screens 510535] shot 39-answer-photo-words
+[screens 510855] wait for 'Noted'
+[screens 510899] seed null
+[screens 511313] wait for 'day 7 of 7'
+[screens 511351] shot 24-today-journey
+[screens 511673] wait for 'Back'
+[screens 511700] wait for 'I'll call this one'
+[screens 511716] shot 25-done-constellation
+[screens 512066] seed ol-001
+[screens 512514] wait for 'Answer'
+[screens 512557] wait for 'Daily reminder'
+[screens 512562] wait for 'Your sky'
+[screens 512870] shot 26-settings-journal
+[screens 513193] wait for 'Answer'
+[screens 513222] wait for 'Constellations'
+[screens 513525] shot 27-galaxy-night-sky
+[screens 513921] wait for 'What shall I call you?'
+[screens 513931] shot 32-name-after-update
+[screens 514250] wait for 'Answer'
+[screens 514318] seed iw-001
+[screens 514780] wait for 'my five doors'
+[screens 514788] shot 33-intro-today
+[screens 515424] shot 34-today-icons
+[screens 515751] wait for 'One dot per day'
+[screens 515751] shot 35-intro-galaxy
+[screens 516093] wait for 'Answer'
+[screens 516124] wait for 'Your name and your reminder'
+[screens 516124] shot 36-intro-settings
+[screens 516461] wait for 'Your sky'
+[screens 516466] wait for 'Introductions'
+[screens 516468] wait for 'Your name and your reminder'
+[screens 516514] seed iw-001
+[screens 519291] shot 38-crash
+[screens 519312] wait for 'Answer'
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

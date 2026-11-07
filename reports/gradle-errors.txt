@@ -1,0 +1,17 @@
+LargeTextTest > e_spiraAndSettings FAILED
+    androidx.compose.ui.test.ComposeTimeoutException at ComposeUiTest.android.kt:441
+
+LargeTextTest > f_journeysAndReview STARTED
+--
+> Task :app:testDebugUnitTest FAILED
+> Task :app:finalizeTestRoborazziDebug
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1794067389554.json
+
+--
+* What went wrong:
+Execution failed for task ':app:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///home/runner/work/dotilda-app/dotilda-app/app/build/reports/tests/testDebugUnitTest/index.html
+
+--
+BUILD FAILED in 3m 21s
+31 actionable tasks: 31 executed
